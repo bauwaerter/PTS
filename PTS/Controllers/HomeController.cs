@@ -43,26 +43,26 @@ namespace PTS.Controllers
             //    Major = "CS"
                 
             //};
-            try
-            {
-                var user = new User
-                {
-                    FirstName = "first",
-                    LastName = "last",
-                    DOB = DateTime.Now,
-                    SSN = 123456789,
-                    Email = "test@test.com",
-                    PassWord = "TestPassword"
-                };
+            //try
+            //{
+            //    var user = new User
+            //    {
+            //        FirstName = "first",
+            //        LastName = "last",
+            //        DOB = DateTime.Now,
+            //        SSN = 123456789,
+            //        Email = "test@test.com",
+            //        PassWord = "TestPassword"
+            //    };
 
-                _userService.Save(user);
+            //    _userService.Save(user);
 
-                var users = _userService.GetAll();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            //    var users = _userService.GetAll();
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw new Exception(ex.Message);
+            //}
 
             //_studentUserService.Insert(studentUser);
 
