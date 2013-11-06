@@ -5,9 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Core.Domains;
 using Service.Interfaces;
-using System.Web.Mvc;
 using PTS.Infrastructure;
-using Service.Interfaces;
 using PTS.Models;
 
 namespace PTS.Controllers
