@@ -1,0 +1,21 @@
+﻿@model Core.Domains.StudentUser
+
+@{
+    Layout = null;
+}
+
+<style>
+
+</style>
+
+<form id="studentUserForm" method="post">
+    @Html.HiddenFor(model => model.Id)
+
+    @Html.LabelFor(model => model.Major, "Major")
+    @Html.TextBoxFor(model => model.Major)
+
+    <br />
+
+    @Html.LabelFor(model => model.Education, "Education")
+    @Html.TextBoxFor(model => model.Education)
+</form>
