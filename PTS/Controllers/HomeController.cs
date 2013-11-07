@@ -35,37 +35,28 @@ namespace PTS.Controllers
         public ActionResult Index()
         {
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-
-            //var studentUser = new StudentUser{
-            //    Education = "BSCS",
-            //    Major = "CS"
-                
-            //};
-            //try
-            //{
-            //    var user = new User
-            //    {
-            //        FirstName = "first",
-            //        LastName = "last",
-            //        DOB = DateTime.Now,
-            //        SSN = 123456789,
-            //        Email = "test@test.com",
-            //        PassWord = "TestPassword"
-            //    };
-
-            //    _userService.Save(user);
-
-            //    var users = _userService.GetAll();
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw new Exception(ex.Message);
-            //}
-
-            //_studentUserService.Insert(studentUser);
+             
 
             return View();
         }
+
+
+        public ActionResult SaveUser(User user)
+        {
+            try
+            {
+                user.DOB = Convert.ToDateTime(user.DOB);
+
+                _userService.Insert(user);
+
+                return Json(new { Results = "OK" });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
 
         public ActionResult About()
         {

@@ -21,6 +21,15 @@
     </section>
 }
 
+<h2>User Register Form</h2>
+
+@{
+    var userModel = new User();
+}
+
+<div id="userFormDiv">@Html.Partial("_RegisterUserPartial", userModel)</div>
+<input id="addUserBtn" type="button" value="Add User" class="btn-submit"/>
+
 <h2>Student User Form</h2>
 
 @{
@@ -60,3 +69,18 @@
         <a href="http://go.microsoft.com/fwlink/?LinkId=245157">Learn more…</a>
     </li>
 </ol>
+
+<script>
+    $('#addUserBtn').click(function () {
+        $.ajax({
+            url: '@Url.Action("SaveUser")',
+            type: 'post',
+            beforeSend: function () { $('#addUserBtn').prop('disabled', true).text('Saving...'); },
+            complete: function () { $('#addUserBtn').prop('disabled', false).text('Add User'); },
+            data: $('#studentUserForm').serialize(),
+            success: function () {
+                
+            }
+        });
+    })
+</script>
