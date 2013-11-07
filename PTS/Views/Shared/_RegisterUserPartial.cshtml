@@ -1,0 +1,39 @@
+﻿@model Core.Domains.User
+
+@{
+    Layout = null;
+}
+
+<style>
+
+</style>
+
+<form id="studentUserForm" method="post">
+    @Html.HiddenFor(model => model.Id)
+
+    @Html.LabelFor(model => model.FirstName, "First Name")
+    @Html.TextBoxFor(model => model.FirstName)
+
+    @Html.LabelFor(model => model.LastName, "Last Name")
+    @Html.TextBoxFor(model => model.LastName)
+
+    @Html.LabelFor(model => model.Email, "E-mail")
+    @Html.TextBoxFor(model => model.Email)
+
+    @Html.LabelFor(model => model.DOB, "DOB")
+    @Html.TextBoxFor(model => model.DOB)
+
+    @Html.LabelFor(model => model.SSN)
+    @Html.TextBoxFor(model => model.SSN)
+
+    @Html.LabelFor(model => model.PassWord)
+    @Html.TextBoxFor(model => model.PassWord)
+</form>
+
+<script>
+    $(document).ready(function () {
+        $('#DOB').datepicker();
+
+    })
+
+</script>
