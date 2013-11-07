@@ -40,7 +40,7 @@ namespace PTS.Controllers
             return View();
         }
 
-
+        [HttpPost]
         public ActionResult SaveUser(User user)
         {
             try
