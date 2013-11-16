@@ -10,6 +10,7 @@ namespace Service
         {
             //Bind<IDbContext>().To<AppContext>();
             Bind<IRepository<User>>().To<Repository<User>>();
+            Bind<IRepository<StudentUser>>().To<Repository<StudentUser>>();
             //Bind<IRepository<StudentUser>>().To<Repository<StudentUser>>();
         }
     }

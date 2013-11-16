@@ -16,6 +16,7 @@ namespace PTS.Controllers
 
         //private readonly IBaseService<StudentUser> _studentUserService;
         private readonly IUserService _userService;
+        private readonly IStudentUserService _studentUserService;
 
         #endregion
 
@@ -26,10 +27,10 @@ namespace PTS.Controllers
         //    _studentUserService = studentUserService;
         //}
 
-        public HomeController(
-            IUserService userService)
+        public HomeController(IUserService userService, IStudentUserService studentUserService)
         {
             _userService = userService;
+            _studentUserService = studentUserService;
         }
 
         public ActionResult Index()
@@ -48,6 +49,7 @@ namespace PTS.Controllers
                 user.DOB = Convert.ToDateTime(user.DOB);
 
                 _userService.Insert(user);
+                                
 
                 return Json(new { Results = "OK" });
             }

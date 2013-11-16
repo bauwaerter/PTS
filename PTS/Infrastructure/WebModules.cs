@@ -12,6 +12,7 @@ namespace PTS.Infrastructure
         public override void Load()
         {
             Bind<IUserService>().To<UserService>();
+            Bind<IStudentUserService>().To<StudentUserService>();
             //Bind<IRepository<StudentUser>>().To<Repository<StudentUser>>();
             //Bind(typeof(IBaseService<>)).To(typeof(BaseService<>));
         }
