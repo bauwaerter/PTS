@@ -14,7 +14,6 @@ namespace Data.Mappings
             HasKey(u => u.Id);
 
             //Property(u => u.UserName).IsRequired().HasMaxLength(50);
-
         }
 
     }
