@@ -68,4 +68,13 @@ namespace Core.Domains
         public virtual string Type { get; set; }
         public virtual string Description { get; set; }
     }
+
+    public class ReviewTeacher : BaseEntity
+    {
+        public virtual string Comment { get; set; }
+        public virtual int Rating { get; set; }
+        public virtual DateTime Date { get; set; }
+        public virtual int StudentId { get; set; }
+        public virtual int TeacherId { get; set; }
+    }
 }

@@ -7,6 +7,18 @@ using System.Threading.Tasks;
 
 namespace Core.Domains
 {
+    public class Subject : BaseEntity
+    {
+        public virtual string Name { get; set; }
+        public virtual string Description { get; set; }
+    }
+
+    public class SubjectToClass : BaseEntity
+    {
+        public virtual int SubjectId { get; set; }
+        public virtual int ClassId { get; set; }
+    }
+
     public class Class : BaseEntity
     {
         public virtual string Location { get; set; }
@@ -17,7 +29,7 @@ namespace Core.Domains
         public virtual int SubjectID { get; set; }
     }
 
-    public class ClassMeetingDates : BaseEntity
+    public class Class_Meeting_Dates : BaseEntity
     {
         public virtual int ClassId { get; set; }
         public virtual DateTime Date { get; set; }
@@ -25,6 +37,15 @@ namespace Core.Domains
 
     public class Enrolled : BaseEntity
     {
+        public virtual int StudentId { get; set; }
+        public virtual int ClassId { get; set; }
+    }
+
+    public class ReviewClass : BaseEntity
+    {
+        public virtual string Comment { get; set; }
+        public virtual int Rating { get; set; }
+        public virtual DateTime Date { get; set; }
         public virtual int StudentId { get; set; }
         public virtual int ClassId { get; set; }
     }
