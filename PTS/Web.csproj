@@ -216,6 +216,7 @@
     <Compile Include="Infrastructure\WebModules.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Flat-UI\bootstrap\css\bootstrap-docs.css" />
@@ -493,6 +494,10 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\_StudentUserForm.cshtml" />
     <Content Include="Views\Shared\_RegisterUserPartial.cshtml" />
+    <Content Include="Views\Search\SearchTutors.cshtml">
+      <BrowseToURL>~/Search/SearchTutors.cshtml</BrowseToURL>
+    </Content>
+    <Content Include="Views\Search\index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
