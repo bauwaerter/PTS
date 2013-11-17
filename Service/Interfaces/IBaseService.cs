@@ -59,7 +59,7 @@ namespace Service.Interfaces
         /// Deletes the specified entity.
         /// </summary>
         /// <param name="id">The id of the entity to be deleted.</param>
-        void Delete(int id);
+        void Delete(int id, bool force = false);
 
     }
 }

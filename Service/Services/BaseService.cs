@@ -4,6 +4,7 @@ using Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Service.Interfaces;
 
 namespace Service
 {
@@ -12,7 +13,7 @@ namespace Service
     /// Base service
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class BaseService<T> where T : BaseEntity
+    public class BaseService<T> : IBaseService<T> where T : BaseEntity
     {
         /// <summary>
         /// The base repository that all repositories reference.
