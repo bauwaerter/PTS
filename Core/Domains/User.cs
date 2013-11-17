@@ -46,6 +46,7 @@ namespace Core.Domains
 
         #region navigation properties
         public virtual User User { get; set; }
+
         //private ICollection<Class> _classes;
         //public virtual ICollection<Class> Classes
         //{
