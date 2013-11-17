@@ -28,4 +28,58 @@ namespace Data.Mappings
         }
 
     }
+
+    public class TeacherUserMap : EntityTypeConfiguration<TeacherUser>
+    {
+        public TeacherUserMap()
+        {
+            ToTable("TeacherUser", "dbo");
+            HasKey(t => t.Id);
+        }
+    }
+
+    public class QualificationsMap : EntityTypeConfiguration<Qualifications>
+    {
+        public QualificationsMap()
+        {
+            ToTable("Qualifications", "dbo");
+            HasKey(q => q.TeacherUserId);
+        }
+    }
+
+    public class ReviewTeacherMap : EntityTypeConfiguration<ReviewTeacher>
+    {
+        public ReviewTeacherMap()
+        {
+            ToTable("ReviewTeacher", "dbo");
+            HasKey(t => t.Id);//might need more keys
+        }
+    }
+
+    public class Teacher_OffersMap : EntityTypeConfiguration<Teacher_Offers>
+    {
+        public Teacher_OffersMap()
+        {
+            ToTable("Teacher_Offers", "dbo");
+            HasKey(t => t.Id);
+        }
+    }
+
+    public class TeachesMap : EntityTypeConfiguration<Teaches>
+    {
+        public TeachesMap()
+        {
+            ToTable("Teaches", "dbo");
+            HasKey(t => t.Id);
+        }
+    }
+
+    public class TutorsMap : EntityTypeConfiguration<Tutors>
+    {
+        public TutorsMap()
+        {
+            ToTable("Tutors", "dbo");
+            HasKey(t => t.Id);
+        }
+    }
 }
