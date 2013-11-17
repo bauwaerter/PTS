@@ -12,7 +12,8 @@ namespace Core.Domains
         public virtual DateTime DOB { get; set; }
         public virtual int SSN { get; set; }
         public virtual string Email { get; set; }
-        
+        public virtual int Role { get; set; }
+
         /// <summary>
         /// Gets or sets the password.
         /// </summary>
@@ -44,7 +45,7 @@ namespace Core.Domains
         public virtual string Education { get; set; }
 
         #region navigation properties
-
+        public virtual User User { get; set; }
         //private ICollection<Class> _classes;
         //public virtual ICollection<Class> Classes
         //{
@@ -76,5 +77,24 @@ namespace Core.Domains
         public virtual DateTime Date { get; set; }
         public virtual int StudentId { get; set; }
         public virtual int TeacherId { get; set; }
+    }
+
+    public class Teacher_Offers : BaseEntity
+    {
+        public virtual int TeacherId { get; set; }
+        public virtual int SubjectId { get; set; }
+    }
+
+    public class Teaches : BaseEntity
+    {
+        public virtual int TeacherId { get; set; }
+        public virtual int ClassId { get; set; }
+    }
+
+    public class Tutors : BaseEntity
+    {
+        public virtual int StudentId { get; set; }
+        public virtual int TeacherId { get; set; }
+        public virtual int SubjectId { get; set; }
     }
 }
