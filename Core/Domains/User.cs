@@ -37,4 +37,35 @@ namespace Core.Domains
         /// </value>
         //public virtual string PasswordSalt { get; set; }
     }
+
+    public class StudentUser : BaseEntity
+    {
+        public virtual string Major { get; set; }
+        public virtual string Education { get; set; }
+
+        #region navigation properties
+
+        //private ICollection<Class> _classes;
+        //public virtual ICollection<Class> Classes
+        //{
+        //    get {return _classes ?? (_classes = new List<Class>());}
+        //    protected set {_classes = value;}
+        //}
+
+        #endregion
+
+    }
+
+    public class TeacherUser : BaseEntity
+    {
+        public virtual decimal HourlyRate { get; set; }
+        public virtual decimal ClassRate { get; set; }
+    }
+
+    public class Qualifications : BaseEntity
+    {
+        public virtual int TeacherUserId { get; set; }
+        public virtual string Type { get; set; }
+        public virtual string Description { get; set; }
+    }
 }
