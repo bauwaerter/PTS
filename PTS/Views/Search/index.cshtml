@@ -14,3 +14,27 @@
         </div>
     </div>
 </div>
+
+<div id="teacherUserTable"></div>
+
+<script>
+    $(document).ready(function () {
+        $('#teacherUserTable').jtable({
+            title: 'Teachers',
+            actions: {
+                listAction: '@Url.Action("GetTeacherUsers")',
+            },
+            fields: {
+                Id: {
+                    key: true,
+                },
+                FirstName: {
+                    title: 'First Name'
+                },
+            }
+        });
+
+        $('#teacherUserTable').jtable('load');
+
+    });
+</script>
