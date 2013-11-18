@@ -497,7 +497,7 @@
     <Content Include="Views\Search\SearchTutors.cshtml">
       <BrowseToURL>~/Search/SearchTutors.cshtml</BrowseToURL>
     </Content>
-    <Content Include="Views\Search\index.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
