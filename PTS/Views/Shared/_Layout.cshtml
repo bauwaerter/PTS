@@ -16,14 +16,18 @@
         <link href="~/Content/Flat-UI/bootstrap/css/bootstrap.css" rel="stylesheet" />
 
         <link href="~/Content/Flat-UI/css/flat-ui.css" rel="stylesheet" />
-
+        <link href="~/Scripts/jtable/themes/jqueryui/jtable_jqueryui.css" rel="stylesheet" />
+        
         <meta name="viewport" content="width=device-width" />
 
-        <script src="~/Scripts/jquery-1.8.2.js"></script>
-        <script src="~/Scripts/jtable/jquery.jtable.min.js"></script>
+        
 
         @Styles.Render("~/Content/css")
+        @Styles.Render("~/Content/themes/base/css")
         @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryui")
+        <script src="~/Scripts/jtable/jquery.jtable.js"></script>
     </head> 
     <body>
         <header>
@@ -55,7 +59,7 @@
         <footer>
             <div class="content-wrapper">
                 <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
+                    <p>&copy; @DateTime.Now.Year - Personal Tutoring Service</p>
                 </div>
             </div>
         </footer>
@@ -63,7 +67,7 @@
 
         
 
-        @Scripts.Render("~/bundles/jquery")
+        
         @RenderSection("scripts", required: false)
     </body>
 </html>

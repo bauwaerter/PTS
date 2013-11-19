@@ -1,6 +1,7 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
@@ -16,21 +17,26 @@
 </div>
 
 <div id="teacherUserTable"></div>
-
+<link href="~/Scripts/jtable/themes/metro/blue/jtable.css" rel="stylesheet" />
 <script>
     $(document).ready(function () {
         $('#teacherUserTable').jtable({
             title: 'Teachers',
+            
             actions: {
                 listAction: '@Url.Action("GetTeacherUsers")',
+                createAction: '@Url.Action("CreateTeacherUser")',
             },
             fields: {
                 Id: {
                     key: true,
                 },
-                FirstName: {
-                    title: 'First Name'
+                ClassRate: {
+                    title: 'Class Rate'
                 },
+                HourlyRate: {
+                    title: 'Hourly Rate'
+                }
             }
         });
 

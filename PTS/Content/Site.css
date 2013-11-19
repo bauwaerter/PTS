@@ -129,7 +129,7 @@ footer {
 /* site title
 ----------------------------------------------------------*/
 .site-title {
-    background: url(images/smartthinking_logo.jpg) no-repeat top left;
+    background: white;
     color: #c8c8c8;
     font-family: Rockwell, Consolas, "Courier New", Courier, monospace;
     font-size: 2.3em;

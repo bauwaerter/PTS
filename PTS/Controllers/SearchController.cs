@@ -29,9 +29,31 @@ namespace PTS.Views.Search
 
         public ActionResult GetTeacherUsers()
         {
-            var data = _teacherUserService.GetAll().ToList();
+            try
+            {
+                var data = _teacherUserService.GetAll().ToList();
 
-            return Json(new { Results = "OK", Records = data });
+                return Json(new { Result = "OK", Records = data });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public ActionResult CreateTeacherUser(TeacherUser teacherUser)
+        {
+            try
+            {
+                _teacherUserService.Insert(teacherUser);
+                
+                var data = teacherUser;
+
+                return Json(new { Results = "OK", Record = data });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }
