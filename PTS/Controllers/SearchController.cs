@@ -13,10 +13,12 @@ namespace PTS.Views.Search
     public class SearchController : Controller
     {
         private readonly IBaseService<TeacherUser> _teacherUserService;
+        private readonly IUserService _userService;
 
-        public SearchController(IBaseService<TeacherUser> teacherUserService)
+        public SearchController(IBaseService<TeacherUser> teacherUserService, IUserService userService)
         {
             _teacherUserService = teacherUserService;
+            _userService = userService;
         }
 
         //
@@ -31,7 +33,19 @@ namespace PTS.Views.Search
         {
             try
             {
-                var data = _teacherUserService.GetAll().ToList();
+                var users = _userService.GetAll().ToList();
+                var teacherUsers = _teacherUserService.GetAll().ToList();
+
+                var data = users.Select(s => new TeacherUserViewModel
+                {
+                    UserId = s.Id,
+                    FirstName = s.FirstName,
+                    LastName = s.LastName,
+                    Email = s.Email,
+                    
+                }).ToList();
+
+               
 
                 return Json(new { Result = "OK", Records = data });
             }

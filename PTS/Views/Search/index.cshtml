@@ -17,6 +17,9 @@
 </div>
 
 <div id="teacherUserTable"></div>
+<br />
+<br />
+<div id="classesTable"></div>
 <link href="~/Scripts/jtable/themes/metro/blue/jtable.css" rel="stylesheet" />
 <script>
     $(document).ready(function () {
@@ -30,6 +33,18 @@
             fields: {
                 Id: {
                     key: true,
+                    list: false,
+                    create: false,
+                    edit: false,
+                },
+                FirstName: {
+                    title: 'First Name',
+                },
+                LastName: {
+                    title: 'Last Name'
+                },
+                Email: {
+                    title: 'Email',
                 },
                 ClassRate: {
                     title: 'Class Rate'
@@ -41,6 +56,45 @@
         });
 
         $('#teacherUserTable').jtable('load');
+
+        $('#classesTable').jtable({
+            title: 'Classes',
+
+            actions: {
+                listAction: '@Url.Action("GetClasses")',
+            },
+            fields: {
+                Id: {
+                    key: true,
+                    list: false,
+                    create: false,
+                    edit: false,
+                },
+                SubjectId: {
+                    list: false,
+                    create: false,
+                    edit: false,
+                },
+                Location: {
+                    title: 'Location',
+                },
+                Description: {
+                    title: 'Description',
+                },
+                StartTime: {
+                    title: 'Start Time',
+                },
+                EndTime: {
+                    title: 'End Time',
+                },
+                Duration: {
+                    title: 'Duration',
+                },
+
+            },
+        });
+
+        $('#classesTable').jtable('load');
 
     });
 </script>
