@@ -218,6 +218,7 @@
     <Compile Include="Models\TeacherUserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\ReviewController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Flat-UI\bootstrap\css\bootstrap-docs.css" />
@@ -637,6 +638,7 @@
     <Content Include="Views\Search\_TeacherUserTable.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Review\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
