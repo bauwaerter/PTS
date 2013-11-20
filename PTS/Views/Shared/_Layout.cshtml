@@ -38,14 +38,19 @@
                     <section id="login">
                         @Html.Partial("_LoginPartial")
                     </section>
-                    <nav>
-                        <ul id="menu">
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("About", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                            <li>@Html.ActionLink("Search Tutors", "Index", "Search")</li>
-                        </ul>
-                    </nav>
+                    <div class="navbar navbar-inverse">
+                        <div class="navbar-header">
+                            <button class="btn btn-navbar" data-target=".navbar-collapse-01" data-toggle="collapse" type="button"></button>
+                        </div>
+                        <div class="navbar-collapse collapse navbar-collapse-01">
+                            <ul class="nav navbar-nav">
+                                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                                <li>@Html.ActionLink("About", "About", "Home")</li>
+                                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                                <li>@Html.ActionLink("Search Tutors", "Index", "Search")</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </header>
@@ -70,3 +75,8 @@
         @RenderSection("scripts", required: false)
     </body>
 </html>
+
+
+<script>
+
+</script>

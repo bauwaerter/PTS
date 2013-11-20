@@ -3840,6 +3840,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
   position: relative;
   display: block;
   padding: 10px 15px;
+  text-decoration: none;
 }
 
 .nav > li > a:hover,
