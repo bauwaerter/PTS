@@ -14,13 +14,13 @@
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         
         <link href="~/Content/Flat-UI/bootstrap/css/bootstrap.css" rel="stylesheet" />
-
         <link href="~/Content/Flat-UI/css/flat-ui.css" rel="stylesheet" />
-        <link href="~/Scripts/jtable/themes/jqueryui/jtable_jqueryui.css" rel="stylesheet" />
-        
-        <meta name="viewport" content="width=device-width" />
 
-        
+        <link href="~/Scripts/jtable/themes/jqueryui/jtable_jqueryui.css" rel="stylesheet" />
+        <link href="~/Scripts/jtable/themes/metro/blue/jtable.css" rel="stylesheet" />
+
+        <meta name="viewport" content="width=device-width" />
+                
         @Styles.Render("~/Content/css")
         @Styles.Render("~/Content/themes/base/css")
         @Scripts.Render("~/bundles/modernizr")
@@ -38,13 +38,10 @@
                     <section id="login">
                         @Html.Partial("_LoginPartial")
                     </section>
-                    <div class="navbar navbar-inverse">
-                        <div class="navbar-header">
-                            <button class="btn btn-navbar" data-target=".navbar-collapse-01" data-toggle="collapse" type="button"></button>
-                        </div>
-                        <div class="navbar-collapse collapse navbar-collapse-01">
+                    <div class="navbar">
+                        <div id="menu_wrapper" class="navbar-collapse collapse navbar-collapse-01">
                             <ul class="nav navbar-nav">
-                                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                                <li class="active">@Html.ActionLink("Home", "Index", "Home")</li>
                                 <li>@Html.ActionLink("About", "About", "Home")</li>
                                 <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                                 <li>@Html.ActionLink("Search Tutors", "Index", "Search")</li>
@@ -78,5 +75,10 @@
 
 
 <script>
-
+    $(document).ready(function () {
+        $('#menu_wrapper ul li a').on('click', function (event) {
+            $('#menu_wrapper .active').removeClass("active");
+            $(this).addClass("active");
+        });
+    });
 </script>

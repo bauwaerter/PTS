@@ -943,7 +943,7 @@ fieldset[disabled] .btn-link:focus {
 .navbar .nav > li.active > a:hover,
 .navbar .nav > li.active > a:focus {
   background: none;
-  color: #1abc9c;
+  color: #0b67cd;
   -webkit-box-shadow: none;
   box-shadow: none;
 }
@@ -992,7 +992,7 @@ fieldset[disabled] .btn-link:focus {
 }
 .navbar .nav > li > a:hover,
 .navbar .nav > li > a:focus {
-  color: #1abc9c;
+  color: #0b67cd;
   background-color: transparent;
 }
 .navbar .nav > li > a[class*="fui-"] {

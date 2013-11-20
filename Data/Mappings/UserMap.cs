@@ -12,6 +12,7 @@ namespace Data.Mappings
             ToTable("User", "dbo");
             //Primary Key
             HasKey(u => u.Id);
+            
             //Property(u => u.UserName).IsRequired().HasMaxLength(50);
         }
 

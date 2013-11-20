@@ -36,21 +36,28 @@ namespace PTS.Views.Search
         {
             try
             {
-                var users = _userService.GetAll().ToList();
-                var teacherUsers = _teacherUserService.GetAll().ToList();
-
-                var data = users.Select(s => new TeacherUserViewModel
+                var data = _teacherUserService.GetAll();
+                IList<int> userIds = new List<int>();
+                IList<TeacherUserViewModel> records = new List<TeacherUserViewModel>();
+                foreach (var userId in data)
                 {
-                    UserId = s.Id,
-                    FirstName = s.FirstName,
-                    LastName = s.LastName,
-                    Email = s.Email,
-
-                }).ToList();
+                    int id = userId.Id;
+                    userIds.Add(id);
+                    records.Add(new TeacherUserViewModel
+                    {
+                        Id = userId.Id,
+                        UserId = userId.Id,
+                        FirstName = _userService.GetById(userIds.LastOrDefault()).FirstName,
+                        LastName =  _userService.GetById(userIds.LastOrDefault()).LastName,
+                        Email = _userService.GetById(userIds.LastOrDefault()).Email,
+                        ClassRate = userId.ClassRate,
+                        HourlyRate = userId.HourlyRate
+                    });
+                    
+                }
 
                 
-
-                return Json(new { Result = "OK", Records = data });
+                return Json(new { Result = "OK", Records = records });
             }
             catch (Exception ex)
             {
@@ -65,7 +72,7 @@ namespace PTS.Views.Search
                 
                 var data = teacherUser;
 
-                return Json(new { Results = "OK", Record = data });
+                return Json(new { Result = "OK", Record = data });
             }
             catch (Exception ex)
             {
@@ -77,9 +84,9 @@ namespace PTS.Views.Search
         {
             try
             {
-                var data = _classService.GetAll().ToList();
+                var data = _classService.GetAll();
 
-                return Json(new { Results = "OK", Record = data });
+                return Json(new { Result = "OK", Records = data });
             }
             catch (Exception ex)
             {
