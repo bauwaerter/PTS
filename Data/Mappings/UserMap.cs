@@ -34,6 +34,10 @@ namespace Data.Mappings
         {
             ToTable("TeacherUser", "dbo");
             HasKey(t => t.Id);
+
+            //HasRequired(u => u.User)
+            //    .WithOptional();
+            
         }
     }
 
@@ -70,6 +74,8 @@ namespace Data.Mappings
         {
             ToTable("Teaches", "dbo");
             HasKey(t => t.Id);
+
+            
         }
     }
 

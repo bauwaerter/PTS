@@ -6,8 +6,9 @@ using System.Data.Entity.ModelConfiguration;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Reflection;
-using Core;
+using Core.Domains;
 using Data.Mappings;
+using Core;
 
 namespace Data
 {
@@ -18,10 +19,10 @@ namespace Data
         //    //((IObjectContextAdapter) this).ObjectContext.ContextOptions.LazyLoadingEnabled = true;
         //}
 
-        //public AppContext()
-        //{
-        //    ((IObjectContextAdapter)this).ObjectContext.CommandTimeout = 5000;
-        //}
+        public AppContext()
+        {
+            ((IObjectContextAdapter)this).ObjectContext.CommandTimeout = 5000;
+        }
 
         /// <summary>
         /// All the Mapping Configuration
@@ -29,6 +30,8 @@ namespace Data
         /// <param name="modelBuilder">DbModelBuilder</param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+
+            
             // Override default conventions
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
@@ -45,6 +48,11 @@ namespace Data
                 modelBuilder.Configurations.Add(configurationInstance);
             }
 
+
+            modelBuilder.Entity<TeacherUser>()
+                .HasRequired(x => x.User)
+                .WithRequiredDependent();
+            
             //...or do it manually below. For example,
             //modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             //modelBuilder.Configurations.Add(new AccountMap());

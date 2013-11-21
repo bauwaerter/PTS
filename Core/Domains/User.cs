@@ -5,9 +5,16 @@ using System.Security.Principal;
 
 namespace Core.Domains
 {
+    //public enum UserRole
+    //{
+    //    Admin,
+    //    Teacher,
+    //    Student
+    //}
+
     public class User : BaseEntity
     {
-
+        //public virtual Guid Id { get; set; }
         public virtual string FirstName { get; set; }
         public virtual string LastName { get; set; }
         public virtual DateTime DOB { get; set; }
@@ -38,12 +45,7 @@ namespace Core.Domains
         /// The password salt.
         /// </value>
         //public virtual string PasswordSalt { get; set; }
-        //private ICollection<TeacherUser> _teacherUsers;
-        //public virtual ICollection<TeacherUser> TeacherUsers
-        //{
-        //    get { return _teacherUsers ?? (_teacherUsers = new List<TeacherUser>()); }
-        //    protected set { _teacherUsers = value; }
-        //}
+        
     }
 
     public class StudentUser : BaseEntity
@@ -67,11 +69,12 @@ namespace Core.Domains
 
     public class TeacherUser : BaseEntity
     {
+        //public virtual Guid Id { get; set; }
         public virtual decimal HourlyRate { get; set; }
         public virtual decimal ClassRate { get; set; }
-
+        
         #region navigation
-        //public virtual User User { get; set; }
+        public virtual User User { get; set; }
         #endregion
     }
 

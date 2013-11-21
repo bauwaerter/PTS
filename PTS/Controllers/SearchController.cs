@@ -37,26 +37,18 @@ namespace PTS.Views.Search
             try
             {
                 var data = _teacherUserService.GetAll();
-                IList<int> userIds = new List<int>();
-                IList<TeacherUserViewModel> records = new List<TeacherUserViewModel>();
-                foreach (var userId in data)
-                {
-                    int id = userId.Id;
-                    userIds.Add(id);
-                    records.Add(new TeacherUserViewModel
-                    {
-                        Id = userId.Id,
-                        UserId = userId.Id,
-                        FirstName = _userService.GetById(userIds.LastOrDefault()).FirstName,
-                        LastName =  _userService.GetById(userIds.LastOrDefault()).LastName,
-                        Email = _userService.GetById(userIds.LastOrDefault()).Email,
-                        ClassRate = userId.ClassRate,
-                        HourlyRate = userId.HourlyRate
-                    });
-                    
-                }
 
+                var records = data.Select(t => new TeacherUserViewModel
+                {
+                    Id = t.Id,
+                    FirstName = t.User.FirstName,
+                    LastName = t.User.LastName,
+                    Email = t.User.Email,
+                    ClassRate = t.ClassRate,
+                    HourlyRate = t.HourlyRate
+                });
                 
+                             
                 return Json(new { Result = "OK", Records = records });
             }
             catch (Exception ex)
