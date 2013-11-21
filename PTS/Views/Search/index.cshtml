@@ -24,6 +24,22 @@
 
 <script>
     $(document).ready(function () {
+        $('#globalSearchButton').on('click', function (event) {
+            $.ajax({
+                url: '@Url.Action("GetTeacherUsers")',
+                data: { q: $('#globalSearch').val() },
+                success: function () {
+                    $('#teacherUserTable').jtable('load');
+                    $('#classesTable').jtable('load');
+                }
+            });
+        });
+        $('#globalSearch').keypress(function (e) {
+           if (e.which == 13) {
+               $('#globalSearchButton').focus().click();
+            }
+        });
+
         $('#teacherUserTable').jtable({
             title: 'Teachers',
             

@@ -132,7 +132,8 @@ footer {
     background: #16A085;
     color: #ecf0f1;
     font-family: Rockwell, Consolas, "Courier New", Courier, monospace;
-    font-size: 2.3em;
+    position: relative;
+    font-size: 4em;
     margin: 0;
 }
 
