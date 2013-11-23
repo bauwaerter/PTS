@@ -1,4 +1,4 @@
-﻿@model PTS.Models.TeacherUserViewModel
+﻿@model PTS.Models.AccountUser
 
 
 @{
@@ -16,15 +16,15 @@
     </header>
     <p>
         <span class="label">First Name:</span>
-
+        @Model.FirstName
     </p>
     <p>
         <span class="label">Last Name:</span>
-        <span>put data here</span>
+        <span>@Model.LastName</span>
     </p>
     <p>
-        <span class="label">After Hours:</span>
-        <span>425.555.0199</span>
+        <span class="label">E-Mail:</span>
+        <span>@Model.Email</span>
     </p>
 </section>
 
