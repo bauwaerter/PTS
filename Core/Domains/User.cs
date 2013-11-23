@@ -21,6 +21,7 @@ namespace Core.Domains
         public virtual int SSN { get; set; }
         public virtual string Email { get; set; }
         public virtual UserRole Role { get; set; }
+        public virtual int? LocationId { get; set; }
 
         /// <summary>
         /// Gets or sets the password.
