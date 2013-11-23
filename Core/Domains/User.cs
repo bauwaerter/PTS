@@ -46,7 +46,10 @@ namespace Core.Domains
         /// The password salt.
         /// </value>
         //public virtual string PasswordSalt { get; set; }
-        
+        #region navigation
+        public virtual Location Location { get; set; }
+        #endregion
+
     }
 
     public class StudentUser : BaseEntity
