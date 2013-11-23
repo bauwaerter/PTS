@@ -10,6 +10,7 @@
         public decimal ClassRate { get; set; }
         public string Major {get;set;}
         public string Education {get;set;}
+        public string PassWord { get; set; }
 
 
         public AccountUser()

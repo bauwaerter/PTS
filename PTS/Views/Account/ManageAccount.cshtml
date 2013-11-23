@@ -12,7 +12,7 @@
 
 <section class="contact">
     <header>
-        <h3>My Account</h3>
+        <h2>My Account</h2>
     </header>
     <p>
         <span class="label">First Name:</span>
@@ -26,32 +26,38 @@
         <span class="label">E-Mail:</span>
         <span>@Model.Email</span>
     </p>
-</section>
-
-<section class="contact">
-    <header>
-        <h3>Email</h3>
-    </header>
     <p>
-        <span class="label">Support:</span>
-        <span><a href="mailto:Support@example.com">Support@example.com</a></span>
-    </p>
-    <p>
-        <span class="label">Marketing:</span>
-        <span><a href="mailto:Marketing@example.com">Marketing@example.com</a></span>
-    </p>
-    <p>
-        <span class="label">General:</span>
-        <span><a href="mailto:General@example.com">General@example.com</a></span>
+        <span class="label">PassWord:</span>
+        <span>@Model.PassWord</span>
     </p>
 </section>
 
 <section class="contact">
     <header>
-        <h3>Address</h3>
+        <h2>Student</h2>
+        <button class="btn-primary">EDIT</button>
+        
     </header>
     <p>
-        One Microsoft Way<br />
-        Redmond, WA 98052-6399
+        <span class="label">Major:</span>
+        <span >@Model.Major</span>
+    </p>
+    <p>
+        <span class="label">Education:</span>
+        <span>@Model.Education</span>
+    </p>
+</section>
+
+<section class="contact">
+    <header>
+        <h2>Teacher</h2>
+    </header>
+    <p>
+        <span class="label">Hourly Rate:</span>
+        <span>@Model.HourlyRate</span>
+    </p>
+    <p>
+        <span class="label">Class Rate:</span>
+        <span>@Model.ClassRate</span>
     </p>
 </section>

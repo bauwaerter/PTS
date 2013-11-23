@@ -67,7 +67,8 @@ namespace PTS.Controllers
                     Education = student.Education,
                     Email = model.Email,
                     Id=model.Id,
-                    Major=student.Major
+                    Major=student.Major,
+                    PassWord=model.PassWord
                 };
 
                 
