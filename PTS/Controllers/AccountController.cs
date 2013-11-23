@@ -52,8 +52,29 @@ namespace PTS.Controllers
 
         public ActionResult ManageAccount()
         {
-            var model = _userService.GetById(3);
-            return View(model);
+            var model = _userService.GetById(15);
+            var user = new AccountUser
+            {
+               
+            };
+            if(model.Role==2)
+            {
+                var student= _studentUserService.GetById(15);
+                user = new AccountUser
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Education = student.Education,
+                    Email = model.Email,
+                    Id=model.Id,
+                    Major=student.Major
+                };
+
+                
+            }
+
+
+            return View(user);
         }
 
        
