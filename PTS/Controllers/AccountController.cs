@@ -28,16 +28,18 @@ namespace PTS.Controllers
         //private readonly IStudentUserService _studentUserService;
         private readonly IBaseService<StudentUser> _studentUserService;
         private readonly IBaseService<Class> _classService;
+        private readonly IBaseService<Location> _locationService;
 
         #endregion
 
 
-        public AccountController(IUserService userService, IBaseService<StudentUser> studentUserService, IBaseService<Class> classService)
+        public AccountController(IUserService userService, IBaseService<StudentUser> studentUserService, IBaseService<Class> classService, IBaseService<Location> locationService)
         {
 
             _userService = userService;
             _studentUserService = studentUserService;
             _classService = classService;
+            _locationService = locationService;
 
         }
         //
@@ -53,10 +55,27 @@ namespace PTS.Controllers
         public ActionResult ManageAccount()
         {
             var model = _userService.GetById(15);
-            var user = new AccountUser
+            var user = new AccountUser();
+            var loc = new LocationVM();
+            
+            if (model.LocationId.HasValue)
             {
-               
-            };
+                int locid = model.LocationId.Value;
+                var getlocation = _locationService.GetById(locid);
+                loc = new LocationVM 
+                {
+                    Address =getlocation.Address,
+                    City = getlocation.City,
+                    Country = getlocation.Country,
+                    id = getlocation.Id,
+                    State = getlocation.State,
+                    ZipCode = getlocation.ZipCode
+                };
+                //loc = _locationService.GetById(locid);
+                
+            }
+            
+
             if(model.Role== UserRole.Student)
             {
                 var student= _studentUserService.GetById(15);
@@ -66,9 +85,10 @@ namespace PTS.Controllers
                     LastName = model.LastName,
                     Education = student.Education,
                     Email = model.Email,
-                    Id=model.Id,
-                    Major=student.Major,
-                    PassWord=model.PassWord
+                    Id = model.Id,
+                    Major = student.Major,
+                    PassWord = model.PassWord,
+                    Location = loc
                 };
 
                 

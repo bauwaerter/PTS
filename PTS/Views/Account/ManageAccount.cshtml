@@ -6,7 +6,7 @@
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
+    <h1>@ViewBag.Title</h1>
     <h2>@ViewBag.Message</h2>
 </hgroup>
 
@@ -30,12 +30,17 @@
         <span class="label">PassWord:</span>
         <span>@Model.PassWord</span>
     </p>
+    <p>
+        <span class="label">Address:</span>
+        <span>@Model.Location.Address @Model.Location.City , @Model.Location.ZipCode @Model.Location.Country</span>
+    </p>
+    <button class="btn-primary">Edit User Info</button>
 </section>
 
 <section class="contact">
     <header>
         <h2>Student</h2>
-        <button class="btn-primary">EDIT</button>
+        
         
     </header>
     <p>
@@ -46,6 +51,7 @@
         <span class="label">Education:</span>
         <span>@Model.Education</span>
     </p>
+    <button class="btn-primary">Edit Student Info</button>
 </section>
 
 <section class="contact">
@@ -60,4 +66,5 @@
         <span class="label">Class Rate:</span>
         <span>@Model.ClassRate</span>
     </p>
+    <button class="btn-primary">Edit Teacher Info</button>
 </section>

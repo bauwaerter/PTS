@@ -216,6 +216,7 @@
     <Compile Include="Infrastructure\WebModules.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\AccountUser.cs" />
+    <Compile Include="Models\LocationVM.cs" />
     <Compile Include="Models\ClassViewModel.cs" />
     <Compile Include="Models\TeacherUserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

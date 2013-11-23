@@ -11,6 +11,7 @@
         public string Major {get;set;}
         public string Education {get;set;}
         public string PassWord { get; set; }
+        public LocationVM Location { get; set; }
 
 
         public AccountUser()
