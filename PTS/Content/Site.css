@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: #16a085;
+    background-color: #ecf0f1;
     border-top: solid 10px #000;
     color: #333;
     font-size: .85em;
@@ -99,13 +99,13 @@ h5, h6 {
 }
 
 #body {
-    background-color: #efeeef;
+    background-color: #16a085;
     clear: both;
     padding-bottom: 35px;
 }
 
     .main-content {
-        background: #BDC3C7;/*url("../Images/accent.png") no-repeat;*/
+        background: #16a085;/*url("../Images/accent.png") no-repeat;*/
         padding-left: 10px;
         padding-top: 30px;
     }
@@ -129,8 +129,8 @@ footer {
 /* site title
 ----------------------------------------------------------*/
 .site-title {
-    background: #16A085;
-    color: #ecf0f1;
+    background: #ecf0f1;
+    color: #34495e;
     font-family: Rockwell, Consolas, "Courier New", Courier, monospace;
     position: relative;
     font-size: 4em;
@@ -139,7 +139,7 @@ footer {
 
 .site-title a, .site-title a:hover, .site-title a:active {
     background: none;
-    color: #ecf0f1;
+    color: #34495e;
     outline: none;
     text-decoration: none;
 }

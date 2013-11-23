@@ -4,121 +4,44 @@
     ViewBag.Title = "Home Page";
 }
 
-<style>
+<div style="background-color: white;">
+    hello
+</div>
 
-    .message
-    {
-        background-size: 40px 40px;
-        background-image: linear-gradient(135deg, rgba(255, 255, 255, .05) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .05) 50%, rgba(255, 255, 255, .05) 75%, transparent 75%, transparent);
-        box-shadow: inset 0 -1px 0 rgba(255,255,255,.4);
-        width: 100%;
-        border: 1px solid;
-        color: #fff;
-        padding: 15px;
-        position: fixed;
-        _position: absolute;
-        text-shadow: 0 1px 0 rgba(0,0,0,.5);
-        animation: animate-bg 5s linear infinite;
-    }
-    .success{
-		 background-color: #61b832;
-		 border-color: #55a12c;
-         top:auto;
-     }
+<h2>We suggest the following:</h2>
+<br />
 
-    
-
-</style>
-
-
-
-
-
-
-
-
-
-    
-        <div class="navbar-default">
-            <hgroup class="title">
-                <h1>@ViewBag.Title.</h1>
-                <h2>@ViewBag.Message</h2>
-            </hgroup>
-            <p>
-                To learn more about ASP.NET MVC visit
-                <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
-                The page features <mark>videos, tutorials, and samples</mark> to help you get the most from ASP.NET MVC.
-                If you have any questions about ASP.NET MVC visit
-                <a href="http://forums.asp.net/1146.aspx/1?MVC" title="ASP.NET MVC Forum">our forums</a>.
-            </p>
-        </div>
-    
-
-
-<h2>User Register Form</h2>
-
-@{
-    var userModel = new User();
-}
-
-<div id="userFormDiv">@Html.Partial("_RegisterUserPartial", userModel)</div>
-<input id="addUserBtn" type="button" value="Add User" class="btn-submit"/>
-
-<h2>Student User Form</h2>
-
-@{
-    var studentUserModel = new StudentUser
-    {
-        Education = "",
-        Major = "",
-    };
-}
-<div id="studentUserFormDiv">@Html.Partial("_StudentUserForm", studentUserModel)</div>
-<input type="submit" class="btn-submit"/>
-
-<h3>We suggest the following:</h3>
-
-<button id="btn1" class="btn-success btn" >button 1</button>
-<span class="fui-arrow-right">hello</span>
 <div class="row">
-    <div class="tile col-md-4">
-        <h5>Getting Started</h5>
-        ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-        enables a clean separation of concerns and that gives you full control over markup
-        for enjoyable, agile development. ASP.NET MVC includes many features that enable
-        fast, TDD-friendly development for creating sophisticated applications that use
-        the latest web standards.
-        <a href="http://go.microsoft.com/fwlink/?LinkId=245151">Learn more…</a>
+    <div class="col-md-4">
+        <div class="tile">
+            <img class="tile-image big-illustration" alt="Compass" src="~/Content/Flat-UI/images/icons/svg/compas.svg">
+            <h5>Getting Started</h5>
+            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+            <a href="http://go.microsoft.com/fwlink/?LinkId=245151">Learn more…</a>
+        </div>
     </div>
 
-    <li class="two col-md-4">
-        <h5>Add NuGet packages and jump-start your coding</h5>
-        NuGet makes it easy to install and update free libraries and tools.
-        <a href="http://go.microsoft.com/fwlink/?LinkId=245153">Learn more…</a>
-    </li>
+    <div class="col-md-4">
+        <div class="tile">
+            <img class="tile-image" alt="Infinity-Loop" src="~/Content/Flat-UI/images/icons/svg/loop.svg">
+            <h5>Add NuGet packages and jump-start your coding</h5>
+            NuGet makes it easy to install and update free libraries and tools.
+            <a href="http://go.microsoft.com/fwlink/?LinkId=245153">Learn more…</a>
+        </div>
+    </div>
 
-    <li class="three col-md-4">
-        <h5>Find Web Hosting</h5>
-        You can easily find a web hosting company that offers the right mix of features
-        and price for your applications.
-        <a href="http://go.microsoft.com/fwlink/?LinkId=245157">Learn more…</a>
-    </li>
+    <div class="col-md-4">
+        <div class="tile">
+            <img class="tile-image" alt="Pensils" src="~/Content/Flat-UI/images/icons/svg/pencils.svg">
+            <h5>Find Web Hosting</h5>
+            You can easily find a web hosting company that offers the right mix of features
+            and price for your applications.
+            <a href="http://go.microsoft.com/fwlink/?LinkId=245157">Learn more…</a>
+         </div>
+    </div>
 </div>
 
 <script>
     
 
-
-    $('#addUserBtn').click(function () {
-        $.ajax({
-            url: '@Url.Action("SaveUser")',
-            type: 'post',
-            beforeSend: function () { $('#addUserBtn').prop('disabled', true).text('Saving...'); },
-            complete: function () { $('#addUserBtn').prop('disabled', false).text('Add User'); },
-            data: $('#studentUserForm').serialize(),
-            success: function () {
-                $('#successMessage').show();
-            }
-        });
-    })
 </script>
