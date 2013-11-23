@@ -25,8 +25,12 @@ namespace Core.Domains
         public virtual string Description { get; set; }
         public virtual TimeSpan StartTime { get; set; }
         public virtual TimeSpan EndTime { get; set; }
-        public virtual decimal Duration { get; set; }
+        public virtual double Duration { get; set; }
         public virtual int SubjectID { get; set; }
+
+        #region navigation
+        public virtual Location Location { get; set; }
+        #endregion
     }
 
     public class Location : BaseEntity

@@ -56,6 +56,8 @@ namespace Data
             modelBuilder.Entity<StudentUser>()
                 .HasRequired(x => x.User)
                 .WithRequiredDependent();
+
+           
             
             //...or do it manually below. For example,
             //modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
