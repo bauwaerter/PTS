@@ -9,7 +9,8 @@ namespace Core.Domains
     {
         Admin,
         Teacher,
-        Student
+        Student,
+        StudentTeacher
     }
 
     public class User : BaseEntity

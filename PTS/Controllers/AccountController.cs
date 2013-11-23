@@ -57,7 +57,7 @@ namespace PTS.Controllers
             {
                
             };
-            if(model.Role==2)
+            if(model.Role== UserRole.Student)
             {
                 var student= _studentUserService.GetById(15);
                 user = new AccountUser
