@@ -91,8 +91,7 @@ namespace PTS.Views.Search
                 {
                     var oldRecords = records;
                     records = oldRecords.Where(r =>
-                                r.Description.Contains(textSearch) ||
-                                r.Location.Contains(textSearch));
+                                r.Description.Contains(textSearch));
                 }
 
                 return Json(new { Result = "OK", Records = records });
