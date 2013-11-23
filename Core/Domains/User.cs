@@ -5,22 +5,21 @@ using System.Security.Principal;
 
 namespace Core.Domains
 {
-    //public enum UserRole
-    //{
-    //    Admin,
-    //    Teacher,
-    //    Student
-    //}
+    public enum UserRole
+    {
+        Admin,
+        Teacher,
+        Student
+    }
 
     public class User : BaseEntity
     {
-        //public virtual Guid Id { get; set; }
         public virtual string FirstName { get; set; }
         public virtual string LastName { get; set; }
         public virtual DateTime DOB { get; set; }
         public virtual int SSN { get; set; }
         public virtual string Email { get; set; }
-        public virtual int Role { get; set; }
+        public virtual UserRole Role { get; set; }
 
         /// <summary>
         /// Gets or sets the password.
@@ -69,7 +68,6 @@ namespace Core.Domains
 
     public class TeacherUser : BaseEntity
     {
-        //public virtual Guid Id { get; set; }
         public virtual decimal HourlyRate { get; set; }
         public virtual decimal ClassRate { get; set; }
         
