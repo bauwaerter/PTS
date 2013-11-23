@@ -69,7 +69,7 @@ namespace PTS.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Account()
         {
             ViewBag.Message = "Your contact page.";
 
