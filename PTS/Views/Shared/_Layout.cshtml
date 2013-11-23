@@ -19,6 +19,7 @@
 
         <link href="~/Scripts/jtable/themes/jqueryui/jtable_jqueryui.css" rel="stylesheet" />
         <link href="~/Scripts/jtable/themes/metro/lightgray/jtable.css" rel="stylesheet" />
+        <link href="~/Content/responsiveslides.css" rel="stylesheet" />
 
         <meta name="viewport" content="width=device-width" />
                 
@@ -28,6 +29,8 @@
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/jqueryui")
         <script src="~/Scripts/jtable/jquery.jtable.js"></script>
+        <script src="~/Scripts/responsiveslides.js"></script>
+        <script src="~/Scripts/tinynav.js"></script>
     </head> 
     <body>
         <header>
@@ -76,10 +79,15 @@
 
 
 <script>
-    $(function () {
-        $('#menu_wrapper ul li').on('click', function (event) {
-            $('#menu_wrapper .active').removeClass("active");
-            $(this).addClass("active");
-        });
+    $(document).ready(function () {
+        var url = window.location;
+        // Will only work if string in href matches with location
+        $('ul.nav a[href="' + url + '"]').parent().addClass('active');
+
+        // Will also work for relative and absolute hrefs
+        $('ul.nav a').filter(function () {
+            return this.href == url;
+        }).parent().addClass('active');
     });
+
 </script>

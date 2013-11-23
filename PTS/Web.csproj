@@ -327,6 +327,7 @@
     <Content Include="Content\Flat-UI\js\jquery.stacktable.js" />
     <Content Include="Content\Flat-UI\js\jquery.tagsinput.js" />
     <Content Include="Content\Flat-UI\js\jquery.ui.touch-punch.min.js" />
+    <Content Include="Content\responsiveslides.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -574,6 +575,10 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\responsiveslides.js" />
+    <Content Include="Scripts\responsiveslides.min.js" />
+    <Content Include="Scripts\tinynav.js" />
+    <Content Include="Scripts\tinynav.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
