@@ -32,7 +32,8 @@ namespace PTS.Views.Search
             return View();
         }
 
-        public ActionResult GetTeacherUsers()
+        [HttpPost]
+        public ActionResult GetTeacherUsers(string textSearch = "")
         {
             try
             {
@@ -47,8 +48,15 @@ namespace PTS.Views.Search
                     ClassRate = t.ClassRate,
                     HourlyRate = t.HourlyRate
                 });
-                
-                             
+
+                if(!string.IsNullOrWhiteSpace(textSearch))
+                {
+                    var oldRecords = records;
+                    records = oldRecords.Where(r => 
+                                r.FirstName.Contains(textSearch) || 
+                                r.LastName.Contains(textSearch));
+                }
+            
                 return Json(new { Result = "OK", Records = records });
             }
             catch (Exception ex)
@@ -71,14 +79,23 @@ namespace PTS.Views.Search
                 throw new Exception(ex.Message);
             }
         }
-
-        public ActionResult GetClasses()
+        
+        [HttpPost]
+        public ActionResult GetClasses(string textSearch = "")
         {
             try
             {
-                var data = _classService.GetAll();
+                var records = _classService.GetAll();
 
-                return Json(new { Result = "OK", Records = data });
+                if (!string.IsNullOrWhiteSpace(textSearch))
+                {
+                    var oldRecords = records;
+                    records = oldRecords.Where(r =>
+                                r.Description.Contains(textSearch) ||
+                                r.Location.Contains(textSearch));
+                }
+
+                return Json(new { Result = "OK", Records = records });
             }
             catch (Exception ex)
             {

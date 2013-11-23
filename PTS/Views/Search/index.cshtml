@@ -1,11 +1,11 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
     //Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <br />
 <div class="row">
-    <div class="form-group">
+   
+     <div class="form-group">
         <div class="col-md-4">
             <input id="globalSearch" class="form-control" style="font-size: 20px;"/>
         </div>
@@ -24,14 +24,12 @@
 <script>
     $(document).ready(function () {
         $('#globalSearchButton').on('click', function (event) {
-            $.ajax({
-                url: '@Url.Action("GetTeacherUsers")',
-                data: { q: $('#globalSearch').val() },
-                success: function () {
-                    $('#teacherUserTable').jtable('load');
-                    $('#classesTable').jtable('load');
-                }
-            });
+            $('#teacherUserTable').jtable('load', JSON.stringify({
+                textSearch: $('#globalSearch').val()
+            }));
+            $('#classesTable').jtable('load', JSON.stringify({
+                textSearch: $('#globalSearch').val()
+            }));
         });
         $('#globalSearch').keypress(function (e) {
            if (e.which == 13) {
@@ -40,8 +38,10 @@
         });
 
         $('#teacherUserTable').jtable({
-            title: 'Teachers',
-            
+            title: 'Tutors',
+            ajaxSettings: {
+                contentType: 'application/json'
+        	},
             actions: {
                 listAction: '@Url.Action("GetTeacherUsers")',
                 createAction: '@Url.Action("CreateTeacherUser")',
@@ -75,7 +75,9 @@
 
         $('#classesTable').jtable({
             title: 'Classes',
-
+            ajaxSettings: {
+                contentType: 'application/json'
+            },
             actions: {
                 listAction: '@Url.Action("GetClasses")',
             },
@@ -91,11 +93,11 @@
                     create: false,
                     edit: false,
                 },
-                Location: {
-                    title: 'Location',
-                },
                 Description: {
                     title: 'Description',
+                },
+                Location: {
+                    title: 'Location',
                 },
                 StartTime: {
                     title: 'Start Time',
