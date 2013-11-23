@@ -42,7 +42,7 @@
                     <div class="navbar navbar-inverse">
                         <div id="menu_wrapper" class="navbar-collapse collapse navbar-collapse-01">
                             <ul class="nav navbar-nav">
-                                <li class="active">@Html.ActionLink("Home", "Index", "Home")</li>
+                                <li>@Html.ActionLink("Home", "Index", "Home")</li>
                                 <li>@Html.ActionLink("About", "About", "Home")</li>
                                 <li>@Html.ActionLink("My Account", "ManageAccount", "Account")</li>
                                 <li>@Html.ActionLink("Search", "Index", "Search")</li>
@@ -76,8 +76,8 @@
 
 
 <script>
-    $(document).ready(function () {
-        $('#menu_wrapper ul li a').on('click', function (event) {
+    $(function () {
+        $('#menu_wrapper ul li').on('click', function (event) {
             $('#menu_wrapper .active').removeClass("active");
             $(this).addClass("active");
         });
