@@ -21,12 +21,21 @@ namespace Core.Domains
 
     public class Class : BaseEntity
     {
-        public virtual string Location { get; set; }
+        public virtual int LocationId { get; set; }
         public virtual string Description { get; set; }
-        public virtual DateTime StartTime { get; set; }
-        public virtual DateTime EndTime { get; set; }
-        public virtual DateTime Duration { get; set; }
+        public virtual TimeSpan StartTime { get; set; }
+        public virtual TimeSpan EndTime { get; set; }
+        public virtual decimal Duration { get; set; }
         public virtual int SubjectID { get; set; }
+    }
+
+    public class Location : BaseEntity
+    {
+        public virtual string City { get; set; }
+        public virtual string State { get; set; }
+        public virtual string Address { get; set; }
+        public virtual int ZipCode { get; set; }
+        public virtual string Country { get; set; }
     }
 
     public class Class_Meeting_Dates : BaseEntity
