@@ -1,0 +1,40 @@
+﻿@model Core.Domains.User
+
+@{
+    ViewBag.Title = "Role";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+    <h2>Select a user type.</h2>
+</hgroup>
+
+
+@*<label class="checkbox checked" for="checkbox1">
+            <span class="icons">
+                <span class="first-icon fui-checkbox-unchecked">
+                    @Html.RadioButtonFor(model => model.Role,"Student",true)Student
+                </span>
+                <span class="second-icon fui-checkbox-checked">
+                    
+                </span>
+            </span><input type="checkbox" checked="checked" value="" id="checkbox2" data-toggle="checkbox">
+            Checked
+        </label>
+        <br/>
+        <label class="checkbox checked" for="checkbox2">
+            <span class="icons">
+                <span class="first-icon fui-checkbox-unchecked"></span><span class="second-icon fui-checkbox-checked"></span>
+            </span><input type="checkbox" checked="checked" value="" id="checkbox2" data-toggle="checkbox">
+            Checked
+        </label>*@
+<div class=" input-group">
+    <input type="radio" name="group2" value="Water" /> Water<br />
+    <input type="radio" name="group2" value="Beer" /> Beer<br />
+    <input type="radio" name="group2" value="Wine" checked /> Wine<br />
+</div>
+
+
+
+@*            <br/>
+            @Html.RadioButtonFor(model => model.Role,"Teacher",true)*@

@@ -45,7 +45,7 @@ namespace Core.Domains
         /// <value>
         /// The password salt.
         /// </value>
-        //public virtual string PasswordSalt { get; set; }
+        public virtual string PasswordSalt { get; set; }
         #region navigation
         public virtual Location Location { get; set; }
         #endregion

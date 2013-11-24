@@ -90,6 +90,11 @@ h5, h6 {
         text-decoration: none;
     }
 
+.editor-label label {
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 5px;
+}
 
 /* main layout
 ----------------------------------------------------------*/

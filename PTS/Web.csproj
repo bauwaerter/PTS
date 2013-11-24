@@ -650,6 +650,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\Review\Index.cshtml" />
+    <Content Include="Views\Account\RoleSelect.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

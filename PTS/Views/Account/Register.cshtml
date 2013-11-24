@@ -1,4 +1,5 @@
-﻿@model PTS.Models.RegisterModel
+﻿@model Core.Domains.User
+
 @{
     ViewBag.Title = "Register";
 }
@@ -8,30 +9,44 @@
     <h2>Create a new account.</h2>
 </hgroup>
 
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary()
+@using (Html.BeginForm(null, null, FormMethod.Post)) {
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.LocationId)
+    @Html.ValidationSummary(true)
 
-    <fieldset>
-        <legend>Registration Form</legend>
-        <ol>
-            <li>
-                @Html.LabelFor(m => m.UserName)
-                @Html.TextBoxFor(m => m.UserName)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Password)
-                @Html.PasswordFor(m => m.Password)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.ConfirmPassword)
-                @Html.PasswordFor(m => m.ConfirmPassword)
-            </li>
-        </ol>
-        <input type="submit" value="Register" />
-    </fieldset>
+    <div class="row container form-horizontal">
+        <div class=".col-md-4">
+            <div class="form-horizontal">
+                @Html.LabelFor(model => model.Email)
+                @Html.TextBoxFor(model => model.Email)
+            </div>
+        </div>
+        <div class=".col-md-4">
+            @Html.LabelFor(model => model.PassWord, "Password")
+            @Html.PasswordFor(model => model.PassWord)
+        </div>
+        <div class=".col-md-4">
+            @Html.Label("Confrim Password")
+            <input type="password" name="confirmPassword" id="confirmPassword"/>
+        </div>
+        <div class=".col-md-4">
+            @Html.LabelFor(model => model.FirstName, "First Name")
+            @Html.EditorFor(model => model.FirstName)
+        </div>
+        <div class=".col-md-4">
+            @Html.LabelFor(model => model.LastName, "Last Name")
+            @Html.EditorFor(model => model.LastName)
+        </div>
+        <div class=".col-md-4">
+            @Html.LabelFor(model => model.DOB, "Date of Birth")
+            @Html.EditorFor(model => model.DOB)
+        </div>
+        <div class=".col-md-4">
+            @Html.LabelFor(model => model.SSN, "Social Security Number")
+            @Html.PasswordFor(model => model.SSN)
+        </div>
+    </div>
+    <br/>
+    <li class="btn btn-primary">@Html.ActionLink("Next", "RoleSelect", "Account", htmlAttributes: new { style="color:white"})</li>
 }
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

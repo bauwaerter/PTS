@@ -5,8 +5,11 @@ using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Core;
+using Core.Helpers.Security;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
+using Newtonsoft.Json.Serialization;
 using WebMatrix.WebData;
 using PTS.Filters;
 using PTS.Models;
@@ -18,7 +21,7 @@ namespace PTS.Controllers
 {
     //[Authorize]
     //[InitializeSimpleMembership]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
 
         #region fields
@@ -90,10 +93,7 @@ namespace PTS.Controllers
                     PassWord = model.PassWord,
                     Location = loc
                 };
-
-                
             }
-
 
             return View(user);
         }
@@ -132,38 +132,47 @@ namespace PTS.Controllers
         //
         // GET: /Account/Register
 
-        //[AllowAnonymous]
-        //public ActionResult Register()
-        //{
-        //    return View();
-        //}
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult Register()
+        {
+            return View();
+        }
 
         //
         // POST: /Account/Register
 
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Register(RegisterModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        // Attempt to register the user
-        //        try
-        //        {
-        //            WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-        //            WebSecurity.Login(model.UserName, model.Password);
-        //            return RedirectToAction("Index", "Home");
-        //        }
-        //        catch (MembershipCreateUserException e)
-        //        {
-        //            ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
-        //        }
-        //    }
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult Register(User user, string confirmPassword) {
+            if (!CommonHelper.IsValidEmail(user.Email)) {
+                throw new Exception("Username must be a valid email address");
+            }
+            
+            try {
+                if (confirmPassword.Equals(user.PassWord, StringComparison.Ordinal)) {
+                    var salt = "";
+                    var hashedPassword = SecurityHelper.HashPassword(user.PassWord, ref salt);
+                    user.PassWord = hashedPassword;
+                    user.PasswordSalt = salt;
 
-        //    // If we got this far, something failed, redisplay form
-        //    return View(model);
-        //}
+                    _userService.Insert(user);
+
+                    return RedirectToAction("Index", "Home");
+                }
+            throw new Exception("Passwords do not match");
+            } catch (Exception e) {
+                Error(e.Message);
+                return View(user);
+            }
+        }
+
+        // GET: /Account/RoleSelect
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult RoleSelect() {
+            return View();
+        }
 
         //
         // POST: /Account/Disassociate
