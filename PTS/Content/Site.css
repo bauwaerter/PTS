@@ -318,6 +318,11 @@ ol.round {
             background: url("../Images/orderedList9.png") no-repeat;
         }
 
+
+.hide {
+    display:none;
+}
+
 /* content */
 article {
     float: left;
