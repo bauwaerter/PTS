@@ -4,7 +4,7 @@
     ViewBag.Title = "Home Page";
 }
 
-<div>
+<div class="pagination" style="width:532px">
     <ul class="rslides">
         <li><img src="~/Images/oldersupplies.jpg" alt="school supplies"/></li>
         <li><img src="~/Images/learnblocks.jpg" alt="learn blocks" /></li>
@@ -46,7 +46,9 @@
 
 <script>
     $(function () {
-        $(".rslides").responsiveSlides();
+        $(".rslides").responsiveSlides({
+            pager: true,
+        });
     });
 
 </script>

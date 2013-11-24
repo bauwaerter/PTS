@@ -24,10 +24,22 @@
   float: left;
   }
 
+/*.rslides_tabs
+{
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 1px rgba(255, 255, 255, 0.3), 0 0 5px #000000 inset;
+    font-size: 18px;
+    list-style: none outside none;
+    margin: 0 auto 50px;
+    max-width: 540px;
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
+}*/
 .rslides img {
   display: block;
   height: 300px;
   float: left;
-  width: 50%;
+  width: 532px;
   border: 0;
   }
