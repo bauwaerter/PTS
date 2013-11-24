@@ -21,11 +21,11 @@ namespace Service.Interfaces
         int GetCount(int subscriberId);
 
         /// <summary>
-        /// Get User by Username
+        /// Get User by Email
         /// </summary>
-        /// <param name="username">Username</param>
+        /// <param name="email">Email</param>
         /// <returns>User</returns>
-        User GetUserByUsername(string username);
+        User GetUserByEmail(string email);
 
         /// <summary>
         /// Validates Login and returns true if username and password matches

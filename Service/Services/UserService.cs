@@ -56,20 +56,16 @@ namespace Service.Services
         /// </summary>
         /// <param name="username">Username</param>
         /// <returns>User</returns>
-        public User GetUserByUsername(string username)
+        public User GetUserByEmail(string email)
         {
-            return null;
-            //if (username == null)
-            //    return null;
-            //try
-            //{
-            //    var query = GetTableQuery().SingleOrDefault(u => u.UserName == username);
-            //    return query;
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw new Exception("Database Error Occurred.", ex);
-            //}
+            if (email == null)
+                return null;
+            try {
+                var query = _userRepository.Table.SingleOrDefault(u => u.Email == email);
+                return query;
+            } catch (Exception ex) {
+                throw new Exception("Database Error Occurred.", ex);
+            }
         }
 
         /// <summary>
@@ -98,20 +94,16 @@ namespace Service.Services
         /// <returns></returns>
         public bool ValidateLogin(string username, string password)
         {
-            return false;
-            //try
-            //{
-            //    var user = GetUserByUsername(username);
-            //    if (user == null)
-            //        return false;
-            //    var salt = user.PasswordSalt;
-            //    var hashedPassword = SecurityHelper.HashPassword(password, ref salt);
-            //    return user.PassWord == hashedPassword;
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw new Exception("Database error occurred", ex);
-            //}
+            try {
+                var user = GetUserByEmail(username);
+                if (user == null)
+                    return false;
+                var salt = user.PasswordSalt;
+                var hashedPassword = SecurityHelper.HashPassword(password, ref salt);
+                return user.PassWord == hashedPassword;
+            } catch (Exception ex) {
+                throw new Exception("Database error occurred", ex);
+            }
         }
 
         /// <summary>

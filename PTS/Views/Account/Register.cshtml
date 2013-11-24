@@ -1,4 +1,5 @@
-﻿@model Core.Domains.User
+﻿@using Core.Domains
+@model Core.Domains.User
 
 @{
     ViewBag.Title = "Register";
@@ -12,41 +13,112 @@
 @using (Html.BeginForm(null, null, FormMethod.Post)) {
     @Html.HiddenFor(model => model.Id)
     @Html.HiddenFor(model => model.LocationId)
+    @Html.HiddenFor(model => model.Role) 
     @Html.ValidationSummary(true)
 
-    <div class="row container form-horizontal">
-        <div class=".col-md-4">
-            <div class="form-horizontal">
-                <p>@Html.LabelFor(model => model.Email)</p>
-                @Html.TextBoxFor(model => model.Email)
+    <div class="container form-horizontal">
+        <div class="row">
+            <div class=".col-md-4">
+                <div class="form-horizontal">
+                    @Html.LabelFor(model => model.Email)
+                    @Html.TextBoxFor(model => model.Email)
+                </div>
             </div>
+            <div class=".col-md-4">
+                @Html.LabelFor(model => model.PassWord, "Password")
+                @Html.PasswordFor(model => model.PassWord)
+            </div>
+            <div class=".col-md-4">
+                @Html.Label("Confrim Password")
+                <input type="password" name="confirmPassword" id="confirmPassword"/>
+            </div>
+            <div class=".col-md-4">
+                @Html.LabelFor(model => model.FirstName, "First Name")
+                @Html.EditorFor(model => model.FirstName)
+            </div>
+            <div class=".col-md-4">
+                @Html.LabelFor(model => model.LastName, "Last Name")
+                @Html.EditorFor(model => model.LastName)
+            </div>
+            <div class=".col-md-4">
+                @Html.LabelFor(model => model.DOB, "Date of Birth")
+                @Html.EditorFor(model => model.DOB)
+            </div>
+            <div class=".col-md-4">
+                @Html.LabelFor(model => model.SSN, "Social Security Number")
+                @Html.PasswordFor(model => model.SSN)
+            </div>
+            <br/>
+            
         </div>
-        <div class=".col-md-4">
-            @Html.LabelFor(model => model.PassWord, "Password")
-            @Html.PasswordFor(model => model.PassWord)
+        <div class="row">
+            <hgroup class="title">
+                <h1>User Role:</h1>
+                <h2>Select all that apply.</h2>
+            </hgroup>
+            <label class="checkbox unchecked" for="checkbox1">
+                <span class="icons">
+                    <span class="first-icon fui-checkbox-unchecked">
+                    </span>
+                    <span class="second-icon fui-checkbox-checked"></span>
+                </span>
+                <input type="checkbox" value="" id="checkbox1" data-toggle="checkbox">
+                Student
+            </label>
+            <br/>
+            <div class="studentUser">
+                @Html.Partial("_StudentUserForm", new StudentUser())
+            </div>
+            <br/>
+            <label class="checkbox unchecked" for="checkbox2">
+                <span class="icons">
+                    <span class="first-icon fui-checkbox-unchecked">
+                    </span>
+                    <span class="second-icon fui-checkbox-checked"></span>
+                </span>
+                <input type="checkbox" value="" id="checkbox2" data-toggle="checkbox">
+                Teacher/Tutor
+            </label>
+            <br/>
+            <div class="teacherUser">
+                @Html.Partial("_TeacherUserForm", new TeacherUser())
+            </div>
+            <br/>
         </div>
-        <div class=".col-md-4">
-            @Html.Label("Confrim Password")
-            <input type="password" name="confirmPassword" id="confirmPassword"/>
+        <div class="row">
+            <input class="btn btn-primary" type="submit" value="Register" id="formSubmit" style="background-color: #16a085" />
         </div>
-        <div class=".col-md-4">
-            @Html.LabelFor(model => model.FirstName, "First Name")
-            @Html.EditorFor(model => model.FirstName)
-        </div>
-        <div class=".col-md-4">
-            @Html.LabelFor(model => model.LastName, "Last Name")
-            @Html.EditorFor(model => model.LastName)
-        </div>
-        <div class=".col-md-4">
-            @Html.LabelFor(model => model.DOB, "Date of Birth")
-            @Html.EditorFor(model => model.DOB)
-        </div>
-        <div class=".col-md-4">
-            @Html.LabelFor(model => model.SSN, "Social Security Number")
-            @Html.PasswordFor(model => model.SSN)
-        </div>
-    </div>
+     </div>   
     <br/>
-    <li class="btn btn-primary">@Html.ActionLink("Next", "RoleSelect", "Account", htmlAttributes: new { style="color:white"})</li>
 }
 
+<script src="~/Content/Flat-UI/js/flatui-checkbox.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#DOB').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            maxDate: '0'
+        });
+        $(".studentUser").hide();
+        $(".teacherUser").hide();
+    });
+    
+    $("#checkbox1").change(function () {
+        if ($(this).is(":checked")) {
+            $(".studentUser").show();
+            $('#Role').val("@UserRole.Student");
+        } else {
+            $(".studentUser").hide();
+        }
+    });
+    
+    $("#checkbox2").change(function () {
+        if ($(this).is(":checked")) {
+            $(".teacherUser").show();
+            $('#Role').val("@UserRole.Teacher");
+        } else {
+            $(".teacherUser").hide();
+        }
+    });
+</script>

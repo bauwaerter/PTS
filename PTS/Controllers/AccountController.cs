@@ -5,7 +5,7 @@ using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using Core;
+using Core.Helpers;
 using Core.Helpers.Security;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
@@ -16,6 +16,7 @@ using PTS.Models;
 using Service.Interfaces;
 using Core.Domains;
 using PTS.Infrastructure;
+using CommonHelper = Core.CommonHelper;
 
 namespace PTS.Controllers
 {
@@ -30,17 +31,19 @@ namespace PTS.Controllers
         private readonly IUserService _userService;
         //private readonly IStudentUserService _studentUserService;
         private readonly IBaseService<StudentUser> _studentUserService;
+        private readonly IBaseService<TeacherUser> _teacherUserService; 
         private readonly IBaseService<Class> _classService;
         private readonly IBaseService<Location> _locationService;
 
         #endregion
 
 
-        public AccountController(IUserService userService, IBaseService<StudentUser> studentUserService, IBaseService<Class> classService, IBaseService<Location> locationService)
+        public AccountController(IUserService userService, IBaseService<StudentUser> studentUserService, IBaseService<Class> classService, IBaseService<Location> locationService, IBaseService<TeacherUser> teacherUserService )
         {
 
             _userService = userService;
             _studentUserService = studentUserService;
+            _teacherUserService = teacherUserService;
             _classService = classService;
             _locationService = locationService;
 
@@ -48,12 +51,41 @@ namespace PTS.Controllers
         //
         // GET: /Account/Login
 
-        //[AllowAnonymous]
-        //public ActionResult Login(string returnUrl)
-        //{
-        //    ViewBag.ReturnUrl = returnUrl;
-        //    return View();
-        //}
+        [AllowAnonymous]
+        public ActionResult Login(string returnUrl) {
+            ViewBag.ReturnUrl = returnUrl;
+            var model = new LoginModel();
+            return View(model);
+        }
+
+        //
+        // POST: /Account/Login
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(LoginModel loginModel, string returnUrl) {
+            try{
+                if (_userService.ValidateLogin(loginModel.UserName, loginModel.Password)){
+                    var user = _userService.GetUserByEmail(loginModel.UserName);
+
+                    FormsAuthentication.SetAuthCookie(loginModel.UserName, loginModel.RememberMe);
+                    SessionDataHelper.Username = user.Email;
+                    SessionDataHelper.UserId = user.Id;
+                    SessionDataHelper.UserRole = user.Role;
+
+                    if (Url.IsLocalUrl(returnUrl)){
+                        return Redirect(returnUrl);
+                    }
+
+                    return RedirectToAction("Index", "Home");
+                }
+                throw new Exception("Your username/password combination was incorrect");
+            }catch (Exception ex){
+                ModelState.AddModelError("Error", ex.Message);
+            }
+            return View(loginModel);
+        }
 
         public ActionResult SaveUser(User user)
         {
@@ -72,7 +104,7 @@ namespace PTS.Controllers
             
         }
 
-
+        [Authorize]
         public ActionResult ManageAccount()
         {
             var model = _userService.GetById(15);
@@ -85,7 +117,7 @@ namespace PTS.Controllers
                 var getlocation = _locationService.GetById(locid);
                 loc = new LocationVM 
                 {
-                    Address =getlocation.Address,
+                    Address = getlocation.Address,
                     City = getlocation.City,
                     Country = getlocation.Country,
                     id = getlocation.Id,
@@ -108,7 +140,7 @@ namespace PTS.Controllers
                     Email = model.Email,
                     Id = model.Id,
                     Major = student.Major,
-                    PassWord = model.PassWord,
+                    PassWord = "",
                     Location = loc
                 };
             }
@@ -125,7 +157,7 @@ namespace PTS.Controllers
         //[ValidateAntiForgeryToken]
         //public ActionResult Login(LoginModel model, string returnUrl)
         //{
-        //    if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+            //if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
         //    {
         //        return RedirectToLocal(returnUrl);
         //    }
@@ -138,14 +170,17 @@ namespace PTS.Controllers
         //
         // POST: /Account/LogOff
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult LogOff()
-        //{
-        //    WebSecurity.Logout();
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LogOff() {
+            FormsAuthentication.SignOut();
+            SessionHelper.Abandon();
+            Session.Abandon();
+            //WebSecurity.Logout();
 
-        //    return RedirectToAction("Index", "Home");
-        //}
+            FormsAuthentication.RedirectToLoginPage();
+            return RedirectToAction("Index", "Home");
+        }
 
         //
         // GET: /Account/Register
@@ -162,25 +197,36 @@ namespace PTS.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Register(User user, string confirmPassword) {
-            if (!CommonHelper.IsValidEmail(user.Email)) {
-                throw new Exception("Username must be a valid email address");
-            }
-            
+        public ActionResult Register(User user, string confirmPassword, StudentUser studentUser, TeacherUser teacherUser) {
             try {
+                if (!CommonHelper.IsValidEmail(user.Email)) {
+                    throw new Exception("Username must be a valid email address");
+                }
                 if (confirmPassword.Equals(user.PassWord, StringComparison.Ordinal)) {
                     var salt = "";
                     var hashedPassword = SecurityHelper.HashPassword(user.PassWord, ref salt);
                     user.PassWord = hashedPassword;
                     user.PasswordSalt = salt;
 
-                    _userService.Insert(user);
-
+                    //_userService.Insert(user);
+                    if (studentUser.Major != null){
+                        studentUser.User = user;
+                        user = null;
+                        _studentUserService.Insert(studentUser);
+                    }
+                    studentUser = null;
+                    if (teacherUser.HourlyRate != 0 || teacherUser.ClassRate != 0){
+                        teacherUser.User = user;
+                        user = null;
+                        _teacherUserService.Insert(teacherUser);
+                    }
+                    teacherUser = null;
+                    Success("User created.");
                     return RedirectToAction("Index", "Home");
                 }
             throw new Exception("Passwords do not match");
-            } catch (Exception e) {
-                Error(e.Message);
+            } catch (Exception ex) {
+                Error(ex.Message);
                 return View(user);
             }
         }

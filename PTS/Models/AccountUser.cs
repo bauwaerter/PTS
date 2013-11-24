@@ -1,4 +1,6 @@
-﻿namespace PTS.Models
+﻿using Core.Domains;
+
+namespace PTS.Models
 {
     public class AccountUser
     {
@@ -12,6 +14,7 @@
         public string Education {get;set;}
         public string PassWord { get; set; }
         public LocationVM Location { get; set; }
+        public UserRole Role { get; set; }
 
 
         public AccountUser()

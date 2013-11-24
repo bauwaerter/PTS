@@ -16,7 +16,6 @@ namespace Core
 	    Tutor = 2,
         Student = 1,
         None = 0
-	
     }
 
     #endregion

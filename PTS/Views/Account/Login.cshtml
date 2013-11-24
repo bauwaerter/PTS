@@ -8,8 +8,19 @@
     <h1>@ViewBag.Title.</h1>
 </hgroup>
 
+<style>
+    .social {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+    .img {
+        display: block;
+        margin-left: 50px;
+    }
+
+</style>
 <section id="loginForm">
-<h2>Use a local account to log in.</h2>
 @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -34,6 +45,7 @@
         </ol>
         <input type="submit" value="Log in" />
     </fieldset>
+    <br/>
     <p>
         @Html.ActionLink("Register", "Register") if you don't have an account.
     </p>
@@ -41,8 +53,8 @@
 </section>
 
 <section class="social" id="socialLoginForm">
-    <h2>Use another service to log in.</h2>
-    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+    <li class="img"><img src="~/Images/writing.jpg" alt="school supplies"/></li>
+    @*@Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })*@
 </section>
 
 @section Scripts {
