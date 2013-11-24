@@ -1,0 +1,17 @@
+﻿@model Core.Domains.TeacherUser
+
+@{
+    Layout = null;
+}
+
+<form id="teacherUserForm" method="post">
+    @Html.HiddenFor(model => model.Id)
+
+    @Html.LabelFor(model => model.HourlyRate, "Hourly Rate")
+    @Html.TextBoxFor(model => model.HourlyRate)
+
+    <br />
+
+    @Html.LabelFor(model => model.ClassRate, "Class Rate")
+    @Html.TextBoxFor(model => model.ClassRate)
+</form>

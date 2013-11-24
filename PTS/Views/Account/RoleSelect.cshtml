@@ -1,40 +1,68 @@
-﻿@model Core.Domains.User
+﻿@using Core.Domains
+@model Core.Domains.User
 
 @{
-    ViewBag.Title = "Role";
+    ViewBag.Title = "Register";
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
+    <h1>@ViewBag.Title:</h1>
     <h2>Select a user type.</h2>
 </hgroup>
 
 
-@*<label class="checkbox checked" for="checkbox1">
+<div class="row">
+    <div class="col-md-3">
+        <label class="checkbox unchecked" for="checkbox1">
             <span class="icons">
                 <span class="first-icon fui-checkbox-unchecked">
-                    @Html.RadioButtonFor(model => model.Role,"Student",true)Student
                 </span>
-                <span class="second-icon fui-checkbox-checked">
-                    
-                </span>
-            </span><input type="checkbox" checked="checked" value="" id="checkbox2" data-toggle="checkbox">
-            Checked
+                <span class="second-icon fui-checkbox-checked"></span>
+            </span>
+            <input type="checkbox" value="@Model.Role" id="checkbox1" data-toggle="checkbox">
+            Student
         </label>
+    <div class="studentUser container">
+    @Html.Partial("_StudentUserForm", new StudentUser())
+    </div>
         <br/>
-        <label class="checkbox checked" for="checkbox2">
+        <label class="checkbox unchecked" for="checkbox2">
             <span class="icons">
-                <span class="first-icon fui-checkbox-unchecked"></span><span class="second-icon fui-checkbox-checked"></span>
-            </span><input type="checkbox" checked="checked" value="" id="checkbox2" data-toggle="checkbox">
-            Checked
-        </label>*@
-<div class=" input-group">
-    <input type="radio" name="group2" value="Water" /> Water<br />
-    <input type="radio" name="group2" value="Beer" /> Beer<br />
-    <input type="radio" name="group2" value="Wine" checked /> Wine<br />
+                <span class="first-icon fui-checkbox-unchecked"></span>
+                <span class="second-icon fui-checkbox-checked"></span>
+            </span>
+            <input type="checkbox" value="@Model.Role" id="checkbox2" data-toggle="checkbox">
+            Tutor/Teacher
+        </label>
+    </div> <!-- /checkboxes col-md-3 -->
 </div>
 
 
 
-@*            <br/>
-            @Html.RadioButtonFor(model => model.Role,"Teacher",true)*@
+<div class="teacherUser container">
+    @Html.Partial("_TeacherUserForm", new TeacherUser())
+</div>
+
+<script src="~/Content/Flat-UI/js/flatui-checkbox.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".studentUser").hide();
+        $(".teacherUser").hide();
+    });
+    
+    $("#checkbox1").change(function () {
+        if ($(this).is(":checked")) {
+            $(".studentUser").show();
+        } else {
+            $(".studentUser").hide();
+        }
+    });
+    
+    $("#checkbox2").change(function () {
+        if ($(this).is(":checked")) {
+            $(".teacherUser").show();
+        } else {
+            $(".teacherUser").hide();
+        }
+    });
+</script>

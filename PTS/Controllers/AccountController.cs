@@ -188,8 +188,8 @@ namespace PTS.Controllers
         // GET: /Account/RoleSelect
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult RoleSelect() {
-            return View();
+        public ActionResult RoleSelect(User user) {
+            return View(user);
         }
 
         //
