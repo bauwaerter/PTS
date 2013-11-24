@@ -5,9 +5,12 @@
 }
 
 <div>
-    <img src="~/Images/oldersupplies.jpg" alt="school supplies" width: "500px" />
+    <ul class="rslides">
+        <li><img src="~/Images/oldersupplies.jpg" alt="school supplies"/></li>
+        <li><img src="~/Images/learnblocks.jpg" alt="learn blocks" /></li>
+        <li><img src="~/Images/scantronpenicl.jpg" alt="scantron pencil" /></li>
+    </ul>
 </div>
-
 <h2>We suggest the following:</h2>
 <br />
 
@@ -42,6 +45,8 @@
 </div>
 
 <script>
-    
+    $(function () {
+        $(".rslides").responsiveSlides();
+    });
 
 </script>

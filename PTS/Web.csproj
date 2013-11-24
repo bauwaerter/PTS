@@ -451,6 +451,9 @@
     <Content Include="Content\Flat-UI\less\scaffolding.less" />
     <Content Include="Content\Flat-UI\less\spaces.less" />
     <Content Include="Content\Flat-UI\less\variables.less" />
+    <Content Include="Images\learnblocks.jpg" />
+    <Content Include="Images\oldersupplies.jpg" />
+    <Content Include="Images\scantronpenicl.jpg" />
     <Content Include="Images\smartthinking_logo.jpg" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.0.3.js" />
