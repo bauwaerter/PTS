@@ -5,36 +5,91 @@
     ViewBag.Title = "Manage Account";
 }
 
+
 <hgroup class="title">
     <h1>@ViewBag.Title</h1>
     <h2>@ViewBag.Message</h2>
 </hgroup>
 
-<section class="contact">
+<section  class="contact">
     <header>
         <h2>My Account</h2>
     </header>
-    <p>
-        <span class="label">First Name:</span>
-        @Model.FirstName
-    </p>
-    <p>
-        <span class="label">Last Name:</span>
-        <span>@Model.LastName</span>
-    </p>
-    <p>
-        <span class="label">E-Mail:</span>
-        <span>@Model.Email</span>
-    </p>
-    <p>
-        <span class="label">PassWord:</span>
-        <span>@Model.PassWord</span>
-    </p>
-    <p>
-        <span class="label">Address:</span>
-        <span>@Model.Location.Address @Model.Location.City , @Model.Location.ZipCode @Model.Location.Country</span>
-    </p>
-    <button class="btn-primary">Edit User Info</button>
+    <form id="UserAccount">
+        @Html.HiddenFor(model=>model.Id)
+        <div class="row">
+            <div class="col-md-1">
+                <p><span class="label">First Name:</span></p>
+
+            </div>
+            <div class="col-md-1 col-md-offset-1">
+                <span><input name="FirstName" disabled="disabled" style="width:auto" class="form-control" value=@Model.FirstName /></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <p>
+                    <span class="label">Last Name:</span>
+                </p>
+            </div>
+            <div class="col-md-1 col-md-offset-1">
+                <span><input name="LastName" disabled="disabled" style="width: auto" class="form-control" value=@Model.LastName /></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1">
+                <p>
+                    <span class="label">E-Mail:</span>
+                </p>
+            </div>
+            <div class="col-md-1 col-md-offset-1">
+                <span><input name="Email" disabled="disabled" style="width: auto" class="form-control" value=@Model.Email /></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1">
+                <p>
+                    <span class="label">PassWord:</span>
+                </p>
+            </div>
+            <div class="col-md-1 col-md-offset-1">
+                <span><input name="PassWord" disabled="disabled" style="width: auto" class="form-control" value=@Model.PassWord /></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1">
+                <p>
+                    <span class="label">Address:</span>
+                </p>
+            </div>
+            <div class="col-md-1 col-md-offset-1">
+                <span><input name="@Model.Location.Address" disabled="disabled" style="width: auto" class="form-control" value=@Model.Location.Address /></span>
+            </div>
+            <div class="col-md-1 col-md-offset-2">
+                <span><input name="@Model.Location.City" disabled="disabled" style="width: auto" class="form-control" value=@Model.Location.City /></span>
+            </div>
+            <div class="col-md-1 col-md-offset-2">
+                <span><input name="@Model.Location.State" disabled="disabled" style="width: auto" class="form-control" value=@Model.Location.State /></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-1 col-md-offset-1">
+                <span><input name="@Model.Location.ZipCode" disabled="disabled" style="width: auto" class="form-control" value=@Model.Location.ZipCode /></span>
+            </div>
+            <div class="col-md-1 col-md-offset-2">
+                <span><input name="@Model.Location.Country" disabled="disabled" style="width: auto" class="form-control" value=@Model.Location.Country /></span>
+            </div>
+        </div>
+    </form>
+        <button id="EditUserButton" class="btn btn-primary">Edit User Info</button>
+        <button id ="SaveUserButton" style="visibility:hidden" class="btn btn-primary">Save User Info</button>
+    
 </section>
 
 <section class="contact">
@@ -43,28 +98,108 @@
         
         
     </header>
-    <p>
-        <span class="label">Major:</span>
-        <span >@Model.Major</span>
-    </p>
-    <p>
-        <span class="label">Education:</span>
-        <span>@Model.Education</span>
-    </p>
-    <button class="btn-primary">Edit Student Info</button>
+    <form id="UserAccountStudent">
+        <div class="row">
+            <div class="col-md-1">
+                <p>
+                    <span class="label">Major:</span>
+                </p>
+            </div>
+            <div class="col-md-1 col-md-offset-1">
+                <span><input disabled="disabled" style="width: auto" class="form-control" value=@Model.Major /></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1">
+                <p>
+                    <span class="label">Education:</span>
+                </p>
+            </div>
+            <div class="col-md-1 col-md-offset-1">
+                <span><input disabled="disabled" style="width: auto" class="form-control" value=@Model.Education /></span>
+            </div>
+        </div>
+    </form>
+        <button id="EditStudentButton" class="btn btn-primary">Edit Student Info</button>
+        <button id="SaveStudentButton" style="visibility:hidden" class="btn btn-primary">Save Student Info</button>
+    
 </section>
 
 <section class="contact">
     <header>
         <h2>Teacher</h2>
     </header>
-    <p>
-        <span class="label">Hourly Rate:</span>
-        <span>@Model.HourlyRate</span>
-    </p>
-    <p>
-        <span class="label">Class Rate:</span>
-        <span>@Model.ClassRate</span>
-    </p>
-    <button class="btn-primary">Edit Teacher Info</button>
+    <form id="UserAccountTeacher">
+
+        <div class="row">
+            <div class="col-md-1">
+                <p>
+                    <span class="label">Hourly Rate:</span>
+                </p>
+            </div>
+
+            <div class="col-md-1 col-md-offset-1">
+                <span><input disabled="disabled" style="width: auto" class="form-control" value=@Model.HourlyRate /></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <p>
+                    <span class="label">Class Rate:</span>
+                </p>
+            </div>
+            <div class="col-md-1 col-md-offset-1">
+                <span><input disabled="disabled" style="width: auto" class="form-control" value=@Model.ClassRate /></span>
+            </div>
+        </div>
+        </form>
+        <button id="EditTeacherButton" class="btn-primary btn">Edit Teacher Info</button>
+        <button id="SaveTeacherButton" style="visibility:hidden" class="btn btn-primary">Save Teacher Info</button>
 </section>
+
+<script type="text/javascript">
+    $('#EditUserButton').on('click', function (event) {
+        event.preventDefault();
+        $('#UserAccount').find(':input').prop('disabled', '');
+        $('#EditUserButton').hide();
+        $('#SaveUserButton').css('visibility', 'visible');
+    })
+
+    $('#EditStudentButton').on('click', function (event) {
+        event.preventDefault();
+        $('#UserAccountStudent').find(':input').prop('disabled', '');
+        $('#EditStudentButton').hide();
+        $('#SaveStudentButton').css('visibility', 'visible');
+    })
+
+    $('#EditTeacherButton').on('click', function (event) {
+        event.preventDefault();
+        $('#UserAccountTeacher').find(':input').prop('disabled', '');
+        $('#EditTeacherButton').hide();
+        $('#SaveTeacherButton').css('visibility', 'visible');
+    })
+
+    $('#SaveStudentButton').on('click', function (event) {
+
+    })
+
+    $('#SaveTeacherButton').on('click', function (event) {
+
+    })
+
+    $('#SaveUserButton').on('click', function (event) {
+        $.ajax({
+            url: '@Url.Action("SaveUser")',
+            data: $('#UserAccount').serialize(),
+            success:function(){
+                $('#EditTeacherButton').show();
+                $('#SaveTeacherButton').css('visibility', 'hidden');
+                $('#UserAccountTeacher').find(':input').prop('disabled', 'disabled');
+            }
+
+        })
+    })
+
+
+</script>

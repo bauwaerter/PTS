@@ -55,6 +55,24 @@ namespace PTS.Controllers
         //    return View();
         //}
 
+        public ActionResult SaveUser(User user)
+        {
+            try
+            {
+                _userService.Update(user);
+                return Json(new
+                {
+                    Result="OK"
+                });
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
+        }
+
+
         public ActionResult ManageAccount()
         {
             var model = _userService.GetById(15);
