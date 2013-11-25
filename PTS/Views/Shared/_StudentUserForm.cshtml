@@ -11,11 +11,11 @@
 <form id="studentUserForm" method="post">
     @Html.HiddenFor(model => model.Id)
 
-    @Html.LabelFor(model => model.Major, "Major")
-    @Html.TextBoxFor(model => model.Major)
+    <h2>@Html.LabelFor(model => model.Major, "Major")</h2>
+    @Html.TextBoxFor(model => model.Major, new {@class = "form-control", style="width:400px"})
 
     <br />
 
-    @Html.LabelFor(model => model.Education, "Education")
-    @Html.TextBoxFor(model => model.Education)
+    <h2>@Html.LabelFor(model => model.Education, "Education")</h2>
+    @Html.TextBoxFor(model => model.Education, new {@class = "form-control", style="width:400px"})
 </form>

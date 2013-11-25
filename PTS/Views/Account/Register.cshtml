@@ -5,7 +5,7 @@
     ViewBag.Title = "Register";
 }
 
-<hgroup class="title">
+<hgroup class="demo-panel-title">
     <h1>@ViewBag.Title:</h1>
     <h2>Create a new account.</h2>
 </hgroup>
@@ -16,37 +16,38 @@
     @Html.HiddenFor(model => model.Role) 
     @Html.ValidationSummary(true)
 
-    <div class="container form-horizontal">
+    
+
+    
+    <div class="container">
         <div class="row">
-            <div class=".col-md-4">
-                <div class="form-horizontal">
-                    @Html.LabelFor(model => model.Email)
-                    @Html.TextBoxFor(model => model.Email)
-                </div>
+            <div class=".col-md-4" style="display:inline;">
+                <h2>@Html.LabelFor(model => model.Email)</h2>
+                @Html.TextBoxFor(model => model.Email, new {@class = "form-control", style="width:400px"})
             </div>
             <div class=".col-md-4">
-                @Html.LabelFor(model => model.PassWord, "Password")
-                @Html.PasswordFor(model => model.PassWord)
+                <h2>@Html.LabelFor(model => model.PassWord, "Password")</h2>
+                @Html.PasswordFor(model => model.PassWord, new {@class = "form-control", style="width:400px"})
             </div>
             <div class=".col-md-4">
-                @Html.Label("Confrim Password")
-                <input type="password" name="confirmPassword" id="confirmPassword"/>
+                <h2>@Html.Label("Confirm Password")</h2>
+                <input type="password" class="form-control" style="width:400px" name="confirmPassword" id="confirmPassword"/>
             </div>
             <div class=".col-md-4">
-                @Html.LabelFor(model => model.FirstName, "First Name")
-                @Html.EditorFor(model => model.FirstName)
+                <h2>@Html.LabelFor(model => model.FirstName, "First Name")</h2>
+                @Html.TextBoxFor(model => model.FirstName, new {@class = "form-control", style="width:400px"})
             </div>
             <div class=".col-md-4">
-                @Html.LabelFor(model => model.LastName, "Last Name")
-                @Html.EditorFor(model => model.LastName)
+                <h2>@Html.LabelFor(model => model.LastName, "Last Name")</h2>
+                @Html.TextBoxFor(model => model.LastName, new {@class = "form-control", style="width:400px"})
             </div>
             <div class=".col-md-4">
-                @Html.LabelFor(model => model.DOB, "Date of Birth")
-                @Html.EditorFor(model => model.DOB)
+                <h2>@Html.LabelFor(model => model.DOB, "Date of Birth")</h2>
+                @Html.TextBoxFor(model => model.DOB, new {@class = "form-control", style="width:400px"})
             </div>
             <div class=".col-md-4">
-                @Html.LabelFor(model => model.SSN, "Social Security Number")
-                @Html.PasswordFor(model => model.SSN)
+                <h2>@Html.LabelFor(model => model.SSN, "Social Security Number")</h2>
+                @Html.PasswordFor(model => model.SSN, new {@class = "form-control", style="width:400px"})
             </div>
             <br/>
             

@@ -7,11 +7,11 @@
 <form id="teacherUserForm" method="post">
     @Html.HiddenFor(model => model.Id)
 
-    @Html.LabelFor(model => model.HourlyRate, "Hourly Rate")
-    @Html.TextBoxFor(model => model.HourlyRate)
+    <h2>@Html.LabelFor(model => model.HourlyRate, "Hourly Rate")</h2>
+    @Html.TextBoxFor(model => model.HourlyRate, new {@class = "form-control", style="width:400px"})
 
     <br />
 
-    @Html.LabelFor(model => model.ClassRate, "Class Rate")
-    @Html.TextBoxFor(model => model.ClassRate)
+    <h2>@Html.LabelFor(model => model.ClassRate, "Class Rate")</h2>
+    @Html.TextBoxFor(model => model.ClassRate, new {@class = "form-control", style="width:400px"})
 </form>
