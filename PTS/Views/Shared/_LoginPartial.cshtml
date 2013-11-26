@@ -13,3 +13,15 @@
         <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", style="background-color:#ecf0f1; color:#34495E; font-weight: bold;"})</li>
     </ul>
 }
+
+<script>
+    $(document).ready(function () {
+        $('#registerLink').hover(
+            function () { $('#registerLink').css("color", "#16A085"); },
+            function () { $('#registerLink').css("color", "#34495E"); });
+
+        $('#loginLink').hover(
+            function () { $('#loginLink').css("color", "#16A085"); },
+            function () { $('#loginLink').css("color", "#34495E"); });
+    });
+</script>
