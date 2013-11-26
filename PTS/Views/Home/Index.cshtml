@@ -4,18 +4,34 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="pagination" style="width:532px">
-    <ul class="rslides">
-        <li><img src="~/Images/oldersupplies.jpg" alt="school supplies"/></li>
-        <li><img src="~/Images/learnblocks.jpg" alt="learn blocks" /></li>
-        <li><img src="~/Images/scantronpenicl.jpg" alt="scantron pencil" /></li>
-    </ul>
+<div style="width:1035px; height:380px; background-color:#bdc3c7; border-radius:10px; border-style:solid; border-color:#ecf0f1;">
+    
+    <div class="pagination" style="width:532px; padding-left: 20px;">
+        <ul class="rslides">
+            <li><img src="~/Images/oldersupplies.jpg" alt="school supplies"/></li>
+            <li><img src="~/Images/learnblocks.jpg" alt="learn blocks" /></li>
+            <li><img src="~/Images/scantronpenicl.jpg" alt="scantron pencil" /></li>
+        </ul>
+            
+        
+    </div>
+    <div style="background-color:#ecf0f1; width: 450px; height:300px;border-radius:10px; margin:17px; float:right; text-align:center;">
+            <br />
+            <p>Some Text Here</p>
+            <br />
+            <p><strong>New to the site?</strong></p>
+            <br />
+            <p><strong>See how it works by clicking the link below</strong></p>
+            <div id="videolink"><p><strong><u>Video</u></strong></p></div>
+        </div>
+ 
+</div>
+<br />
+<br />
+<div id="videoDialogBox">
+    <iframe width="540" height="310" src="http://www.wideo.co/embed/750981382581793448?height=282&width=500" frameborder="0" allowfullscreen ></iframe>
 </div>
 
-<iframe width="540" height="310" src="http://www.wideo.co/embed/750981382581793448?height=282&width=500" frameborder="0" allowfullscreen ></iframe>
-
-<h2>We suggest the following:</h2>
-<br />
 
 <div class="row">
     <div class="col-md-4">
@@ -51,6 +67,24 @@
     $(function () {
         $(".rslides").responsiveSlides({
             pager: true,
+        });
+
+        $('#videoDialogBox').dialog({
+            title: "Video",
+            height: 360,
+            width: 580,
+            modal: true,
+            show: { effect: "fold" },
+            autoOpen: false
+        });
+
+        $('#videolink').on('hover', function () {
+            $('#videolink').css('style="cursor:pointer"')
+        });
+
+        $('#videolink').on('click', function () {
+            $('#videoDialogBox').dialog("open");
+            
         });
     });
 
