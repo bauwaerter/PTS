@@ -59,14 +59,14 @@ mark {
     visibility: hidden;
 }
 
-h1, h2, h3,
+/*h1, h2, h3,
 h4, h5, h6 {
     color: #000;
     margin-bottom: 0;
     padding-bottom: 0;
-}
+}*/
 
-h1 {
+/*h1 {
     font-size: 2em;
 }
 
@@ -84,7 +84,7 @@ h4 {
 
 h5, h6 {
     font-size: 1em;
-}
+}*/
 
     h5 a:link, h5 a:visited, h5 a:active {
         padding: 0;

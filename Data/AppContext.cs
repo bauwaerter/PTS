@@ -19,10 +19,10 @@ namespace Data
         //    //((IObjectContextAdapter) this).ObjectContext.ContextOptions.LazyLoadingEnabled = true;
         //}
 
-        public AppContext()
-        {
-            ((IObjectContextAdapter)this).ObjectContext.CommandTimeout = 5000;
-        }
+        //public AppContext()
+        //{
+        //    ((IObjectContextAdapter)this).ObjectContext.CommandTimeout = 5000;
+        //}
 
         /// <summary>
         /// All the Mapping Configuration

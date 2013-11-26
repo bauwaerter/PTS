@@ -5,7 +5,8 @@
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
+    <h3>@ViewBag.Title</h3>
+    <br />
 </hgroup>
 
 <style>
@@ -25,21 +26,34 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
-    <fieldset>
+    <fieldset style="margin-left: 75px; margin-top:20px; margin-bottom: 20px;">
         <legend>Log in Form</legend>
         <ol>
             <li>
-                @Html.LabelFor(m => m.UserName)
-                @Html.TextBoxFor(m => m.UserName)
+                <p>@Html.LabelFor(m => m.UserName)</p>
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.UserName)
             </li>
             <li>
-                @Html.LabelFor(m => m.Password)
-                @Html.PasswordFor(m => m.Password)
+                <p>@Html.LabelFor(m => m.Password)</p>
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.Password)
             </li>
             <li>
-                @Html.CheckBoxFor(m => m.RememberMe)
+                <div class="switch switch-square has-switch" data-off-label="<i class='fui-cross'></i>" data-on-label="<i class='fui-check'></i>">
+                    <div class="switch-off switch-animate">
+                        <input id="RememberMe" class="" type="checkbox" value="true" name="RememberMe" data-val-required="The Remember me? field is required." data-val="true">
+                        <span class="switch-left">
+                            <i class="fui-check"></i>
+                        </span>
+                        <label></label>
+                        <span class="switch-right">
+                            <i class="fui-cross"></i>
+                        </span>
+                    </div>
+                </div>
+                
+                @*@Html.CheckBoxFor(m => m.RememberMe, new { @class = "" })*@
                 @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
             </li>
         </ol>
@@ -60,3 +74,9 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<script>
+    $(document).ready(function () {
+
+    });
+</script>

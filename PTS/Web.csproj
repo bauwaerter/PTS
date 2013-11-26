@@ -452,6 +452,7 @@
     <Content Include="Content\Flat-UI\less\spaces.less" />
     <Content Include="Content\Flat-UI\less\variables.less" />
     <Content Include="Images\learnblocks.jpg" />
+    <Content Include="Images\logo.png" />
     <Content Include="Images\oldersupplies.jpg" />
     <Content Include="Images\scantronpenicl.jpg" />
     <Content Include="Images\smartthinking_logo.jpg" />
