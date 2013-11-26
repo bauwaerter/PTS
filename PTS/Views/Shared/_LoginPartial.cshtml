@@ -8,7 +8,8 @@
     </h2>
 } else {
     <ul class="navbar">
-        <li class="btn btn-inverse">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", style="background-color:#34495E; color:white"})</li>
-        <li class="btn btn-inverse">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", style="background-color:#34495E; color:white"})</li>
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", style="background-color:#ecf0f1; color:#34495E; font-weight: bold;"})</li>
+        |
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", style="background-color:#ecf0f1; color:#34495E; font-weight: bold;"})</li>
     </ul>
 }

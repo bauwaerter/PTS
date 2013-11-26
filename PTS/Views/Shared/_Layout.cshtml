@@ -36,10 +36,12 @@
         <header>
             <div class="content-wrapper">
                 <div class="float-left">
-                    <p class="site-title">@Html.ActionLink("Prospect Tutoring", "Index", "Home")</p>
+                    <img src="~/Images/logo.png" style="width: 350px; height: 125px;"/>
+                    @*<p class="site-title">@Html.ActionLink("Prospect Tutoring", "Index", "Home")</p>*@
+                    @*<p style="color: #34495e; font-family: Rockwell, Consolas; font-size:2.5em;"><i>Expand Your Horizons</i></p>*@
                 </div>
                 <div class="float-right">
-                    <section id="login">
+                   <section id="login" class="clearfix">
                         @Html.Partial("_LoginPartial")
                     </section>
                     <div class="navbar navbar-inverse">
@@ -52,6 +54,7 @@
                             </ul>
                         </div>
                     </div>
+                     
                 </div>
             </div>
         </header>

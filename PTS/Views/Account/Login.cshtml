@@ -20,7 +20,7 @@
     }
 
 </style>
-<section id="loginForm">
+<div id="loginForm">
 @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -50,12 +50,12 @@
         @Html.ActionLink("Register", "Register") if you don't have an account.
     </p>
 }
-</section>
+</div>
 
-<section class="social" id="socialLoginForm">
+<div class="social" id="socialLoginForm">
     <li class="img"><img src="~/Images/writing.jpg" alt="school supplies"/></li>
     @*@Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })*@
-</section>
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
