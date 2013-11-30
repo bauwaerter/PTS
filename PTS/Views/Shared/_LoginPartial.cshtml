@@ -1,11 +1,11 @@
 ﻿@if (Request.IsAuthenticated) {
-    <h2>
+    <h6>
         Hello, @Html.ActionLink(User.Identity.Name, "ManageAccount", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })!
         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
             @Html.AntiForgeryToken()
             <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
         }
-    </h2>
+    </h6>
 } else {
     <ul class="navbar">
         <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", style="background-color:#ecf0f1; color:#34495E; font-weight: bold;"})</li>
