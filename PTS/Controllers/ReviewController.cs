@@ -28,7 +28,8 @@ namespace PTS.Views.Review
         //
         // GET: /Review/
 
-        public ReviewController(EnrolledService enrolledService, IUserService userService, IBaseService<StudentUser> studentUserService, IBaseService<Class> classService, IBaseService<Location> locationService, IBaseService<TeacherUser> teacherUserService)
+        public ReviewController(IBaseService<Enrolled> enrolledService, IUserService userService, IBaseService<StudentUser> studentUserService, 
+                                IBaseService<Class> classService, IBaseService<Location> locationService, IBaseService<TeacherUser> teacherUserService)
         {
             _enrolledService = enrolledService;
             
