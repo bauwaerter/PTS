@@ -17,7 +17,7 @@
         <h6>My Account</h6>
     </header>
     <form id="UserAccount">
-        @Html.HiddenFor(model=>model.Id)
+        @Html.HiddenFor(model => model.Id)
         <div class="row">
             <div class="col-md-1">
                 <p><span class="label">First Name:</span></p>
@@ -59,7 +59,8 @@
                 <span><input name="PassWord" disabled="disabled" style="width: auto" class="form-control" value=@Model.PassWord /></span>
             </div>
         </div>
-
+    </form>
+    <form id="Userlocation">
         <div class="row">
             <div class="col-md-1">
                 <p>
@@ -194,14 +195,42 @@
     });
 
     $('#SaveStudentButton').on('click', function(event) {
+        $.ajax({
+            url: '@Url.Action("SaveStudentUser")',
+            data: $('#UserAccountStudent').serialize(),
+            success: function () {
+                $('#UserAccountStudent').find(':input').prop('disabled', 'disabled');
+                $('#EditStudentButton').show();
+                $('#SaveStudentButton').css('visibility', 'hidden');
+            }
 
+        });
     });
 
-    $('#SaveTeacherButton').on('click', function(event) {
+    $('#SaveTeacherButton').on('click', function (event) {
 
+        
+        $.ajax({
+            url: '@Url.Action("SaveTeacherUser")',
+            data: $('#UserAccountTeacher').serialize(),
+            success: function () {
+                $('#UserAccountTeacher').find(':input').prop('disabled', 'disabled');
+                $('#EditTeacherButton').show();
+                $('#SaveTeacherButton').css('visibility', 'hidden');
+            }
+
+        });
     });
 
-    $('#SaveUserButton').on('click', function(event) {
+    $('#SaveUserButton').on('click', function (event) {
+
+        $.ajax({
+            url: '@Url.Action("SaveUserLocation")',
+            data: $('#UserLocation').serialize(),
+            success: function () {
+            }
+
+        });
         $.ajax({
             url: '@Url.Action("SaveUser")',
             data: $('#UserAccount').serialize(),
@@ -210,6 +239,7 @@
                 $('#SaveTeacherButton').css('visibility', 'hidden');
                 $('#UserAccountTeacher').find(':input').prop('disabled', 'disabled');
             }
+
         });
     });
 

@@ -44,6 +44,16 @@ namespace Data
             return this.Entities.Find(id);
         }
 
+        public T GetByClassID(object ClassID)
+        {
+            return this.Entities.Find(ClassID);
+        }
+
+        public T GetByStudentID(object StudentID)
+        {
+            return this.Entities.Find(StudentID);
+        }
+
         public void Insert(T entity)
         {
             try

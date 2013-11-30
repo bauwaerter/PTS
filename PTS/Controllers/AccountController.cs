@@ -87,10 +87,63 @@ namespace PTS.Controllers
             return View(loginModel);
         }
 
+
+        public ActionResult SaveStudentUser(StudentUser student)
+        {
+            try
+            {
+                student.Id = SessionDataHelper.UserId;
+                _studentUserService.Update(student);
+                return Json(new
+                {
+                    Result = "OK"
+                });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public ActionResult SaveTeacherUser(TeacherUser teacher)
+        {
+            try
+            {
+                teacher.Id = SessionDataHelper.UserId;
+                _teacherUserService.Update(teacher);
+                return Json(new
+                {
+                    Result = "OK"
+                });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public ActionResult SaveUserLocation(Location loc)
+        {
+            try
+            {
+                loc.Id = SessionDataHelper.UserId;
+                _locationService.Update(loc);
+                return Json(new
+                {
+                    Result = "OK"
+                });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public ActionResult SaveUser(User user)
         {
             try
             {
+                user.Id = SessionDataHelper.UserId;
                 _userService.Update(user);
                 return Json(new
                 {
@@ -131,7 +184,7 @@ namespace PTS.Controllers
 
             if(model.Role== UserRole.Student)
             {
-                var student= _studentUserService.GetById(15);
+                var student = _studentUserService.GetById(15);
                 user = new AccountUser
                 {
                     FirstName = model.FirstName,

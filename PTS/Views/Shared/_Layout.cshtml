@@ -49,7 +49,16 @@
                             <ul class="nav navbar-nav">
                                 <li>@Html.ActionLink("Home", "Index", "Home")</li>
                                 <li>@Html.ActionLink("About", "About", "Home")</li>
-                                <li>@Html.ActionLink("My Account", "ManageAccount", "Account")</li>
+                                <li>@Html.ActionLink("My Account", "ManageAccount", "Account")
+                                    <ul>
+                                        <li>
+                                            @Html.ActionLink("Review Teacher", "Index", "Review")
+                                        </li>
+                                        <li>
+                                            yay
+                                        </li>
+                                     </ul>
+                                </li>
                                 <li>@Html.ActionLink("Search", "Index", "Search")</li>
                             </ul>
                         </div>
