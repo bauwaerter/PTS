@@ -66,6 +66,7 @@ namespace Core.Domains
 
     public class Schedule : BaseEntity
     {
+        public virtual int Id { get; set; }
         public virtual bool Monday { get; set; }
         public virtual bool Tuesday { get; set; }
         public virtual bool Wednesday { get; set; }
@@ -88,4 +89,6 @@ namespace Core.Domains
         public virtual TimeSpan SunStartTime { get; set; }
         public virtual TimeSpan SunEndTime { get; set; }
     }
+
+    
 }
