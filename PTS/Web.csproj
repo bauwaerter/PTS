@@ -203,13 +203,16 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
+    <Compile Include="Filters\NoCacheFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\CustomAuthorizeAttribute.cs" />
     <Compile Include="Infrastructure\CustomPrincipal.cs" />
     <Compile Include="Infrastructure\CustomPrincipalSerializeModel.cs" />
+    <Compile Include="Infrastructure\HttpResponseBaseExtensions.cs" />
     <Compile Include="Infrastructure\ICustomPrincipal.cs" />
+    <Compile Include="Infrastructure\LoginValidate.cs" />
     <Compile Include="Infrastructure\NinjectResolver.cs" />
     <Compile Include="Infrastructure\NinjectScope.cs" />
     <Compile Include="Infrastructure\SessionDataHelper.cs" />
@@ -651,7 +654,6 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\Review\Index.cshtml" />
-    <Content Include="Views\Account\RoleSelect.cshtml" />
     <Content Include="Views\Shared\_TeacherUserForm.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -7,7 +7,7 @@ using Core.Helpers;
 
 namespace PTS.Infrastructure
 {
-    public class SessionDataHelper
+    public static class SessionDataHelper
     {
          //<summary>
          //Get Username of logged in user
@@ -32,6 +32,23 @@ namespace PTS.Infrastructure
         public static int UserId {
             get { return (int)SessionHelper.Retrieve("Login", "Id"); }
             set { SessionHelper.Store("Login", "Id", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the session id.
+        /// </summary>
+        /// <value>
+        /// The session id.
+        /// </value>
+        public static string SessionId {
+            get {
+                try {
+                    return SessionHelper.Retrieve("Login", "SessionId").ToString();
+                } catch {
+                    return "";
+                }
+            }
+            set { SessionHelper.Store("Login", "SessionId", value); }
         }
     }
 }

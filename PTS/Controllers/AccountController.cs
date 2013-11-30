@@ -34,11 +34,13 @@ namespace PTS.Controllers
         private readonly IBaseService<TeacherUser> _teacherUserService; 
         private readonly IBaseService<Class> _classService;
         private readonly IBaseService<Location> _locationService;
+        private readonly ILoginService _loginService;
 
         #endregion
 
 
-        public AccountController(IUserService userService, IBaseService<StudentUser> studentUserService, IBaseService<Class> classService, IBaseService<Location> locationService, IBaseService<TeacherUser> teacherUserService )
+        public AccountController(IUserService userService, IBaseService<StudentUser> studentUserService, IBaseService<Class> classService, IBaseService<Location> locationService, 
+            IBaseService<TeacherUser> teacherUserService, ILoginService loginService )
         {
 
             _userService = userService;
@@ -46,6 +48,7 @@ namespace PTS.Controllers
             _teacherUserService = teacherUserService;
             _classService = classService;
             _locationService = locationService;
+            _loginService = loginService;
 
         }
         //
@@ -73,6 +76,11 @@ namespace PTS.Controllers
                     SessionDataHelper.Username = user.Email;
                     SessionDataHelper.UserId = user.Id;
                     SessionDataHelper.UserRole = user.Role;
+                    SessionDataHelper.SessionId = System.Web.HttpContext.Current.Session.SessionID;
+
+                    if (SessionDataHelper.UserId != 1){
+                        _loginService.LogUser(SessionDataHelper.UserId, SessionDataHelper.SessionId);
+                    }
 
                     if (Url.IsLocalUrl(returnUrl)){
                         return Redirect(returnUrl);
@@ -87,63 +95,10 @@ namespace PTS.Controllers
             return View(loginModel);
         }
 
-
-        public ActionResult SaveStudentUser(StudentUser student)
-        {
-            try
-            {
-                student.Id = SessionDataHelper.UserId;
-                _studentUserService.Update(student);
-                return Json(new
-                {
-                    Result = "OK"
-                });
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
-        public ActionResult SaveTeacherUser(TeacherUser teacher)
-        {
-            try
-            {
-                teacher.Id = SessionDataHelper.UserId;
-                _teacherUserService.Update(teacher);
-                return Json(new
-                {
-                    Result = "OK"
-                });
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
-        public ActionResult SaveUserLocation(Location loc)
-        {
-            try
-            {
-                loc.Id = SessionDataHelper.UserId;
-                _locationService.Update(loc);
-                return Json(new
-                {
-                    Result = "OK"
-                });
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
         public ActionResult SaveUser(User user)
         {
             try
             {
-                user.Id = SessionDataHelper.UserId;
                 _userService.Update(user);
                 return Json(new
                 {
@@ -160,7 +115,7 @@ namespace PTS.Controllers
         [Authorize]
         public ActionResult ManageAccount()
         {
-            var model = _userService.GetById(15);
+            var model = _userService.GetById(SessionDataHelper.UserId);
             var user = new AccountUser();
             var loc = new LocationVM();
             
@@ -178,13 +133,11 @@ namespace PTS.Controllers
                     ZipCode = getlocation.ZipCode
                 };
                 //loc = _locationService.GetById(locid);
-                
             }
-            
 
             if(model.Role== UserRole.Student)
             {
-                var student = _studentUserService.GetById(15);
+                var student= _studentUserService.GetById(SessionDataHelper.UserId);
                 user = new AccountUser
                 {
                     FirstName = model.FirstName,
@@ -284,13 +237,7 @@ namespace PTS.Controllers
             }
         }
 
-        // GET: /Account/RoleSelect
-        [AllowAnonymous]
-        [HttpGet]
-        public ActionResult RoleSelect(User user) {
-            return View(user);
-        }
-
+ 
         //
         // POST: /Account/Disassociate
 

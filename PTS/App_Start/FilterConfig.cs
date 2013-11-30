@@ -1,5 +1,6 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using PTS.Infrastructure;
+using Core.PTS.Filters;
 
 namespace PTS
 {
@@ -7,7 +8,10 @@ namespace PTS
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
+            filters.Add(new AuthorizeAttribute());
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new NoCacheFilter());
+            filters.Add(new LoginValidate());
         }
     }
 }
