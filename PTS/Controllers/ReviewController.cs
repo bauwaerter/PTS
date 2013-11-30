@@ -37,7 +37,8 @@ namespace PTS.Views.Review
 
         public ActionResult Index()
         {
-            var ClassesTaken = _enrolledService.GetTableQuery().Where(e => e.StudentId == 15).ToList();
+            
+            //var ClassesTaken = _enrolledService.GetTableQuery().Where(e => e.StudentId == 15).ToList();
 
             return View();
         }

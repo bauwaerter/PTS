@@ -64,6 +64,12 @@ namespace Core.Domains
         public virtual int ClassId { get; set; }
     }
 
+    public class TutorToSchedule : BaseEntity
+    {
+        public virtual int ScheduleId { get; set; }
+        public virtual int TeacherUserId { get; set; }
+    }
+
     public class Schedule : BaseEntity
     {
         public virtual bool Monday { get; set; }

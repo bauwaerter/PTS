@@ -56,4 +56,22 @@ namespace Data.Mappings
             HasKey(r => r.Id);
         }
     }
+
+    public class ScheduleMap : EntityTypeConfiguration<Schedule>
+    {
+        public ScheduleMap()
+        {
+            ToTable("Schedule", "dbo");
+            HasKey(s => s.Id);
+        }
+    }
+
+    public class TutorToScheduleMap : EntityTypeConfiguration<TutorToSchedule>
+    {
+        public TutorToScheduleMap()
+        {
+            ToTable("TutorToSchedule", "dbo");
+            HasKey(t => t.Id);
+        }
+    }
 }
