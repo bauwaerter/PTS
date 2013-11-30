@@ -27,6 +27,7 @@ namespace Core.Domains
         public virtual TimeSpan EndTime { get; set; }
         public virtual double Duration { get; set; }
         public virtual int SubjectID { get; set; }
+        public virtual bool Active { get; set; }
 
         #region navigation
         public virtual Location Location { get; set; }
@@ -61,5 +62,30 @@ namespace Core.Domains
         public virtual DateTime Date { get; set; }
         public virtual int StudentId { get; set; }
         public virtual int ClassId { get; set; }
+    }
+
+    public class Schedule : BaseEntity
+    {
+        public virtual bool Monday { get; set; }
+        public virtual bool Tuesday { get; set; }
+        public virtual bool Wednesday { get; set; }
+        public virtual bool Thursday { get; set; }
+        public virtual bool Friday { get; set; }
+        public virtual bool Saturday { get; set; }
+        public virtual bool Sunday { get; set; }
+        public virtual TimeSpan MonStartTime { get; set; }
+        public virtual TimeSpan MonEndTime { get; set; }
+        public virtual TimeSpan TuesStartTime { get; set; }
+        public virtual TimeSpan TuesEndTime { get; set; }
+        public virtual TimeSpan WedStartTime { get; set; }
+        public virtual TimeSpan WedEndTime { get; set; }
+        public virtual TimeSpan ThursStartTime { get; set; }
+        public virtual TimeSpan ThursEndTime { get; set; }
+        public virtual TimeSpan FriStartTime { get; set; }
+        public virtual TimeSpan FriEndTime { get; set; }
+        public virtual TimeSpan SatStartTime { get; set; }
+        public virtual TimeSpan SatEndTime { get; set; }
+        public virtual TimeSpan SunStartTime { get; set; }
+        public virtual TimeSpan SunEndTime { get; set; }
     }
 }
