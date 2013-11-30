@@ -18,7 +18,7 @@ namespace PTS.Views.Review
         //private readonly IBaseService<StudentUser> _studentUserService;
         private readonly IUserService _userService;
         //private readonly IStudentUserService _studentUserService;
-        private readonly EnrolledService _EnrolledService;
+        private readonly IBaseService<Enrolled> _enrolledService;
         private readonly IBaseService<StudentUser> _studentUserService;
         private readonly IBaseService<TeacherUser> _teacherUserService;
         private readonly IBaseService<Class> _classService;
@@ -30,13 +30,13 @@ namespace PTS.Views.Review
 
         public ReviewController(EnrolledService enrolledService, IUserService userService, IBaseService<StudentUser> studentUserService, IBaseService<Class> classService, IBaseService<Location> locationService, IBaseService<TeacherUser> teacherUserService)
         {
-            _EnrolledService = enrolledService;
+            _enrolledService = enrolledService;
             
         }
 
         public ActionResult Index()
         {
-            var ClassesTaken = _EnrolledService.GetByStudentId(15);
+            var ClassesTaken = _enrolledService.GetTableQuery().Where(e => e.StudentId == 15).ToList();
 
             return View();
         }
