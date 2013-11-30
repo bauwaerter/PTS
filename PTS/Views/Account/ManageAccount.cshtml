@@ -8,13 +8,13 @@
 
 
 <hgroup class="title">
-    <h1>@ViewBag.Title</h1>
-    <h2>@ViewBag.Message</h2>
+    <h4>@ViewBag.Title</h4>
+    <h6>@ViewBag.Message</h6>
 </hgroup>
 
-<section  class="contact">
+<div  class="contact">
     <header>
-        <h2>My Account</h2>
+        <h6>My Account</h6>
     </header>
     <form id="UserAccount">
         @Html.HiddenFor(model=>model.Id)
@@ -91,11 +91,11 @@
         <button id="EditUserButton" class="btn btn-primary">Edit User Info</button>
         <button id ="SaveUserButton" style="visibility:hidden" class="btn btn-primary">Save User Info</button>
     
-</section>
+</div>
 
-<section class="contact studentContact">
+<div class="contact studentContact">
     <header>
-        <h2>Student</h2>
+        <h6>Student</h6>
         
         
     </header>
@@ -125,11 +125,11 @@
         <button id="EditStudentButton" class="btn btn-primary">Edit Student Info</button>
         <button id="SaveStudentButton" style="visibility:hidden" class="btn btn-primary">Save Student Info</button>
     
-</section>
+</div>
 
-<section class="contact teacherContact">
+<div class="contact teacherContact">
     <header>
-        <h2>Teacher</h2>
+        <h6>Teacher</h6>
     </header>
     <form id="UserAccountTeacher">
 
@@ -156,7 +156,7 @@
         </form>
         <button id="EditTeacherButton" class="btn-primary btn">Edit Teacher Info</button>
         <button id="SaveTeacherButton" style="visibility:hidden" class="btn btn-primary">Save Teacher Info</button>
-</section>
+</div>
 
 <script type="text/javascript">
     $(document).ready(function (){        
