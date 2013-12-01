@@ -70,7 +70,7 @@
                     title: 'Ratings',
                     display: function (data) {
                         if (data.record.AverageRating != "No Ratings") {
-                            return '<a href="@Url.Action("LoadRequestSession", "Account")?teacherId=' + data.record.Id + '">' + data.record.AverageRating + ' / 10</a>';
+                            return '<a href="@Url.Action("ReviewTeacherView", "Review")?teacherId=' + data.record.Id + '">' + data.record.AverageRating + ' / 10</a>';
                         }
                         else {
                             return data.record.AverageRating;
@@ -194,6 +194,17 @@
                 },
                 TeacherName: {
                     title: 'Teacher',
+                },
+                AverageRating: {
+                    title: 'Ratings',
+                    display: function (data) {
+                        if (data.record.AverageRating != "No Ratings") {
+                            return '<a href="@Url.Action("ReviewClassesView", "Review")?classId=' + data.record.Id + '">' + data.record.AverageRating + ' / 10</a>';
+                        }
+                        else {
+                            return data.record.AverageRating;
+                        }
+                    }
                 },
                 StartTime: {
                     title: 'Start Time',
