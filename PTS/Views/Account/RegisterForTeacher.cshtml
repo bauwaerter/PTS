@@ -18,6 +18,16 @@
     @Html.TextBoxFor(model => model.User.Email, new { @class = "form-control", style = "width:400px" })
 
     <p>Enter times you wish to be tutored</p>
+
+    <p class="datepair" data-language="javascript">
+        <input class="date start form-control" type="text">
+        <input class="time start ui-timepicker-input form-control" type="text" autocomplete="off">
+        to
+        <input class="time end ui-timepicker-input form-control" type="text" autocomplete="off">
+        <input class="date end form-control" type="text">
+    </p>
+
+
     <p>Sunday</p>
     <div class="row">
         <div class="col-md-2 col-md-offset-1"><p>Start Time</p></div>
@@ -33,3 +43,7 @@
 
 </body>
 </html>
+
+<script>
+
+</script>

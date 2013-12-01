@@ -39,6 +39,8 @@
         $('#teacherUserTable').jtable({
             title: 'Tutors',
             openChildAsAccordion: true,
+            paging: true,
+            pageSize: 10,
             ajaxSettings: {
                 contentType: 'application/json'
         	},
@@ -163,6 +165,10 @@
         $('#classesTable').jtable({
             title: 'Classes',
             selecting: true,
+            multiselect: false,
+            selectingCheckboxes: true,
+            paging: true,
+            pageSize: 10,
             toolbar: {
                 items: toolbarItems
             },

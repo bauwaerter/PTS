@@ -42,7 +42,7 @@ namespace PTS.Views.Search
 
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult GetTeacherUsers(string textSearch = "")
+        public ActionResult GetTeacherUsers(int jtStartIndex, int jtPageSize, string textSearch = "")
         {
             try
             {
@@ -68,7 +68,7 @@ namespace PTS.Views.Search
                                 r.LastName.Contains(textSearch));
                 }
             
-                return Json(new { Result = "OK", Records = records });
+                return Json(new { Result = "OK", Records = records.Skip(jtStartIndex).Take(jtPageSize).ToList(), TotalRecordCount = records.Count() });
             }
             catch (Exception ex)
             {
@@ -202,7 +202,7 @@ namespace PTS.Views.Search
 
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult GetClasses(string textSearch = "")
+        public ActionResult GetClasses(int jtStartIndex, int jtPageSize, string textSearch = "")
         {
             try
             {
@@ -233,7 +233,7 @@ namespace PTS.Views.Search
                                 r.Description.Contains(textSearch));
                 }
 
-                return Json(new { Result = "OK", Records = records });
+                return Json(new { Result = "OK", Records = records.Skip(jtStartIndex).Take(jtPageSize).ToList(), TotalRecordCount = records.Count() });
             }
             catch (Exception ex)
             {
