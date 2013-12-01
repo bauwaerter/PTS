@@ -7,7 +7,7 @@ namespace PTS.Models
 {
     public class ReviewClassViewModel
     {
-        
+        public string TeacherName { get; set; }
         public string Description { get; set; }
         public string Comment { get; set; }
         public DateTime Date { get; set; }

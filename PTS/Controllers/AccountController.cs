@@ -149,6 +149,32 @@ namespace PTS.Controllers
                     Location = loc
                 };
             }
+            else if (model.Role == UserRole.Admin)
+            {
+                var users = _userService.GetById(SessionDataHelper.UserId);
+                user = new AccountUser
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Email = model.Email,
+                    Id = model.Id,
+                    Location = loc
+                };
+            }
+            else if (model.Role == UserRole.Teacher)
+            {
+                var teacher = _teacherUserService.GetById(SessionDataHelper.UserId);
+                user = new AccountUser
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Email = model.Email,
+                    Id = model.Id,
+                    Location = loc,
+                    ClassRate= teacher.ClassRate,
+                    HourlyRate=teacher.HourlyRate,
+                };
+            }
 
             return View(user);
         }
