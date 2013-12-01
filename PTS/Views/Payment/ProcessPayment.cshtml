@@ -1,0 +1,137 @@
+﻿@using PTS.Helpers
+@model Core.Domains.Payment
+
+@{
+    ViewBag.Title = "Payment";
+}
+
+<hgroup class="demo-panel-title">
+    <h4>@ViewBag.Title:</h4>
+    <h6 style="margin-left:20px;">Payment Info.</h6>
+</hgroup>
+
+@using (Html.BeginForm(null, null, FormMethod.Post)) {
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.StudentId)
+    @Html.HiddenFor(model => model.TeacherId) 
+    @Html.HiddenFor(model => model.ClassId) 
+    @Html.ValidationSummary(true)
+    
+    <div class="container" style="margin-top:80px;margin-left: 40px;">
+    </div>
+    <div class="row">
+    <div class="col-md-3">
+        <p><span class="label">Card type</span></p>
+        <select name="herolist" value="Visa" class="select-block" style="display: none;">
+            <option value="0" selected="selected">Select card type</option>
+            <option value="1">American Express</option>
+            <option value="2">Discover</option>
+            <option value="3">Master Card</option>
+            <option value="Visa">Visa</option>
+        </select>
+    </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <p><span class="label">Card number</span></p>
+                @Html.PasswordFor(model => model.CreditCardNumber, new { @class="form-control" })
+            </div>          
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <p><span class="label">Card number</span></p>
+                <input type="text" value="Error" class="form-control">
+            </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group has-success">
+            <input type="text" value="Success" class="form-control">
+            <span class="input-icon fui-check-inverted"></span>
+          </div>
+        </div>
+        <div class="col-md-3">
+        	<div class="form-group">
+	        	<input type="text" value="Disabled" disabled="disabled" class="form-control">
+        	</div>          
+        </div>
+      </div>
+            @*<div class=".col-md-4">
+                <p>@Html.LabelFor(model => model.PassWord, "Password")</p>
+                @Html.PasswordFor(model => model.PassWord, new {@class = "form-control", style="width:400px"})
+            </div>
+            <div class=".col-md-4">
+                <p>@Html.Label("Confirm Password")</p>
+                <input type="password" class="form-control" style="width:400px" name="confirmPassword" id="confirmPassword"/>
+            </div>
+            <div class=".col-md-4">
+                <p>@Html.LabelFor(model => model.FirstName, "First Name")</p>
+                @Html.TextBoxFor(model => model.FirstName, new {@class = "form-control", style="width:400px"})
+            </div>
+            <div class=".col-md-4">
+                <p>@Html.LabelFor(model => model.LastName, "Last Name")</p>
+                @Html.TextBoxFor(model => model.LastName, new {@class = "form-control", style="width:400px"})
+            </div>
+            <div class=".col-md-4">
+                <p>@Html.LabelFor(model => model.DOB, "Date of Birth")</p>
+                @Html.TextBoxFor(model => model.DOB, new {@class = "form-control", style="width:400px"})
+            </div>
+            <div class=".col-md-4">
+                <p>@Html.LabelFor(model => model.SSN, "Social Security Number")</p>
+                @Html.PasswordFor(model => model.SSN, new {@class = "form-control", style="width:400px"})
+            </div>
+            <br/>
+            
+        </div>
+        <div class="row">
+            <hgroup class="title">
+                <h4>User Role:</h4>
+                <h6>Select all that apply.</h6>
+            </hgroup>
+            <div class="row" style="margin-top:60px; margin-left: 15px;">
+                <div class="col-md-2">
+                    <label class="checkbox unchecked" for="checkbox1">
+                        <span class="icons">
+                            <span class="first-icon fui-checkbox-unchecked"></span>
+                            <span class="second-icon fui-checkbox-checked"></span>
+                        </span>
+                        <input type="checkbox" value="" id="checkbox1" data-toggle="checkbox">
+                    </label>
+                </div>
+                <p class="col-md-2 col-md-offset-2">Student</p>
+            </div>
+            <div class="row">
+            <div class="studentUser">
+                @Html.Partial("_StudentUserForm", new StudentUser())
+            </div>
+            <br/>
+            <label class="checkbox unchecked" for="checkbox2">
+                <span class="icons">
+                    <span class="first-icon fui-checkbox-unchecked">
+                    </span>
+                    <span class="second-icon fui-checkbox-checked"></span>
+                </span>
+                <input type="checkbox" value="" id="checkbox2" data-toggle="checkbox">
+                Teacher/Tutor
+            </label>
+            
+            <div class="teacherUser">
+                @Html.Partial("_TeacherUserForm", new TeacherUser())
+            </div>
+            <br/>
+        </div>
+            </div>
+        <div class="row">
+            <button id="formSubmit" class="btn btn-primary">Register</button>
+        </div>
+     </div>   
+    <br/>*@
+}
+
+<script src="~/Content/Flat-UI/js/flatui-checkbox.js"></script>
+<script src="~/Content/Flat-UI/js/bootstrap-select.js"></script>
+<script src="~/Content/Flat-UI/js/bootstrap-switch.js"></script>
+<script src="~/Content/Flat-UI/js/bootstrap.min.js"></script>
+<script src="~/Content/Flat-UI/js/application.js"></script>
+<script type="text/javascript"></script>

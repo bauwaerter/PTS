@@ -36,6 +36,7 @@ namespace PTS.Controllers
             _classService = classService;
         }
 
+        [AllowAnonymous]
         public ActionResult Index()
         {
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
@@ -61,7 +62,7 @@ namespace PTS.Controllers
             }
         }
 
-
+        [AllowAnonymous]
         public ActionResult About()
         {
             ViewBag.Message = "Your app description page.";

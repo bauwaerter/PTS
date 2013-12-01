@@ -134,8 +134,23 @@
 
         $('#teacherUserTable').jtable('load');
 
+        var toolbarItems = [{
+            text: 'Enroll',
+            click: function() {
+                var selectedRow = $('#classesTable').jtable('selectedRows').data('record');
+                console.log(selectedRow.Id + " HEREER ");
+                if (selectedRow) {
+                    window.location.href = '@Url.Action("ProcessPayment", "Payment")?classId=' + selectedRow.Id;
+                }
+            },
+        }];
+        
         $('#classesTable').jtable({
             title: 'Classes',
+            selecting: true,
+            toolbar: {
+                items: toolbarItems
+            },
             ajaxSettings: {
                 contentType: 'application/json'
             },

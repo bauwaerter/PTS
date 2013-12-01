@@ -28,12 +28,13 @@ namespace PTS.Views.Search
 
         //
         // GET: /Search/
-        
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult GetTeacherUsers(string textSearch = "")
         {
@@ -66,6 +67,7 @@ namespace PTS.Views.Search
                 throw new Exception(ex.Message);
             }
         }
+
         public ActionResult CreateTeacherUser(TeacherUser teacherUser)
         {
             try
@@ -82,13 +84,16 @@ namespace PTS.Views.Search
             }
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult GetTutorAvailibility(int tutorUserId)
         {
             try
             {
                 var schedule = _teacherUserService.GetById(tutorUserId).Schedule;
-                var data = new TutorAvailabilityViewModel
+                var results = new List<object>();
+
+                results.Add(new
                 {
                     ScheduleId = schedule.Id,
                     Sunday = schedule.SunStartTime + " - " + schedule.SunEndTime,
@@ -98,9 +103,9 @@ namespace PTS.Views.Search
                     Thursday = schedule.ThursStartTime + " - " + schedule.ThursEndTime,
                     Friday = schedule.FriStartTime + " - " + schedule.FriEndTime,
                     Saturday = schedule.SatStartTime + " - " + schedule.SatEndTime,
-                };
+                });
 
-                return Json(new { Result = "OK", Records =  data });
+                return Json(new { Result = "OK", Records =  results, TotalRecordCount = results.Count() });
             }
             catch (Exception ex)
             {
@@ -109,6 +114,7 @@ namespace PTS.Views.Search
 
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult GetClasses(string textSearch = "")
         {

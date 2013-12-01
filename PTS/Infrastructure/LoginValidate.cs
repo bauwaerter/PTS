@@ -23,7 +23,7 @@ namespace PTS.Infrastructure {
 
                         FormsAuthentication.RedirectToLoginPage();
                         // Redirect to login page.
-                        filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary { { "controller", "Account" }, { "action", "SignIn" } });
+                        filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary { { "controller", "Account" }, { "action", "Login" } });
                     }
                 }
             }
