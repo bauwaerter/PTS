@@ -66,6 +66,68 @@
                 },
                 HourlyRate: {
                     title: 'Hourly Rate'
+                },
+                Availability: {
+                    title: 'Availability',
+                    sorting: false,
+                    display: function (tutorData) {
+                        var link = $('<a>Availibility</a>');
+                        link.click(function () {
+
+                            $('#teacherUserTable').jtable('openChildTable',
+                                link.closest('tr'),
+                                {
+                                    title: 'Availibility for ' + tutorData.record.FirstName + " " + tutorData.record.LastName,
+                                    actions: {
+                                        listAction: '@Url.Action("GetTutorAvailibility")',
+                                    },
+                                    fields: {
+                                        Id: {
+                                            type: 'hidden',
+                                            defaultValue: tutorData.record.Id
+                                        },
+                                        ScheduleId: {
+                                            key: true,
+                                            list: false,
+                                        },
+                                        Sunday: {
+                                            title: 'Sunday',
+                                        },
+                                        Monday: {
+                                            title: 'Monday'
+                                        },
+                                        Tuesday: {
+                                            title: 'Tuesday'
+                                        },
+                                        Wednesday: {
+                                            title: 'Wednesday'
+                                        },
+                                        Thursday: {
+                                            title: 'Thursday'
+                                        },
+                                        Friday: {
+                                            title: 'Friday'
+                                        },
+                                        Saturday: {
+                                            title: 'Saturday'
+                                        },
+
+                                    }
+                                }, function (innerData) {
+                                    innerData.childTable.jtable('load', {
+                                        tutorUserId: tutorData.record.Id
+                                    });
+                                });
+                        });
+                        return link;
+                    }
+                },
+                RequestAppointment: {
+                    title: 'Request Session',
+                    display: function () {
+                        var requestLink = $("<a>Request Session</a>");
+                        return requestLink;
+                    }
                 }
             }
         });

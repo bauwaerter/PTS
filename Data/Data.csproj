@@ -51,6 +51,7 @@
     <Compile Include="IRepository.cs" />
     <Compile Include="Mappings\ClassMap.cs" />
     <Compile Include="Mappings\LoginMap.cs" />
+    <Compile Include="Mappings\PaymentMap.cs" />
     <Compile Include="Mappings\UserMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository.cs" />

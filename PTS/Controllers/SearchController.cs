@@ -81,7 +81,34 @@ namespace PTS.Views.Search
                 throw new Exception(ex.Message);
             }
         }
-        
+
+        [HttpPost]
+        public ActionResult GetTutorAvailibility(int tutorUserId)
+        {
+            try
+            {
+                var schedule = _teacherUserService.GetById(tutorUserId).Schedule;
+                var data = new TutorAvailabilityViewModel
+                {
+                    ScheduleId = schedule.Id,
+                    Sunday = schedule.SunStartTime + " - " + schedule.SunEndTime,
+                    Monday = schedule.MonStartTime + " - " + schedule.MonEndTime,
+                    Tuesday = schedule.TuesStartTime + " - " + schedule.TuesEndTime,
+                    Wednesday = schedule.WedStartTime + " - " + schedule.WedEndTime,
+                    Thursday = schedule.ThursStartTime + " - " + schedule.ThursEndTime,
+                    Friday = schedule.FriStartTime + " - " + schedule.FriEndTime,
+                    Saturday = schedule.SatStartTime + " - " + schedule.SatEndTime,
+                };
+
+                return Json(new { Result = "OK", Records =  data });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+
         [HttpPost]
         public ActionResult GetClasses(string textSearch = "")
         {

@@ -64,11 +64,6 @@ namespace Core.Domains
         public virtual int ClassId { get; set; }
     }
 
-    public class TutorToSchedule : BaseEntity
-    {
-        public virtual int ScheduleId { get; set; }
-        public virtual int TeacherUserId { get; set; }
-    }
 
     public class Schedule : BaseEntity
     {
@@ -93,5 +88,9 @@ namespace Core.Domains
         public virtual TimeSpan SatEndTime { get; set; }
         public virtual TimeSpan SunStartTime { get; set; }
         public virtual TimeSpan SunEndTime { get; set; }
+
+        #region navigation
+        
+        #endregion
     }
 }

@@ -54,6 +54,7 @@
     <Compile Include="ComponentModel\GenericListTypeConverter.cs" />
     <Compile Include="Domains\Class.cs" />
     <Compile Include="Domains\Login.cs" />
+    <Compile Include="Domains\Payment.cs" />
     <Compile Include="Domains\User.cs" />
     <Compile Include="Enumerations.cs" />
     <Compile Include="GenericListTypeConverter.cs" />

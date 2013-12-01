@@ -66,12 +66,4 @@ namespace Data.Mappings
         }
     }
 
-    public class TutorToScheduleMap : EntityTypeConfiguration<TutorToSchedule>
-    {
-        public TutorToScheduleMap()
-        {
-            ToTable("TutorToSchedule", "dbo");
-            HasKey(t => t.Id);
-        }
-    }
 }
