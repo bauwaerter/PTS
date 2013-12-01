@@ -33,6 +33,13 @@ namespace Core.Domains
         #region navigation
         public virtual Location Location { get; set; }
         public virtual TeacherUser Teacher { get; set; }
+
+        private ICollection<ReviewClass> _reviewClass;
+        public virtual ICollection<ReviewClass> ReviewClass
+        {
+            get { return _reviewClass ?? (_reviewClass = new List<ReviewClass>()); }
+            protected set { _reviewClass = value; }
+        } 
         #endregion
     }
 
