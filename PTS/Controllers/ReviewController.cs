@@ -1,4 +1,5 @@
 ﻿using Core.Domains;
+using PTS.Infrastructure;
 using PTS.Models;
 using Service.Interfaces;
 using Service.Services;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+
 namespace PTS.Views.Review
 {
     public class ReviewController : Controller
@@ -108,18 +110,18 @@ namespace PTS.Views.Review
 
         public ActionResult GetClassesToReview()
         {
-            var EnrolledClasses = _enrolledService.GetTableQuery().Where(e => e.StudentId == 15).ToList();
+            var EnrolledClasses = _enrolledService.GetTableQuery().Where(e => e.StudentId == SessionDataHelper.UserId).ToList();
             var Class = new List<Class>();
             var Reviews = new List<ReviewClassViewModel>();
             
             foreach(var c in EnrolledClasses)
             {
                 var temp =new ReviewClassViewModel();
-                var tempClassReview = _reviewClassService.GetTableQuery().Where(r => r.ClassId == c.ClassId).SingleOrDefault();
+                var tempClassReview = _reviewClassService.GetTableQuery().Where(r => r.ClassId == c.ClassId).Where(r => r.StudentId == SessionDataHelper.UserId).SingleOrDefault();
                 var tempClass = _classService.GetById(c.ClassId);
                 temp.Description = tempClass.Description;
                 temp.ClassID = tempClass.Id;
-                temp.StudentID = 15;
+                temp.StudentID = SessionDataHelper.UserId;
                 if (tempClassReview != null)
                 {
                     temp.Comment = tempClassReview.Comment;

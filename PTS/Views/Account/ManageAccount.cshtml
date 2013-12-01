@@ -68,12 +68,15 @@
                 </p>
             </div>
             <div class="col-md-1 col-md-offset-1">
+                <label>Address</label>
                 <span><input name="@Model.Location.Address" disabled="disabled" style="width: auto" class="form-control" value=@Model.Location.Address /></span>
             </div>
             <div class="col-md-1 col-md-offset-2">
+                <label>City</label>
                 <span><input name="@Model.Location.City" disabled="disabled" style="width: auto" class="form-control" value=@Model.Location.City /></span>
             </div>
             <div class="col-md-1 col-md-offset-2">
+                <label>State</label>
                 <span><input name="@Model.Location.State" disabled="disabled" style="width: auto" class="form-control" value=@Model.Location.State /></span>
             </div>
         </div>
@@ -82,9 +85,11 @@
             <div class="col-md-1">
             </div>
             <div class="col-md-1 col-md-offset-1">
+                <label>Zip</label>
                 <span><input name="@Model.Location.ZipCode" disabled="disabled" style="width: auto" class="form-control" value=@Model.Location.ZipCode /></span>
             </div>
             <div class="col-md-1 col-md-offset-2">
+                <label>Country</label>
                 <span><input name="@Model.Location.Country" disabled="disabled" style="width: auto" class="form-control" value=@Model.Location.Country /></span>
             </div>
         </div>
@@ -176,6 +181,7 @@
     $('#EditUserButton').on('click', function(event) {
         event.preventDefault();
         $('#UserAccount').find(':input').prop('disabled', '');
+        $('#Userlocation').find(':input').prop('disabled', '');
         $('#EditUserButton').hide();
         $('#SaveUserButton').css('visibility', 'visible');
     });

@@ -42,7 +42,6 @@ namespace PTS.Controllers
         public AccountController(IUserService userService, IBaseService<StudentUser> studentUserService, IBaseService<Class> classService, IBaseService<Location> locationService, 
             IBaseService<TeacherUser> teacherUserService, ILoginService loginService )
         {
-
             _userService = userService;
             _studentUserService = studentUserService;
             _teacherUserService = teacherUserService;
@@ -146,7 +145,6 @@ namespace PTS.Controllers
                     Email = model.Email,
                     Id = model.Id,
                     Major = student.Major,
-                    PassWord = "",
                     Location = loc
                 };
             }
