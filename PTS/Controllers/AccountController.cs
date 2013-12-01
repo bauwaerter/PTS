@@ -66,7 +66,6 @@ namespace PTS.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel loginModel, string returnUrl) {
             try{
                 if (_userService.ValidateLogin(loginModel.UserName, loginModel.Password)){
@@ -202,7 +201,6 @@ namespace PTS.Controllers
         // POST: /Account/LogOff
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult LogOff() {
             FormsAuthentication.SignOut();
             SessionHelper.Abandon();
@@ -218,9 +216,9 @@ namespace PTS.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult Register()
-        {
-            return View();
+        public ActionResult Register(){
+            var user = new User();
+            return View(user);
         }
 
         //

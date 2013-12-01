@@ -34,6 +34,7 @@
                 <div class="todo" style="width: 1000px;">
                     <ul>
                         <li class="">
+                            @Html.TextBoxFor(model => model.Schedule.Monday, new { @class="hidden"})
                             <div class="todo-icon fui-new"></div>
                             <div class="todo-content">
                                 <h4 class="todo-name">
@@ -213,14 +214,13 @@
                 </div>
             </div> <!-- /todo list -->
         </div>
-
-@*        <p>Monday</p>
-        <p>Tuesday</p>
-        <p>Wednesday</p>
-        <p>Thursday</p>
-        <p>Friday</p>
-        <p>Saturday</p>*@
-
+        
+        @Html.TextBoxFor(model => model.Schedule.Tuesday, new { @class="hidden"})
+        @Html.TextBoxFor(model => model.Schedule.Wednesday, new { @class="hidden"})
+        @Html.TextBoxFor(model => model.Schedule.Thursday, new { @class="hidden"})
+        @Html.TextBoxFor(model => model.Schedule.Friday, new { @class="hidden"})
+        @Html.TextBoxFor(model => model.Schedule.Saturday, new { @class="hidden"})
+        @Html.TextBoxFor(model => model.Schedule.Sunday, new { @class="hidden"})
     </body>
 <script src="~/Content/Flat-UI/js/jquery.stacktable.js"></script>
 <script src="~/Content/jquery-timepicker-master/jquery.timepicker.js"></script>
@@ -243,6 +243,7 @@
         if (!$(".ui-timepicker-input").is(':focus') && !$(".date").is(':focus')) {
             $(this).toggleClass("todo-done");
             $(this).find('.todo-content div').toggleClass("show");
+            $(this).find('.hidden').show().val("swag");
         }
     });
     

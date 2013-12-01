@@ -15,25 +15,22 @@
     <h6 style="margin-left: 20px;">Create a new account.</h6>
 </hgroup>
 
-@using (Html.BeginForm(null, null, FormMethod.Post))
-{
+@using (Html.BeginForm(null, null, FormMethod.Post)){
     @Html.HiddenFor(model => model.Id)
     @Html.HiddenFor(model => model.LocationId)
-    @Html.HiddenFor(model => model.Role) 
+    @Html.HiddenFor(model => model.Role)
     @Html.ValidationSummary(true)
 
-    
-
-    
+    <section class="sectionContainer formHolder">
     <div class="container" style="margin-top: 80px; margin-left: 40px;">
         <div class="row">
             <div class=".col-md-4" style="display: inline;">
                 <p>@Html.LabelFor(model => model.Email)</p>
-                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", style = "width:400px" })
+                @Html.TextBoxFor(model => model.Email, new{@class = "form-control", style = "width:400px"})
             </div>
             <div class=".col-md-4">
                 <p>@Html.LabelFor(model => model.PassWord, "Password")</p>
-                @Html.PasswordFor(model => model.PassWord, new { @class = "form-control", style = "width:400px" })
+                @Html.PasswordFor(model => model.PassWord, new{@class = "form-control", style = "width:400px"})
             </div>
             <div class=".col-md-4">
                 <p>@Html.Label("Confirm Password")</p>
@@ -41,79 +38,81 @@
             </div>
             <div class=".col-md-4">
                 <p>@Html.LabelFor(model => model.FirstName, "First Name")</p>
-                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", style = "width:400px" })
+                @Html.TextBoxFor(model => model.FirstName, new{@class = "form-control", style = "width:400px"})
             </div>
             <div class=".col-md-4">
                 <p>@Html.LabelFor(model => model.LastName, "Last Name")</p>
-                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", style = "width:400px" })
+                @Html.TextBoxFor(model => model.LastName, new{@class = "form-control", style = "width:400px"})
             </div>
             <div class=".col-md-4">
                 <p>@Html.LabelFor(model => model.DOB, "Date of Birth")</p>
-                @Html.TextBoxFor(model => model.DOB, new { @class = "form-control", style = "width:400px" })
+                @Html.TextBoxFor(model => model.DOB, new{@class = "form-control", style = "width:400px"})
             </div>
             <div class=".col-md-4">
                 <p>@Html.LabelFor(model => model.SSN, "Social Security Number")</p>
-                @Html.PasswordFor(model => model.SSN, new { @class = "form-control", style = "width:400px" })
+                @Html.PasswordFor(model => model.SSN, new{@class = "form-control", style = "width:400px"})
             </div>
             <br />
 
         </div>
 
         <h4>User Role:</h4>
-        <h6 style="margin-left:15px;">Select all that apply.</h6>
+        <h6 style="margin-left: 15px;">Select all that apply.</h6>
    
 
-        <div style="background-color: #ecf0f1; border-radius:10px; padding-top:2px;width:925px;">
-        <div class="row" style="margin-top: 60px; margin-left: 15px;">
-            <div class="col-md-1">
-                <label class="checkbox unchecked" for="checkbox1">
-                    <span class="icons">
-                        <span class="first-icon fui-checkbox-unchecked"></span>
-                        <span class="second-icon fui-checkbox-checked"></span>
-                    </span>
-                    <input type="checkbox" value="" id="checkbox1" data-toggle="checkbox">
-                </label>
-            </div>
-            <div class="col-md-1">
-                <p>Student</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="studentUser col-md-2 col-md-offset-1">
-                @Html.Partial("_StudentUserForm", new StudentUser())
-            </div>
-        </div>
-        <div class="row" style="margin-top: 60px; margin-left: 15px;">
-            <div class="col-md-1">
-                <label class="checkbox unchecked" for="checkbox2">
-                    <span class="icons">
-                        <span class="first-icon fui-checkbox-unchecked"></span>
-                        <span class="second-icon fui-checkbox-checked"></span>
-                    </span>
-                    <input type="checkbox" value="" id="checkbox2" data-toggle="checkbox" />
-                </label>
-            </div>
-            <div class="col-md-1">
-                <p>Teacher/Tutor</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-2 col-md-offset-1">
-                <div class="teacherUser">
-                    @Html.Partial("_TeacherUserForm", new TeacherUser())
+        <div style="background-color: #ecf0f1; border-radius: 10px; padding-top: 2px; width: 925px;">
+            <div class="row" style="margin-top: 60px; margin-left: 15px;">
+                <div class="col-md-1">
+                    <label class="checkbox unchecked" for="checkbox1">
+                        <span class="icons">
+                            <span class="first-icon fui-checkbox-unchecked"></span>
+                            <span class="second-icon fui-checkbox-checked"></span>
+                        </span>
+                        <input type="checkbox" value="" id="checkbox1" data-toggle="checkbox">
+                    </label>
+                </div>
+                <div class="col-md-1">
+                    <p>Student</p>
                 </div>
             </div>
+            <div class="row">
+                <div class="studentUser col-md-2 col-md-offset-1">
+                    @Html.Partial("_StudentUserForm", new StudentUser())
+                </div>
+            </div>
+            <div class="row" style="margin-top: 60px; margin-left: 15px;">
+                <div class="col-md-1">
+                    <label class="checkbox unchecked" for="checkbox2">
+                        <span class="icons">
+                            <span class="first-icon fui-checkbox-unchecked"></span>
+                            <span class="second-icon fui-checkbox-checked"></span>
+                        </span>
+                        <input type="checkbox" value="" id="checkbox2" data-toggle="checkbox" />
+                    </label>
+                </div>
+                <div class="col-md-1">
+                    <p>Teacher/Tutor</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 col-md-offset-1">
+                    <div class="teacherUser">
+                        @Html.Partial("_TeacherUserForm", new TeacherUser())
+                    </div>
+                </div>
+            </div>
+            <br />
         </div>
-        <br />
     </div>
-        </div>
-    <div class="row" style="margin-top:10px; margin-left:37px;">
+    <div class="row" style="margin-top: 10px; margin-left: 37px;">
         <div class="col-md-1">
-            <button id="formSubmit" class="btn btn-primary btn-hg">Register</button>
+            <@*button id="formSubmit" type="submit" class="btn btn-primary btn-hg" onclick="@Html.Action("Register")">Register</button>*@
+            <button id="formSubmit" type="submit" class="btn btn-primary">Process</button>
         </div>
     </div>
     
-    <br />
+    @*<input class="btn btn-primary btn-hg" type="submit" value="Save" />*@
+    </section>
 }
 
 <script src="~/Content/Flat-UI/js/flatui-checkbox.js"></script>
