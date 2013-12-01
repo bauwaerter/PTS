@@ -438,7 +438,7 @@ fieldset {
 label {
     display: block;
     font-size: 1.2em;
-    font-weight: 600;
+    font-weight: 200;
 }
 
 label.checkbox {
