@@ -18,13 +18,13 @@ namespace PTS.Views.Review
         #region fields
 
         //private readonly IBaseService<StudentUser> _studentUserService;
-        private readonly IUserService _userService;
+        
         //private readonly IStudentUserService _studentUserService;
         private readonly IBaseService<Enrolled> _enrolledService;
-        private readonly IBaseService<StudentUser> _studentUserService;
+        
         private readonly IBaseService<TeacherUser> _teacherUserService;
         private readonly IBaseService<Class> _classService;
-        private readonly IBaseService<Location> _locationService;
+        
         private readonly IBaseService<ReviewClass> _reviewClassService;
         private readonly IBaseService<Payment> _paymentService;
         private readonly IBaseService<ReviewTeacher> _reviewTutorService;

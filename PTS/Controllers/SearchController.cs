@@ -34,7 +34,7 @@ namespace PTS.Views.Search
         [AllowAnonymous]
         public ActionResult Index()
         {
-            if (SessionDataHelper.UserId != null)
+            if (SessionDataHelper.UserId != 0)
             {
                  ViewBag.UserRole = _userService.GetById(SessionDataHelper.UserId).Role;
             }
@@ -215,8 +215,8 @@ namespace PTS.Views.Search
                 {
                     Id = d.Id,
                     LocationId = d.LocationId,
-                    SubjectId = d.SubjectID,
-                    TeacherName = d.TeacherUser.User.FirstName + " " + d.TeacherUser.User.LastName,
+                    SubjectId = d.SubjectID != null ? d.SubjectID : null,
+                    TeacherName = _teacherUserService.GetById(d.TeacherId).User.FirstName,
                     Description = d.Description,
                     StartTime = d.StartTime.ToString(),
                     EndTime = d.EndTime.ToString(),
