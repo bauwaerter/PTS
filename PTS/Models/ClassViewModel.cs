@@ -23,6 +23,7 @@ namespace PTS.Models
         public string Address { get; set; }
         public int ZipCode { get; set; }
         public string Country { get; set; }
+        public string AverageRating { get; set; }
 
         public ClassViewModel()
         {
