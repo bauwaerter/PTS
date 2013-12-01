@@ -32,7 +32,7 @@ namespace Core.Domains
 
         #region navigation
         public virtual Location Location { get; set; }
-        //public virtual TeacherUser TeacherUser { get; set; }
+        public virtual TeacherUser Teacher { get; set; }
         #endregion
     }
 

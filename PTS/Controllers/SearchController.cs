@@ -211,7 +211,7 @@ namespace PTS.Views.Search
                     Id = d.Id,
                     LocationId = d.LocationId,
                     SubjectId = d.SubjectID != null ? d.SubjectID : null,
-                    TeacherName = _teacherUserService.GetById(d.TeacherId).User.FirstName,
+                    TeacherName = d.Teacher.User.FirstName + " " + d.Teacher.User.LastName,
                     Description = d.Description,
                     StartTime = d.StartTime.ToString(),
                     EndTime = d.EndTime.ToString(),
