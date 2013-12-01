@@ -34,14 +34,9 @@ namespace PTS.Views.Search
         [AllowAnonymous]
         public ActionResult Index()
         {
-            if (SessionDataHelper.UserId != 0)
-            {
-                 ViewBag.UserRole = _userService.GetById(SessionDataHelper.UserId).Role;
-            }
-            else
-            {
-                ViewBag.UserRole = 4;
-            }
+           
+            ViewBag.UserRole = SessionDataHelper.UserRole;
+            
             return View();
         }
 
@@ -111,7 +106,7 @@ namespace PTS.Views.Search
 
                     if(tutor.Schedule.SunStartTime.CompareTo(zeroTime) != 0 && tutor.Schedule.SunEndTime.CompareTo(zeroTime) != 0)
                     {
-                        timeValidation[0] = (tutor.Schedule.SunStartTime + " " + tutor.Schedule.SunEndTime);
+                        timeValidation[0] = (tutor.Schedule.SunStartTime + " - " + tutor.Schedule.SunEndTime);
                     }
                     else
                     {
@@ -119,7 +114,7 @@ namespace PTS.Views.Search
                     }
                     if(tutor.Schedule.MonStartTime.CompareTo(zeroTime) != 0 && tutor.Schedule.MonEndTime.CompareTo(zeroTime) != 0)
                     {
-                        timeValidation[1] = (tutor.Schedule.MonStartTime + " " + tutor.Schedule.MonEndTime);
+                        timeValidation[1] = (tutor.Schedule.MonStartTime + " - " + tutor.Schedule.MonEndTime);
                     }
                     else
                     {
@@ -127,7 +122,7 @@ namespace PTS.Views.Search
                     }
                     if(tutor.Schedule.TuesStartTime.CompareTo(zeroTime) != 0 && tutor.Schedule.TuesEndTime.CompareTo(zeroTime) != 0)
                     {
-                        timeValidation[2] = (tutor.Schedule.TuesStartTime + " " + tutor.Schedule.TuesEndTime);
+                        timeValidation[2] = (tutor.Schedule.TuesStartTime + " - " + tutor.Schedule.TuesEndTime);
                     }
                     else
                     {
@@ -135,7 +130,7 @@ namespace PTS.Views.Search
                     }
                     if(tutor.Schedule.WedStartTime.CompareTo(zeroTime) != 0 && tutor.Schedule.WedEndTime.CompareTo(zeroTime) != 0)
                     {
-                        timeValidation[3] = (tutor.Schedule.WedStartTime + " " + tutor.Schedule.WedEndTime);
+                        timeValidation[3] = (tutor.Schedule.WedStartTime + " - " + tutor.Schedule.WedEndTime);
                     }
                     else
                     {
@@ -143,7 +138,7 @@ namespace PTS.Views.Search
                     }
                     if(tutor.Schedule.ThursStartTime.CompareTo(zeroTime) != 0 && tutor.Schedule.ThursEndTime.CompareTo(zeroTime) != 0)
                     {
-                        timeValidation[4] = (tutor.Schedule.ThursStartTime + " " + tutor.Schedule.ThursEndTime);
+                        timeValidation[4] = (tutor.Schedule.ThursStartTime + " - " + tutor.Schedule.ThursEndTime);
                     }
                     else
                     {
@@ -151,7 +146,7 @@ namespace PTS.Views.Search
                     }
                     if(tutor.Schedule.FriStartTime.CompareTo(zeroTime) != 0 && tutor.Schedule.FriEndTime.CompareTo(zeroTime) != 0)
                     {
-                        timeValidation[5] = (tutor.Schedule.FriStartTime + " " + tutor.Schedule.FriEndTime);
+                        timeValidation[5] = (tutor.Schedule.FriStartTime + " - " + tutor.Schedule.FriEndTime);
                     }
                     else
                     {
@@ -159,7 +154,7 @@ namespace PTS.Views.Search
                     }
                     if (tutor.Schedule.SatStartTime.CompareTo(zeroTime) != 0 && tutor.Schedule.SatEndTime.CompareTo(zeroTime) != 0)
                     {
-                        timeValidation[6] = (tutor.Schedule.SatStartTime + " " + tutor.Schedule.SatEndTime);
+                        timeValidation[6] = (tutor.Schedule.SatStartTime + " - " + tutor.Schedule.SatEndTime);
                     }
                     else
                     {
