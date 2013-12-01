@@ -659,7 +659,6 @@
     <Content Include="Views\Review\Index.cshtml" />
     <Content Include="Views\Shared\_TeacherUserForm.cshtml" />
     <Content Include="Views\Payment\ProcessPayment.cshtml" />
-    <Content Include="Views\Payment\_Address.cshtml" />
     <Content Include="Views\Review\ReviewTutor.cshtml" />
     <Content Include="Views\Account\RegisterForTeacher.cshtml" />
   </ItemGroup>

@@ -31,7 +31,6 @@ namespace PTS.Views.Search
 
         //
         // GET: /Search/
-        [AllowAnonymous]
         public ActionResult Index()
         {
            
@@ -40,7 +39,6 @@ namespace PTS.Views.Search
             return View();
         }
 
-        [AllowAnonymous]
         [HttpPost]
         public ActionResult GetTeacherUsers(string textSearch = "")
         {
@@ -92,7 +90,6 @@ namespace PTS.Views.Search
             }
         }
 
-        [AllowAnonymous]
         [HttpPost]
         public ActionResult GetTutorAvailibility(int tutorUserId)
         {
@@ -200,7 +197,6 @@ namespace PTS.Views.Search
 
         }
 
-        [AllowAnonymous]
         [HttpPost]
         public ActionResult GetClasses(string textSearch = "")
         {

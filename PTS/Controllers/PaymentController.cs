@@ -10,38 +10,41 @@ using PTS.Infrastructure;
 using PTS.Models;
 using Service.Interfaces;
 
-namespace PTS.Controllers
-{
-    public class PaymentController : Controller {
+namespace PTS.Controllers{
+    public class PaymentController : Controller{
         #region fields
+
         private readonly IBaseService<Class> _classService;
         private readonly IBaseService<Location> _locationService;
+        private readonly IBaseService<Payment> _paymentService;
         private readonly IUserService _userService;
+
         #endregion
 
         #region constructor 
-        public PaymentController(IBaseService<Class> classService, IBaseService<Location> locationService, IUserService userService){
+
+        public PaymentController(IBaseService<Class> classService, IBaseService<Location> locationService,
+            IBaseService<Payment> paymentService, IUserService userService){
             _classService = classService;
             _locationService = locationService;
+            _paymentService = paymentService;
             _userService = userService;
 
         }
-        #endregion 
+
+        #endregion
 
         //
         // GET: /Payment/
-        public ActionResult Index()
-        {
+        public ActionResult Index(){
             return View();
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public ActionResult ProcessPayment(int classId){
-            var context = HttpContext.Session;
 
             var temp = SessionDataHelper.UserId;
-             
+
             var user = _userService.GetById(temp);
             var newClass = _classService.GetById(classId);
             var locId = user.LocationId;
@@ -49,12 +52,22 @@ namespace PTS.Controllers
                 Payment = new Payment(){
                     StudentId = user.Id,
                     ClassId = newClass.Id,
+                    TeacherId = newClass.TeacherId,
                     Date = DateTime.Now,
-                }, 
-                Location = (locId != 0) ?_locationService.GetById((int)locId) : new Location()
+                    Amount = (int) newClass.Teacher.ClassRate
+                }
             };
+            payment.Location = _locationService.GetById((int)locId);
             return View(payment);
+        }
+
+        [HttpPost]
+        public ActionResult ProcessPayment(PaymentModel model){
+            model.Location = null;
+            //_paymentService.Insert(model.Payment);
+            return View();
         }
 
     }
 }
+
