@@ -33,11 +33,11 @@
     <div class="row">
         <div class="col-md-3">
             <p><span class="label">Card type</span></p>
-            <select name="herolist" value="@Model.Payment.Description" class="select-block" style="display: none;">
-                <option value="1">American Express</option>
-                <option value="2">Discover</option>
-                <option value="3">Master Card</option>
-                <option value="Visa" selected="selected">Visa</option>
+            <select name="herolist" value="@Model.Payment.Description" id="select" class="select-block" style="display: none;">
+                <option value="American Express">American Express</option>
+                <option value="Discover">Discover</option>
+                <option value="Master Card">Master Card</option>
+                <option value="Visa" selected="@Model.Payment.Description">Visa</option>
             </select>
         </div>
     </div>
@@ -104,17 +104,23 @@
         </div>
     </div>
     <button id="formSubmit" type="submit" class="btn btn-primary">Process</button>
+    @Html.TextBoxFor(model => model.Payment.Description, new { @id="desc", @name="desc"})
 </form>
 
 <script src="~/Content/Flat-UI/js/flatui-checkbox.js"></script>
 <script src="~/Content/Flat-UI/js/bootstrap-select.js"></script>
 <script src="~/Content/Flat-UI/js/bootstrap-switch.js"></script>
 <script src="~/Content/Flat-UI/js/bootstrap.min.js"></script>
-@*<script src="~/Content/Flat-UI/js/application.js"></script>*@
 <script type="text/javascript">
     $(document).ready(function (){        
         $("select[name='herolist']").selectpicker({ style: 'btn-primary', menuStyle: 'dropdown-inverse' });
+        $("#desc").hide();
     });
+
+    $("#select").on('change', function() {
+        console.log($(this).val());
+        $("#desc").val($(this).val());
+    }).change();
     
     $('#expDate').datepicker({
         inline: true,

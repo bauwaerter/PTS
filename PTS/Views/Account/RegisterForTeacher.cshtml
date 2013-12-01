@@ -1,49 +1,252 @@
 ﻿@model Core.Domains.TeacherUser
 <!DOCTYPE html>
+<style>
+    div.ui-timepicker-wrapper {
+        width: 140px;
+    }
+</style>
+    <body>
+        <h6>Reqeust a Session</h6>
 
-<html>
-<body>
-    <h6>Reqeust a Session</h6>
-
-    @Html.HiddenFor(model => model.Id)
-
-
-    <p>@Html.LabelFor(model => model.User.FirstName, "First Name")</p>
-    @Html.TextBoxFor(model => model.User.FirstName, new { @class = "form-control", style = "width:400px" })
-
-    <p>@Html.LabelFor(model => model.User.LastName, "Last Name")</p>
-    @Html.TextBoxFor(model => model.User.LastName, new { @class = "form-control", style = "width:400px" })
-
-    <p>@Html.LabelFor(model => model.User.Email)</p>
-    @Html.TextBoxFor(model => model.User.Email, new { @class = "form-control", style = "width:400px" })
-
-    <p>Enter times you wish to be tutored</p>
-
-    <p class="datepair" data-language="javascript">
-        <input class="date start form-control" type="text">
-        <input class="time start ui-timepicker-input form-control" type="text" autocomplete="off">
-        to
-        <input class="time end ui-timepicker-input form-control" type="text" autocomplete="off">
-        <input class="date end form-control" type="text">
-    </p>
+        @Html.HiddenFor(model => model.Id)
 
 
-    <p>Sunday</p>
-    <div class="row">
+        <p>@Html.LabelFor(model => model.User.FirstName, "First Name")</p>
+        @Html.TextBoxFor(model => model.User.FirstName, new { @class = "form-control", style = "width:400px" })
+
+        <p>@Html.LabelFor(model => model.User.LastName, "Last Name")</p>
+        @Html.TextBoxFor(model => model.User.LastName, new { @class = "form-control", style = "width:400px" })
+
+        <p>@Html.LabelFor(model => model.User.Email)</p>
+        @Html.TextBoxFor(model => model.User.Email, new { @class = "form-control", style = "width:400px" })
+        <br/>
+
+        <h6>Enter times you wish to be tutored</h6>
+        @*<p>Sunday</p>*@
+        @*<div class="row">
         <div class="col-md-2 col-md-offset-1"><p>Start Time</p></div>
         <div class="col-md-4"><input type="text" class="form-control" /></div>
-    </div>
+    </div>*@
+        <p>
+        </p>
+        <div class="row demo-samples">
+            <div class="col-md-4">
+                <div class="todo" style="width: 1000px;">
+                    <ul>
+                        <li class="">
+                            <div class="todo-icon fui-new"></div>
+                            <div class="todo-content">
+                                <h4 class="todo-name">
+                                    Monday
+                                </h4>
+                                <div class="row" id="monday">
+                                    <div class="col-md-2">
+                                        @Html.TextBox("monFrom", "",new { @class="form-control date", @style="width: 140px;" })
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.TextBox("monFromTime", "",new { @class="form-control time ui-timepicker-input", @style="width: 140px;" })
+                                    </div>
+                                    <div class="col-md-1">
+                                        <p><span class="label">To</span></p>
+                                    </div>
+                                    <div class="col-md-2" id="monFrom">
+                                        @Html.TextBox("monToTime", "",new { @class="form-control time ui-timepicker-input", @style="width: 140px;" })
+                                    </div>
+                                    <div class="col-md-2" id="monFromTime">
+                                        @Html.TextBox("monTo", "",new { @class="form-control date", @style="width: 140px;" })
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </li>
+                        <li class="">
+                            <div class="todo-icon fui-new"></div>
+                            <div class="todo-content">
+                                <h4 class="todo-name">
+                                    Tuesday
+                                </h4>
+                                <div class="row" id="tuesday">
+                                    <div class="col-md-2">
+                                        @Html.TextBox("tuesFrom", "",new { @class="form-control date", @style="width: 140px;" })
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.TextBox("tuesFromTime", "",new { @class="form-control time ui-timepicker-input", @style="width: 140px;" })
+                                    </div>
+                                    <div class="col-md-1">
+                                        <p><span class="label">To</span></p>
+                                    </div>
+                                    <div class="col-md-2" id="tuesFrom">
+                                        @Html.TextBox("tuesToTime", "",new { @class="form-control time ui-timepicker-input", @style="width: 140px;" })
+                                    </div>
+                                    <div class="col-md-2" id="tuesFromTime">
+                                        @Html.TextBox("tuesTo", "",new { @class="form-control date", @style="width: 140px;" })
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div class="todo-icon fui-new"></div>
+                            <div class="todo-content">
+                                <h4 class="todo-name">
+                                    Wednesday
+                                </h4>
+                                <div class="row" id="wednesday">
+                                    <div class="col-md-2">
+                                        @Html.TextBox("wedFrom", "",new { @class="form-control date", @style="width: 140px;" })
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.TextBox("wedFromTime", "",new { @class="form-control time ui-timepicker-input", @style="width: 140px;" })
+                                    </div>
+                                    <div class="col-md-1">
+                                        <p><span class="label">To</span></p>
+                                    </div>
+                                    <div class="col-md-2" id="wedFrom">
+                                        @Html.TextBox("wedToTime", "",new { @class="form-control time ui-timepicker-input", @style="width: 140px;" })
+                                    </div>
+                                    <div class="col-md-2" id="wedFromTime">
+                                        @Html.TextBox("wedTo", "",new { @class="form-control date", @style="width: 140px;" })
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div class="todo-icon fui-new"></div>
+                            <div class="todo-content">
+                                <h4 class="todo-name">
+                                    Thursday
+                                </h4>
+                                <div class="row" id="thursday">
+                                    <div class="col-md-2">
+                                        @Html.TextBox("thursFrom", "",new { @class="form-control date", @style="width: 140px;" })
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.TextBox("thursFromTime", "",new { @class="form-control time ui-timepicker-input", @style="width: 140px;" })
+                                    </div>
+                                    <div class="col-md-1">
+                                        <p><span class="label">To</span></p>
+                                    </div>
+                                    <div class="col-md-2" id="thursFrom">
+                                        @Html.TextBox("thursToTime", "",new { @class="form-control time ui-timepicker-input", @style="width: 140px;" })
+                                    </div>
+                                    <div class="col-md-2" id="thursFromTime">
+                                        @Html.TextBox("thursTo", "",new { @class="form-control date", @style="width: 140px;" })
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div class="todo-icon fui-new"></div>
+                            <div class="todo-content">
+                                <h4 class="todo-name">
+                                    Friday
+                                </h4>
+                                <div class="row" id="friday">
+                                    <div class="col-md-2">
+                                        @Html.TextBox("friFrom", "",new { @class="form-control date", @style="width: 140px;" })
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.TextBox("friFromTime", "",new { @class="form-control time ui-timepicker-input", @style="width: 140px;" })
+                                    </div>
+                                    <div class="col-md-1">
+                                        <p><span class="label">To</span></p>
+                                    </div>
+                                    <div class="col-md-2" id="friFrom">
+                                        @Html.TextBox("friToTime", "",new { @class="form-control time ui-timepicker-input", @style="width: 140px;" })
+                                    </div>
+                                    <div class="col-md-2" id="friFromTime">
+                                        @Html.TextBox("friTo", "",new { @class="form-control date", @style="width: 140px;" })
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div class="todo-icon fui-new"></div>
+                            <div class="todo-content">
+                                <h4 class="todo-name">
+                                    Saturday
+                                </h4>
+                                <div class="row" id="saturday">
+                                    <div class="col-md-2">
+                                        @Html.TextBox("satFrom", "",new { @class="form-control date", @style="width: 140px;" })
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.TextBox("satFromTime", "",new { @class="form-control time ui-timepicker-input", @style="width: 140px;" })
+                                    </div>
+                                    <div class="col-md-1">
+                                        <p><span class="label">To</span></p>
+                                    </div>
+                                    <div class="col-md-2" id="satFrom">
+                                        @Html.TextBox("satToTime", "",new { @class="form-control time ui-timepicker-input", @style="width: 140px;" })
+                                    </div>
+                                    <div class="col-md-2" id="satFromTime">
+                                        @Html.TextBox("satTo", "",new { @class="form-control date", @style="width: 140px;" })
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div class="todo-icon fui-new"></div>
+                            <div class="todo-content">
+                                <h4 class="todo-name">
+                                    Sunday
+                                </h4>
+                                <div class="row" id="sunday">
+                                    <div class="col-md-2">
+                                        @Html.TextBox("sunFrom", "",new { @class="form-control date", @style="width: 140px;" })
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.TextBox("sunFromTime", "",new { @class="form-control time ui-timepicker-input", @style="width: 140px;" })
+                                    </div>
+                                    <div class="col-md-1">
+                                        <p><span class="label">To</span></p>
+                                    </div>
+                                    <div class="col-md-2" id="sunFrom">
+                                        @Html.TextBox("sunToTime", "",new { @class="form-control time ui-timepicker-input", @style="width: 140px;" })
+                                    </div>
+                                    <div class="col-md-2" id="sunFromTime">
+                                        @Html.TextBox("sunTo", "",new { @class="form-control date", @style="width: 140px;" })
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div> <!-- /todo list -->
+        </div>
+
+@*        <p>Monday</p>
+        <p>Tuesday</p>
+        <p>Wednesday</p>
+        <p>Thursday</p>
+        <p>Friday</p>
+        <p>Saturday</p>*@
+
+    </body>
+<script src="~/Content/Flat-UI/js/jquery.stacktable.js"></script>
+<script src="~/Content/jquery-timepicker-master/jquery.timepicker.js"></script>
+<script src="~/Content/jquery-timepicker-master/jquery.timepicker.min.js"></script>
+<link rel="stylesheet" media="screen" href="~/Content/jquery-timepicker-master/jquery.timepicker.css" type="text/css" />
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".ui-timepicker-input").timepicker();
+        $(".date").datepicker();
+        $("#monday").hide();
+        $("#tuesday").hide();
+        $("#wednesday").hide();
+        $("#thursday").hide();
+        $("#friday").hide();
+        $("#saturday").hide();
+        $("#sunday").hide();
+    });
     
-    <p>Monday</p>
-    <p>Tuesday</p>
-    <p>Wednesday</p>
-    <p>Thursday</p>
-    <p>Friday</p>
-    <p>Saturday</p>
-
-</body>
-</html>
-
-<script>
-
+    $(".todo li").click(function () {
+        if (!$(".ui-timepicker-input").is(':focus') && !$(".date").is(':focus')) {
+            $(this).toggleClass("todo-done");
+            $(this).find('.todo-content div').toggleClass("show");
+        }
+    });
+    
+    //$("#monday").on("click", function() {
+    //    $("#mon").show();
+    //});
 </script>

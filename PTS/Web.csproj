@@ -334,6 +334,15 @@
     <Content Include="Content\Flat-UI\js\jquery.stacktable.js" />
     <Content Include="Content\Flat-UI\js\jquery.tagsinput.js" />
     <Content Include="Content\Flat-UI\js\jquery.ui.touch-punch.min.js" />
+    <Content Include="Content\jquery-timepicker-master\GruntFile.js" />
+    <Content Include="Content\jquery-timepicker-master\jquery.timepicker.css" />
+    <Content Include="Content\jquery-timepicker-master\jquery.timepicker.js" />
+    <Content Include="Content\jquery-timepicker-master\jquery.timepicker.min.js" />
+    <Content Include="Content\jquery-timepicker-master\lib\base.css" />
+    <Content Include="Content\jquery-timepicker-master\lib\base.js" />
+    <Content Include="Content\jquery-timepicker-master\lib\datepair.js" />
+    <Content Include="Content\jquery-timepicker-master\lib\glyphicons-halflings.png" />
+    <Content Include="Content\jquery-timepicker-master\lib\screenshot.png" />
     <Content Include="Content\responsiveslides.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -463,6 +472,10 @@
     <Content Include="Images\oldersupplies.jpg" />
     <Content Include="Images\scantronpenicl.jpg" />
     <Content Include="Images\smartthinking_logo.jpg" />
+    <Content Include="Content\jquery-timepicker-master\.gitignore" />
+    <Content Include="Content\jquery-timepicker-master\component.json" />
+    <Content Include="Content\jquery-timepicker-master\jt.timepicker.jquery.json" />
+    <Content Include="Content\jquery-timepicker-master\package.json" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.0.3.js" />
     <Content Include="Scripts\jquery-2.0.3.min.js" />

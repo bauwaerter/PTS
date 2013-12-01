@@ -64,8 +64,8 @@ namespace PTS.Controllers{
         [HttpPost]
         public ActionResult ProcessPayment(PaymentModel model){
             model.Location = null;
-            //_paymentService.Insert(model.Payment);
-            return View();
+            _paymentService.Insert(model.Payment);
+            return RedirectToAction("Index", "Search");
         }
 
     }
