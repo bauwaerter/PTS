@@ -38,12 +38,17 @@
 
         $('#teacherUserTable').jtable({
             title: 'Tutors',
+            openChildAsAccordion: true,
             ajaxSettings: {
                 contentType: 'application/json'
         	},
             actions: {
                 listAction: '@Url.Action("GetTeacherUsers")',
-                createAction: '@Url.Action("CreateTeacherUser")',
+                @if(ViewBag.UserRole == 0){
+                    <text>
+                    createAction: '@Url.Action("CreateTeacherUser")',
+                    </text>
+                }
             },
             fields: {
                 Id: {

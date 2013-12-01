@@ -31,6 +31,14 @@ namespace PTS.Views.Search
         [AllowAnonymous]
         public ActionResult Index()
         {
+            if (SessionDataHelper.UserId != null)
+            {
+                 ViewBag.UserRole = _userService.GetById(SessionDataHelper.UserId).Role;
+            }
+            else
+            {
+                ViewBag.UserRole = 4;
+            }
             return View();
         }
 
@@ -90,21 +98,99 @@ namespace PTS.Views.Search
         {
             try
             {
-                var schedule = _teacherUserService.GetById(tutorUserId).Schedule;
+                var tutor = _teacherUserService.GetById(tutorUserId);
                 var results = new List<object>();
-
-                results.Add(new
+                var zeroTime = new TimeSpan(0);
+                
+                if (tutor.ScheduleId != null)
                 {
-                    ScheduleId = schedule.Id,
-                    Sunday = schedule.SunStartTime + " - " + schedule.SunEndTime,
-                    Monday = schedule.MonStartTime + " - " + schedule.MonEndTime,
-                    Tuesday = schedule.TuesStartTime + " - " + schedule.TuesEndTime,
-                    Wednesday = schedule.WedStartTime + " - " + schedule.WedEndTime,
-                    Thursday = schedule.ThursStartTime + " - " + schedule.ThursEndTime,
-                    Friday = schedule.FriStartTime + " - " + schedule.FriEndTime,
-                    Saturday = schedule.SatStartTime + " - " + schedule.SatEndTime,
-                });
+                    string[] timeValidation = new string[7];
 
+                    if(tutor.Schedule.SunStartTime.CompareTo(zeroTime) != 0 && tutor.Schedule.SunEndTime.CompareTo(zeroTime) != 0)
+                    {
+                        timeValidation[0] = (tutor.Schedule.SunStartTime + " " + tutor.Schedule.SunEndTime);
+                    }
+                    else
+                    {
+                        timeValidation[0] = ("N/A");
+                    }
+                    if(tutor.Schedule.MonStartTime.CompareTo(zeroTime) != 0 && tutor.Schedule.MonEndTime.CompareTo(zeroTime) != 0)
+                    {
+                        timeValidation[1] = (tutor.Schedule.MonStartTime + " " + tutor.Schedule.MonEndTime);
+                    }
+                    else
+                    {
+                        timeValidation[1] = ("N/A");
+                    }
+                    if(tutor.Schedule.TuesStartTime.CompareTo(zeroTime) != 0 && tutor.Schedule.TuesEndTime.CompareTo(zeroTime) != 0)
+                    {
+                        timeValidation[2] = (tutor.Schedule.TuesStartTime + " " + tutor.Schedule.TuesEndTime);
+                    }
+                    else
+                    {
+                        timeValidation[2] = ("N/A");
+                    }
+                    if(tutor.Schedule.WedStartTime.CompareTo(zeroTime) != 0 && tutor.Schedule.WedEndTime.CompareTo(zeroTime) != 0)
+                    {
+                        timeValidation[3] = (tutor.Schedule.WedStartTime + " " + tutor.Schedule.WedEndTime);
+                    }
+                    else
+                    {
+                        timeValidation[3] = ("N/A");
+                    }
+                    if(tutor.Schedule.ThursStartTime.CompareTo(zeroTime) != 0 && tutor.Schedule.ThursEndTime.CompareTo(zeroTime) != 0)
+                    {
+                        timeValidation[4] = (tutor.Schedule.ThursStartTime + " " + tutor.Schedule.ThursEndTime);
+                    }
+                    else
+                    {
+                        timeValidation[4] = ("N/A");
+                    }
+                    if(tutor.Schedule.FriStartTime.CompareTo(zeroTime) != 0 && tutor.Schedule.FriEndTime.CompareTo(zeroTime) != 0)
+                    {
+                        timeValidation[5] = (tutor.Schedule.FriStartTime + " " + tutor.Schedule.FriEndTime);
+                    }
+                    else
+                    {
+                        timeValidation[5] = ("N/A");
+                    }
+                    if (tutor.Schedule.SatStartTime.CompareTo(zeroTime) != 0 && tutor.Schedule.SatEndTime.CompareTo(zeroTime) != 0)
+                    {
+                        timeValidation[6] = (tutor.Schedule.SatStartTime + " " + tutor.Schedule.SatEndTime);
+                    }
+                    else
+                    {
+                        timeValidation[6] = ("N/A");
+                    }
+                    
+
+
+                    results.Add(new
+                    {
+                        ScheduleId = tutor.Schedule.Id,
+                        Sunday = timeValidation[0],
+                        Monday = timeValidation[1],
+                        Tuesday = timeValidation[2],
+                        Wednesday = timeValidation[3],
+                        Thursday = timeValidation[4],
+                        Friday = timeValidation[5],
+                        Saturday = timeValidation[6],
+                    });
+                }
+                else
+                {
+                    results.Add(new
+                    {
+                        ScheduleId = 0,
+                        Sunday = "N/A",
+                        Monday = "N/A",
+                        Tuesday = "N/A",
+                        Wednesday = "N/A",
+                        Thursday = "N/A",
+                        Friday = "N/A",
+                        Saturday = "N/A",
+                    });
+                }
                 return Json(new { Result = "OK", Records =  results, TotalRecordCount = results.Count() });
             }
             catch (Exception ex)
