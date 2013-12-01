@@ -5,17 +5,16 @@ using System.Web;
 
 namespace PTS.Models
 {
-    public class ReviewClassViewModel
+    public class ReviewTutorViewModel
     {
-        
-        public string Description { get; set; }
+        public string TutorName { get; set; }
         public string Comment { get; set; }
         public DateTime Date { get; set; }
         public int Rating { get; set; }
-        public int ClassID { get; set; }
+        public int TeacherID { get; set; }
         public int StudentID { get; set; }
 
-        public ReviewClassViewModel()
+        public ReviewTutorViewModel()
         {
 
         }

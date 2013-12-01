@@ -223,6 +223,7 @@
     <Compile Include="Models\AccountUser.cs" />
     <Compile Include="Models\LocationVM.cs" />
     <Compile Include="Models\ClassViewModel.cs" />
+    <Compile Include="Models\ReviewTutorViewModel.cs" />
     <Compile Include="Models\ReviewClassViewModel.cs" />
     <Compile Include="Models\TeacherUserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -659,6 +660,7 @@
     <Content Include="Views\Review\Index.cshtml" />
     <Content Include="Views\Shared\_TeacherUserForm.cshtml" />
     <Content Include="Views\Payment\ProcessPayment.cshtml" />
+    <Content Include="Views\Review\ReviewTutor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

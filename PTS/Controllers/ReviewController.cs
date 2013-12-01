@@ -26,24 +26,92 @@ namespace PTS.Views.Review
         private readonly IBaseService<Class> _classService;
         private readonly IBaseService<Location> _locationService;
         private readonly IBaseService<ReviewClass> _reviewClassService;
+        private readonly IBaseService<Payment> _paymentService;
+        private readonly IBaseService<ReviewTeacher> _reviewTutorService;
 
 
         #endregion
         //
         // GET: /Review/
 
-        public ReviewController(IBaseService<ReviewClass> reviewClass,IBaseService<Enrolled> enrolledService, IUserService userService, IBaseService<StudentUser> studentUserService, 
+        public ReviewController(IBaseService<ReviewTeacher> reviewTutorService,IBaseService<Payment> paymentService, IBaseService<ReviewClass> reviewClass,IBaseService<Enrolled> enrolledService, IUserService userService, IBaseService<StudentUser> studentUserService, 
                                 IBaseService<Class> classService, IBaseService<Location> locationService, IBaseService<TeacherUser> teacherUserService)
         {
             _enrolledService = enrolledService;
             _classService = classService;
             _reviewClassService = reviewClass;
+            _paymentService = paymentService;
+            _reviewTutorService = reviewTutorService;
+            _teacherUserService = teacherUserService;
         }
 
         public ActionResult Index()
         {
             
             return View();
+        }
+
+        public ActionResult ReviewTutor()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddUpdateTutorsToReview(ReviewTutorViewModel review)
+        {
+            var reviewTutor = _reviewTutorService.GetTableQuery().Where(r => r.StudentId == review.StudentID).Where(r=> r.TeacherId==review.TeacherID).ToList();
+
+            var record = new ReviewTutorViewModel();
+            if(reviewTutor.Count()>0)
+            {
+                var update = new ReviewTeacher
+                {
+                    Id = reviewTutor.Single().Id,
+                    Comment = review.Comment,
+                    Date = DateTime.Today,
+                    Rating = review.Rating,
+                    StudentId = review.StudentID,
+                    TeacherId = review.TeacherID
+                };
+                _reviewTutorService.Update(update);
+
+                record = new ReviewTutorViewModel
+                {
+                    TeacherID=review.TeacherID,
+                    TutorName=review.TutorName,
+                    Comment = review.Comment,
+                    Date = DateTime.Today,
+                    StudentID = review.StudentID,
+                    Rating = review.Rating,
+                   
+                };
+            }
+            else
+            {
+                var insert = new ReviewTeacher
+                {
+                    Comment = review.Comment,
+                    Date = DateTime.Today,
+                    Rating = review.Rating,
+                    StudentId = review.StudentID,
+                    TeacherId = review.TeacherID
+                };
+                _reviewTutorService.Insert(insert);
+
+                record = new ReviewTutorViewModel
+                {
+                    TeacherID = review.TeacherID,
+                    TutorName = review.TutorName,
+                    Comment = review.Comment,
+                    Date = DateTime.Today,
+                    StudentID = review.StudentID,
+                    Rating = review.Rating,
+
+                };
+            }
+
+            
+            return Json(new { Result = "OK", Records = record });
         }
 
         [HttpPost]
@@ -107,6 +175,43 @@ namespace PTS.Views.Review
                 throw new Exception(e.Message);
             }
         }
+
+        [HttpPost]
+        public ActionResult GetTutorsToReview()
+        {
+            var payments = _paymentService.GetTableQuery().Where(p => p.StudentId == SessionDataHelper.UserId).ToList();
+            var Class = new List<Class>();
+            var Reviews = new List<ReviewTutorViewModel>();
+
+            foreach(var p in payments)
+            {
+                var temp = new ReviewTutorViewModel();
+                var tempTutorReview = _reviewTutorService.GetTableQuery().Where(r => r.StudentId == SessionDataHelper.UserId).Where(r => r.TeacherId == p.TeacherId).SingleOrDefault();
+                var tempTutor = _teacherUserService.GetById(p.TeacherId);
+                temp.Date = DateTime.Today;
+                temp.StudentID = SessionDataHelper.UserId;
+                temp.TeacherID = p.TeacherId;
+                temp.TutorName = tempTutor.User.FirstName + " " + tempTutor.User.LastName;
+                if(tempTutorReview!=null)
+                {
+                    temp.Comment=tempTutorReview.Comment;
+                    temp.Rating = tempTutorReview.Rating;
+                }
+                else
+                {
+                    temp.Comment = "Review This Tutor!";
+                    temp.Rating=0;
+                }
+
+                Reviews.Add(temp);
+
+            }
+
+            var records=Reviews;
+            return Json(new { Result = "OK", Records = records });
+        }
+        
+
 
         public ActionResult GetClassesToReview()
         {

@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "ReviewTutor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>ReviewTutor</h3>
+<div id="TutorsToReviewTable"></div>
+<script>
+    $(document).ready(function () {
+        $('#TutorsToReviewTable').jtable({
+            title: 'Tutors to Review',
+
+            actions: {
+                listAction: '@Url.Action("GetTutorsToReview")',
+                updateAction: '@Url.Action("AddUpdateTutorsToReview")',
+            },
+            fields: {
+                StudentID: {
+                    key: true,
+                    list: false,
+                    create: false,
+                    edit: false,
+                },
+                TeacherID: {
+                    list: false,
+                    create: false,
+                    edit: true,
+                    type: 'hidden',
+                },
+                TutorName:{
+                    title: 'Tutor',
+                    edit: false,
+                },
+                Date: {
+                    title: 'Date',
+                    type: 'date',
+                    edit: false,
+                },
+                Rating: {
+                    title: 'Rating',
+                },
+                Comment: {
+                    title: 'Comment',
+                    type:'textarea'
+                }
+
+            }
+        });
+        $('#TutorsToReviewTable').jtable('load');
+    })
+    $('.ui-button-text').on('click',function()
+    {
+        $('#Edit-Rating').val
+    })
+
+</script>

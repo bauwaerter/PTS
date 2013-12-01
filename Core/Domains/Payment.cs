@@ -10,7 +10,7 @@ namespace Core.Domains
         public virtual int StudentId { get; set; }
         public virtual int TeacherId { get; set; }
         public virtual int? ClassId { get; set; }
-        public virtual double Money { get; set; }
+        public virtual double Amount { get; set; }
         public virtual string Description { get; set; }
         public virtual int CreditCardNumber { get; set; }
         public virtual DateTime Date { get; set; }

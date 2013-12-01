@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Review</h3>
+<div id="ClassesToReviewTable"></div>
+<script>
+    $(document).ready(function () {
+        $('#ClassesToReviewTable').jtable({
+            title: 'Classes to Review',
+            
+            actions: {
+                listAction: '@Url.Action("GetClassesToReview")',
+                updateAction: '@Url.Action("AddUpdateClassesToReview")',
+            },
+            fields: {
+                ClassID: {
+                    key: true,
+                    list: false,
+                    create: false,
+                    edit: false,
+                },
+                StudentID: {
+                    list: false,
+                    create: false,
+                    edit: true,
+                    type: 'hidden',
+                },
+                Description: {
+
+                    title: 'Class',
+                    edit: false,
+                },
+                
+                Date: {
+                    title: 'Date',
+                    type: 'date',
+                    edit: false,
+                },
+                Rating: {
+                    title: 'Rating',
+                },
+                Comment: {
+                    title: 'Comment',
+                    type: 'textarea',
+                }
+                
+            }
+        });
+        $('#ClassesToReviewTable').jtable('load');
+    })
+</script>
