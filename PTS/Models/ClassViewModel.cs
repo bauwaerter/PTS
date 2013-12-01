@@ -13,6 +13,7 @@ namespace PTS.Models
         public int Id { get; set; }
         public int LocationId { get; set; }
         public int SubjectId { get; set; }
+        public string TeacherName { get; set; }
         public string Description { get; set; }
         public string StartTime { get; set; }
         public string EndTime { get; set; }

@@ -16,14 +16,17 @@ namespace PTS.Views.Search
         private readonly IUserService _userService;
         private readonly IBaseService<Class> _classService;
         private readonly IBaseService<Location> _locationService;
+        
 
         public SearchController(IBaseService<TeacherUser> teacherUserService, IUserService userService,
-                                IBaseService<Class> classService, IBaseService<Location> locationService)
+                                IBaseService<Class> classService, IBaseService<Location> locationService
+                                )
         {
             _teacherUserService = teacherUserService;
             _userService = userService;
             _classService = classService;
             _locationService = locationService;
+           
         }
 
         //
@@ -207,12 +210,13 @@ namespace PTS.Views.Search
             try
             {
                 var data = _classService.GetAll();
-
+                
                 var records = data.Select(d => new ClassViewModel
                 {
                     Id = d.Id,
                     LocationId = d.LocationId,
                     SubjectId = d.SubjectID,
+                    TeacherName = d.TeacherUser.User.FirstName + " " + d.TeacherUser.User.LastName,
                     Description = d.Description,
                     StartTime = d.StartTime.ToString(),
                     EndTime = d.EndTime.ToString(),

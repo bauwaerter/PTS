@@ -68,17 +68,7 @@ namespace Data.Mappings
         }
     }
 
-    public class TeachesMap : EntityTypeConfiguration<Teaches>
-    {
-        public TeachesMap()
-        {
-            ToTable("Teaches", "dbo");
-            HasKey(t => t.Id);
-
-            
-        }
-    }
-
+    
     public class TutorsMap : EntityTypeConfiguration<Tutors>
     {
         public TutorsMap()

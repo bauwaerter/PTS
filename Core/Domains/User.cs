@@ -106,12 +106,6 @@ namespace Core.Domains
         public virtual int SubjectId { get; set; }
     }
 
-    public class Teaches : BaseEntity
-    {
-        public virtual int TeacherId { get; set; }
-        public virtual int ClassId { get; set; }
-    }
-
     public class Tutors : BaseEntity
     {
         public virtual int StudentId { get; set; }

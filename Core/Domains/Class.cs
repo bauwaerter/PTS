@@ -21,6 +21,7 @@ namespace Core.Domains
 
     public class Class : BaseEntity
     {
+        public virtual int TeacherId { get; set; }
         public virtual int LocationId { get; set; }
         public virtual string Description { get; set; }
         public virtual TimeSpan StartTime { get; set; }
@@ -31,6 +32,7 @@ namespace Core.Domains
 
         #region navigation
         public virtual Location Location { get; set; }
+        public virtual TeacherUser TeacherUser { get; set; }
         #endregion
     }
 
