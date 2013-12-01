@@ -223,6 +223,7 @@
     <Compile Include="Models\AccountUser.cs" />
     <Compile Include="Models\LocationVM.cs" />
     <Compile Include="Models\ClassViewModel.cs" />
+    <Compile Include="Models\ReviewClassViewModel.cs" />
     <Compile Include="Models\TeacherUserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\SearchController.cs" />
