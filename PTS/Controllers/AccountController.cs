@@ -235,7 +235,20 @@ namespace PTS.Controllers
             }
         }
 
- 
+        
+        public ActionResult LoadRequestSession(int teacherId)
+        {
+            try
+            {
+                var teacher = _teacherUserService.GetById(teacherId);
+                return View("RegisterForTeacher", teacher);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
         //
         // POST: /Account/Disassociate
 

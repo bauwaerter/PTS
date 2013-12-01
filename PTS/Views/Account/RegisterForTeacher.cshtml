@@ -1,0 +1,35 @@
+﻿@model Core.Domains.TeacherUser
+<!DOCTYPE html>
+
+<html>
+<body>
+    <h6>Reqeust a Session</h6>
+
+    @Html.HiddenFor(model => model.Id)
+
+
+    <p>@Html.LabelFor(model => model.User.FirstName, "First Name")</p>
+    @Html.TextBoxFor(model => model.User.FirstName, new { @class = "form-control", style = "width:400px" })
+
+    <p>@Html.LabelFor(model => model.User.LastName, "Last Name")</p>
+    @Html.TextBoxFor(model => model.User.LastName, new { @class = "form-control", style = "width:400px" })
+
+    <p>@Html.LabelFor(model => model.User.Email)</p>
+    @Html.TextBoxFor(model => model.User.Email, new { @class = "form-control", style = "width:400px" })
+
+    <p>Enter times you wish to be tutored</p>
+    <p>Sunday</p>
+    <div class="row">
+        <div class="col-md-2 col-md-offset-1"><p>Start Time</p></div>
+        <div class="col-md-4"><input type="text" class="form-control" /></div>
+    </div>
+    
+    <p>Monday</p>
+    <p>Tuesday</p>
+    <p>Wednesday</p>
+    <p>Thursday</p>
+    <p>Friday</p>
+    <p>Saturday</p>
+
+</body>
+</html>

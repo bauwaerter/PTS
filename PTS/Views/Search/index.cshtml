@@ -129,9 +129,9 @@
                 },
                 RequestAppointment: {
                     title: 'Request Session',
-                    display: function () {
-                        var requestLink = $("<a>Request Session</a>");
-                        return requestLink;
+                    display: function (data) {
+                        return '<a href="@Url.Action("LoadRequestSession", "Account")?teacherId=' + data.record.Id + '">Request Session</a>';
+                        
                     }
                 }
             }

@@ -661,6 +661,7 @@
     <Content Include="Views\Shared\_TeacherUserForm.cshtml" />
     <Content Include="Views\Payment\ProcessPayment.cshtml" />
     <Content Include="Views\Review\ReviewTutor.cshtml" />
+    <Content Include="Views\Account\RegisterForTeacher.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
