@@ -9,6 +9,10 @@ namespace Data.Mappings
         {
             ToTable("Class", "dbo");
             HasKey(c => c.Id);
+
+            HasMany(x => x.ReviewClass)
+                .WithOptional()
+                .HasForeignKey(xs => xs.ClassId);
         }
     }
 
