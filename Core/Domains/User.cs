@@ -81,6 +81,13 @@ namespace Core.Domains
         #region navigation
         public virtual User User { get; set; }
         public virtual Schedule Schedule { get; set; }
+
+        private ICollection<ReviewTeacher> _reviewTeacher;
+        public virtual ICollection<ReviewTeacher> ReviewTeacher
+	    {
+            get { return _reviewTeacher ?? (_reviewTeacher = new List<ReviewTeacher>()); }
+            protected set { _reviewTeacher = value; }
+        } 
         #endregion
     }
 

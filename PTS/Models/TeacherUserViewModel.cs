@@ -15,7 +15,7 @@ namespace PTS.Models
         public string Email { get; set; }
         public decimal HourlyRate { get; set; }
         public decimal ClassRate { get; set; }
-        
+        public string AverageRating { get; set; }
 
         public TeacherUserViewModel()
         {

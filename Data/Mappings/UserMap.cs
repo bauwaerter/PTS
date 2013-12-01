@@ -35,6 +35,9 @@ namespace Data.Mappings
             ToTable("TeacherUser", "dbo");
             HasKey(t => t.Id);
 
+            HasMany(x => x.ReviewTeacher)
+                .WithOptional()
+                .HasForeignKey(xs => xs.TeacherId);
         }
     }
 

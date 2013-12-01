@@ -66,6 +66,12 @@
                 Email: {
                     title: 'Email',
                 },
+                AverageRating: {
+                    title: 'Ratings',
+                    display: function (data) {
+                        return '<a href="@Url.Action("LoadRequestSession", "Account")?teacherId=' + data.record.Id + '">' + data.record.AverageRating + '</a>';
+                    }
+                },
                 ClassRate: {
                     title: 'Class Rate'
                 },
@@ -131,7 +137,6 @@
                     title: 'Request Session',
                     display: function (data) {
                         return '<a href="@Url.Action("LoadRequestSession", "Account")?teacherId=' + data.record.Id + '">Request Session</a>';
-                        
                     }
                 }
             }

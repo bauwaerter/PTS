@@ -16,17 +16,17 @@ namespace PTS.Views.Search
         private readonly IUserService _userService;
         private readonly IBaseService<Class> _classService;
         private readonly IBaseService<Location> _locationService;
-        
+        private readonly IBaseService<ReviewTeacher> _reviewTeacherService;
 
         public SearchController(IBaseService<TeacherUser> teacherUserService, IUserService userService,
-                                IBaseService<Class> classService, IBaseService<Location> locationService
-                                )
+                                IBaseService<Class> classService, IBaseService<Location> locationService,
+                                IBaseService<ReviewTeacher> reviewTeacherService)
         {
             _teacherUserService = teacherUserService;
             _userService = userService;
             _classService = classService;
             _locationService = locationService;
-           
+            _reviewTeacherService = reviewTeacherService;   
         }
 
         //
@@ -48,12 +48,14 @@ namespace PTS.Views.Search
             {
                 var data = _teacherUserService.GetAll();
 
+                
                 var records = data.Select(t => new TeacherUserViewModel
                 {
                     Id = t.Id,
                     FirstName = t.User.FirstName,
                     LastName = t.User.LastName,
                     Email = t.User.Email,
+                    AverageRating = t.ReviewTeacher.Average(a => a.Rating) !=  0 ? t.ReviewTeacher.Average(a => a.Rating).ToString() : "No Ratings",
                     ClassRate = t.ClassRate,
                     HourlyRate = t.HourlyRate
                 });
