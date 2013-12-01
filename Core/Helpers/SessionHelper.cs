@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Web;
 
-namespace Core.Helpers {
+namespace ClassLibrary1.Helpers {
     /// <summary>
     /// session helper
     /// </summary>

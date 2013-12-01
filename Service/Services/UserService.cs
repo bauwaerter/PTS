@@ -101,6 +101,7 @@ namespace Service.Services
                 var salt = user.PasswordSalt;
                 var hashedPassword = SecurityHelper.HashPassword(password, ref salt);
                 return user.PassWord == hashedPassword;
+
             } catch (Exception ex) {
                 throw new Exception("Database error occurred", ex);
             }

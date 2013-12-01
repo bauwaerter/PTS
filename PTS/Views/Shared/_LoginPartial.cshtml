@@ -3,7 +3,8 @@
 
     <div class="row">
         <div class="col-md-8 col-md-offset-1" style="font-size:2em;">
-                Hello, @Html.ActionLink(User.Identity.Name, "ManageAccount", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })!
+            Hello, @Html.ActionLink(User.Identity.Name, "ManageAccount", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })!
+            User.Identity.Id
         </div>
         <div class="col-md-3">
             @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))

@@ -5,6 +5,7 @@ using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using ClassLibrary1.Helpers;
 using Core.Helpers;
 using Core.Helpers.Security;
 using DotNetOpenAuth.AspNet;

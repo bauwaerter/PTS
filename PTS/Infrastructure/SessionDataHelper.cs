@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using ClassLibrary1.Helpers;
+using Core;
 using Core.Domains;
 using Core.Helpers;
 

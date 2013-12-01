@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 using PTS.Infrastructure;
-using Core.PTS.Filters;
+using Core.Web.Filters;
 
 namespace PTS
 {

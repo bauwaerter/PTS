@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Core.Domains;
 using Data;
+using Microsoft.Web.Infrastructure;
 using Service.Interfaces;
 
 namespace Service.Services {
@@ -31,6 +32,11 @@ namespace Service.Services {
         public bool CheckLogin(int userId, string sessionId) {
             var logins = _loginRepo.Table.Where(x => x.UserId == userId && x.SessionId == sessionId && x.LoggedIn);
 
+            return logins.Any();
+        }
+
+        public bool CheckLogin(string sessionId) {
+            var logins = _loginRepo.Table.Where(x => x.SessionId == sessionId && x.LoggedIn);
             return logins.Any();
         }
 

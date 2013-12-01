@@ -204,7 +204,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
-    <Compile Include="Filters\NoCacheFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -223,6 +222,7 @@
     <Compile Include="Models\AccountUser.cs" />
     <Compile Include="Models\LocationVM.cs" />
     <Compile Include="Models\ClassViewModel.cs" />
+    <Compile Include="Models\PaymentModel.cs" />
     <Compile Include="Models\ReviewTutorViewModel.cs" />
     <Compile Include="Models\ReviewClassViewModel.cs" />
     <Compile Include="Models\TeacherUserViewModel.cs" />
@@ -662,6 +662,7 @@
     <Content Include="Views\Review\Index.cshtml" />
     <Content Include="Views\Shared\_TeacherUserForm.cshtml" />
     <Content Include="Views\Payment\ProcessPayment.cshtml" />
+    <Content Include="Views\Payment\_Address.cshtml" />
     <Content Include="Views\Review\ReviewTutor.cshtml" />
     <Content Include="Views\Account\RegisterForTeacher.cshtml" />
   </ItemGroup>
