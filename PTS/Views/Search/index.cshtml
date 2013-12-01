@@ -69,7 +69,12 @@
                 AverageRating: {
                     title: 'Ratings',
                     display: function (data) {
-                        return '<a href="@Url.Action("LoadRequestSession", "Account")?teacherId=' + data.record.Id + '">' + data.record.AverageRating + '</a>';
+                        if (data.record.AverageRating != "No Ratings") {
+                            return '<a href="@Url.Action("LoadRequestSession", "Account")?teacherId=' + data.record.Id + '">' + data.record.AverageRating + ' / 10</a>';
+                        }
+                        else {
+                            return data.record.AverageRating;
+                        }
                     }
                 },
                 ClassRate: {

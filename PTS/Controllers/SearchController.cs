@@ -55,7 +55,7 @@ namespace PTS.Views.Search
                     FirstName = t.User.FirstName,
                     LastName = t.User.LastName,
                     Email = t.User.Email,
-                    AverageRating = t.ReviewTeacher.Average(a => a.Rating) !=  0 ? t.ReviewTeacher.Average(a => a.Rating).ToString() : "No Ratings",
+                    AverageRating = t.ReviewTeacher.FirstOrDefault() !=  null ? Math.Round(t.ReviewTeacher.Average(a => a.Rating), 1).ToString() : "No Ratings",
                     ClassRate = t.ClassRate,
                     HourlyRate = t.HourlyRate
                 });
