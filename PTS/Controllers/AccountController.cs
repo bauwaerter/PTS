@@ -135,7 +135,7 @@ namespace PTS.Controllers
                 //loc = _locationService.GetById(locid);
             }
 
-            if(model.Role== UserRole.Student)
+            if(model.Role== UserRole.Admin)
             {
                 var student= _studentUserService.GetById(SessionDataHelper.UserId);
                 user = new AccountUser
