@@ -56,6 +56,17 @@ namespace PTS.Views.Review
             return View();
         }
 
+        public ActionResult ReviewClassesView(int classId)
+        {
+            var reviewClass = _classService.GetById(classId);
+            return View(reviewClass);
+        }
+
+        public ActionResult ReviewTeacherView(int teacherId)
+        {
+            var reivewTeacher = _teacherUserService.GetById(teacherId);
+            return View(reivewTeacher);
+        }
         [HttpPost]
         public ActionResult AddUpdateTutorsToReview(ReviewTutorViewModel review)
         {
@@ -132,7 +143,6 @@ namespace PTS.Views.Review
                         Date = DateTime.Today,
                         StudentId = review.StudentID,
                         Rating = review.Rating,
-                        
                     };
                     _reviewClassService.Update(update);
 
@@ -144,7 +154,6 @@ namespace PTS.Views.Review
                         StudentID = review.StudentID,
                         Rating = review.Rating,
                         Description = classdesc.Description,
-                        TeacherName =review.TeacherName,
                     };
                 }
                 else
@@ -226,12 +235,9 @@ namespace PTS.Views.Review
                 var temp =new ReviewClassViewModel();
                 var tempClassReview = _reviewClassService.GetTableQuery().Where(r => r.ClassId == c.ClassId).Where(r => r.StudentId == SessionDataHelper.UserId).SingleOrDefault();
                 var tempClass = _classService.GetById(c.ClassId);
-
                 temp.Description = tempClass.Description;
                 temp.ClassID = tempClass.Id;
                 temp.StudentID = SessionDataHelper.UserId;
-                var tempteacher=_teacherUserService.GetById(tempClass.TeacherId);
-                temp.TeacherName = tempteacher.User.FirstName + " " + tempteacher.User.LastName;
                 if (tempClassReview != null)
                 {
                     temp.Comment = tempClassReview.Comment;

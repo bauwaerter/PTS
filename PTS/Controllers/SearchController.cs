@@ -31,6 +31,7 @@ namespace PTS.Views.Search
 
         //
         // GET: /Search/
+        [AllowAnonymous]
         public ActionResult Index()
         {
            
@@ -39,6 +40,7 @@ namespace PTS.Views.Search
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult GetTeacherUsers(string textSearch = "")
         {
@@ -90,6 +92,7 @@ namespace PTS.Views.Search
             }
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult GetTutorAvailibility(int tutorUserId)
         {
@@ -197,6 +200,7 @@ namespace PTS.Views.Search
 
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult GetClasses(string textSearch = "")
         {
@@ -211,6 +215,7 @@ namespace PTS.Views.Search
                     SubjectId = d.SubjectID != null ? d.SubjectID : null,
                     TeacherName = d.Teacher.User.FirstName + " " + d.Teacher.User.LastName,
                     Description = d.Description,
+                    AverageRating = d.ReviewClass.FirstOrDefault() != null ? Math.Round(d.ReviewClass.Average(a => a.Rating), 1).ToString() : "No Ratings",
                     StartTime = d.StartTime.ToString(),
                     EndTime = d.EndTime.ToString(),
                     Duration = d.Duration,
