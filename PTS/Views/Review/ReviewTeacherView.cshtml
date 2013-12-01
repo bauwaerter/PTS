@@ -1,0 +1,16 @@
+﻿@model Core.Domains.TeacherUser
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ReviewTeacherView</title>
+</head>
+<body>
+    <div>
+        @Html.LabelFor(model => model.User.FirstName, "First Name")
+        @Html.TextBoxFor(model => model.User.FirstName)
+    </div>
+</body>
+</html>
