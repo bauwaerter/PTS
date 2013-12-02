@@ -57,17 +57,11 @@ namespace PTS.Controllers{
                     TeacherId = newClass.TeacherId,
                     Date = DateTime.Now,
                     Amount = (int) newClass.Teacher.ClassRate
-                }
+                },
+                Message = "",
             };
             payment.Location = _locationService.GetById((int)locId);
             return View(payment);
-        }
-
-        [HttpPost]
-        public ActionResult ProcessPayment(PaymentModel model){
-            model.Location = null;
-            _paymentService.Insert(model.Payment);
-            return RedirectToAction("Index", "Search");
         }
 
         [HttpGet]
@@ -83,14 +77,19 @@ namespace PTS.Controllers{
                     TeacherId = tutorId,
                     Date = DateTime.Now,
                     Amount = (int)teacher.HourlyRate,
-                }
+                },
+                Message = "per hour"
             };
             payment.Location = _locationService.GetById((int)locId);
-            return View(payment);
+            return View("ProcessPayment",payment);
         }
 
-
-
+        [HttpPost]
+        public ActionResult ProcessPayment(PaymentModel model){
+            model.Location = null;
+            _paymentService.Insert(model.Payment);
+            return RedirectToAction("Index", "Search");
+        }
     }
 }
 

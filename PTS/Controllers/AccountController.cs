@@ -303,11 +303,10 @@ namespace PTS.Controllers
         public ActionResult LoadRequestSession(Request request) {
             try{
                 _requestService.Insert(request);
-                return new EmptyResult();
+                return RedirectToAction("ProcessTutorPayment", "Payment", new {studentId = request.StudentId, tutorId = request.TeacherId});
             } catch (Exception ex) {
                 throw new Exception(ex.Message);
             }
-
         }
 
         [Authorize]
