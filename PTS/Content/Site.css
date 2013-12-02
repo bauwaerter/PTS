@@ -109,10 +109,13 @@ h5, h6 {
     clear: both;
     padding-bottom: 35px;
     padding-top: 35px;
+    height: 100%;
+    width: 100%;
 }
 
     .main-content {
         background: #bdc3c7;/*url("../Images/accent.png") no-repeat;*/
+        
         padding-left: 20px;
         padding-right: 20px;
         padding-top: 30px;
@@ -138,6 +141,7 @@ footer {
     font-size: .8em;
     height: 100px;
 }
+
 
 
 /* site title

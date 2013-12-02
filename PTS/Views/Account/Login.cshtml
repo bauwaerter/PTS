@@ -10,67 +10,70 @@
 </hgroup>
 
 <style>
-    .social {
+    .social
+    {
         margin-left: auto;
         margin-right: auto;
         display: block;
     }
-    .img {
+
+    .img
+    {
         display: block;
         margin-left: 50px;
     }
-
 </style>
 <div id="loginForm">
-@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+    @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
 
-    <fieldset style="margin-left: 75px; margin-top:20px; margin-bottom: 20px; background-color:#ecf0f1; border-radius: 10px; margin-left: 20px; margin-bottom: 20px; padding-left: 40px; padding-bottom:20px;">
-        <legend>Log in Form</legend>
-        <ol>
-            <li>
-                <p>@Html.LabelFor(m => m.UserName)</p>
-                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.UserName)
-            </li>
-            <li>
-                <p>@Html.LabelFor(m => m.Password)</p>
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Password)
-            </li>
-            <div style="height:20px;"></div>
-            <li>
-                <div class="row">
-                    <div class="col-md-1">
-                        <label class="checkbox unchecked" for="checkbox1">
-                        <span class="icons">
-                            <span class="first-icon fui-checkbox-unchecked"></span>
-                            <span class="second-icon fui-checkbox-checked"></span>
-                        </span>
-                        <input type="checkbox" value="" id="checkbox1" data-toggle="checkbox">
-                    </label>
+        <fieldset style="margin-left: 75px; margin-top: 20px; margin-bottom: 20px; background-color: #ecf0f1; border-radius: 10px; margin-left: 20px; margin-bottom: 20px; padding-left: 40px; padding-bottom: 20px;">
+            <legend>Log in Form</legend>
+            <ol>
+                <li>
+                    <p>@Html.LabelFor(m => m.UserName)</p>
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.UserName)
+                </li>
+                <li>
+                    <p>@Html.LabelFor(m => m.Password)</p>
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Password)
+                </li>
+                <div style="height: 20px;"></div>
+                <li>
+                    <div class="row">
+                        <div class="col-md-1">
+                            <label class="checkbox unchecked" for="checkbox1">
+                                <span class="icons">
+                                    <span class="first-icon fui-checkbox-unchecked"></span>
+                                    <span class="second-icon fui-checkbox-checked"></span>
+                                </span>
+                                <input type="checkbox" value="" id="checkbox1" data-toggle="checkbox">
+                            </label>
+                        </div>
+                        @*@Html.CheckBoxFor(m => m.RememberMe, new { @class = "" })*@
+                        <div class="col-md-4" style="text-align: left;">
+                            <p>@Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })</p>
+                        </div>
                     </div>
-                    @*@Html.CheckBoxFor(m => m.RememberMe, new { @class = "" })*@
-                    <div class="col-md-4" style="text-align:left;">
-                        <p>@Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })</p>
-                    </div>
-                </div>
-            </li>
-        </ol>
-        <button class="btn btn-primary btn-hg">Log-in</button>
-    </fieldset>
-    <br/>
-    <p>
-        @Html.ActionLink("Register", "Register") if you don't have an account.
-    </p>
-}
-</div>
+                </li>
+            </ol>
+            <button class="btn btn-primary btn-hg">Log-in</button>
+        </fieldset>
+        <br />
+        <p>
+            @Html.ActionLink("Register", "Register") if you don't have an account.
+        </p>
+    }
 
-<div class="social" id="socialLoginForm">
-    <li class="img"><img src="~/Images/writing.jpg" alt="school supplies"/></li>
-    @*@Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })*@
-</div>
+    </div>
+    <div class="social" id="socialLoginForm" style="margin-top: 60px;">
+        <img src="~/Images/writing.jpg" alt="school supplies" />
+    </div>
+
 <script src="~/Content/Flat-UI/js/flatui-checkbox.js"></script>
 @*@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
