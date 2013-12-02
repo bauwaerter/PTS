@@ -70,4 +70,11 @@ namespace Data.Mappings
         }
     }
 
+    public class RequestMap : EntityTypeConfiguration<Request> {
+        public RequestMap() {
+            ToTable("Request", "dbo");
+            HasKey(rq => rq.Id);
+        }
+    }
+
 }

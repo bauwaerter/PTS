@@ -17,6 +17,7 @@ namespace PTS.Controllers{
         private readonly IBaseService<Class> _classService;
         private readonly IBaseService<Location> _locationService;
         private readonly IBaseService<Payment> _paymentService;
+        private readonly IBaseService<TeacherUser> _teacherUserService; 
         private readonly IUserService _userService;
 
         #endregion
@@ -24,10 +25,11 @@ namespace PTS.Controllers{
         #region constructor 
 
         public PaymentController(IBaseService<Class> classService, IBaseService<Location> locationService,
-            IBaseService<Payment> paymentService, IUserService userService){
+            IBaseService<Payment> paymentService, IBaseService<TeacherUser> teacherService, IUserService userService){
             _classService = classService;
             _locationService = locationService;
             _paymentService = paymentService;
+            _teacherUserService = teacherService;
             _userService = userService;
 
         }
@@ -67,6 +69,27 @@ namespace PTS.Controllers{
             _paymentService.Insert(model.Payment);
             return RedirectToAction("Index", "Search");
         }
+
+        [HttpGet]
+        public ActionResult ProcessTutorPayment(int studentId, int tutorId) {
+
+            var user = _userService.GetById(studentId);
+            var teacher = _teacherUserService.GetById(tutorId);
+            var locId = user.LocationId;
+            var payment = new PaymentModel {
+                Payment = new Payment() {
+                    StudentId = user.Id,
+                    ClassId = null,
+                    TeacherId = tutorId,
+                    Date = DateTime.Now,
+                    Amount = (int)teacher.HourlyRate,
+                }
+            };
+            payment.Location = _locationService.GetById((int)locId);
+            return View(payment);
+        }
+
+
 
     }
 }

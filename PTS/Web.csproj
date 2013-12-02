@@ -224,6 +224,7 @@
     <Compile Include="Models\LocationVM.cs" />
     <Compile Include="Models\ClassViewModel.cs" />
     <Compile Include="Models\PaymentModel.cs" />
+    <Compile Include="Models\RequestModel.cs" />
     <Compile Include="Models\ReviewTutorViewModel.cs" />
     <Compile Include="Models\ReviewClassViewModel.cs" />
     <Compile Include="Models\SelectSubjectViewModel.cs" />

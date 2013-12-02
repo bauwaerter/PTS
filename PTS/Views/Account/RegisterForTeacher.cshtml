@@ -1,32 +1,34 @@
-﻿@model Core.Domains.TeacherUser
+﻿@model PTS.Models.RequestModel
 <!DOCTYPE html>
 <style>
     div.ui-timepicker-wrapper {
         width: 140px;
     }
 </style>
-    <body>
+
+<form id="paymentForm" Action="@Url.Action("LoadRequestSession")" method="POST">
         <h6>Reqeust a Session</h6>
 
-        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.Teacher.Id)
+        @Html.HiddenFor(model => model.Request.Id)
+        @Html.HiddenFor(model => model.Request.TeacherId)
+        @Html.HiddenFor(model => model.Request.StudentId)
+        @Html.HiddenFor(model => model.Request.Status)
 
 
-        <p>@Html.LabelFor(model => model.User.FirstName, "First Name")</p>
-        @Html.TextBoxFor(model => model.User.FirstName, new { @class = "form-control", style = "width:400px" })
+        <p>@Html.LabelFor(model => model.Teacher.User.FirstName, "First Name")</p>
+       @* @Html.TextBoxFor(model => model.Teacher.User.FirstName, new { @class = "form-control", style = "width:400px" })*@
+        <p><h6>@Model.Teacher.User.FirstName</h6></p>
 
-        <p>@Html.LabelFor(model => model.User.LastName, "Last Name")</p>
-        @Html.TextBoxFor(model => model.User.LastName, new { @class = "form-control", style = "width:400px" })
+        <p>@Html.LabelFor(model => model.Teacher.User.LastName, "Last Name")</p>
+        <p><h6>@Model.Teacher.User.LastName</h6></p>
 
-        <p>@Html.LabelFor(model => model.User.Email)</p>
-        @Html.TextBoxFor(model => model.User.Email, new { @class = "form-control", style = "width:400px" })
+        <p>@Html.LabelFor(model => model.Teacher.User.Email)</p>
+        <p><h6>@Model.Teacher.User.Email</h6></p>
         <br/>
 
-        <h6>Enter times you wish to be tutored</h6>
-        @*<p>Sunday</p>*@
-        @*<div class="row">
-        <div class="col-md-2 col-md-offset-1"><p>Start Time</p></div>
-        <div class="col-md-4"><input type="text" class="form-control" /></div>
-    </div>*@
+        <h6>Select days you wish to be tutored</h6>
+
         <p>
         </p>
         <div class="row demo-samples">
@@ -34,7 +36,7 @@
                 <div class="todo" style="width: 1000px;">
                     <ul>
                         <li class="">
-                            @Html.TextBoxFor(model => model.Schedule.Monday, new { @class="hidden"})
+                            @Html.TextBoxFor(model => model.Request.Monday, new { @class="weekday hidden"})
                             <div class="todo-icon fui-new"></div>
                             <div class="todo-content">
                                 <h4 class="todo-name">
@@ -45,22 +47,22 @@
                                         @Html.TextBox("monFrom", "",new { @class="form-control date", @style="width: 140px;" })
                                     </div>
                                     <div class="col-md-2">
-                                        @Html.TextBox("monFromTime", "",new { @class="form-control time ui-timepicker-input", @style="width: 140px;" })
+                                        @Html.TextBoxFor(model => model.Teacher.Schedule.MonStartTime,new { @class="form-control time ui-timepicker-input", @style="width: 140px;", @readonly="readonly"})
                                     </div>
                                     <div class="col-md-1">
                                         <p><span class="label">To</span></p>
                                     </div>
                                     <div class="col-md-2" id="monFrom">
-                                        @Html.TextBox("monToTime", "",new { @class="form-control time ui-timepicker-input", @style="width: 140px;" })
+                                        @Html.TextBoxFor(model => model.Teacher.Schedule.MonEndTime,new { @class="form-control time ui-timepicker-input", @style="width: 140px;", @readonly="readonly" })
                                     </div>
                                     <div class="col-md-2" id="monFromTime">
                                         @Html.TextBox("monTo", "",new { @class="form-control date", @style="width: 140px;" })
                                     </div>
                                 </div>
                             </div>
-                            
                         </li>
                         <li class="">
+                            @Html.TextBoxFor(model => model.Request.Tuesday, new { @class="weekday hidden"})
                             <div class="todo-icon fui-new"></div>
                             <div class="todo-content">
                                 <h4 class="todo-name">
@@ -71,13 +73,13 @@
                                         @Html.TextBox("tuesFrom", "",new { @class="form-control date", @style="width: 140px;" })
                                     </div>
                                     <div class="col-md-2">
-                                        @Html.TextBox("tuesFromTime", "",new { @class="form-control time ui-timepicker-input", @style="width: 140px;" })
+                                        @Html.TextBoxFor(model => model.Teacher.Schedule.TuesStartTime,new { @class="form-control time ui-timepicker-input", @style="width: 140px;", @readonly="readonly" })
                                     </div>
                                     <div class="col-md-1">
                                         <p><span class="label">To</span></p>
                                     </div>
                                     <div class="col-md-2" id="tuesFrom">
-                                        @Html.TextBox("tuesToTime", "",new { @class="form-control time ui-timepicker-input", @style="width: 140px;" })
+                                        @Html.TextBoxFor(model => model.Teacher.Schedule.TuesEndTime,new { @class="form-control time ui-timepicker-input", @style="width: 140px;", @readonly="readonly" })
                                     </div>
                                     <div class="col-md-2" id="tuesFromTime">
                                         @Html.TextBox("tuesTo", "",new { @class="form-control date", @style="width: 140px;" })
@@ -86,6 +88,7 @@
                             </div>
                         </li>
                         <li class="">
+                            @Html.TextBoxFor(model => model.Request.Wednesday, new { @class="weekday hidden"})
                             <div class="todo-icon fui-new"></div>
                             <div class="todo-content">
                                 <h4 class="todo-name">
@@ -96,13 +99,13 @@
                                         @Html.TextBox("wedFrom", "",new { @class="form-control date", @style="width: 140px;" })
                                     </div>
                                     <div class="col-md-2">
-                                        @Html.TextBox("wedFromTime", "",new { @class="form-control time ui-timepicker-input", @style="width: 140px;" })
+                                        @Html.TextBoxFor(model => model.Teacher.Schedule.WedStartTime,new { @class="form-control time ui-timepicker-input", @style="width: 140px;", @readonly="readonly" })
                                     </div>
                                     <div class="col-md-1">
                                         <p><span class="label">To</span></p>
                                     </div>
                                     <div class="col-md-2" id="wedFrom">
-                                        @Html.TextBox("wedToTime", "",new { @class="form-control time ui-timepicker-input", @style="width: 140px;" })
+                                        @Html.TextBoxFor(model => model.Teacher.Schedule.WedEndTime,new { @class="form-control time ui-timepicker-input", @style="width: 140px;", @readonly="readonly" })
                                     </div>
                                     <div class="col-md-2" id="wedFromTime">
                                         @Html.TextBox("wedTo", "",new { @class="form-control date", @style="width: 140px;" })
@@ -111,6 +114,7 @@
                             </div>
                         </li>
                         <li class="">
+                            @Html.TextBoxFor(model => model.Request.Thursday, new { @class="weekday hidden"})
                             <div class="todo-icon fui-new"></div>
                             <div class="todo-content">
                                 <h4 class="todo-name">
@@ -121,13 +125,13 @@
                                         @Html.TextBox("thursFrom", "",new { @class="form-control date", @style="width: 140px;" })
                                     </div>
                                     <div class="col-md-2">
-                                        @Html.TextBox("thursFromTime", "",new { @class="form-control time ui-timepicker-input", @style="width: 140px;" })
+                                        @Html.TextBoxFor(model => model.Teacher.Schedule.ThursStartTime,new { @class="form-control time ui-timepicker-input", @style="width: 140px;", @readonly="readonly" })
                                     </div>
                                     <div class="col-md-1">
                                         <p><span class="label">To</span></p>
                                     </div>
                                     <div class="col-md-2" id="thursFrom">
-                                        @Html.TextBox("thursToTime", "",new { @class="form-control time ui-timepicker-input", @style="width: 140px;" })
+                                        @Html.TextBoxFor(model => model.Teacher.Schedule.ThursEndTime,new { @class="form-control time ui-timepicker-input", @style="width: 140px;", @readonly="readonly" })
                                     </div>
                                     <div class="col-md-2" id="thursFromTime">
                                         @Html.TextBox("thursTo", "",new { @class="form-control date", @style="width: 140px;" })
@@ -136,6 +140,7 @@
                             </div>
                         </li>
                         <li class="">
+                            @Html.TextBoxFor(model => model.Request.Friday, new { @class="weekday hidden"})
                             <div class="todo-icon fui-new"></div>
                             <div class="todo-content">
                                 <h4 class="todo-name">
@@ -146,13 +151,13 @@
                                         @Html.TextBox("friFrom", "",new { @class="form-control date", @style="width: 140px;" })
                                     </div>
                                     <div class="col-md-2">
-                                        @Html.TextBox("friFromTime", "",new { @class="form-control time ui-timepicker-input", @style="width: 140px;" })
+                                        @Html.TextBoxFor(model => model.Teacher.Schedule.FriStartTime,new { @class="form-control time ui-timepicker-input", @style="width: 140px;", @readonly="readonly" })
                                     </div>
                                     <div class="col-md-1">
                                         <p><span class="label">To</span></p>
                                     </div>
                                     <div class="col-md-2" id="friFrom">
-                                        @Html.TextBox("friToTime", "",new { @class="form-control time ui-timepicker-input", @style="width: 140px;" })
+                                        @Html.TextBoxFor(model => model.Teacher.Schedule.FriEndTime,new { @class="form-control time ui-timepicker-input", @style="width: 140px;", @readonly="readonly" })
                                     </div>
                                     <div class="col-md-2" id="friFromTime">
                                         @Html.TextBox("friTo", "",new { @class="form-control date", @style="width: 140px;" })
@@ -161,6 +166,7 @@
                             </div>
                         </li>
                         <li class="">
+                            @Html.TextBoxFor(model => model.Request.Saturday, new { @class="weekday hidden"})
                             <div class="todo-icon fui-new"></div>
                             <div class="todo-content">
                                 <h4 class="todo-name">
@@ -171,13 +177,13 @@
                                         @Html.TextBox("satFrom", "",new { @class="form-control date", @style="width: 140px;" })
                                     </div>
                                     <div class="col-md-2">
-                                        @Html.TextBox("satFromTime", "",new { @class="form-control time ui-timepicker-input", @style="width: 140px;" })
+                                        @Html.TextBoxFor(model => model.Teacher.Schedule.SatStartTime,new { @class="form-control time ui-timepicker-input", @style="width: 140px;", @readonly="readonly" })
                                     </div>
                                     <div class="col-md-1">
                                         <p><span class="label">To</span></p>
                                     </div>
                                     <div class="col-md-2" id="satFrom">
-                                        @Html.TextBox("satToTime", "",new { @class="form-control time ui-timepicker-input", @style="width: 140px;" })
+                                        @Html.TextBoxFor(model => model.Teacher.Schedule.SatEndTime,new { @class="form-control time ui-timepicker-input", @style="width: 140px;", @readonly="readonly" })
                                     </div>
                                     <div class="col-md-2" id="satFromTime">
                                         @Html.TextBox("satTo", "",new { @class="form-control date", @style="width: 140px;" })
@@ -186,6 +192,7 @@
                             </div>
                         </li>
                         <li class="">
+                            @Html.TextBoxFor(model => model.Request.Sunday, new { @class="weekday hidden"})
                             <div class="todo-icon fui-new"></div>
                             <div class="todo-content">
                                 <h4 class="todo-name">
@@ -196,13 +203,13 @@
                                         @Html.TextBox("sunFrom", "",new { @class="form-control date", @style="width: 140px;" })
                                     </div>
                                     <div class="col-md-2">
-                                        @Html.TextBox("sunFromTime", "",new { @class="form-control time ui-timepicker-input", @style="width: 140px;" })
+                                        @Html.TextBoxFor(model => model.Teacher.Schedule.SunStartTime,new { @class="form-control time ui-timepicker-input", @style="width: 140px;", @readonly="readonly" })
                                     </div>
                                     <div class="col-md-1">
                                         <p><span class="label">To</span></p>
                                     </div>
                                     <div class="col-md-2" id="sunFrom">
-                                        @Html.TextBox("sunToTime", "",new { @class="form-control time ui-timepicker-input", @style="width: 140px;" })
+                                        @Html.TextBoxFor(model => model.Teacher.Schedule.SunEndTime,new { @class="form-control time ui-timepicker-input", @style="width: 140px;", @readonly="readonly" })
                                     </div>
                                     <div class="col-md-2" id="sunFromTime">
                                         @Html.TextBox("sunTo", "",new { @class="form-control date", @style="width: 140px;" })
@@ -214,14 +221,10 @@
                 </div>
             </div> <!-- /todo list -->
         </div>
-        
-        @Html.TextBoxFor(model => model.Schedule.Tuesday, new { @class="hidden"})
-        @Html.TextBoxFor(model => model.Schedule.Wednesday, new { @class="hidden"})
-        @Html.TextBoxFor(model => model.Schedule.Thursday, new { @class="hidden"})
-        @Html.TextBoxFor(model => model.Schedule.Friday, new { @class="hidden"})
-        @Html.TextBoxFor(model => model.Schedule.Saturday, new { @class="hidden"})
-        @Html.TextBoxFor(model => model.Schedule.Sunday, new { @class="hidden"})
-    </body>
+    <button id="formSubmit" type="submit" class="btn btn-primary">Send request</button> *Note: payment will only be processed once tutor has accepted the contract.
+</form>
+
+
 <script src="~/Content/Flat-UI/js/jquery.stacktable.js"></script>
 <script src="~/Content/jquery-timepicker-master/jquery.timepicker.js"></script>
 <script src="~/Content/jquery-timepicker-master/jquery.timepicker.min.js"></script>
@@ -230,20 +233,24 @@
     $(document).ready(function () {
         $(".ui-timepicker-input").timepicker();
         $(".date").datepicker();
-        $("#monday").hide();
-        $("#tuesday").hide();
-        $("#wednesday").hide();
-        $("#thursday").hide();
-        $("#friday").hide();
-        $("#saturday").hide();
-        $("#sunday").hide();
+        //$("#monday").hide();
+        //$("#tuesday").hide();
+        //$("#wednesday").hide();
+        //$("#thursday").hide();
+        //$("#friday").hide();
+        //$("#saturday").hide();
+        //$("#sunday").hide();
     });
     
     $(".todo li").click(function () {
         if (!$(".ui-timepicker-input").is(':focus') && !$(".date").is(':focus')) {
             $(this).toggleClass("todo-done");
             $(this).find('.todo-content div').toggleClass("show");
-            $(this).find('.hidden').show().val("swag");
+            if ($(this).is('.todo-done')) {
+                $(this).find('.weekday').val(true);
+            } else {
+                $(this).find('.weekday').val(false);
+            }
         }
     });
     

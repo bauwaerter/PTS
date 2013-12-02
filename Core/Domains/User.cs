@@ -22,30 +22,10 @@ namespace Core.Domains
         public virtual string Email { get; set; }
         public virtual UserRole Role { get; set; }
         public virtual int? LocationId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the password.
-        /// </summary>
-        /// <value>
-        /// The password.
-        /// </value>
         public virtual string PassWord { get; set; }
-
-        /// <summary>
-        /// Gets or sets the username.
-        /// </summary>
-        /// <value>
-        /// The username.
-        /// </value>
-        //public virtual string UserName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the password salt.
-        /// </summary>
-        /// <value>
-        /// The password salt.
-        /// </value>
         public virtual string PasswordSalt { get; set; }
+        public virtual string Major { get; set; }
+        public virtual string Education { get; set; }
         #region navigation
         public virtual Location Location { get; set; }
         #endregion

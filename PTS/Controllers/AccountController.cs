@@ -27,15 +27,13 @@ namespace PTS.Controllers
     {
 
         #region fields
-
-        //private readonly IBaseService<StudentUser> _studentUserService;
-        private readonly IUserService _userService;
-        //private readonly IStudentUserService _studentUserService;
-        private readonly IBaseService<StudentUser> _studentUserService;
-        private readonly IBaseService<TeacherUser> _teacherUserService; 
         private readonly IBaseService<Class> _classService;
         private readonly IBaseService<Location> _locationService;
         private readonly ILoginService _loginService;
+        private readonly IBaseService<Request> _requestService; 
+        private readonly IBaseService<StudentUser> _studentUserService;
+        private readonly IBaseService<TeacherUser> _teacherUserService;
+        private readonly IUserService _userService;
         private readonly IBaseService<Subject> _subjectService;
         private readonly IBaseService<Class_Meeting_Dates> _classMeetingDatesService;
 
@@ -44,14 +42,16 @@ namespace PTS.Controllers
 
 
         public AccountController(IBaseService<Class_Meeting_Dates> classMeetingDatesService, IBaseService<Subject> subjectService, IUserService userService, IBaseService<StudentUser> studentUserService, IBaseService<Class> classService, IBaseService<Location> locationService, 
-            IBaseService<TeacherUser> teacherUserService, ILoginService loginService )
+            IBaseService<TeacherUser> teacherUserService, ILoginService loginService, IBaseService<Request> requestService  )
         {
             _userService = userService;
-            _studentUserService = studentUserService;
-            _teacherUserService = teacherUserService;
             _classService = classService;
             _locationService = locationService;
             _loginService = loginService;
+            _requestService = requestService;
+            _studentUserService = studentUserService;
+            _teacherUserService = teacherUserService;
+            _userService = userService;
             _subjectService = subjectService;
             _classMeetingDatesService = classMeetingDatesService;
 
@@ -222,7 +222,11 @@ namespace PTS.Controllers
         [AllowAnonymous]
         [HttpGet]
         public ActionResult Register(){
-            var user = new User();
+            var user = new User(){
+                DOB = DateTime.Today,
+                Role = UserRole.Student,
+                Location = new Location()
+            };
             return View(user);
         }
 
@@ -231,31 +235,40 @@ namespace PTS.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Register(User user, string confirmPassword, StudentUser studentUser, TeacherUser teacherUser) {
+        public ActionResult Register(string confirmPassword, User user, TeacherUser teacherUser) {
             try {
                 if (!CommonHelper.IsValidEmail(user.Email)) {
                     throw new Exception("Username must be a valid email address");
                 }
                 if (confirmPassword.Equals(user.PassWord, StringComparison.Ordinal)) {
                     var salt = "";
+                    var email = user.Email;
                     var hashedPassword = SecurityHelper.HashPassword(user.PassWord, ref salt);
                     user.PassWord = hashedPassword;
                     user.PasswordSalt = salt;
+                    _locationService.Insert(user.Location);
+                    var location = user.Location;
+                    user.LocationId = location.Id;
+                    user.Location = null;
 
-                    //_userService.Insert(user);
-                    if (studentUser.Major != null){
-                        studentUser.User = user;
-                        user = null;
-                        _studentUserService.Insert(studentUser);
-                    }
-                    studentUser = null;
                     if (teacherUser.HourlyRate != 0 || teacherUser.ClassRate != 0){
+                        teacherUser.Active = false;
                         teacherUser.User = user;
                         user = null;
                         _teacherUserService.Insert(teacherUser);
                     }
-                    teacherUser = null;
-                    Success("User created.");
+                    else{
+                        teacherUser = null;
+                        _userService.Insert(user);
+                    }
+
+                    var loginModel = new LoginModel(){
+                        UserName = email,
+                        Password = confirmPassword,
+                        RememberMe = false
+                    };
+
+                    Login(loginModel, "");
                     return RedirectToAction("Index", "Home");
                 }
             throw new Exception("Passwords do not match");
@@ -265,16 +278,33 @@ namespace PTS.Controllers
             }
         }
 
-        
+        [HttpGet]
         public ActionResult LoadRequestSession(int teacherId)
         {
-            try
-            {
-                var teacher = _teacherUserService.GetById(teacherId);
-                return View("RegisterForTeacher", teacher);
+            try{
+                var model = new RequestModel(){
+                    Teacher = _teacherUserService.GetById(teacherId),
+                    Request = new Request(){
+                        TeacherId = teacherId,
+                        StudentId = SessionDataHelper.UserId,
+                        Status = "Pending",
+                    }
+                };
+                return View("RegisterForTeacher", model);
             }
             catch (Exception ex)
             {
+                throw new Exception(ex.Message);
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult LoadRequestSession(Request request) {
+            try{
+                _requestService.Insert(request);
+                return new EmptyResult();
+            } catch (Exception ex) {
                 throw new Exception(ex.Message);
             }
 
