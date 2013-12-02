@@ -134,7 +134,6 @@ namespace PTS.Controllers
                     State = getlocation.State,
                     ZipCode = getlocation.ZipCode
                 };
-                //loc = _locationService.GetById(locid);
             }
 
             if(model.Role == UserRole.Student){
@@ -146,7 +145,8 @@ namespace PTS.Controllers
                     Email = model.Email,
                     Id = model.Id,
                     Major = model.Major,
-                    Location = loc
+                    Location = loc,
+                    Role = UserRole.Student
                 };
             }
             else if (model.Role == UserRole.Admin)
@@ -157,7 +157,8 @@ namespace PTS.Controllers
                     LastName = model.LastName,
                     Email = model.Email,
                     Id = model.Id,
-                    Location = loc
+                    Location = loc,
+                    Role = UserRole.Admin
                 };
             }
             else if (model.Role == UserRole.Teacher)
@@ -172,6 +173,7 @@ namespace PTS.Controllers
                     Location = loc,
                     ClassRate= teacher.ClassRate,
                     HourlyRate=teacher.HourlyRate,
+                    Role = UserRole.Teacher
                 };
             }
 

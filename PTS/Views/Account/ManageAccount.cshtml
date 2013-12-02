@@ -115,7 +115,7 @@
     
 </div>
 
-<div class="contact teacherContact">
+<div class="contact teacherContact" id="teacherForm">
     <header>
         <h6>Teacher</h6>
     </header>
@@ -149,8 +149,12 @@
 <script type="text/javascript">
     $(document).ready(function() {
         if ("@Model.Role" != "@UserRole.Teacher") {
-            $(".teacherContact").hide();
-            }
+            console.log("its not");
+            $("#teacherForm").hide();
+        } else {
+            console.log("it is!");
+            $("#teacherForm").show();
+        }
         });
     
     $('#EditUserButton').on('click', function(event) {
@@ -175,7 +179,7 @@
         $('#SaveTeacherButton').css('visibility', 'visible');
     });
 
-    $('#SaveStudentButton').on('click', function(event) {
+    @*$('#SaveStudentButton').on('click', function(event) {
         $.ajax({
             url: '@Url.Action("SaveStudentUser")',
             data: $('#UserAccountStudent').serialize(),
@@ -186,7 +190,7 @@
             }
 
         });
-    });
+    });*@
 
     $('#SaveTeacherButton').on('click', function (event) {
 
