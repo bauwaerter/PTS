@@ -6,82 +6,90 @@
 }
 
 <style>
-    div.ui-datepicker{
-        font-size:20px;
+    div.ui-datepicker
+    {
+        font-size: 20px;
     }
 </style>
 
 <hgroup class="demo-panel-title">
-    <h3>@ViewBag.Title</h3>
-    <h6 style="margin-left: 20px;">Create a new account.</h6>
+    <h2>@ViewBag.Title</h2>
+    <h4 style="margin-left: 20px;">Create a new account.</h4>
 </hgroup>
 
-@using (Html.BeginForm(null, null, FormMethod.Post)){
+@using (Html.BeginForm(null, null, FormMethod.Post))
+{
     @Html.HiddenFor(model => model.Id)
     @Html.HiddenFor(model => model.LocationId)
     @Html.HiddenFor(model => model.Role)
     @Html.ValidationSummary(true)
 
-    <section class="sectionContainer formHolder">
+    <div class="sectionContainer formHolder">
         <div class="container" style="margin-top: 80px; margin-left: 40px;">
-            <div class="row">
-                <div class=".col-md-3" style="display: inline;">
-                    <p>@Html.LabelFor(model => model.Email)</p>
-                    @Html.TextBoxFor(model => model.Email, new{@class = "form-control", style = "width:400px"})
+            <div style="background-color: #ecf0f1; border-radius: 10px; padding-top: 2px; padding-left: 10px; padding-bottom: 10px;width: 925px;">
+                <div class="row">
+                    <div class="col-md-3" style="display: inline;">
+                        <p>@Html.LabelFor(model => model.Email)</p>
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", style = "width:250px;" })
+                    </div>
+                    <div class="col-md-3 col-md-offset-1">
+                        <p>@Html.LabelFor(model => model.PassWord, "Password")</p>
+                        @Html.PasswordFor(model => model.PassWord, new { @class = "form-control", style = "width:250px" })
+                    </div>
+                    <div class="col-md-3 col-md-offset-1">
+                        <p>@Html.Label("Confirm Password")</p>
+                        <input type="password" class="form-control" style="width: 250px" name="confirmPassword" id="confirmPassword" />
+                    </div>
                 </div>
-                <div class=".col-md-3">
-                    <p>@Html.LabelFor(model => model.PassWord, "Password")</p>
-                    @Html.PasswordFor(model => model.PassWord, new{@class = "form-control", style = "width:400px"})
+                <div class="row">
+                    <div class="col-md-3">
+                        <p>@Html.LabelFor(model => model.FirstName, "First Name")</p>
+                        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", style = "width:250px" })
+                    </div>
+                    <div class="col-md-3 col-md-offset-1">
+                        <p>@Html.LabelFor(model => model.LastName, "Last Name")</p>
+                        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", style = "width:250px" })
+                    </div>
+                    <div class="col-md-3 col-md-offset-1">
+                        <p>@Html.LabelFor(model => model.DOB, "Date of Birth")</p>
+                        @Html.TextBoxFor(model => model.DOB, new { @class = "form-control", style = "width:250px" })
+                    </div>
                 </div>
-                <div class=".col-md-3">
-                    <p>@Html.Label("Confirm Password")</p>
-                    <input type="password" class="form-control" style="width: 400px" name="confirmPassword" id="confirmPassword" />
-                </div>
-                <div class=".col-md-3">
-                    <p>@Html.LabelFor(model => model.FirstName, "First Name")</p>
-                    @Html.TextBoxFor(model => model.FirstName, new{@class = "form-control", style = "width:400px"})
-                </div>
-                <div class=".col-md-3">
-                    <p>@Html.LabelFor(model => model.LastName, "Last Name")</p>
-                    @Html.TextBoxFor(model => model.LastName, new{@class = "form-control", style = "width:400px"})
-                </div>
-                <div class=".col-md-3">
-                    <p>@Html.LabelFor(model => model.DOB, "Date of Birth")</p>
-                    @Html.TextBoxFor(model => model.DOB, new{@class = "form-control", style = "width:400px"})
-                </div>
-                <div class=".col-md-3">
-                    <p>@Html.LabelFor(model => model.SSN, "Social Security Number")</p>
-                    @Html.PasswordFor(model => model.SSN, new{@class = "form-control", style = "width:400px"})
-                </div>
-                <div class=".col-md-3">
-                <p>@Html.LabelFor(model => model.Major, "Major")</p>
-                    @Html.TextBoxFor(model => model.Major, new {@class = "form-control", style="width:400px"})
-                </div>
-                <div class=".col-md-3">
-                <p>@Html.LabelFor(model => model.Education, "Education")</p>
-                    @Html.TextBoxFor(model => model.Education, new {@class = "form-control", style="width:400px"})
+                <div class="row">
+                    <div class="col-md-3">
+                        <p>@Html.LabelFor(model => model.SSN, "SSN")</p>
+                        @Html.PasswordFor(model => model.SSN, new { @class = "form-control", style = "width:250px" })
+                    </div>
+                    <div class="col-md-3 col-md-offset-1">
+                        <p>@Html.LabelFor(model => model.Major, "Major")</p>
+                        @Html.TextBoxFor(model => model.Major, new { @class = "form-control", style = "width:250px" })
+                    </div>
+                    <div class="col-md-3 col-md-offset-1">
+                        <p>@Html.LabelFor(model => model.Education, "Education")</p>
+                        @Html.TextBoxFor(model => model.Education, new { @class = "form-control", style = "width:250px" })
+                    </div>
                 </div>
             </div>
-            <br/>
+            <br />
             <h4>Address</h4>
             <div style="background-color: #ecf0f1; border-radius: 10px; padding-top: 2px; width: 925px;">
                 <div class="row" style="margin-left: 15px;">
                     <div class="col-md-3">
                         <div class="form-group">
                             <p>@Html.LabelFor(model => model.Location.Address)</p>
-                            @Html.TextBoxFor(model => model.Location.Address, new { @class="form-control" })
+                            @Html.TextBoxFor(model => model.Location.Address, new { @class = "form-control" })
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <p>@Html.LabelFor(model => model.Location.Country)</p>
-                            @Html.TextBoxFor(model => model.Location.Country, new { @class="form-control" })
+                            @Html.TextBoxFor(model => model.Location.Country, new { @class = "form-control" })
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <p>@Html.LabelFor(model => model.Location.State)</p>
-                            @Html.TextBoxFor(model => model.Location.State, new { @class="form-control" })
+                            @Html.TextBoxFor(model => model.Location.State, new { @class = "form-control" })
                         </div>
                     </div>
                 </div>
@@ -89,18 +97,18 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <p>@Html.LabelFor(model => model.Location.City)</p>
-                            @Html.TextBoxFor(model => model.Location.City, new { @class="form-control" })
+                            @Html.TextBoxFor(model => model.Location.City, new { @class = "form-control" })
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <p>@Html.LabelFor(model => model.Location.ZipCode)</p>
-                            @Html.TextBoxFor(model => model.Location.ZipCode, new { @class="form-control" })
+                            @Html.TextBoxFor(model => model.Location.ZipCode, new { @class = "form-control" })
                         </div>
                     </div>
                 </div>
             </div>
-            <br/>
+            <br />
             <h4>User Role</h4>
             <h6 style="margin-left: 15px;">Registering as a teacher or tutor?</h6>
 
@@ -128,13 +136,13 @@
                 </div>
             </div>
         </div>
-        <br/>
+        <br />
         <div class="row" style="margin-top: 10px; margin-left: 37px;">
             <div class="col-md-1">
                 <button id="formSubmit" type="submit" class="btn btn-primary">Register</button>
             </div>
         </div>
-    </section>
+    </div>
 }
 
 <script src="~/Content/Flat-UI/js/flatui-checkbox.js"></script>
