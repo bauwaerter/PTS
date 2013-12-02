@@ -32,17 +32,17 @@ namespace PTS.Controllers
         private readonly ILoginService _loginService;
         private readonly IBaseService<Request> _requestService; 
         private readonly IBaseService<TeacherUser> _teacherUserService;
+        private readonly IBaseService<Teacher_Offers> _teacherOfferService; 
         private readonly IUserService _userService;
         private readonly IBaseService<Subject> _subjectService;
         private readonly IBaseService<Class_Meeting_Dates> _classMeetingDatesService;
         private readonly IBaseService<Enrolled> _enrolledService;
-
-
+        private readonly IBaseService<Tutors> _tutorsService;
         #endregion
 
-
+        #region constructor
         public AccountController(IBaseService<Enrolled> enrolledService, IBaseService<Class_Meeting_Dates> classMeetingDatesService, IBaseService<Subject> subjectService, IUserService userService, IBaseService<StudentUser> studentUserService, IBaseService<Class> classService, IBaseService<Location> locationService, 
-            IBaseService<TeacherUser> teacherUserService, ILoginService loginService, IBaseService<Request> requestService  )
+            IBaseService<TeacherUser> teacherUserService, ILoginService loginService, IBaseService<Request> requestService,IBaseService<Teacher_Offers> teacherOfferService, IBaseService<Tutors> tutorsService   )
         {
             _userService = userService;
             _classService = classService;
@@ -54,7 +54,10 @@ namespace PTS.Controllers
             _subjectService = subjectService;
             _classMeetingDatesService = classMeetingDatesService;
             _enrolledService = enrolledService;
+            _teacherOfferService = teacherOfferService;
+            _tutorsService = tutorsService;
         }
+        #endregion 
         //
         // GET: /Account/Login
 
@@ -181,28 +184,6 @@ namespace PTS.Controllers
             return View(user);
         }
 
-       
-        //
-        // POST: /Account/Login
-
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Login(LoginModel model, string returnUrl)
-        //{
-            //if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
-        //    {
-        //        return RedirectToLocal(returnUrl);
-        //    }
-
-        //    // If we got this far, something failed, redisplay form
-        //    ModelState.AddModelError("", "The user name or password provided is incorrect.");
-        //    return View(model);
-        //}
-
-        //
-        // POST: /Account/LogOff
-
         [HttpPost]
         public ActionResult LogOff() {
             FormsAuthentication.SignOut();
@@ -233,7 +214,7 @@ namespace PTS.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Register(string confirmPassword, User user, TeacherUser teacherUser) {
+        public ActionResult Register(string confirmPassword, User user, TeacherUser teacherUser, int subject) {
             try {
                 if (!CommonHelper.IsValidEmail(user.Email)) {
                     throw new Exception("Username must be a valid email address");
@@ -254,6 +235,12 @@ namespace PTS.Controllers
                         teacherUser.User = user;
                         user = null;
                         _teacherUserService.Insert(teacherUser);
+
+                        var teacherOffer = new Teacher_Offers(){
+                            TeacherId = teacherUser.Id,
+                            SubjectId = subject
+                        };
+                        _teacherOfferService.Insert(teacherOffer);
                     }
                     else{
                         teacherUser = null;
@@ -312,11 +299,6 @@ namespace PTS.Controllers
         {
             var subjects = _subjectService.GetAll();
             var today=DateTime.Today.DayOfWeek;
-            //var model = new SelectSubjectViewModel
-            //{
-            //    SelectedSubjectId=1,
-            //    Subjects = new SelectList(subjects, "Id", "Name")
-            //};
             var model = new ClassViewModel
             {
                 SubjectId = 1,
@@ -326,18 +308,6 @@ namespace PTS.Controllers
 
             return View(model);
         }
-        
-        //[HttpPost]
-        //public ActionResult SaveClassMeetingDates(ClassMeetingDatesVM dates)
-        //{
-           
-
-
-        //    return Json(new
-        //    {
-        //        Result = "OK"
-        //    });
-        //}
 
         [HttpPost]
         public ActionResult SaveClass(ClassViewModel classModel)
@@ -434,6 +404,11 @@ namespace PTS.Controllers
             return View(model);
         }
 
+        [Authorize]
+        public ActionResult DisplaySessions() {
+            return View();
+        }
+
         public ActionResult getClassesToDisplay()
         {
             var teacherClasses = _classService.GetTableQuery().Where(c => c.TeacherId == SessionDataHelper.UserId);
@@ -478,9 +453,50 @@ namespace PTS.Controllers
             }
 
             return Json(new { Result = "OK", Records = tables });
-            
-
         }
+
+        [HttpPost]
+        public JsonResult GetSessions(){
+            try{
+                var tutors = _tutorsService.GetAll().Where(x => x.StudentId == SessionDataHelper.UserId).Select(i => i.TeacherId);
+                var teacher = _teacherUserService.GetAll().Where(x => tutors.Contains(x.Id)).ToList();
+
+                //var subject = _teacherOfferService.GetAll().Where(x => tutors.Contains(x.TeacherId)).ToList();
+
+                var results = teacher.Select(p => new {
+                    p.Id,
+                    p.User.FirstName,
+                    p.User.LastName,
+                    p.User.Email,
+                    Rate = p.HourlyRate
+                }).ToArray();
+                return Json(new{Result = "OK", Records = results, TotalRecordCount = results.Count()});
+            }
+            catch (Exception ex){
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetSchedule() {
+            try {
+                var schedule = _requestService.GetAll().Where(x => x.Status == "Approved");
+                var results = schedule.Select(p => new{
+                    Sunday = (p.Sunday == false) ? "N/A" : "Scheduled",
+                    Monday = (p.Monday == false) ? "N/A" : "Scheduled",
+                    Tuesday = (p.Tuesday == false) ? "N/A" : "Scheduled",
+                    Wednesday = (p.Wednesday == false) ? "N/A" : "Scheduled",
+                    Thursday = (p.Thursday == false) ? "N/A" : "Scheduled",
+                    Friday = (p.Friday == false) ? "N/A" : "Scheduled",
+                    Saturday = (p.Saturday == false) ? "N/A" : "Scheduled",
+                }).ToArray();
+                
+                return Json(new { Result = "OK", Records = results, TotalRecordCount = results.Count() });
+            } catch (Exception ex) {
+                throw new Exception(ex.Message);
+            }
+
+        } 
 
         public ActionResult GetStudentClassesToDisplay()
         {

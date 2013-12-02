@@ -1,4 +1,5 @@
 ﻿@using Core.Domains
+@using PTS.Helpers
 @model Core.Domains.User
 
 @{
@@ -10,6 +11,18 @@
     {
         font-size: 20px;
     }
+
+    .scrollable{
+   overflow: auto;
+   width: 70px; /* adjust this width depending to amount of text to display */
+   height: 80px; /* adjust height depending on number of options to display */
+   border: 1px silver solid;
+    }
+
+    .scrollable select{
+    border: none;
+    }
+
 </style>
 
 <hgroup class="demo-panel-title">
@@ -65,7 +78,7 @@
                         @Html.TextBoxFor(model => model.Major, new { @class = "form-control", style = "width:250px" })
                     </div>
                     <div class="col-md-3 col-md-offset-1">
-                        <p>@Html.LabelFor(model => model.Education, "Education")</p>
+                        <p>@Html.LabelFor(model => model.Education, "College/High School")</p>
                         @Html.TextBoxFor(model => model.Education, new { @class = "form-control", style = "width:250px" })
                     </div>
                 </div>
@@ -83,13 +96,13 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <p>@Html.LabelFor(model => model.Location.Country)</p>
-                            @Html.TextBoxFor(model => model.Location.Country, new { @class = "form-control" })
+                            @Html.DropDownListFor(model => model.Location.Country, new SelectList(ListHelper.GetListCountries(), "Key", "Value"), new { @id="Country", @name="Country", @class="select-block", @style="display: none;", @size=10 })
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="form-group">
+                        <div class="form-group state">
                             <p>@Html.LabelFor(model => model.Location.State)</p>
-                            @Html.TextBoxFor(model => model.Location.State, new { @class = "form-control" })
+                            @Html.DropDownListFor(model => model.Location.State, new SelectList(Enum.GetValues(typeof(Core.StateCode))), new { @id="State", @class="select-block", @style="display: none;" })
                         </div>
                     </div>
                 </div>
@@ -146,14 +159,28 @@
 }
 
 <script src="~/Content/Flat-UI/js/flatui-checkbox.js"></script>
+<script src="~/Content/Flat-UI/js/bootstrap-select.js"></script>
+<script src="~/Content/Flat-UI/js/bootstrap-switch.js"></script>
+<script src="~/Content/Flat-UI/js/bootstrap.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $('#DOB').datepicker({
             changeMonth: true,
             changeYear: true,
-            maxDate: '0'
+            yearRange: "1920:2013",
+            maxDate: "0"
         });
+        $("select[name='Location.Country']").selectpicker({ style: 'btn-primary', size: 10, menuStyle: 'dropdown-inverse' });
+        $("select[name='Location.State']").selectpicker({ style: 'btn-primary', size: 10, menuStyle: 'dropdown-inverse' });
         $(".teacherUser").hide();
+    });
+
+    $("#Country").on('change', function() {
+        if ($(this).val() == "United States") {
+            $('.state').hide();
+        } else {
+            $('.state').show();
+        }
     });
 
     $("#checkbox2").change(function () {

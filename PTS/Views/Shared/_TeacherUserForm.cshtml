@@ -1,4 +1,5 @@
-﻿@model Core.Domains.TeacherUser
+﻿@using PTS.Helpers
+@model Core.Domains.TeacherUser
 
 @{
     Layout = null;
@@ -6,6 +7,10 @@
 
 <form id="teacherUserForm" method="post">
     @Html.HiddenFor(model => model.Id)
+    
+    <p>@Html.Label("Subject")</p>
+    @Html.DropDownList("subject", new SelectList(ListHelper.GetListOfSubjects(), "Id", "Name"), new {@id = "subject", @name = "subject", @class="select-block", @style="display: none;"})
+    
 
     <p>@Html.LabelFor(model => model.HourlyRate, "Hourly Rate")</p>
     @Html.TextBoxFor(model => model.HourlyRate, new {@class = "form-control", style="width:400px"})
@@ -14,4 +19,12 @@
 
     <p>@Html.LabelFor(model => model.ClassRate, "Class Rate")</p>
     @Html.TextBoxFor(model => model.ClassRate, new {@class = "form-control", style="width:400px"})
+    <br/>
 </form>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("select[name='subject']").selectpicker({ style: 'btn-primary', menuStyle: 'dropdown-inverse' });
+    });
+</script>

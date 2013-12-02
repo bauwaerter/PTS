@@ -646,7 +646,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Shared\_StudentUserForm.cshtml" />
     <Content Include="Views\Shared\_RegisterUserPartial.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Scripts\jtable\themes\basic\jtable_basic.less" />
@@ -678,6 +677,7 @@
     <Content Include="Views\Review\ReviewClassesView.cshtml" />
     <Content Include="Views\Review\ReviewTeacherView.cshtml" />
     <Content Include="Views\Account\DisplayClasses.cshtml" />
+    <Content Include="Views\Account\DisplaySessions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

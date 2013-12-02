@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Core
+@using Core.Domains
+@using PTS.Infrastructure
+<!DOCTYPE html>
 
 
 
@@ -51,20 +54,28 @@
                                 <li>@Html.ActionLink("Home", "Index", "Home")</li>
                                 <li>@Html.ActionLink("About", "About", "Home")</li>
                                 <li>@Html.ActionLink("My Account", "ManageAccount", "Account")
-                                    <ul>
-                                        <li>
-                                            @Html.ActionLink("Review Class", "Index", "Review")
-                                        </li>
-                                        <li>
-                                            @Html.ActionLink("Review Tutor", "ReviewTutor", "Review")
-                                        </li>
-                                        <li>
-                                            @Html.ActionLink("Create Class", "CreateClass", "Account")
-                                        </li>
-                                        <li>
-                                            @Html.ActionLink("My Classes", "DisplayClasses", "Account")
-                                        </li>
-                                     </ul>
+                                    @if (Request.IsAuthenticated){
+                                        <ul>
+                                            <li>
+                                                @Html.ActionLink("Review Class", "Index", "Review")
+                                            </li>
+                                            <li>
+                                                @Html.ActionLink("Review Tutor", "ReviewTutor", "Review")
+                                            </li>
+                                            @if (SessionDataHelper.UserRole == UserRole.Teacher)
+                                            {
+                                                <li>
+                                                    @Html.ActionLink("Create Class", "CreateClass", "Account")
+                                                </li>
+                                            }
+                                            <li>
+                                                @Html.ActionLink("My Classes", "DisplayClasses", "Account")
+                                            </li>
+                                            <li>
+                                                @Html.ActionLink("My Tutor Sessions", "DisplaySessions", "Account")
+                                            </li>
+                                        </ul>
+                                    }
                                 </li>
                                 <li>@Html.ActionLink("Search", "Index", "Search")</li>
                             </ul>

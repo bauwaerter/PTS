@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Core;
+using Core.Domains;
+using PTS.Infrastructure;
+using Service;
 
 
 namespace PTS.Helpers {
@@ -36,8 +40,16 @@ namespace PTS.Helpers {
                     {CardType.Visa, CardType.Visa.DisplayName()},
                 };
         }
+
+        public static Dictionary<Country, string> GetListCountries() {
+            return Enum.GetValues(typeof(Country)).Cast<Country>().ToDictionary(val => val, val => val.DisplayName());
+        }
         #endregion
 
+        public static List<Subject> GetListOfSubjects(){
+            var baseService = new BaseService<Subject>();
+            return baseService.GetTableQuery().OrderBy(x => x.Name).ToList();
+        }
 
 
     }

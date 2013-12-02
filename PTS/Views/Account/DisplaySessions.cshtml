@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "Display Sessions";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Your Tutors</h2>
+<div id="SessionsDisplayTable"></div>
+
+<script >
+    $(document).ready(function () {
+        $('#SessionsDisplayTable').jtable({
+            title: 'My Tutors',
+            openChildAsAccordion: true,
+            ajaxSettings: {
+                contentType: 'application/json'
+            },
+            actions: {
+                listAction: '@Url.Action("GetSessions")',
+            },
+            fields: {
+                Id: {
+                    key: true,
+                    list: false,
+                    create: false,
+                    edit: false,
+                },
+                FirstName: {
+                    title: 'First Name'  
+                },
+                LastName: {
+                    title: 'Last Name'
+                },
+                Email: {
+                    title: 'Email',
+                },
+                Rate: {
+                    title: 'Rate',
+                },
+                Availability: {
+                    title: 'Session Info',
+                    sorting: false,
+                    display: function (data) {
+                        console.log(data + "data ehre");
+                        var link = $('<a>Session Info</a>');
+                        link.click(function () {
+                            $('#SessionsDisplayTable').jtable('openChildTable',
+                                link.closest('tr'),
+                                {
+                                    title: 'Session for ' + data.record.FirstName + " " + data.record.LastName,
+                                    actions: {
+                                        listAction: '@Url.Action("GetSchedule")',
+                                    },
+                                    fields: {
+                                        Sunday: {
+                                            title: 'Sunday',
+                                        },
+                                        Monday: {
+                                            title: 'Monday'
+                                        },
+                                        Tuesday: {
+                                            title: 'Tuesday'
+                                        },
+                                        Wednesday: {
+                                            title: 'Wednesday'
+                                        },
+                                        Thursday: {
+                                            title: 'Thursday'
+                                        },
+                                        Friday: {
+                                            title: 'Friday'
+                                        },
+                                        Saturday: {
+                                            title: 'Saturday'
+                                        },
+
+                                    }
+                                }, function (innerData) {
+                                    innerData.childTable.jtable('load', {
+                                        tutorUserId: data.record.Id
+                                    });
+                                });
+                        });
+                        return link;
+                    }
+                },
+            }
+        });
+        $('#SessionsDisplayTable').jtable('load');
+    })
+</script>
