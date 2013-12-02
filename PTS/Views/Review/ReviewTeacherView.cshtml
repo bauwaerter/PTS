@@ -3,14 +3,24 @@
 <!DOCTYPE html>
 
 <html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>ReviewTeacherView</title>
-</head>
+
 <body>
-    <div>
-        @Html.LabelFor(model => model.User.FirstName, "First Name")
-        @Html.TextBoxFor(model => model.User.FirstName)
-    </div>
+    <h3>Reviews for @(Model.User.FirstName) @(Model.User.LastName)</h3>
+        <div class="row tile" style="background-color:#ecf0f1; margin-top:30px;margin-left:50px; width:900px;">
+                <div class="col-md-3"><h4>Date</h4></div>
+                <div class="col-md-2"><h4>Rating</h4></div>
+                <div class="col-md-7"><h4>Comment</h4></div>
+            </div>
+        <div class="row" style="background-color:#bdc3c7; height:30px; margin-left:50px; width:900px;"></div>
+        @foreach (var item in Model.ReviewTeacher)
+        {
+            <div class="row tile" style="background-color:#ecf0f1; margin-left:50px; width:900px;">
+                <div class="col-md-3"><h6>@(item.Date)</h6></div>
+                <div class="col-md-2"><h6>@(item.Rating)</h6></div>
+                <div class="col-md-7"><h6>@(item.Comment)</h6></div>
+            </div>
+            <div class="row" style="background-color:#bdc3c7; height:30px; margin-left:50px; width:800px;"></div>
+        }
+
 </body>
 </html>

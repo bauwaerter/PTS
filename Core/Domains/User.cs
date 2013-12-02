@@ -105,6 +105,10 @@ namespace Core.Domains
         public virtual DateTime Date { get; set; }
         public virtual int StudentId { get; set; }
         public virtual int TeacherId { get; set; }
+
+        #region navigation
+        
+        #endregion
     }
 
     public class Teacher_Offers : BaseEntity

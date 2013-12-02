@@ -26,7 +26,7 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
-    <fieldset style="margin-left: 75px; margin-top:20px; margin-bottom: 20px;">
+    <fieldset style="margin-left: 75px; margin-top:20px; margin-bottom: 20px; background-color:#ecf0f1; border-radius: 10px; margin-left: 20px; margin-bottom: 20px; padding-left: 40px; padding-bottom:20px;">
         <legend>Log in Form</legend>
         <ol>
             <li>
@@ -40,24 +40,29 @@
                 @Html.ValidationMessageFor(m => m.Password)
             </li>
             <li>
-                <div class="switch switch-square has-switch" data-off-label="<i class='fui-cross'></i>" data-on-label="<i class='fui-check'></i>">
-                    <div class="switch-off switch-animate">
-                        <input id="RememberMe" class="" type="checkbox" value="true" name="RememberMe" data-val-required="The Remember me? field is required." data-val="true">
-                        <span class="switch-left">
-                            <i class="fui-check"></i>
-                        </span>
-                        <label></label>
-                        <span class="switch-right">
-                            <i class="fui-cross"></i>
-                        </span>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="switch switch-square has-switch" data-off-label="<i class='fui-cross'></i>" data-on-label="<i class='fui-check'></i>">
+                            <div class="switch-off switch-animate">
+                                <input type="checkbox">
+                                <span class="switch-left">
+                                    <i class="fui-check"></i>
+                                </span>
+                                <label></label>
+                                <span class="switch-right">
+                                    <i class="fui-cross"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    @*@Html.CheckBoxFor(m => m.RememberMe, new { @class = "" })*@
+                    <div class="col-md-4">
+                        <p>@Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })</p>
                     </div>
                 </div>
-                
-                @*@Html.CheckBoxFor(m => m.RememberMe, new { @class = "" })*@
-                @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
             </li>
         </ol>
-        <button class="btn btn-primary">Log-in</button>
+        <button class="btn btn-primary btn-hg">Log-in</button>
     </fieldset>
     <br/>
     <p>
@@ -70,10 +75,10 @@
     <li class="img"><img src="~/Images/writing.jpg" alt="school supplies"/></li>
     @*@Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })*@
 </div>
-
-@section Scripts {
+<script src="~/Content/Flat-UI/js/flatui-switch.js"></script>
+@*@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-}
+}*@
 
 <script>
     $(document).ready(function () {
