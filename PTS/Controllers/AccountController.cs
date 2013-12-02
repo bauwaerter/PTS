@@ -35,12 +35,13 @@ namespace PTS.Controllers
         private readonly IUserService _userService;
         private readonly IBaseService<Subject> _subjectService;
         private readonly IBaseService<Class_Meeting_Dates> _classMeetingDatesService;
+        private readonly IBaseService<Enrolled> _enrolledService;
 
 
         #endregion
 
 
-        public AccountController(IBaseService<Class_Meeting_Dates> classMeetingDatesService, IBaseService<Subject> subjectService, IUserService userService, IBaseService<Class> classService, IBaseService<Location> locationService, 
+        public AccountController(IBaseService<Enrolled> enrolledService, IBaseService<Class_Meeting_Dates> classMeetingDatesService, IBaseService<Subject> subjectService, IUserService userService, IBaseService<StudentUser> studentUserService, IBaseService<Class> classService, IBaseService<Location> locationService, 
             IBaseService<TeacherUser> teacherUserService, ILoginService loginService, IBaseService<Request> requestService  )
         {
             _userService = userService;
@@ -52,7 +53,7 @@ namespace PTS.Controllers
             _userService = userService;
             _subjectService = subjectService;
             _classMeetingDatesService = classMeetingDatesService;
-
+            _enrolledService = enrolledService;
         }
         //
         // GET: /Account/Login
@@ -479,6 +480,59 @@ namespace PTS.Controllers
             return Json(new { Result = "OK", Records = tables });
             
 
+        }
+
+        public ActionResult GetStudentClassesToDisplay()
+        {
+            var enrolled = _enrolledService.GetTableQuery().Where(e => e.StudentId == SessionDataHelper.UserId);
+
+
+            var tables = new List<ClassViewModel>();
+
+            foreach (var c in enrolled)
+            {
+                var enrolledClass = _classService.GetById(c.ClassId);
+                if (enrolledClass != null)
+                {
+                    var meetingDates = _classMeetingDatesService.GetTableQuery().Where(m => m.ClassId == enrolledClass.Id).OrderBy(o => o.Date);
+
+                    var loc = _locationService.GetById(enrolledClass.Id);
+                    var teacher = _teacherUserService.GetById(enrolledClass.TeacherId);
+                    var classModel = new ClassViewModel
+                    {
+                        LocationId = enrolledClass.LocationId,
+                        EndTime = enrolledClass.EndTime.ToString(),
+                        StartTime = enrolledClass.StartTime.ToString(),
+                        Duration = enrolledClass.Duration,
+                        Description = enrolledClass.Description,
+                        Id = enrolledClass.Id,
+                        SubjectId = enrolledClass.SubjectID,
+                        TeacherId = enrolledClass.TeacherId,
+
+                    };
+                    if (meetingDates.Count() > 0)
+                    {
+                        classModel.DateStart = meetingDates.First().Date;
+                        classModel.DateEnd = meetingDates.OrderByDescending(x => x.Date).First().Date;
+                    }
+                    if (loc != null)
+                    {
+                        classModel.Address = loc.Address;
+                        classModel.City = loc.City;
+                        classModel.Country = loc.Country;
+                        classModel.State = loc.State;
+                        classModel.ZipCode = loc.ZipCode;
+                    }
+                    if (teacher != null)
+                    {
+                        classModel.TeacherName = teacher.User.FirstName + " " + teacher.User.LastName;
+                    }
+                    tables.Add(classModel);
+                }
+                
+            }
+
+            return Json(new { Result = "OK", Records = tables });
         }
 
         //
