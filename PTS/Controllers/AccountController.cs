@@ -426,10 +426,63 @@ namespace PTS.Controllers
                 start=start.AddDays(1);
             }
 
-            return Json(new
+            return RedirectToAction("DisplayClasses","Account");
+        }
+
+        [Authorize]
+        public ActionResult DisplayClasses()
+        {
+            var model = "";
+
+            return View(model);
+        }
+
+        public ActionResult getClassesToDisplay()
+        {
+            var teacherClasses = _classService.GetTableQuery().Where(c => c.TeacherId == SessionDataHelper.UserId);
+            
+            var tables = new List<ClassViewModel>();
+
+            foreach (var c in teacherClasses)
+            {
+                var meetingDates = _classMeetingDatesService.GetTableQuery().Where(m => m.ClassId==c.Id).OrderBy(o=>o.Date);
+                var loc = _locationService.GetById(c.Id);
+                var teacher = _teacherUserService.GetById(c.TeacherId);
+                var classModel = new ClassViewModel
                 {
-                    Result="OK"
-                });
+                    LocationId = c.LocationId,
+                    EndTime = c.EndTime.ToString(),
+                    StartTime = c.StartTime.ToString(),
+                    Duration = c.Duration,
+                    Description = c.Description,
+                    Id = c.Id,
+                    SubjectId = c.SubjectID,
+                    TeacherId=c.TeacherId,
+
+                };
+                if(meetingDates.Count()>0)
+                {
+                    classModel.DateStart = meetingDates.First().Date;
+                    classModel.DateEnd = meetingDates.OrderByDescending(x=>x.Date).First().Date;
+                }
+                if(loc!=null)
+                {
+                    classModel.Address=loc.Address;
+                    classModel.City=loc.City;
+                    classModel.Country=loc.Country;
+                    classModel.State=loc.State;
+                    classModel.ZipCode = loc.ZipCode;
+                }
+                if(teacher!=null)
+                {
+                    classModel.TeacherName = teacher.User.FirstName + " " + teacher.User.LastName;
+                }
+                tables.Add(classModel);
+            }
+
+            return Json(new { Result = "OK", Records = tables });
+            
+
         }
 
         //

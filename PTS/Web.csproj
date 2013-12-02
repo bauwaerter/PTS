@@ -677,6 +677,7 @@
     <Content Include="Views\Account\CreateClass.cshtml" />
     <Content Include="Views\Review\ReviewClassesView.cshtml" />
     <Content Include="Views\Review\ReviewTeacherView.cshtml" />
+    <Content Include="Views\Account\DisplayClasses.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
