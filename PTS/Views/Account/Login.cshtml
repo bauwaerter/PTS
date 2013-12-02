@@ -39,24 +39,20 @@
                 @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.Password)
             </li>
+            <div style="height:20px;"></div>
             <li>
                 <div class="row">
-                    <div class="col-md-2">
-                        <div class="switch switch-square has-switch" data-off-label="<i class='fui-cross'></i>" data-on-label="<i class='fui-check'></i>">
-                            <div class="switch-off switch-animate">
-                                <input type="checkbox">
-                                <span class="switch-left">
-                                    <i class="fui-check"></i>
-                                </span>
-                                <label></label>
-                                <span class="switch-right">
-                                    <i class="fui-cross"></i>
-                                </span>
-                            </div>
-                        </div>
+                    <div class="col-md-1">
+                        <label class="checkbox unchecked" for="checkbox1">
+                        <span class="icons">
+                            <span class="first-icon fui-checkbox-unchecked"></span>
+                            <span class="second-icon fui-checkbox-checked"></span>
+                        </span>
+                        <input type="checkbox" value="" id="checkbox1" data-toggle="checkbox">
+                    </label>
                     </div>
                     @*@Html.CheckBoxFor(m => m.RememberMe, new { @class = "" })*@
-                    <div class="col-md-4">
+                    <div class="col-md-4" style="text-align:left;">
                         <p>@Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })</p>
                     </div>
                 </div>
@@ -75,7 +71,7 @@
     <li class="img"><img src="~/Images/writing.jpg" alt="school supplies"/></li>
     @*@Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })*@
 </div>
-<script src="~/Content/Flat-UI/js/flatui-switch.js"></script>
+<script src="~/Content/Flat-UI/js/flatui-checkbox.js"></script>
 @*@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }*@

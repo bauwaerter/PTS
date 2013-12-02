@@ -34,9 +34,6 @@ namespace PTS.Views.Search
         [AllowAnonymous]
         public ActionResult Index()
         {
-           
-            ViewBag.UserRole = SessionDataHelper.UserRole;
-            
             return View();
         }
 
@@ -76,22 +73,7 @@ namespace PTS.Views.Search
             }
         }
 
-        public ActionResult CreateTeacherUser(TeacherUser teacherUser)
-        {
-            try
-            {
-                _teacherUserService.Insert(teacherUser);
-                
-                var data = teacherUser;
-
-                return Json(new { Result = "OK", Record = data });
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
+        
         [AllowAnonymous]
         [HttpPost]
         public ActionResult GetTutorAvailibility(int tutorUserId)

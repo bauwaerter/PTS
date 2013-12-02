@@ -3,14 +3,24 @@
 <!DOCTYPE html>
 
 <html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>ReviewClassesView</title>
-</head>
+
 <body>
-    <div>
-        @Html.LabelFor(model => model.Location)
-        @Html.TextBoxFor(model => model.Location.Address)
-    </div>
+    <h3>Reviews for @(Model.Description)</h3>
+        <div class="row tile" style="background-color:#ecf0f1; margin-top:30px;margin-left:50px; width:900px;">
+                <div class="col-md-3"><h4>Date</h4></div>
+                <div class="col-md-2"><h4>Rating</h4></div>
+                <div class="col-md-7"><h4>Comment</h4></div>
+            </div>
+        <div class="row" style="background-color:#bdc3c7; height:30px; margin-left:50px; width:900px;"></div>
+        @foreach (var item in Model.ReviewClass)
+        {
+            <div class="row tile" style="background-color:#ecf0f1; margin-left:50px; width:900px;">
+                <div class="col-md-3"><h6>@(item.Date)</h6></div>
+                <div class="col-md-2"><h6>@(item.Rating) / 10</h6></div>
+                <div class="col-md-7"><h6>@(item.Comment)</h6></div>
+            </div>
+            <div class="row" style="background-color:#bdc3c7; height:30px; margin-left:50px; width:800px;"></div>
+        }
+    
 </body>
 </html>

@@ -46,11 +46,7 @@
         	},
             actions: {
                 listAction: '@Url.Action("GetTeacherUsers")',
-                @if(ViewBag.UserRole == 0){
-                    <text>
-                    createAction: '@Url.Action("CreateTeacherUser")',
-                    </text>
-                }
+                
             },
             fields: {
                 Id: {

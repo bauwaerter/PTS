@@ -17,20 +17,16 @@
     </div>
     <div style="background-color:#ecf0f1; width: 450px; height:300px;border-radius:10px; margin:17px; float:right; text-align:center;">
             <br />
-            <p>Some Text Here</p>
-            <br />
-            <p><strong>New to the site?</strong></p>
-            <br />
-            <p><strong>See how it works by clicking the link below</strong></p>
-            <div id="videolink"><p><strong><u>Video</u></strong></p></div>
+            <p style="text-align:center; margin-top:30px;">New to the site?</p>
+            <p style="text-align:center; margin: 10px;">Welcome to our family.
+            Join us if you want to gain some experience
+            at teaching and make money or want to sharpen your skills.</p>
         </div>
  
 </div>
 <br />
-<br />
-<div id="videoDialogBox">
     
-</div>
+
 
 
 <div class="row">
@@ -65,23 +61,6 @@
             pager: true,
         });
 
-        $('#videoDialogBox').dialog({
-            title: "Video",
-            height: 360,
-            width: 580,
-            modal: true,
-            show: { effect: "fold" },
-            autoOpen: false
-        });
-
-        $('#videolink').hover(function () {
-            $('#videolink').css("cursor", "pointer");
-        });
-
-        $('#videolink').on('click', function () {
-            $('#videoDialogBox').dialog("open");
-            
-        });
     });
 
 </script>

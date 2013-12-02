@@ -23,6 +23,20 @@ namespace PTS
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
+            bundles.Add(new ScriptBundle("~/Content/Flat-UI/js").Include(
+                        "~/Content/Flat-UI/js/application.js",
+                        "~/Content/Flat-UI/js/bootstrap-select.js",
+                        "~/Content/Flat-UI/js/bootstrap-switch.js",
+                        "~/Content/Flat-UI/js/bootstrap-typeahead.js",
+                        "~/Content/Flat-UI/js/bootstrap.min.js",
+                        "~/Content/Flat-UI/js/flatui-checkbox.js",
+                        "~/Content/Flat-UI/js/flatui-radio.js",
+                        "~/Content/Flat-UI/js/html5shiv.js",
+                        "~/Content/Flat-UI/js/icon-font-ie7.js",
+                        "~/Content/Flat-UI/js/jquery.placeholder.js",
+                        "~/Content/Flat-UI/js/jquery.stacktable.js",
+                        "~/Content/Flat-UI/js/jquery.tagsinput.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
@@ -38,6 +52,8 @@ namespace PTS
                         "~/Content/themes/base/jquery.ui.datepicker.css",
                         "~/Content/themes/base/jquery.ui.progressbar.css",
                         "~/Content/themes/base/jquery.ui.theme.css"));
+
+            
         }
     }
 }
