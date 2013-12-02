@@ -19,15 +19,15 @@
         @Html.HiddenFor(model => model.Request.Status)
 
 
-        <p>@Html.LabelFor(model => model.Teacher.User.FirstName, "First Name")</p>
+        <h4>@Html.LabelFor(model => model.Teacher.User.FirstName, "First Name")</h4>
        @* @Html.TextBoxFor(model => model.Teacher.User.FirstName, new { @class = "form-control", style = "width:400px" })*@
-        <p><h6>@Model.Teacher.User.FirstName</h6></p>
+        <h6 style="margin-left: 40px; background: #ecf0f1; width: 600px; height: 60px; border-radius:10px; padding: 15px;">@Model.Teacher.User.FirstName</h6>
 
-        <p>@Html.LabelFor(model => model.Teacher.User.LastName, "Last Name")</p>
-        <p><h6>@Model.Teacher.User.LastName</h6></p>
+        <h4>@Html.LabelFor(model => model.Teacher.User.LastName, "Last Name")</h4>
+        <h6 style="margin-left: 40px; background: #ecf0f1; width: 600px; height: 60px; border-radius:10px; padding: 15px;">@Model.Teacher.User.LastName</h6>
 
-        <p>@Html.LabelFor(model => model.Teacher.User.Email)</p>
-        <p><h6>@Model.Teacher.User.Email</h6></p>
+        <h4>@Html.LabelFor(model => model.Teacher.User.Email)</h4>
+        <h6 style="margin-left: 40px; background: #ecf0f1; width: 600px; height: 60px; border-radius:10px; padding: 15px;">@Model.Teacher.User.Email</h6>
         <br/>
 
         <h6>Select days you wish to be tutored</h6>
