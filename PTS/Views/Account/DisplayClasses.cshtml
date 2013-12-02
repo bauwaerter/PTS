@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "DisplayClasses";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Your Classes</h2>
+<div id="ClassesDisplayTable"></div>
+
+<script >
+    $(document).ready(function () {
+        $('#ClassesDisplayTable').jtable({
+            title: 'My Classes',
+
+            actions: {
+                listAction: '@Url.Action("GetClassesToDisplay")',
+                @*updateAction: '@Url.Action("AddUpdateClassesToReview")',*@
+            },
+            fields: {
+                ClassID: {
+                    key: true,
+                    list: false,
+                    create: false,
+                    edit: false,
+                },
+                Description: {
+
+                    title: 'Class',
+                    edit: false,
+                },
+                StartTime: {
+                    title: 'Start Time',
+                },
+                EndTime:{
+                    title: 'End Time',
+                },
+                Duration:{
+                    title:'Duration'
+                },
+                DateStart:{
+                    title: 'Start Date',
+                    type: 'date'
+                },
+                DateEnd: {
+                    title: 'End Date',
+                    type:'date'
+                },
+                Address: {
+                    title:'Address'
+                },
+                City: {
+                    title:'City'
+                },
+                State:{
+                    title:'State'
+                },
+                ZipCode: {
+                    title:'Zip'
+                }
+                
+
+
+            }
+        });
+        $('#ClassesDisplayTable').jtable('load');
+    })
+</script>
