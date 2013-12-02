@@ -12,7 +12,7 @@ namespace PTS.Models
         public string State { get; set; }
         public int ZipCode { get; set; }
         public string Country { get; set; }
-        public int id { get; set; }
+        public int LocationId { get; set; }
 
         public LocationVM()
         {

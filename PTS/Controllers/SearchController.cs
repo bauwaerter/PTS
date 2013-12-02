@@ -212,7 +212,7 @@ namespace PTS.Views.Search
                 {
                     Id = d.Id,
                     LocationId = d.LocationId,
-                    SubjectId = d.SubjectID != null ? d.SubjectID : null,
+                    SubjectId = d.SubjectID,
                     TeacherName = d.Teacher.User.FirstName + " " + d.Teacher.User.LastName,
                     Description = d.Description,
                     AverageRating = d.ReviewClass.FirstOrDefault() != null ? Math.Round(d.ReviewClass.Average(a => a.Rating), 1).ToString() : "No Ratings",

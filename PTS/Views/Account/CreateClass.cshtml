@@ -1,0 +1,89 @@
+﻿@model PTS.Models.ClassViewModel
+@{
+    ViewBag.Title = "CreateClass";
+}
+
+<h2>CreateClass</h2>
+<form id="ClassForm">
+    <label>Description</label>
+    <input style="width:auto" class="form-control" name="Description" />
+    <label>Start Time</label>
+    <input style="width:auto" class="form-control" name="StartTime" type="time" />
+    <label>EndTime</label>
+    <input style="width:auto" class="form-control" name="EndTime" type="time" />
+    <label>Subject</label>
+    @Html.DropDownListFor(m => m.SubjectId, Model.Subjects, new { style = "width:100px; height:30px" })
+
+
+    <label>Location</label>
+    <div class="row">
+        <div class="col-md-1 col-md-offset-1">
+            <label>Address</label>
+            <span><input name="Address" style="width: auto" class="form-control" /></span>
+        </div>
+        <div class="col-md-1 col-md-offset-2">
+            <label>City</label>
+            <span><input name="City" style="width: auto" class="form-control" /></span>
+        </div>
+        <div class="col-md-1 col-md-offset-2">
+            <label>State</label>
+            <span><input name="State" style="width: auto" class="form-control" /></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-1 col-md-offset-1">
+            <label>ZipCode</label>
+            <span><input name="ZipCode" style="width: auto" class="form-control" /></span>
+        </div>
+        <div class="col-md-1 col-md-offset-2">
+            <label>Country</label>
+            <span><input name="Country" style="width: auto" class="form-control" /></span>
+        </div>
+    </div>
+
+
+        <label>Start Date</label>
+        
+        <input type="date" name="DateStart"/>
+        <label>End Date</label>
+        <input type="date" name="DateEnd" />
+        <label>Days of week</label>
+        <label>Monday</label>
+        @Html.CheckBoxFor(m => m.Monday, new { @checked = "checked" });
+        <label>Tuesday</label>
+        @Html.CheckBoxFor(m => m.Tuesday, new { @checked = "checked" });
+        <label>Wednesday</label>
+        @Html.CheckBoxFor(m => m.Wednesday, new { @checked = "checked" });
+        <label>Thursday</label>
+        @Html.CheckBoxFor(m => m.Thursday, new { @checked = "checked" });
+        <label>Friday</label>
+        @Html.CheckBoxFor(m => m.Friday, new { @checked = "checked" });
+        <br />
+</form>
+<button class="btn-primary" id="CreateClassBtn">Create Class</button>
+
+<script>
+    $('#CreateClassBtn').on('click', function () {
+
+        $.ajax({
+            url: '@Url.Action("SaveClass")',
+            type:'post',
+            data: $(':input').serialize(),
+            success: function (data) {
+            }
+        });
+
+        @*$.ajax({
+            url: '@Url.Action("SaveClassMeetingDates")',
+            type: 'post',
+            data: $('#ClassDates').serialize(),
+            success: function () {
+            }
+        });*@
+
+    })
+
+</script>

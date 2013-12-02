@@ -27,7 +27,7 @@ namespace Core.Domains
         public virtual TimeSpan StartTime { get; set; }
         public virtual TimeSpan EndTime { get; set; }
         public virtual double Duration { get; set; }
-        public virtual int? SubjectID { get; set; }
+        public virtual int SubjectID { get; set; }
         public virtual bool Active { get; set; }
 
         #region navigation

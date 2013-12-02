@@ -220,11 +220,13 @@
     <Compile Include="Infrastructure\WebModules.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\AccountUser.cs" />
+    <Compile Include="Models\ClassMeetingDatesVM.cs" />
     <Compile Include="Models\LocationVM.cs" />
     <Compile Include="Models\ClassViewModel.cs" />
     <Compile Include="Models\PaymentModel.cs" />
     <Compile Include="Models\ReviewTutorViewModel.cs" />
     <Compile Include="Models\ReviewClassViewModel.cs" />
+    <Compile Include="Models\SelectSubjectViewModel.cs" />
     <Compile Include="Models\TeacherUserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -671,6 +673,7 @@
     <Content Include="Views\Payment\ProcessPayment.cshtml" />
     <Content Include="Views\Review\ReviewTutor.cshtml" />
     <Content Include="Views\Account\RegisterForTeacher.cshtml" />
+    <Content Include="Views\Account\CreateClass.cshtml" />
     <Content Include="Views\Review\ReviewClassesView.cshtml" />
     <Content Include="Views\Review\ReviewTeacherView.cshtml" />
   </ItemGroup>

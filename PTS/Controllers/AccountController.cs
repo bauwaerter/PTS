@@ -36,11 +36,14 @@ namespace PTS.Controllers
         private readonly IBaseService<Class> _classService;
         private readonly IBaseService<Location> _locationService;
         private readonly ILoginService _loginService;
+        private readonly IBaseService<Subject> _subjectService;
+        private readonly IBaseService<Class_Meeting_Dates> _classMeetingDatesService;
+
 
         #endregion
 
 
-        public AccountController(IUserService userService, IBaseService<StudentUser> studentUserService, IBaseService<Class> classService, IBaseService<Location> locationService, 
+        public AccountController(IBaseService<Class_Meeting_Dates> classMeetingDatesService, IBaseService<Subject> subjectService, IUserService userService, IBaseService<StudentUser> studentUserService, IBaseService<Class> classService, IBaseService<Location> locationService, 
             IBaseService<TeacherUser> teacherUserService, ILoginService loginService )
         {
             _userService = userService;
@@ -49,6 +52,8 @@ namespace PTS.Controllers
             _classService = classService;
             _locationService = locationService;
             _loginService = loginService;
+            _subjectService = subjectService;
+            _classMeetingDatesService = classMeetingDatesService;
 
         }
         //
@@ -127,7 +132,7 @@ namespace PTS.Controllers
                     Address = getlocation.Address,
                     City = getlocation.City,
                     Country = getlocation.Country,
-                    id = getlocation.Id,
+                    LocationId = getlocation.Id,
                     State = getlocation.State,
                     ZipCode = getlocation.ZipCode
                 };
@@ -274,6 +279,129 @@ namespace PTS.Controllers
             }
 
         }
+
+        [Authorize]
+        public ActionResult CreateClass()
+        {
+            var subjects = _subjectService.GetAll();
+            var today=DateTime.Today.DayOfWeek;
+            //var model = new SelectSubjectViewModel
+            //{
+            //    SelectedSubjectId=1,
+            //    Subjects = new SelectList(subjects, "Id", "Name")
+            //};
+            var model = new ClassViewModel
+            {
+                SubjectId = 1,
+                Subjects = new SelectList(subjects, "Id", "Name")
+            };
+            
+
+            return View(model);
+        }
+        
+        //[HttpPost]
+        //public ActionResult SaveClassMeetingDates(ClassMeetingDatesVM dates)
+        //{
+           
+
+
+        //    return Json(new
+        //    {
+        //        Result = "OK"
+        //    });
+        //}
+
+        [HttpPost]
+        public ActionResult SaveClass(ClassViewModel classModel)
+        {
+            classModel.Duration += ((double)DateTime.Parse(classModel.EndTime).Subtract(DateTime.Parse(classModel.StartTime)).TotalMinutes / 60);
+            
+            var insertLocation = new Location
+            {
+                Address = classModel.Address,
+                City = classModel.City,
+                Country = classModel.Country,
+                ZipCode = classModel.ZipCode,
+                State = classModel.State
+            };
+
+            _locationService.Insert(insertLocation);
+
+
+            var insertClass = new Class
+            {
+                Description = classModel.Description,
+                StartTime = TimeSpan.Parse(classModel.StartTime),
+                EndTime = TimeSpan.Parse(classModel.EndTime),
+                Duration = classModel.Duration,
+                TeacherId= SessionDataHelper.UserId,
+                Active=false,
+                SubjectID=classModel.SubjectId,
+                LocationId=insertLocation.Id
+            };
+            _classService.Insert(insertClass);
+
+
+            DateTime start = classModel.DateStart;
+            DateTime end = classModel.DateEnd;
+            while (start.DayOfYear <= end.DayOfYear)
+            {
+                Class_Meeting_Dates insertMeetingDate = new Class_Meeting_Dates();
+
+                if (classModel.Monday && start.DayOfWeek == System.DayOfWeek.Monday)
+                {
+                    insertMeetingDate = new Class_Meeting_Dates
+                    {
+                        ClassId = insertClass.Id,
+                        Date = start
+                    };
+                }
+                else if (classModel.Tuesday && start.DayOfWeek == System.DayOfWeek.Tuesday)
+                {
+                    insertMeetingDate = new Class_Meeting_Dates
+                    {
+                        ClassId = insertClass.Id,
+                        Date = start
+                    };
+                }
+                else if (classModel.Wednesday && start.DayOfWeek == System.DayOfWeek.Wednesday)
+                {
+                    insertMeetingDate = new Class_Meeting_Dates
+                    {
+                        ClassId = insertClass.Id,
+                        Date = start
+                    };
+                }
+                else if (classModel.Thursday && start.DayOfWeek == System.DayOfWeek.Thursday)
+                {
+                    insertMeetingDate = new Class_Meeting_Dates
+                    {
+                        ClassId = insertClass.Id,
+                        Date = start
+                    };
+                }
+                else if (classModel.Friday && start.DayOfWeek == System.DayOfWeek.Friday)
+                {
+                    insertMeetingDate = new Class_Meeting_Dates
+                    {
+                        ClassId = insertClass.Id,
+                        Date = start
+                    };
+                }
+                if(insertMeetingDate.ClassId!=0)
+                { 
+                    _classMeetingDatesService.Insert(insertMeetingDate);
+                }
+                start=start.AddDays(1);
+            }
+
+            return Json(new
+                {
+                    Result="OK"
+                });
+        }
+
         //
         // POST: /Account/Disassociate
 
