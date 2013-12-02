@@ -17,7 +17,7 @@ namespace PTS.Controllers
         //private readonly IBaseService<StudentUser> _studentUserService;
         private readonly IUserService _userService;
         //private readonly IStudentUserService _studentUserService;
-        private readonly IBaseService<StudentUser> _studentUserService;
+        //private readonly IBaseService<StudentUser> _studentUserService;
         private readonly IBaseService<Class> _classService;
 
         #endregion
@@ -32,7 +32,7 @@ namespace PTS.Controllers
         public HomeController(IUserService userService, IBaseService<StudentUser> studentUserService, IBaseService<Class> classService)
         {
             _userService = userService;
-            _studentUserService = studentUserService;
+            //_studentUserService = studentUserService;
             _classService = classService;
         }
 

@@ -31,7 +31,6 @@ namespace PTS.Controllers
         private readonly IBaseService<Location> _locationService;
         private readonly ILoginService _loginService;
         private readonly IBaseService<Request> _requestService; 
-        private readonly IBaseService<StudentUser> _studentUserService;
         private readonly IBaseService<TeacherUser> _teacherUserService;
         private readonly IUserService _userService;
         private readonly IBaseService<Subject> _subjectService;
@@ -41,7 +40,7 @@ namespace PTS.Controllers
         #endregion
 
 
-        public AccountController(IBaseService<Class_Meeting_Dates> classMeetingDatesService, IBaseService<Subject> subjectService, IUserService userService, IBaseService<StudentUser> studentUserService, IBaseService<Class> classService, IBaseService<Location> locationService, 
+        public AccountController(IBaseService<Class_Meeting_Dates> classMeetingDatesService, IBaseService<Subject> subjectService, IUserService userService, IBaseService<Class> classService, IBaseService<Location> locationService, 
             IBaseService<TeacherUser> teacherUserService, ILoginService loginService, IBaseService<Request> requestService  )
         {
             _userService = userService;
@@ -49,7 +48,6 @@ namespace PTS.Controllers
             _locationService = locationService;
             _loginService = loginService;
             _requestService = requestService;
-            _studentUserService = studentUserService;
             _teacherUserService = teacherUserService;
             _userService = userService;
             _subjectService = subjectService;
@@ -139,23 +137,20 @@ namespace PTS.Controllers
                 //loc = _locationService.GetById(locid);
             }
 
-            if(model.Role== UserRole.Admin)
-            {
-                var student= _studentUserService.GetById(SessionDataHelper.UserId);
+            if(model.Role == UserRole.Student){
                 user = new AccountUser
                 {
                     FirstName = model.FirstName,
                     LastName = model.LastName,
-                    Education = student.Education,
+                    Education = model.Education,
                     Email = model.Email,
                     Id = model.Id,
-                    Major = student.Major,
+                    Major = model.Major,
                     Location = loc
                 };
             }
             else if (model.Role == UserRole.Admin)
             {
-                var users = _userService.GetById(SessionDataHelper.UserId);
                 user = new AccountUser
                 {
                     FirstName = model.FirstName,

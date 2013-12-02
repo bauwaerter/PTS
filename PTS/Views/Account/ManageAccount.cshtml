@@ -12,9 +12,6 @@
 </hgroup>
 
 <div  class="contact">
-    <header>
-        <h6>User</h6>
-    </header>
     <form id="UserAccount">
         @*@Html.HiddenFor(model => model.Id)*@
         <div class="row">
@@ -58,6 +55,26 @@
                 <span><input name="PassWord" disabled="disabled" style="width: auto" class="form-control" value=@Model.PassWord /></span>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-1">
+                <p>
+                    <span class="label">Major:</span>
+                </p>
+            </div>
+            <div class="col-md-1 col-md-offset-1">
+                <span><input disabled="disabled" style="width: auto" class="form-control" value=@Model.Major /></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <p>
+                    <span class="label">Education:</span>
+                </p>
+            </div>
+            <div class="col-md-1 col-md-offset-1">
+                <span><input disabled="disabled" style="width: auto" class="form-control" value=@Model.Education /></span>
+            </div>
+        </div>
     </form>
     <form id="Userlocation">
         <div class="row">
@@ -98,40 +115,6 @@
     
 </div>
 
-<div class="contact studentContact">
-    <header>
-        <h6>Student</h6>
-        
-        
-    </header>
-    <form id="UserAccountStudent">
-        <div class="row">
-            <div class="col-md-1">
-                <p>
-                    <span class="label">Major:</span>
-                </p>
-            </div>
-            <div class="col-md-1 col-md-offset-1">
-                <span><input disabled="disabled" style="width: auto" class="form-control" value=@Model.Major /></span>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-1">
-                <p>
-                    <span class="label">Education:</span>
-                </p>
-            </div>
-            <div class="col-md-1 col-md-offset-1">
-                <span><input disabled="disabled" style="width: auto" class="form-control" value=@Model.Education /></span>
-            </div>
-        </div>
-    </form>
-        <button id="EditStudentButton" class="btn btn-primary">Edit Student Info</button>
-        <button id="SaveStudentButton" style="visibility:hidden" class="btn btn-primary">Save Student Info</button>
-    
-</div>
-
 <div class="contact teacherContact">
     <header>
         <h6>Teacher</h6>
@@ -164,18 +147,11 @@
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function (){        
-        switch("@Model.Role") {
-            case "@UserRole.Student":
-                $('.teacherContact').hide();
-                break;
-            case "@UserRole.Teacher":
-                $('.studentContact').hide();
-                break;
-            default:
-                break;
-        }
-    });
+    $(document).ready(function() {
+        if ("@Model.Role" != "@UserRole.Teacher") {
+            $(".teacherContact").hide();
+            }
+        });
     
     $('#EditUserButton').on('click', function(event) {
         event.preventDefault();
