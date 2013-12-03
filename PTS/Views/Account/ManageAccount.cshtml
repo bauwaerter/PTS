@@ -139,16 +139,16 @@
             </div>
             <div class="col-md-1 col-md-offset-1">
                 <label>Monday</label>
-                @Html.CheckBoxFor(m => m.Schedule.Monday)
+                @Html.CheckBoxFor(m => m.Schedule.Monday, new { disabled = "disabled" })
             </div>
             <section id="Monday">
                 <div class="col-md-2 col-md-offset-1">
                     <label>Start</label>
-                    <span><input type="time" name="@Model.Schedule.MonStartTime" disabled="disabled" style="width: auto" class="form-control" value=@Model.Schedule.MonStartTime /></span>
+                    <span><input type="time" name="Schedule.MonStartTime" disabled="disabled" style="width: auto" class="form-control" value=@Model.Schedule.MonStartTime /></span>
                 </div>
                 <div class="col-md-3 col-md-offset-1">
                     <label>End</label>
-                    <span><input type="time" name="@Model.Schedule.MonEndTime" disabled="disabled" style="width: auto" class="form-control" value=@Model.Schedule.MonEndTime /></span>
+                    <span><input type="time" name="Schedule.MonEndTime" disabled="disabled" style="width: auto" class="form-control" value=@Model.Schedule.MonEndTime /></span>
                 </div>
             </section>
             <br />
@@ -156,64 +156,64 @@
             <div class="col-md-1 col-md-offset-2">
 
                 <label>Tuesday</label>
-                @Html.CheckBoxFor(m => m.Schedule.Tuesday)
+                @Html.CheckBoxFor(m => m.Schedule.Tuesday, new { disabled = "disabled" })
             </div>
             <section id="Tuesday">
                 <div class="col-md-2 col-md-offset-1">
                     <label>Start</label>
-                    <span><input type="time" name="@Model.Schedule.TuesStartTime" disabled="disabled" style="width: auto" class="form-control" value=@Model.Schedule.TuesStartTime /></span>
+                    <span><input type="time" name="Schedule.TuesStartTime" disabled="disabled" style="width: auto" class="form-control" value=@Model.Schedule.TuesStartTime /></span>
                 </div>
                 <div class="col-md-3 col-md-offset-1">
                     <label>End</label>
-                    <span><input type="time" name="@Model.Schedule.TuesEndTime" disabled="disabled" style="width: auto" class="form-control" value=@Model.Schedule.TuesEndTime /></span>
+                    <span><input type="time" name="Schedule.TuesEndTime" disabled="disabled" style="width: auto" class="form-control" value=@Model.Schedule.TuesEndTime /></span>
                 </div>
             </section>
             <br />
 
             <div class="col-md-1 col-md-offset-2">
                 <label>WednesDay</label>
-                @Html.CheckBoxFor(m => m.Schedule.Wednesday)
+                @Html.CheckBoxFor(m => m.Schedule.Wednesday, new { disabled = "disabled" })
             </div>
             <section id="Wednesday">
                 <div class="col-md-2 col-md-offset-1">
                     <label>Start</label>
-                    <span><input type="time" name="@Model.Schedule.WedStartTime" disabled="disabled" style="width: auto" class="form-control" value=@Model.Schedule.WedStartTime /></span>
+                    <span><input type="time" name="Schedule.WedStartTime" disabled="disabled" style="width: auto" class="form-control" value=@Model.Schedule.WedStartTime /></span>
                 </div>
                 <div class="col-md-3 col-md-offset-1">
                     <label>End</label>
-                    <span><input type="time" name="@Model.Schedule.WedEndTime" disabled="disabled" style="width: auto" class="form-control" value=@Model.Schedule.WedEndTime /></span>
+                    <span><input type="time" name="Schedule.WedEndTime" disabled="disabled" style="width: auto" class="form-control" value=@Model.Schedule.WedEndTime /></span>
                 </div>
             </section>
             <br />
 
             <div class="col-md-1 col-md-offset-2">
                 <label>Thursday</label>
-                @Html.CheckBoxFor(m => m.Schedule.Thursday)
+                @Html.CheckBoxFor(m => m.Schedule.Thursday, new { disabled = "disabled" })
             </div>
             <section id="Thursday">
                 <div class="col-md-2 col-md-offset-1">
                     <label>Start</label>
-                    <span><input type="time" name="@Model.Schedule.ThursStartTime" disabled="disabled" style="width: auto" class="form-control" value=@Model.Schedule.ThursStartTime /></span>
+                    <span><input type="time" name="Schedule.ThursStartTime" disabled="disabled" style="width: auto" class="form-control" value=@Model.Schedule.ThursStartTime /></span>
                 </div>
                 <div class="col-md-3 col-md-offset-1">
                     <label>End</label>
-                    <span><input type="time" name="@Model.Schedule.ThursEndTime" disabled="disabled" style="width: auto" class="form-control" value=@Model.Schedule.ThursEndTime /></span>
+                    <span><input type="time" name="Schedule.ThursEndTime" disabled="disabled" style="width: auto" class="form-control" value=@Model.Schedule.ThursEndTime /></span>
                 </div>
             </section>
             <br />
 
             <div class="col-md-1 col-md-offset-2">
                 <label>Friday</label>
-                @Html.CheckBoxFor(m => m.Schedule.Friday)
+                @Html.CheckBoxFor(m => m.Schedule.Friday, new { disabled = "disabled" })
             </div>
             <section id="Friday">
                 <div class="col-md-2 col-md-offset-1">
                     <label>Start</label>
-                    <span><input type="time" name="@Model.Schedule.FriStartTime" disabled="disabled" style="width: auto" class="form-control" value=@Model.Schedule.FriStartTime /></span>
+                    <span><input type="time" name="Schedule.FriStartTime" disabled="disabled" style="width: auto" class="form-control" value=@Model.Schedule.FriStartTime /></span>
                 </div>
                 <div class="col-md-3 col-md-offset-1">
                     <label>End</label>
-                    <span><input type="time" name="@Model.Schedule.FriEndTime" disabled="disabled" style="width: auto" class="form-control" value=@Model.Schedule.FriEndTime /></span>
+                    <span><input type="time" name="Schedule.FriEndTime" disabled="disabled" style="width: auto" class="form-control" value=@Model.Schedule.FriEndTime /></span>
                 </div>
             </section>
             <br />
@@ -254,6 +254,39 @@
         $('#UserAccountTeacher').find(':input').prop('disabled', '');
         $('#EditTeacherButton').hide();
         $('#SaveTeacherButton').css('visibility', 'visible');
+
+        if ($('#Schedule_Monday').is(':checked')) {
+            $('#Monday').find(':input').prop('disabled', '')
+        }
+        else {
+            $('#Monday').find(':input').prop('disabled', 'disabled')
+        }
+        if ($('#Schedule_Tuesday').is(':checked')) {
+            $('#Tuesday').find(':input').prop('disabled', '')
+        }
+        else {
+            $('#Tuesday').find(':input').prop('disabled', 'disabled')
+        }
+        if ($('#Schedule_Wednesday').is(':checked')) {
+            $('#Wednesday').find(':input').prop('disabled', '')
+        }
+        else {
+            $('#Wednesday').find(':input').prop('disabled', 'disabled')
+        }
+        if ($('#Schedule_Thursday').is(':checked')) {
+            $('#Thursday').find(':input').prop('disabled', '')
+        }
+        else {
+            $('#Thursday').find(':input').prop('disabled', 'disabled')
+        }
+        if ($('#Schedule_Friday').is(':checked')) {
+            $('#Friday').find(':input').prop('disabled', '')
+        }
+        else {
+            $('#Friday').find(':input').prop('disabled', 'disabled')
+        }
+
+
     });
 
     @*$('#SaveStudentButton').on('click', function(event) {
@@ -314,21 +347,7 @@
     });
 
 
-    if ($('#Schedule_Monday').is(':checked')) {
-        $('#Monday').find(':input').prop('disabled', '')
-    }
-    if ($('#Schedule_Tuesday').is(':checked')) {
-        $('#Tuesday').find(':input').prop('disabled', '')
-    }
-    if ($('#Schedule_Wednesday').is(':checked')) {
-        $('#Wednesday').find(':input').prop('disabled', '')
-    }
-    if ($('#Schedule_Thursday').is(':checked')) {
-        $('#Thursday').find(':input').prop('disabled', '')
-    }
-    if ($('#Schedule_Friday').is(':checked')) {
-        $('#Friday').find(':input').prop('disabled', '')
-    }
+    
 
     $('#Schedule_Monday').on('click', function (event) {
         if ($('#Schedule_Monday').is(':checked')) {

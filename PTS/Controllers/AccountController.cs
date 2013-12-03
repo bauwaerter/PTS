@@ -120,7 +120,8 @@ namespace PTS.Controllers
         public ActionResult SaveTeacherUser(TeacherUser teach)
         {
             teach.Id = SessionDataHelper.UserId;
-            teach.ScheduleId = _teacherUserService.GetById(SessionDataHelper.UserId).ScheduleId;
+            teach.ScheduleId = teach.Schedule.Id =_teacherUserService.GetById(SessionDataHelper.UserId).ScheduleId;
+            _scheduleServie.Update(teach.Schedule);
             _teacherUserService.Update(teach);
             return Json(new
             {
