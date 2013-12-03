@@ -163,14 +163,54 @@
             </div>
         </div>
     </div>
+    @Html.HiddenFor(model => model.Location.Latitude)
+    @Html.HiddenFor(model => model.Location.Longitude)
 }
 
+<body onload="initialize()">
+ <div id="map-canvas" style="width: 320px; height: 480px;"></div>
+  <div>
+    <input id="address" type="textbox" value="Sydney, NSW">
+    <input type="button" value="Encode" onclick="codeAddress()">
+  </div>
+</body>
 
 <script src="~/Content/Flat-UI/js/flatui-checkbox.js"></script>
 <script src="~/Content/Flat-UI/js/bootstrap-select.js"></script>
 <script src="~/Content/Flat-UI/js/bootstrap-switch.js"></script>
 <script src="~/Content/Flat-UI/js/bootstrap.min.js"></script>
 <script type="text/javascript">
+    var geocoder;
+
+    function initialize() {
+        geocoder = new google.maps.Geocoder();
+    }
+
+    function codeAddress() {
+        var address = $('#Location_Address').val() + ' ' + $('#Location_City').val() + ' ' + $('#State').val() + ' ' + $('#Location_ZipCode').val();
+        console.log(address);
+        geocoder.geocode({ 'address': address }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+
+                var marker = new google.maps.Marker({
+                    position: results[0].geometry.location
+                });
+
+                var latitude = results[0].geometry.location.lat();
+                var longitude = results[0].geometry.location.lng();
+                console.log(latitude);
+                console.log(longitude);
+
+                $('#Location_Latitude').prop('value', latitude);
+                $('#Location_Longitude').prop('value', longitude);
+
+
+            } else {
+                alert("Geocode was not successful for the following reason: " + status);
+            }
+        });
+    }
+
     $(document).ready(function () {
         $('#Location_ZipCode').focusout(function () {
             codeAddress();

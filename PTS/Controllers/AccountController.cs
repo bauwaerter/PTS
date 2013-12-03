@@ -513,19 +513,34 @@ namespace PTS.Controllers
         [HttpPost]
         public JsonResult GetSessions(){
             try{
-                var tutors = _tutorsService.GetAll().Where(x => x.StudentId == SessionDataHelper.UserId).Select(i => i.TeacherId);
-                var teacher = _teacherUserService.GetAll().Where(x => tutors.Contains(x.Id)).ToList();
+                if (SessionDataHelper.UserRole == UserRole.Student) {
+                    var tutors = _tutorsService.GetAll().Where(x => x.StudentId == SessionDataHelper.UserId).Select(i => i.TeacherId);
+                    var teacher = _teacherUserService.GetAll().Where(x => tutors.Contains(x.Id)).ToList();
 
-                //var subject = _teacherOfferService.GetAll().Where(x => tutors.Contains(x.TeacherId)).ToList();
+                    //var subject = _teacherOfferService.GetAll().Where(x => tutors.Contains(x.TeacherId)).ToList();
 
-                var results = teacher.Select(p => new {
-                    p.Id,
-                    p.User.FirstName,
-                    p.User.LastName,
-                    p.User.Email,
-                    Rate = p.HourlyRate
-                }).ToArray();
-                return Json(new{Result = "OK", Records = results, TotalRecordCount = results.Count()});
+                    var results = teacher.Select(p => new {
+                        p.Id,
+                        p.User.FirstName,
+                        p.User.LastName,
+                        p.User.Email,
+                        Rate = p.HourlyRate
+                    }).ToArray();
+                    return Json(new { Result = "OK", Records = results, TotalRecordCount = results.Count() });
+                } else {
+                    var tutors = _tutorsService.GetAll().Where(x => x.TeacherId == SessionDataHelper.UserId).Select(i => i.StudentId);
+                    var student = _userService.GetAll().Where(x => tutors.Contains(x.Id)).ToList();
+                    var user = _teacherUserService.GetById(SessionDataHelper.UserId);
+
+                    var results = student.Select(p => new {
+                        p.Id,
+                        p.FirstName,
+                        p.LastName,
+                        p.Email,
+                        Rate = user.HourlyRate
+                    }).ToArray();
+                    return Json(new { Result = "OK", Records = results, TotalRecordCount = results.Count() });
+                }
             }
             catch (Exception ex){
                 throw new Exception(ex.Message);

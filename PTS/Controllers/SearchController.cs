@@ -197,6 +197,7 @@ namespace PTS.Views.Search
 
         }
 
+        [AllowAnonymous]
         public ActionResult LoadTeacherMap(int teacherId)
         {
             var location = _userService.GetById(teacherId).Location;
