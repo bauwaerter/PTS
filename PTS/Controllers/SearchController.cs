@@ -43,15 +43,25 @@ namespace PTS.Views.Search
         {
             try
             {
-                var data = _teacherUserService.GetAll();
+                var teacherList = (from teacher in _teacherUserService.GetTableQuery()
+                                   select new
+                                   {
+                                       teacher.Id,
+                                       teacher.User.FirstName,
+                                       teacher.User.LastName,
+                                       teacher.User.Email,
+                                       teacher.ReviewTeacher,
+                                       teacher.ClassRate,
+                                       teacher.HourlyRate,
+                                   }).ToList();
 
                 
-                var records = data.Select(t => new TeacherUserViewModel
+                var records = teacherList.Select(t => new TeacherUserViewModel
                 {
                     Id = t.Id,
-                    FirstName = t.User.FirstName,
-                    LastName = t.User.LastName,
-                    Email = t.User.Email,
+                    FirstName = t.FirstName,
+                    LastName = t.LastName,
+                    Email = t.Email,
                     AverageRating = t.ReviewTeacher.FirstOrDefault() !=  null ? Math.Round(t.ReviewTeacher.Average(a => a.Rating), 1).ToString() : "No Ratings",
                     ClassRate = t.ClassRate,
                     HourlyRate = t.HourlyRate
@@ -194,12 +204,25 @@ namespace PTS.Views.Search
         {
             try
             {
-                var data = _classService.GetAll();
-                
-                var records = data.Select(d => new ClassViewModel
+
+                var classList = (from classes in _classService.GetTableQuery()
+                                 select new
+                                 {
+                                     classes.Id,
+                                     classes.Teacher,
+                                     classes.ReviewClass,
+                                     classes.StartTime,
+                                     classes.EndTime,
+                                     classes.Duration,
+                                     classes.Location,
+                                     classes.SubjectID,
+                                     classes.Description
+                                 }).ToList();
+
+                var records = classList.Select(d => new ClassViewModel
                 {
                     Id = d.Id,
-                    LocationId = d.LocationId,
+                    LocationId = d.Location.Id,
                     SubjectId = d.SubjectID,
                     TeacherName = d.Teacher.User.FirstName + " " + d.Teacher.User.LastName,
                     Description = d.Description,
