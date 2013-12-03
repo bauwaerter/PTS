@@ -253,7 +253,7 @@
         geocoder = new google.maps.Geocoder();
     }
 
-    function codeAddress() {
+    function codeAddress(callback) {
         var address = $('#Location_Address').val() + ' ' + $('#Location_City').val() + ' ' + $('#Location_State').val() + ' ' + $('#Location_ZipCode').val() + ' ' + $('#Location_Country').val();
         console.log(address);
         geocoder.geocode({ 'address': address }, function (results, status) {
@@ -271,13 +271,13 @@
                 $('#Location_Latitude').prop('value', latitude);
                 $('#Location_Longitude').prop('value', longitude);
 
-
+                callback();
             } else {
                 alert("Geocode was not successful for the following reason: " + status);
             }
         });
         console.log("RETURNING");
-        return true;
+        
     }
 
 
@@ -381,9 +381,7 @@
         event.preventDefault();
         
         //codeAddress();
-
-        if (codeAddress()) {
-            console.log("SHOUJLD BE AFTER");
+        var callback = function(){
             $.ajax({
                 url: '@Url.Action("SaveUserLocation")',
                 data: $('#Userlocation').serialize(),
@@ -407,7 +405,7 @@
             });
         }
 
-        
+        codeAddress(callback)
     });
 
 

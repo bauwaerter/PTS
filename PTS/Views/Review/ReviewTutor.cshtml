@@ -1,12 +1,16 @@
 ﻿@{
-    ViewBag.Title = "ReviewTutor";
+    ViewBag.Title = "Review Tutor";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 
 <h3>ReviewTutor</h3>
 <div id="TutorsToReviewTable"></div>
 <script>
+    
     $(document).ready(function () {
+        $('.ui-dialog').dialog({ dialogClass: "" });
+
         $('#TutorsToReviewTable').jtable({
             title: 'Tutors to Review',
 
@@ -55,3 +59,9 @@
     //})
 
 </script>
+
+
+
+
+
+
