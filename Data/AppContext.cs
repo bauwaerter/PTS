@@ -53,6 +53,10 @@ namespace Data
                 .HasRequired(x => x.User)
                 .WithRequiredDependent();
 
+            modelBuilder.Entity<TeacherUser>()
+                .HasRequired(x => x.Schedule)
+                .WithRequiredDependent();
+
             modelBuilder.Entity<StudentUser>()
                 .HasRequired(x => x.User)
                 .WithRequiredDependent();
