@@ -457,11 +457,6 @@ namespace PTS.Controllers
             return View(model);
         }
 
-        [Authorize]
-        public ActionResult DisplaySessions() {
-            return View();
-        }
-
         public ActionResult getClassesToDisplay()
         {
             var teacherClasses = _classService.GetTableQuery().Where(c => c.TeacherId == SessionDataHelper.UserId);
@@ -508,12 +503,18 @@ namespace PTS.Controllers
             return Json(new { Result = "OK", Records = tables });
         }
 
+        [Authorize]
+        public ActionResult DisplaySessions() {
+            var model = _userService.GetById(SessionDataHelper.UserId);
+            return View(model);
+        }
+
         [HttpPost]
         public JsonResult GetSessions(){
             try{
                 if (SessionDataHelper.UserRole == UserRole.Student) {
-                    var tutors = _tutorsService.GetAll().Where(x => x.StudentId == SessionDataHelper.UserId).Select(i => i.TeacherId);
-                    var teacher = _teacherUserService.GetAll().Where(x => tutors.Contains(x.Id)).ToList();
+                    var requests = _requestService.GetAll().Where(x => x.StudentId == SessionDataHelper.UserId);
+                    var teacher = _teacherUserService.GetAll().Where(x => requests.Select(i => i.TeacherId).Contains(x.Id)).ToList();
 
                     //var subject = _teacherOfferService.GetAll().Where(x => tutors.Contains(x.TeacherId)).ToList();
 
@@ -522,12 +523,14 @@ namespace PTS.Controllers
                         p.User.FirstName,
                         p.User.LastName,
                         p.User.Email,
-                        Rate = p.HourlyRate
+                        Rate = p.HourlyRate,
+                        Status = requests.FirstOrDefault(x => x.TeacherId == p.Id)
                     }).ToArray();
-                    return Json(new { Result = "OK", Records = results, TotalRecordCount = results.Count() });
+                    return Json(new { Result = "OK", Records = results, TotalRecordCount = requests.Count() });
+
                 } else {
-                    var tutors = _tutorsService.GetAll().Where(x => x.TeacherId == SessionDataHelper.UserId).Select(i => i.StudentId);
-                    var student = _userService.GetAll().Where(x => tutors.Contains(x.Id)).ToList();
+                    var requests = _requestService.GetAll().Where(x => x.TeacherId == SessionDataHelper.UserId);
+                    var student = _userService.GetAll().Where(x => requests.Select(i => i.StudentId).Contains(x.Id)).ToList();
                     var user = _teacherUserService.GetById(SessionDataHelper.UserId);
 
                     var results = student.Select(p => new {
@@ -535,7 +538,8 @@ namespace PTS.Controllers
                         p.FirstName,
                         p.LastName,
                         p.Email,
-                        Rate = user.HourlyRate
+                        Rate = user.HourlyRate,
+                        Status = requests.FirstOrDefault(x => x.StudentId == p.Id).Status
                     }).ToArray();
                     return Json(new { Result = "OK", Records = results, TotalRecordCount = results.Count() });
                 }
@@ -544,6 +548,10 @@ namespace PTS.Controllers
                 throw new Exception(ex.Message);
             }
         }
+
+        //public ActionResult ApproveRequest(int requestId) {
+        //    var request _requestService.GetById(requestId);
+        //}
 
         [HttpPost]
         public JsonResult GetSchedule() {

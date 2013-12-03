@@ -1,15 +1,18 @@
-﻿@{
+﻿@using Core.Domains;
+@model Core.Domains.User
+
+@{
     ViewBag.Title = "Display Sessions";
     //Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Your Tutors</h2>
+<h4>Tutor Sesions</h4>
 <div id="SessionsDisplayTable"></div>
-
+<a href="www.swag.com" class="t"
 <script >
     $(document).ready(function () {
         $('#SessionsDisplayTable').jtable({
-            title: 'My Tutors',
+            title: ("@Model.Role" == "@UserRole.Teacher") ? 'Student Contracts' : 'Tutor Contracts',
             openChildAsAccordion: true,
             ajaxSettings: {
                 contentType: 'application/json'
@@ -35,6 +38,17 @@
                 },
                 Rate: {
                     title: 'Rate',
+                },
+                Status: {
+                    title: 'Approval Status',
+                    display: function (data) {
+                        var row = data.record;
+                        var result = data.record.Status;
+                        if (Model.Role == UserRole.Teacher) {
+                            result = '<a href="@Url.Action("ApproveRequest", "Account")?requestId=' + data.record.Id + '">' + data.record.Status + '</a>';
+                        }
+                        return result;
+                    }
                 },
                 Availability: {
                     title: 'Session Info',

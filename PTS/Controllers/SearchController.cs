@@ -194,7 +194,6 @@ namespace PTS.Views.Search
             {
                 throw new Exception(ex.Message);
             }
-
         }
 
         [AllowAnonymous]

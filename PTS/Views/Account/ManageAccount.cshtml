@@ -276,6 +276,8 @@
                 alert("Geocode was not successful for the following reason: " + status);
             }
         });
+        console.log("RETURNING");
+        return true;
     }
 
 
@@ -380,28 +382,30 @@
         
         //codeAddress();
 
-        $.ajax({
-            url: '@Url.Action("SaveUserLocation")',
-            beforeSend: codeAddress(),
-            data: $('#Userlocation').serialize(),
-            type: 'post',
-            success: function () {
-            }
+        if (codeAddress()) {
+            console.log("SHOUJLD BE AFTER");
+            $.ajax({
+                url: '@Url.Action("SaveUserLocation")',
+                data: $('#Userlocation').serialize(),
+                type: 'post',
+                success: function () {
+                }
 
-        });
-        
-        $.ajax({
-            url: '@Url.Action("SaveUser")',
-            data: $('#UserAccount').serialize(),
-            type: 'post',
-            success: function () {
-                $('#UserAccount').find(':input').prop('disabled', 'disabled');
-                $('#Userlocation').find(':input').prop('disabled', 'disabled');
-                $('#EditUserButton').show();
-                $('#SaveUserButton').css('visibility', 'hidden');
-            }
+            });
 
-        });
+            $.ajax({
+                url: '@Url.Action("SaveUser")',
+                data: $('#UserAccount').serialize(),
+                type: 'post',
+                success: function () {
+                    $('#UserAccount').find(':input').prop('disabled', 'disabled');
+                    $('#Userlocation').find(':input').prop('disabled', 'disabled');
+                    $('#EditUserButton').show();
+                    $('#SaveUserButton').css('visibility', 'hidden');
+                }
+
+            });
+        }
 
         
     });
