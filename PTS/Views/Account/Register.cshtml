@@ -30,7 +30,7 @@
     <h4 style="margin-left: 50px;">Create a new account</h4>
 </hgroup>
 <br/>
-@using (Html.BeginForm(null, null, FormMethod.Post))
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @id="registrationForm"}))
 {
     @Html.HiddenFor(model => model.Id)
     @Html.HiddenFor(model => model.LocationId)
@@ -98,13 +98,13 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <p>@Html.LabelFor(model => model.Location.Country)</p>
-                            @Html.DropDownListFor(model => model.Location.Country, new SelectList(ListHelper.GetListCountries(), "Key", "Value"), new { @id="Country", @name="Country", @class="select-block", @style="display: none;", @size=10 })
+                            @Html.DropDownListFor(model => model.Location.Country, new SelectList(ListHelper.GetListCountries(), "Key", "Value"), new { @id = "Country", @name = "Country", @class = "select-block", @style = "display: none;", @size = 10 })
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group state">
                             <p>@Html.LabelFor(model => model.Location.State)</p>
-                            @Html.DropDownListFor(model => model.Location.State, new SelectList(Enum.GetValues(typeof(Core.StateCode))), new { @id="State", @class="select-block", @style="display: none;" })
+                            @Html.DropDownListFor(model => model.Location.State, new SelectList(Enum.GetValues(typeof(Core.StateCode))), new { @id = "State", @class = "select-block", @style = "display: none;" })
                         </div>
                     </div>
                 </div>
@@ -146,8 +146,8 @@
                     <div class="col-md-2 col-md-offset-1">
                         <div class="teacherUser">
                             @{
-                                var teacher = new PTS.Models.TeacherScheduleModel();
-                                teacher.Schedule = new Schedule();
+    var teacher = new PTS.Models.TeacherScheduleModel();
+    teacher.Schedule = new Schedule();
                             }
 
                             @Html.Partial("_TeacherUserForm", teacher)
@@ -159,7 +159,7 @@
         <br />
         <div class="row" style="margin-top: 10px; margin-left: 37px;">
             <div class="col-md-1">
-                <button id="formSubmit" type="submit" class="btn btn-primary">Register</button>
+                <button id="formSubmit" type="button" class="btn btn-primary">Register</button>
             </div>
         </div>
     </div>
@@ -178,7 +178,7 @@
         geocoder = new google.maps.Geocoder();
     }
 
-    function codeAddress() {
+    function codeAddress(callback) {
         var address = $('#Location_Address').val() + ' ' + $('#Location_City').val() + ' ' + $('#State').val() + ' ' + $('#Location_ZipCode').val() + ' ' + $('#Country');
         console.log(address);
         geocoder.geocode({ 'address': address }, function (results, status) {
@@ -196,7 +196,7 @@
                 $('#Location_Latitude').prop('value', latitude);
                 $('#Location_Longitude').prop('value', longitude);
 
-
+                callback();
             } else {
                 alert("Geocode was not successful for the following reason: " + status);
             }
@@ -204,10 +204,14 @@
     }
 
     $(document).ready(function () {
-        $('#Location_ZipCode').focusout(function () {
-            codeAddress();
+        //$('#Location_ZipCode').focusout(function () {
+        //    codeAddress();
+        //});
+        $('#formSubmit').on('click', function () {
+            codeAddress(function () {
+                $('#registrationForm').submit();
+            });
         });
-
         $('#DOB').datepicker({
             changeMonth: true,
             changeYear: true,
