@@ -164,7 +164,7 @@ namespace PTS.Views.Search
 
                     results.Add(new
                     {
-                        ScheduleId = tutor.Schedule.Id,
+                        ScheduleId = tutor.Id,
                         Sunday = timeValidation[0],
                         Monday = timeValidation[1],
                         Tuesday = timeValidation[2],

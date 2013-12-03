@@ -15,7 +15,7 @@ namespace PTS.Models
         public string PassWord { get; set; }
         public LocationVM Location { get; set; }
         public UserRole Role { get; set; }
-
+        public Schedule Schedule { get; set; }
 
         public AccountUser()
         {

@@ -39,10 +39,11 @@ namespace PTS.Controllers
         private readonly IBaseService<Enrolled> _enrolledService;
         private readonly IBaseService<Tutors> _tutorsService;
         private readonly IBaseService<Payment> _paymentsService;
+        private readonly IBaseService<Schedule> _scheduleServie;
         #endregion
 
         #region constructor
-        public AccountController(IBaseService<Payment> paymentsService, IBaseService<Enrolled> enrolledService, IBaseService<Class_Meeting_Dates> classMeetingDatesService, IBaseService<Subject> subjectService, IUserService userService, IBaseService<StudentUser> studentUserService, IBaseService<Class> classService, IBaseService<Location> locationService, 
+        public AccountController(IBaseService<Schedule> scheduleServie, IBaseService<Payment> paymentsService, IBaseService<Enrolled> enrolledService, IBaseService<Class_Meeting_Dates> classMeetingDatesService, IBaseService<Subject> subjectService, IUserService userService, IBaseService<StudentUser> studentUserService, IBaseService<Class> classService, IBaseService<Location> locationService, 
             IBaseService<TeacherUser> teacherUserService, ILoginService loginService, IBaseService<Request> requestService,IBaseService<Teacher_Offers> teacherOfferService, IBaseService<Tutors> tutorsService   )
         {
             _userService = userService;
@@ -58,6 +59,7 @@ namespace PTS.Controllers
             _teacherOfferService = teacherOfferService;
             _tutorsService = tutorsService;
             _paymentsService = paymentsService;
+            _scheduleServie = scheduleServie;
         }
         #endregion 
         //
@@ -117,6 +119,7 @@ namespace PTS.Controllers
         public ActionResult SaveTeacherUser(TeacherUser teach)
         {
             teach.Id = SessionDataHelper.UserId;
+            teach.ScheduleId = _teacherUserService.GetById(SessionDataHelper.UserId).ScheduleId;
             _teacherUserService.Update(teach);
             return Json(new
             {
@@ -166,6 +169,7 @@ namespace PTS.Controllers
             var user = new AccountUser();
             var loc = new LocationVM();
             
+
             if (model.LocationId != null)
             {
                 int locid = model.LocationId;
@@ -222,7 +226,8 @@ namespace PTS.Controllers
                     Major = model.Major,
                     ClassRate= teacher.ClassRate,
                     HourlyRate=teacher.HourlyRate,
-                    Role = UserRole.Teacher
+                    Role = UserRole.Teacher,
+                    Schedule= teacher.Schedule
                 };
             }
 
