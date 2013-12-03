@@ -84,7 +84,7 @@ namespace PTS.Views.Search
                 var results = new List<object>();
                 var zeroTime = new TimeSpan(0);
                 
-                if (tutor.Schedule.Id != null)
+                if (tutor.Schedule != null)
                 {
                     string[] timeValidation = new string[7];
 
