@@ -121,7 +121,7 @@ namespace PTS.Controllers
         {
             teach.Id = SessionDataHelper.UserId;
             teach.ScheduleId = teach.Schedule.Id =_teacherUserService.GetById(SessionDataHelper.UserId).ScheduleId;
-            _scheduleServie.Update(teach.Schedule);
+            _scheduleService.Update(teach.Schedule);
             _teacherUserService.Update(teach);
             return Json(new
             {
