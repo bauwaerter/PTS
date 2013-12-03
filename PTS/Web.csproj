@@ -228,6 +228,7 @@
     <Compile Include="Models\ReviewTutorViewModel.cs" />
     <Compile Include="Models\ReviewClassViewModel.cs" />
     <Compile Include="Models\SelectSubjectViewModel.cs" />
+    <Compile Include="Models\TeacherScheduleModel.cs" />
     <Compile Include="Models\TeacherUserViewModel.cs" />
     <Compile Include="Models\TransactionsVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -676,7 +677,6 @@
     <Content Include="Views\Account\DisplaySessions.cshtml" />
     <Content Include="Views\Search\TeacherMap.cshtml" />
     <Content Include="Views\Account\Transactions.cshtml" />
-    <Content Include="Views\Shared\_ScheduleTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

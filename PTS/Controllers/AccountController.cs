@@ -39,12 +39,13 @@ namespace PTS.Controllers
         private readonly IBaseService<Enrolled> _enrolledService;
         private readonly IBaseService<Tutors> _tutorsService;
         private readonly IBaseService<Payment> _paymentsService;
-        private readonly IBaseService<Schedule> _scheduleServie;
+        private readonly IBaseService<Schedule> _scheduleService;
         #endregion
 
         #region constructor
         public AccountController(IBaseService<Schedule> scheduleServie, IBaseService<Payment> paymentsService, IBaseService<Enrolled> enrolledService, IBaseService<Class_Meeting_Dates> classMeetingDatesService, IBaseService<Subject> subjectService, IUserService userService, IBaseService<StudentUser> studentUserService, IBaseService<Class> classService, IBaseService<Location> locationService, 
-            IBaseService<TeacherUser> teacherUserService, ILoginService loginService, IBaseService<Request> requestService,IBaseService<Teacher_Offers> teacherOfferService, IBaseService<Tutors> tutorsService   )
+            IBaseService<TeacherUser> teacherUserService, ILoginService loginService, IBaseService<Request> requestService,IBaseService<Teacher_Offers> teacherOfferService, IBaseService<Tutors> tutorsService,
+            IBaseService<Schedule> scheduleService)
         {
             _userService = userService;
             _classService = classService;
@@ -59,7 +60,7 @@ namespace PTS.Controllers
             _teacherOfferService = teacherOfferService;
             _tutorsService = tutorsService;
             _paymentsService = paymentsService;
-            _scheduleServie = scheduleServie;
+            _scheduleService = scheduleService;
         }
         #endregion 
         //
@@ -264,7 +265,7 @@ namespace PTS.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Register(string confirmPassword, User user, TeacherUser teacherUser, int subject) {
+        public ActionResult Register(string confirmPassword, User user, TeacherScheduleModel teacherUser, int subject) {
             try {
                 if (!CommonHelper.IsValidEmail(user.Email)) {
                     throw new Exception("Username must be a valid email address");
@@ -280,14 +281,17 @@ namespace PTS.Controllers
                     user.LocationId = location.Id;
                     user.Location = null;
 
-                    if (teacherUser.HourlyRate != 0 || teacherUser.ClassRate != 0){
-                        teacherUser.Active = false;
-                        teacherUser.User = user;
+                    if (teacherUser.Teacher.HourlyRate != 0 || teacherUser.Teacher.ClassRate != 0) {
+                        teacherUser.Teacher.Active = false;
+                        teacherUser.Teacher.User = user;
                         user = null;
-                        _teacherUserService.Insert(teacherUser);
+                        _scheduleService.Insert(teacherUser.Schedule);
+                        teacherUser.Teacher.ScheduleId = teacherUser.Schedule.Id;
+                        _teacherUserService.Insert(teacherUser.Teacher);
 
+                        teacherUser.Teacher.Schedule = teacherUser.Schedule;
                         var teacherOffer = new Teacher_Offers(){
-                            TeacherId = teacherUser.Id,
+                            TeacherId = teacherUser.Teacher.Id,
                             SubjectId = subject
                         };
                         _teacherOfferService.Insert(teacherOffer);

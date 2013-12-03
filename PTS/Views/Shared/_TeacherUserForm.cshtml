@@ -1,24 +1,24 @@
 ﻿@using PTS.Helpers
-@model Core.Domains.TeacherUser
+@model PTS.Models.TeacherScheduleModel
 
 @{
     Layout = null;
 }
 
 <form id="teacherUserForm" method="post">
-    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.Teacher.Id)
     
     <p>@Html.Label("Subject")</p>
     @Html.DropDownList("subject", new SelectList(ListHelper.GetListOfSubjects(), "Id", "Name"), new {@id = "subject", @name = "subject", @class="select-block", @style="display: none;"})
     
 
-    <p>@Html.LabelFor(model => model.HourlyRate, "Hourly Rate")</p>
-    @Html.TextBoxFor(model => model.HourlyRate, new {@class = "form-control", style="width:400px"})
+    <p>@Html.LabelFor(model => model.Teacher.HourlyRate, "Hourly Rate")</p>
+    @Html.TextBoxFor(model => model.Teacher.HourlyRate, new {@class = "form-control", style="width:400px"})
 
     <br />
 
-    <p>@Html.LabelFor(model => model.ClassRate, "Class Rate")</p>
-    @Html.TextBoxFor(model => model.ClassRate, new {@class = "form-control", style="width:400px"})
+    <p>@Html.LabelFor(model => model.Teacher.ClassRate, "Class Rate")</p>
+    @Html.TextBoxFor(model => model.Teacher.ClassRate, new {@class = "form-control", style="width:400px"})
     <br/>
 
     <p>@Html.Label("Availability")</p>
@@ -178,7 +178,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $("select[name='subject']").selectpicker({ style: 'btn-primary', menuStyle: 'dropdown-inverse' });
-        $(".ui-timepicker-input").timepicker();
+        $(".ui-timepicker-input").timepicker({ 'timeFormat': 'H:i:s' });
         $(".date").datepicker();
     });
 
