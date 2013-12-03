@@ -51,6 +51,18 @@ namespace PTS.Helpers {
             return baseService.GetTableQuery().OrderBy(x => x.Name).ToList();
         }
 
-
+         public static bool CheckIndexOf(string fieldString, string textSearch)
+	     {	
+            if (fieldString != null)	
+            {
+                return (fieldString.IndexOf(textSearch, StringComparison.OrdinalIgnoreCase) >= 0);
+            }
+	        return false;
+        }
+	
+        public static bool CheckIndexOf(bool fieldBool, string textSearch)
+        {
+            return CheckIndexOf(fieldBool ? "Yes" : "No", textSearch);
+        }
     }
 }

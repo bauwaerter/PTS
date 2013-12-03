@@ -7,6 +7,7 @@ using Core.Domains;
 using Service.Interfaces;
 using PTS.Infrastructure;
 using PTS.Models;
+using PTS.Helpers;
 
 namespace PTS.Views.Search
 {
@@ -43,7 +44,7 @@ namespace PTS.Views.Search
         {
             try
             {
-                var teacherList = (from teacher in _teacherUserService.GetTableQuery()
+                var teacherList = (from teacher in _teacherUserService.GetTableQuery().Where(a => a.Active)
                                    select new
                                    {
                                        teacher.Id,
@@ -71,8 +72,12 @@ namespace PTS.Views.Search
                 {
                     var oldRecords = records;
                     records = oldRecords.Where(r => 
-                                r.FirstName.Contains(textSearch) || 
-                                r.LastName.Contains(textSearch));
+                                (ListHelper.CheckIndexOf(r.FirstName, textSearch)) || 
+                                (ListHelper.CheckIndexOf(r.LastName, textSearch)) ||
+                                (ListHelper.CheckIndexOf(r.Email, textSearch)) ||
+                                (ListHelper.CheckIndexOf(r.AverageRating, textSearch)) ||
+                                (ListHelper.CheckIndexOf(r.ClassRate.ToString(), textSearch)) ||
+                                (ListHelper.CheckIndexOf(r.HourlyRate.ToString(), textSearch)));
                 }
             
                 return Json(new { Result = "OK", Records = records.Skip(jtStartIndex).Take(jtPageSize).ToList(), TotalRecordCount = records.Count() });
@@ -209,7 +214,7 @@ namespace PTS.Views.Search
                                  select new
                                  {
                                      classes.Id,
-                                     classes.Teacher,
+                                     classes.Teacher.User,
                                      classes.ReviewClass,
                                      classes.StartTime,
                                      classes.EndTime,
@@ -224,7 +229,7 @@ namespace PTS.Views.Search
                     Id = d.Id,
                     LocationId = d.Location.Id,
                     SubjectId = d.SubjectID,
-                    TeacherName = d.Teacher.User.FirstName + " " + d.Teacher.User.LastName,
+                    TeacherName = d.User.FirstName + " " + d.User.LastName,
                     Description = d.Description,
                     AverageRating = d.ReviewClass.FirstOrDefault() != null ? Math.Round(d.ReviewClass.Average(a => a.Rating), 1).ToString() : "No Ratings",
                     StartTime = d.StartTime.ToString(),
@@ -241,7 +246,17 @@ namespace PTS.Views.Search
                 {
                     var oldRecords = records;
                     records = oldRecords.Where(r =>
-                                r.Description.Contains(textSearch));
+                                (ListHelper.CheckIndexOf(r.Description, textSearch)) ||
+                                (ListHelper.CheckIndexOf(r.TeacherName, textSearch)) ||
+                                (ListHelper.CheckIndexOf(r.AverageRating, textSearch)) ||
+                                (ListHelper.CheckIndexOf(r.StartTime.ToString(), textSearch)) ||
+                                (ListHelper.CheckIndexOf(r.EndTime.ToString(), textSearch)) ||
+                                (ListHelper.CheckIndexOf(r.Duration.ToString(), textSearch)) ||
+                                (ListHelper.CheckIndexOf(r.Address, textSearch)) ||
+                                (ListHelper.CheckIndexOf(r.City, textSearch)) ||
+                                (ListHelper.CheckIndexOf(r.State, textSearch)) ||
+                                (ListHelper.CheckIndexOf(r.ZipCode.ToString(), textSearch)) ||
+                                (ListHelper.CheckIndexOf(r.Country, textSearch)));
                 }
 
                 return Json(new { Result = "OK", Records = records.Skip(jtStartIndex).Take(jtPageSize).ToList(), TotalRecordCount = records.Count() });
