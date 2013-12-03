@@ -20,6 +20,7 @@ namespace PTS.Models
         public string EndTime { get; set; }
         public double Duration { get; set; }
         public string AverageRating { get; set; }
+        public string SubjectName { get; set; }
         public IEnumerable<SelectListItem> Subjects { get; set; }
 
         public DateTime DateStart { get; set; }

@@ -25,15 +25,6 @@ namespace Data.Mappings
         }
     }
 
-    public class SubjectToClassMap : EntityTypeConfiguration<SubjectToClass>
-    {
-        public SubjectToClassMap()
-        {
-            ToTable("SubjectToClass", "dbo");
-            HasKey(sc => sc.Id);
-        }
-    }
-
     public class Class_Meeting_Dates_Map : EntityTypeConfiguration<Class_Meeting_Dates>
     {
         public Class_Meeting_Dates_Map()

@@ -13,12 +13,6 @@ namespace Core.Domains
         public virtual string Description { get; set; }
     }
 
-    public class SubjectToClass : BaseEntity
-    {
-        public virtual int SubjectId { get; set; }
-        public virtual int ClassId { get; set; }
-    }
-
     public class Class : BaseEntity
     {
         public virtual int TeacherId { get; set; }
@@ -33,6 +27,7 @@ namespace Core.Domains
         #region navigation
         public virtual Location Location { get; set; }
         public virtual TeacherUser Teacher { get; set; }
+        public virtual Subject Subject { get; set; }
 
         private ICollection<ReviewClass> _reviewClass;
         public virtual ICollection<ReviewClass> ReviewClass

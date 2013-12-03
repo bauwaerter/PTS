@@ -170,13 +170,11 @@ namespace PTS.Controllers
             var model = _userService.GetById(SessionDataHelper.UserId);
             var user = new AccountUser();
             var loc = new LocationVM();
+                       
             
-
-            if (model.LocationId != null)
-            {
-                int locid = model.LocationId;
-                var getlocation = _locationService.GetById(locid);
-                loc = new LocationVM 
+           int locid = model.LocationId;
+           var getlocation = _locationService.GetById(locid);
+           loc = new LocationVM 
                 {
                     Address = getlocation.Address,
                     City = getlocation.City,
@@ -185,7 +183,7 @@ namespace PTS.Controllers
                     State = getlocation.State,
                     ZipCode = getlocation.ZipCode
                 };
-            }
+            
 
             if(model.Role == UserRole.Student){
                 user = new AccountUser

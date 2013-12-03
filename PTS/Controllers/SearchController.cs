@@ -210,8 +210,7 @@ namespace PTS.Views.Search
         {
             try
             {
-
-                var classList = (from classes in _classService.GetTableQuery()
+                var classList = (from classes in _classService.GetTableQuery().Where(a => a.Active)
                                  select new
                                  {
                                      classes.Id,
@@ -222,7 +221,8 @@ namespace PTS.Views.Search
                                      classes.Duration,
                                      classes.Location,
                                      classes.SubjectID,
-                                     classes.Description
+                                     classes.Description,
+                                     classes.Subject.Name,
                                  }).ToList();
 
                 var records = classList.Select(d => new ClassViewModel
@@ -231,6 +231,7 @@ namespace PTS.Views.Search
                     LocationId = d.Location.Id,
                     SubjectId = d.SubjectID,
                     TeacherName = d.User.FirstName + " " + d.User.LastName,
+                    SubjectName = d.Name,
                     Description = d.Description,
                     AverageRating = d.ReviewClass.FirstOrDefault() != null ? Math.Round(d.ReviewClass.Average(a => a.Rating), 1).ToString() : "No Ratings",
                     StartTime = d.StartTime.ToString(),
@@ -257,7 +258,8 @@ namespace PTS.Views.Search
                                 (ListHelper.CheckIndexOf(r.City, textSearch)) ||
                                 (ListHelper.CheckIndexOf(r.State, textSearch)) ||
                                 (ListHelper.CheckIndexOf(r.ZipCode.ToString(), textSearch)) ||
-                                (ListHelper.CheckIndexOf(r.Country, textSearch)));
+                                (ListHelper.CheckIndexOf(r.Country, textSearch)) ||
+                                (ListHelper.CheckIndexOf(r.SubjectName, textSearch)));
                 }
 
                 return Json(new { Result = "OK", Records = records.Skip(jtStartIndex).Take(jtPageSize).ToList(), TotalRecordCount = records.Count() });
