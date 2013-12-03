@@ -38,6 +38,7 @@ namespace Data.Mappings
             HasMany(x => x.ReviewTeacher)
                 .WithOptional()
                 .HasForeignKey(xs => xs.TeacherId);
+
         }
     }
 

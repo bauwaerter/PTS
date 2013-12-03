@@ -676,6 +676,7 @@
     <Content Include="Views\Account\DisplaySessions.cshtml" />
     <Content Include="Views\Search\TeacherMap.cshtml" />
     <Content Include="Views\Account\Transactions.cshtml" />
+    <Content Include="Views\Shared\_ScheduleTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

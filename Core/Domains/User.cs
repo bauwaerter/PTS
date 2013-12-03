@@ -56,6 +56,7 @@ namespace Core.Domains
         public virtual decimal HourlyRate { get; set; }
         public virtual decimal ClassRate { get; set; }
         public virtual bool Active { get; set; }
+        public virtual int ScheduleId { get; set; }
                 
         #region navigation
         public virtual User User { get; set; }
