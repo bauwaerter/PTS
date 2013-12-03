@@ -19,6 +19,7 @@ namespace PTS.Controllers
         //private readonly IStudentUserService _studentUserService;
         //private readonly IBaseService<StudentUser> _studentUserService;
         private readonly IBaseService<Class> _classService;
+        private readonly IBaseService<TeacherUser> _teacherUserService;
 
         #endregion
 
@@ -29,11 +30,13 @@ namespace PTS.Controllers
         //    _studentUserService = studentUserService;
         //}
 
-        public HomeController(IUserService userService, IBaseService<StudentUser> studentUserService, IBaseService<Class> classService)
+        public HomeController(IUserService userService, IBaseService<StudentUser> studentUserService, IBaseService<Class> classService,
+                              IBaseService<TeacherUser> teacherUserService)
         {
             _userService = userService;
             //_studentUserService = studentUserService;
             _classService = classService;
+            _teacherUserService = teacherUserService;
         }
 
         [AllowAnonymous]
@@ -61,6 +64,8 @@ namespace PTS.Controllers
                 throw new Exception(ex.Message);
             }
         }
+
+        
 
         [AllowAnonymous]
         public ActionResult About()

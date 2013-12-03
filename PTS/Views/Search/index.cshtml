@@ -141,6 +141,12 @@
                     display: function (data) {
                         return '<a href="@Url.Action("LoadRequestSession", "Account")?teacherId=' + data.record.Id + '">Request Session</a>';
                     }
+                },
+                Map: {
+                    title: 'Map',
+                    display: function (data) {
+                        return '<a href="@Url.Action("LoadTeacherMap")?teacherId=' + data.record.Id + '"><img src="~/Content/Flat-UI/images/icons/svg/map.svg" alt="Map"/></a>';
+                    }
                 }
             }
         });

@@ -50,6 +50,8 @@ namespace Core.Domains
         public virtual string Address { get; set; }
         public virtual int ZipCode { get; set; }
         public virtual string Country { get; set; }
+        public virtual double? Latitude { get; set; }
+        public virtual double? Longitude { get; set; }
     }
 
     public class Class_Meeting_Dates : BaseEntity

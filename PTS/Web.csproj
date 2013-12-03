@@ -674,6 +674,7 @@
     <Content Include="Views\Review\ReviewTeacherView.cshtml" />
     <Content Include="Views\Account\DisplayClasses.cshtml" />
     <Content Include="Views\Account\DisplaySessions.cshtml" />
+    <Content Include="Views\Search\TeacherMap.cshtml" />
     <Content Include="Views\Account\Transactions.cshtml" />
   </ItemGroup>
   <ItemGroup>

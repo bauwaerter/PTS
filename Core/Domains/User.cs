@@ -21,7 +21,7 @@ namespace Core.Domains
         public virtual int SSN { get; set; }
         public virtual string Email { get; set; }
         public virtual UserRole Role { get; set; }
-        public virtual int? LocationId { get; set; }
+        public virtual int LocationId { get; set; }
         public virtual string PassWord { get; set; }
         public virtual string PasswordSalt { get; set; }
         public virtual string Major { get; set; }
@@ -39,7 +39,7 @@ namespace Core.Domains
 
         #region navigation properties
         public virtual User User { get; set; }
-
+        
         //private ICollection<Class> _classes;
         //public virtual ICollection<Class> Classes
         //{
@@ -61,7 +61,7 @@ namespace Core.Domains
         #region navigation
         public virtual User User { get; set; }
         public virtual Schedule Schedule { get; set; }
-
+        
         private ICollection<ReviewTeacher> _reviewTeacher;
         public virtual ICollection<ReviewTeacher> ReviewTeacher
 	    {

@@ -166,9 +166,9 @@ namespace PTS.Controllers
             var user = new AccountUser();
             var loc = new LocationVM();
             
-            if (model.LocationId.HasValue)
+            if (model.LocationId != null)
             {
-                int locid = model.LocationId.Value;
+                int locid = model.LocationId;
                 var getlocation = _locationService.GetById(locid);
                 loc = new LocationVM 
                 {

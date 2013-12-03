@@ -182,6 +182,12 @@ namespace PTS.Views.Search
 
         }
 
+        public ActionResult LoadTeacherMap(int teacherId)
+        {
+            var location = _userService.GetById(teacherId).Location;
+            return View("TeacherMap", location);
+        }
+
         [AllowAnonymous]
         [HttpPost]
         public ActionResult GetClasses(int jtStartIndex, int jtPageSize, string textSearch = "")
