@@ -5,15 +5,31 @@
 
 <h2>CreateClass</h2>
 <form id="ClassForm">
-    <label>Description</label>
-    <input style="width:auto" class="form-control" name="Description" />
-    <label>Start Time</label>
-    <input style="width:auto" class="form-control" name="StartTime" type="time" />
-    <label>EndTime</label>
-    <input style="width:auto" class="form-control" name="EndTime" type="time" />
-    <label>Subject</label>
-    @Html.DropDownListFor(m => m.SubjectId, Model.Subjects, new { style = "width:100px; height:30px" })
+    <div class="row">
+        <div class="col-md-1">
+            <label>Description</label>
+            <input style="width:auto" class="form-control" name="Description" />
+        </div>
+        <div class="col-md-2 col-md-offset-2">
+            <label>Start Time</label>
+            <input style="width:auto" class="form-control" name="StartTime" type="time" />
+        </div>
+        <div class="col-md-1 col-md-offset-0">
+            <label>EndTime</label>
+            <input style="width:auto" class="form-control" name="EndTime" type="time" />
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-1">
+            <label>Subject</label>
+        </div>
+        <div class="col-md-1 col-md-offset-0">
+            @Html.DropDownListFor(m => m.SubjectId, Model.Subjects, new { @class = "select-block", style = "width:150px; height:30px" })
+            </div>
+    </div>
 
+    <br />
 
     <label>Location</label>
     <div class="row">
@@ -32,8 +48,6 @@
     </div>
 
     <div class="row">
-        <div class="col-md-1">
-        </div>
         <div class="col-md-1 col-md-offset-1">
             <label>ZipCode</label>
             <span><input name="ZipCode" style="width: auto" class="form-control" /></span>
@@ -43,39 +57,62 @@
             <span><input name="Country" style="width: auto" class="form-control" /></span>
         </div>
     </div>
-
-
-        <label>Start Date</label>
-        
-        <input type="date" name="DateStart"/>
-        <label>End Date</label>
-        <input type="date" name="DateEnd" />
-        <label>Days of week</label>
-        <label>Monday</label>
-        @Html.CheckBoxFor(m => m.Monday, new { @checked = "checked" });
-        <label>Tuesday</label>
-        @Html.CheckBoxFor(m => m.Tuesday, new { @checked = "checked" });
-        <label>Wednesday</label>
-        @Html.CheckBoxFor(m => m.Wednesday, new { @checked = "checked" });
-        <label>Thursday</label>
-        @Html.CheckBoxFor(m => m.Thursday, new { @checked = "checked" });
-        <label>Friday</label>
-        @Html.CheckBoxFor(m => m.Friday, new { @checked = "checked" });
+    <br />
+    <div class="row">
+        <label>Schedule</label>
+    </div>
+    <div class="row">
+        <div class=" col-md-2 col-md-offset-1">
+            <label>Start Date</label>
+            <input type="date" name="DateStart" />
+        </div>
+        <div class="col-md-2 col-md-offset-2">
+            <label>End Date</label>
+            <input type="date" name="DateEnd" />
+        </div>
+    </div>
+    
+    <div class="row content-wrapper container">
         <br />
+        <div class="col-md-2 col-md-offset-1">
+            <label>Monday</label>
+            @Html.CheckBoxFor(m => m.Monday, new { @checked = "checked" })
+        </div>
+        <div class="col-md-2 ">
+            <label>Tuesday</label>
+            @Html.CheckBoxFor(m => m.Tuesday, new { @checked = "checked" })
+        </div>
+        <div class="col-md-2 >
+            <label>Wednesday</label>
+            @Html.CheckBoxFor(m => m.Wednesday, new { @checked = "checked" })
+            </div>
+        <div class="col-md-2 ">
+            <label>Thursday</label>
+            @Html.CheckBoxFor(m => m.Thursday, new { @checked = "checked" })
+            </div>
+        <div class="col-md-2 ">
+            <label>Friday</label>
+            @Html.CheckBoxFor(m => m.Friday, new { @checked = "checked" })
+            </div>
+    </div>
+    <br />
+
 </form>
-<button class="btn-primary" id="CreateClassBtn">Create Class</button>
+<div>
+    <button class="btn-primary" id="CreateClassBtn">Create Class</button>
+</div>
 
 <script>
     $('#CreateClassBtn').on('click', function () {
 
         $.ajax({
             url: '@Url.Action("SaveClass")',
-            type:'post',
+            type: 'post',
             data: $(':input').serialize(),
             success: function (data) {
             }
         });
-        
+
 
     })
 
