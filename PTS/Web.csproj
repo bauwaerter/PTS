@@ -229,6 +229,7 @@
     <Compile Include="Models\ReviewClassViewModel.cs" />
     <Compile Include="Models\SelectSubjectViewModel.cs" />
     <Compile Include="Models\TeacherUserViewModel.cs" />
+    <Compile Include="Models\TransactionsVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\ReviewController.cs" />
@@ -347,7 +348,6 @@
     <Content Include="Content\jquery-timepicker-master\lib\glyphicons-halflings.png" />
     <Content Include="Content\jquery-timepicker-master\lib\screenshot.png" />
     <Content Include="Content\responsiveslides.css" />
-    <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -376,7 +376,6 @@
     <Content Include="Content\themes\base\jquery.ui.slider.css" />
     <Content Include="Content\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
-    <Content Include="Content\themes\base\minified\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -397,15 +396,12 @@
     <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.menu.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.spinner.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Flat-UI\bootstrap\fonts\glyphicons-halflings-regular.eot" />
@@ -476,10 +472,10 @@
     <Content Include="Content\jquery-timepicker-master\component.json" />
     <Content Include="Content\jquery-timepicker-master\jt.timepicker.jquery.json" />
     <Content Include="Content\jquery-timepicker-master\package.json" />
+    <None Include="Properties\PublishProfiles\publish.pubxml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.0.3.js" />
     <Content Include="Scripts\jquery-2.0.3.min.js" />
-    <Content Include="Scripts\jquery-2.0.3.min.map" />
     <Content Include="Scripts\jquery-ui-1.10.3.js" />
     <Content Include="Scripts\jquery-ui-1.10.3.min.js" />
     <Content Include="Scripts\jquery.timepicker.js" />
@@ -678,6 +674,7 @@
     <Content Include="Views\Review\ReviewTeacherView.cshtml" />
     <Content Include="Views\Account\DisplayClasses.cshtml" />
     <Content Include="Views\Account\DisplaySessions.cshtml" />
+    <Content Include="Views\Account\Transactions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

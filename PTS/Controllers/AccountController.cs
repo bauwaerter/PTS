@@ -38,10 +38,11 @@ namespace PTS.Controllers
         private readonly IBaseService<Class_Meeting_Dates> _classMeetingDatesService;
         private readonly IBaseService<Enrolled> _enrolledService;
         private readonly IBaseService<Tutors> _tutorsService;
+        private readonly IBaseService<Payment> _paymentsService;
         #endregion
 
         #region constructor
-        public AccountController(IBaseService<Enrolled> enrolledService, IBaseService<Class_Meeting_Dates> classMeetingDatesService, IBaseService<Subject> subjectService, IUserService userService, IBaseService<StudentUser> studentUserService, IBaseService<Class> classService, IBaseService<Location> locationService, 
+        public AccountController(IBaseService<Payment> paymentsService, IBaseService<Enrolled> enrolledService, IBaseService<Class_Meeting_Dates> classMeetingDatesService, IBaseService<Subject> subjectService, IUserService userService, IBaseService<StudentUser> studentUserService, IBaseService<Class> classService, IBaseService<Location> locationService, 
             IBaseService<TeacherUser> teacherUserService, ILoginService loginService, IBaseService<Request> requestService,IBaseService<Teacher_Offers> teacherOfferService, IBaseService<Tutors> tutorsService   )
         {
             _userService = userService;
@@ -56,6 +57,7 @@ namespace PTS.Controllers
             _enrolledService = enrolledService;
             _teacherOfferService = teacherOfferService;
             _tutorsService = tutorsService;
+            _paymentsService = paymentsService;
         }
         #endregion 
         //
@@ -101,11 +103,50 @@ namespace PTS.Controllers
             return View(loginModel);
         }
 
+        public ActionResult SaveUserLocation(Location loc)
+        {
+            loc.Id = SessionDataHelper.UserId;
+
+            _locationService.Update(loc);
+            return Json(new
+            {
+                Result = "OK"
+            });
+        }
+
+        public ActionResult SaveTeacherUser(TeacherUser teach)
+        {
+            teach.Id = SessionDataHelper.UserId;
+            _teacherUserService.Update(teach);
+            return Json(new
+            {
+                Result = "OK"
+            });
+        }
+
         public ActionResult SaveUser(User user)
         {
             try
             {
-                _userService.Update(user);
+                user.Id = SessionDataHelper.UserId;
+                var tempUserData=_userService.GetById(user.Id);
+                var updateUser = new User
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    SSN = tempUserData.SSN,
+                    Education = user.Education,
+                    DOB = tempUserData.DOB,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    LocationId = tempUserData.LocationId,
+                    Major = user.Major,
+                    Role = tempUserData.Role,
+                    PassWord = tempUserData.PassWord,
+                    PasswordSalt = tempUserData.PasswordSalt
+                };
+
+                _userService.Update(updateUser);
                 return Json(new
                 {
                     Result="OK"
@@ -162,6 +203,8 @@ namespace PTS.Controllers
                     Email = model.Email,
                     Id = model.Id,
                     Location = loc,
+                    Education = model.Education,
+                    Major = model.Major,
                     Role = UserRole.Admin
                 };
             }
@@ -175,6 +218,8 @@ namespace PTS.Controllers
                     Email = model.Email,
                     Id = model.Id,
                     Location = loc,
+                    Education = model.Education,
+                    Major = model.Major,
                     ClassRate= teacher.ClassRate,
                     HourlyRate=teacher.HourlyRate,
                     Role = UserRole.Teacher
@@ -549,6 +594,67 @@ namespace PTS.Controllers
             }
 
             return Json(new { Result = "OK", Records = tables });
+        }
+
+        public ActionResult Transactions()
+        {
+
+            return View("");
+        }
+        [HttpPost]
+        public ActionResult GetPayments()
+        {
+            var payments = _paymentsService.GetTableQuery().Where(p => p.StudentId == SessionDataHelper.UserId);
+            var results = new List<TransactionsVM>();
+
+            foreach (var p in payments)
+            {
+                var studName=_userService.GetById(p.StudentId);
+                var teacherName =_userService.GetById(p.TeacherId);
+                
+                var trans = new TransactionsVM
+                {
+                    Amount=p.Amount,
+                    Date=p.Date,
+                    StudentID=p.StudentId,
+                    StudentName=studName.FirstName+ " " + studName.LastName,
+                    TeacherID=p.TeacherId,
+                    TeacherName=teacherName.FirstName+ " " + teacherName.LastName,
+                    Description=p.Description
+                
+                };
+                results.Add(trans);
+            }
+
+            return Json(new { Result = "OK", Records = results});
+        }
+
+        [HttpPost]
+        public ActionResult GetPaymentsReceived()
+        {
+            var received = _paymentsService.GetTableQuery().Where(p => p.TeacherId == SessionDataHelper.UserId);
+            var results = new List<TransactionsVM>();
+
+            foreach (var p in received)
+            {
+                var studName = _userService.GetById(p.StudentId);
+                var teacherName = _userService.GetById(p.TeacherId);
+
+                var trans = new TransactionsVM
+                {
+                    Amount = p.Amount,
+                    Date = p.Date,
+                    StudentID = p.StudentId,
+                    StudentName = studName.FirstName + " " + studName.LastName,
+                    TeacherID = p.TeacherId,
+                    TeacherName = teacherName.FirstName + " " + teacherName.LastName,
+                    Description = p.Description
+
+                };
+                results.Add(trans);
+            }
+
+            return Json(new { Result = "OK", Records = results });
         }
 
         //

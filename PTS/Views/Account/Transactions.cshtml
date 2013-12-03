@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "Transactions";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Transactions</h2>
+<div id="payments"></div>
+<br/>
+<div id="Received"></div>
+
+<script>
+
+    $(document).ready(function () {
+        
+        $('#payments').jtable({
+            title: 'Payments',
+
+            actions: {
+                listAction: '@Url.Action("GetPayments")',
+                @*updateAction: '@Url.Action("AddUpdateClassesToReview")',*@
+            },
+            fields: {
+                StudentID: {
+                    key: true,
+                    list: false,
+                    create: false,
+                    edit: false,
+                },
+                Date:{
+                    title: 'Payment Date',
+                    type: 'date'
+                },
+                Amount: {
+                    title: 'Amount'
+                },
+                TeacherName:{
+                    title: 'Recipient'
+                },
+                Description: {
+                    title: 'type'
+                }
+                    
+            }
+        });
+        $('#payments').jtable('load');
+
+
+        $('#Received').jtable({
+            title: 'PaymentsReceived',
+
+            actions: {
+                listAction: '@Url.Action("GetPaymentsReceived")',
+                @*updateAction: '@Url.Action("AddUpdateClassesToReview")',*@
+            },
+                fields: {
+                    TeacherID: {
+                        key: true,
+                        list: false,
+                        create: false,
+                        edit: false,
+                    },
+                    Date:{
+                        title: 'Payment Date',
+                        type: 'date'
+                    },
+                    Amount: {
+                        title: 'Amount'
+                    },
+                    StudentName:{
+                        title: 'From'
+                    },
+                    Description: {
+                        title: 'Type'
+                    }
+                    
+                }
+            });
+        $('#Received').jtable('load');
+
+
+    })
+</script>
