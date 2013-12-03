@@ -378,10 +378,11 @@
     $('#SaveUserButton').on('click', function (event) {
         event.preventDefault();
         
-        codeAddress();
+        //codeAddress();
 
         $.ajax({
             url: '@Url.Action("SaveUserLocation")',
+            beforeSend: codeAddress(),
             data: $('#Userlocation').serialize(),
             type: 'post',
             success: function () {
