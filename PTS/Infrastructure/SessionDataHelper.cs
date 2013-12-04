@@ -38,6 +38,7 @@ namespace PTS.Infrastructure
             get { return (double)SessionHelper.Retrieve("Login", "Latitude"); }
             set { SessionHelper.Store("Login", "Latitude", value); }
         }
+
         public static double Longitude
         {
             get { return (double)SessionHelper.Retrieve("Login", "Longitude"); }

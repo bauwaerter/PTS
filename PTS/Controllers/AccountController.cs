@@ -40,12 +40,13 @@ namespace PTS.Controllers
         private readonly IBaseService<Tutors> _tutorsService;
         private readonly IBaseService<Payment> _paymentsService;
         private readonly IBaseService<Schedule> _scheduleService;
+        private readonly IEmailService _emailService;
         #endregion
 
         #region constructor
         public AccountController(IBaseService<Schedule> scheduleServie, IBaseService<Payment> paymentsService, IBaseService<Enrolled> enrolledService, IBaseService<Class_Meeting_Dates> classMeetingDatesService, IBaseService<Subject> subjectService, IUserService userService, IBaseService<StudentUser> studentUserService, IBaseService<Class> classService, IBaseService<Location> locationService, 
             IBaseService<TeacherUser> teacherUserService, ILoginService loginService, IBaseService<Request> requestService,IBaseService<Teacher_Offers> teacherOfferService, IBaseService<Tutors> tutorsService,
-            IBaseService<Schedule> scheduleService)
+            IBaseService<Schedule> scheduleService, IEmailService emailService)
         {
             _userService = userService;
             _classService = classService;
@@ -61,6 +62,7 @@ namespace PTS.Controllers
             _tutorsService = tutorsService;
             _paymentsService = paymentsService;
             _scheduleService = scheduleService;
+            _emailService = emailService;
         }
         #endregion 
         //
@@ -291,7 +293,7 @@ namespace PTS.Controllers
                         _scheduleService.Insert(teacherUser.Schedule);
                         teacherUser.Teacher.ScheduleId = teacherUser.Schedule.Id;
                         _teacherUserService.Insert(teacherUser.Teacher);
-
+                        _emailService.SendNewUserEmail(user, confirmPassword);
                         teacherUser.Teacher.Schedule = teacherUser.Schedule;
                         var teacherOffer = new Teacher_Offers(){
                             TeacherId = teacherUser.Teacher.Id,
@@ -302,6 +304,7 @@ namespace PTS.Controllers
                     else{
                         teacherUser = null;
                         _userService.Insert(user);
+                        _emailService.SendNewUserEmail(user, confirmPassword);
                     }
 
                     var loginModel = new LoginModel(){
@@ -310,6 +313,7 @@ namespace PTS.Controllers
                         RememberMe = false
                     };
 
+                    
                     Login(loginModel, "");
                     return RedirectToAction("Index", "Home");
                 }

@@ -16,6 +16,7 @@ namespace PTS.Infrastructure
             //Bind<IRepository<StudentUser>>().To<Repository<StudentUser>>();
             Bind(typeof(IBaseService<>)).To(typeof(BaseService<>));
             Bind<ILoginService>().To<LoginService>();
+            Bind<IEmailService>().To<EmailService>();
         }
     }
 }

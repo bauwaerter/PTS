@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -44,6 +45,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\AntiXSS.4.2.1\lib\net40\HtmlSanitizationLibrary.dll</HintPath>
     </Reference>
+    <Reference Include="RazorEngine">
+      <HintPath>..\packages\RazorEngine.3.4.0\lib\net45\RazorEngine.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -55,6 +59,10 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -80,10 +88,12 @@
     <Compile Include="GenericListTypeConverter.cs" />
     <Compile Include="Helpers\CommonHelpers.cs" />
     <Compile Include="Helpers\IWebHelper.cs" />
+    <Compile Include="Helpers\Message.cs" />
     <Compile Include="Helpers\SecurityHelper.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
     <Compile Include="Helpers\WebHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TemplateResolver.cs" />
     <Compile Include="Web\Filters\NoCacheFilter.cs" />
     <Compile Include="Web\WebApi\AcceptHeaderVersionedControllerSelector.cs" />
     <Compile Include="Web\WebApi\ControllerIdentification.cs" />
