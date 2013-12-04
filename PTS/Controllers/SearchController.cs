@@ -199,8 +199,8 @@ namespace PTS.Views.Search
         [AllowAnonymous]
         public ActionResult LoadTeacherMap(int teacherId)
         {
-            var location = _userService.GetById(teacherId).Location;
-            return View("TeacherMap", location);
+            var user = _userService.GetById(teacherId);
+            return View("TeacherMap", user);
         }
 
         [AllowAnonymous]

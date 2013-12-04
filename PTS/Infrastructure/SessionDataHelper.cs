@@ -33,6 +33,17 @@ namespace PTS.Infrastructure
             set { SessionHelper.Store("Login", "Id", value); }
         }
 
+        public static double Latitude
+        {
+            get { return (double)SessionHelper.Retrieve("Login", "Latitude"); }
+            set { SessionHelper.Store("Login", "Latitude", value); }
+        }
+        public static double Longitude
+        {
+            get { return (double)SessionHelper.Retrieve("Login", "Longitude"); }
+            set { SessionHelper.Store("Login", "Longitude", value); }
+        }
+        
         /// <summary>
         /// Gets or sets the session id.
         /// </summary>

@@ -1,4 +1,6 @@
-﻿@model Core.Domains.Location
+﻿@using PTS.Infrastructure
+
+@model Core.Domains.User
 
 
 
@@ -7,11 +9,13 @@
 <div id="googleMap" style="width: 700px; height: 450px; margin-left: 50px; border-radius:10px;"></div>
 
 <script>
-    var mapsCenter = new google.maps.LatLng('@(Model.Latitude)', '@(Model.Longitude)');
+    var mapsCenter = new google.maps.LatLng('@(Model.Location.Latitude)', '@(Model.Location.Longitude)');
     $(document).ready(function () {
         google.maps.event.addDomListener(window, 'load', initialize);
     });
     function initialize() {
+        directionsDisplay = new google.maps.DirectionsRenderer();
+               
         var mapProp = {
             center: mapsCenter,
             zoom: 8,
@@ -22,13 +26,25 @@
         var marker = new google.maps.Marker({
             position: mapsCenter,
             map: map,
-            title: 'Hello World!'
+            title: '@(Model.FirstName)' + " " + '@(Model.LastName)'
         });
 
         marker.setMap(map);
     }
 
+    function calcRoute() {
+        var start = new google.maps.LatLng('@(SessionDataHelper.Latitude)', '@(SessionDataHelper.Longitude)');
+        var end = mapsCenter;
+        var request = {
+            origin: start,
+            destination: end,
+            travelMode: google.maps.TravelMode.DRIVING
+        };
+        directionsService.route(request, function (result, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                directionsDisplay.setDirections(result);
+            }
+        });
+    }
+
 </script>
-
-
-

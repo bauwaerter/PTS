@@ -87,6 +87,9 @@ namespace PTS.Controllers
                     SessionDataHelper.Username = user.Email;
                     SessionDataHelper.UserId = user.Id;
                     SessionDataHelper.UserRole = user.Role;
+                    SessionDataHelper.Latitude = user.Location.Latitude;
+                    SessionDataHelper.Longitude = user.Location.Longitude;
+                    
                     SessionDataHelper.SessionId = System.Web.HttpContext.Current.Session.SessionID;
 
                     if (SessionDataHelper.UserId != 1){
