@@ -549,6 +549,7 @@ namespace PTS.Controllers
                         p.Email,
                         Rate = "$"+ user.HourlyRate,
                         Status = requests.FirstOrDefault(x => x.StudentId == p.Id).Status,
+                        RequestId = requests.FirstOrDefault(x => x.StudentId == p.Id).Id
                     }).ToArray();
                     return Json(new { Result = "OK", Records = results, TotalRecordCount = results.Count() });
                 }
@@ -561,6 +562,10 @@ namespace PTS.Controllers
         public void ApproveRequest(int requestId) {
             var request = _requestService.GetById(requestId);
             request.Status = "Approved";
+            _requestService.Update(request);
+            var user = _userService.GetById(request.StudentId);
+            var teacher = _userService.GetById(request.TeacherId).FirstName;
+            _emailService.SendApprovedEmail(user, teacher);
         }
 
         [HttpPost]

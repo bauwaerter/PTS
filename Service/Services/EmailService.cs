@@ -110,6 +110,24 @@ namespace Service.Services {
             SmtpSend(emailSender);
         }
 
+        public void SendApprovedEmail(User user, string tutor) {
+            var model = new User {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+            };
+
+            var body = returnApprovedBody(model, tutor);
+
+            MailMessage emailSender = new MailMessage();
+            emailSender.To.Add(user.Email);
+            emailSender.Subject = "Request Approved - PTS";
+            emailSender.From = new System.Net.Mail.MailAddress("prospecttutoringsystems@gmail.com");
+            emailSender.Body = body;
+
+            SmtpSend(emailSender);
+        }
+
         public void SendRequestEmail(User user, string requester) {
             var model = new User {
                 FirstName = user.FirstName,
@@ -154,6 +172,15 @@ namespace Service.Services {
             var message = "Dear " + model.FirstName + " " + model.LastName + ",\n\n"
                     + requester + "has sent you a new tutor request!\n"
                     + "Please log in immediately to accept or decline the request.\n\n"
+                    + "Regards,\n"
+                    + "PTS";
+            return message;
+        }
+
+        private String returnApprovedBody(User model, string tutor) {
+            var message = "Dear " + model.FirstName + " " + model.LastName + ",\n\n"
+                    + tutor + " has accepted your tutor request!\n"
+                    + "Please log in immediately to review your session details.\n\n"
                     + "Regards,\n"
                     + "PTS";
             return message;

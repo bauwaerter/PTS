@@ -23,6 +23,8 @@ namespace Service.Interfaces {
 
         void SendRequestEmail(User user, string requester);
 
+        void SendApprovedEmail(User user, string tutor);
+
         /// <summary>
         /// Sends an email to reset password.
         /// </summary>

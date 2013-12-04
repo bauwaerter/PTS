@@ -15,15 +15,15 @@
         var toolbarItems = [{
             text: "Approve",
             click: function () {
-                // Edit daily operation   
                 // Get selected row
                 var selectedRow = $('#SessionsDisplayTable').jtable('selectedRows').data('record');
-                // Edit daily operation   
-                if (!selectedRow) {
+                
+                if (selectedRow) {
+                    console.log(selectedRow.RequestId);
                     $.ajax({
                         url: '@Url.Action("ApproveRequest", "Account")',
                         data: {
-                            requestId: selectedRow.Id
+                            requestId: selectedRow.RequestId
                         },
                         success: function () {
                             $('#SessionsDisplayTable').jtable('load');
@@ -134,7 +134,6 @@
                 //Get all selected rows
                 var selectedRow = $('#SessionsDisplayTable').jtable('selectedRows').data('record');
                 if (selectedRow) {
-                    console.log("HERE " + selectedRow.Status);
                     if (selectedRow.Status == "Pending" && "@PTS.Infrastructure.SessionDataHelper.UserRole" == "@UserRole.Teacher") {
                         $(".editProcess").show();
                     }
