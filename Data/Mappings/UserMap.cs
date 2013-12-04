@@ -12,26 +12,13 @@ namespace Data.Mappings
             ToTable("User", "dbo");
             //Primary Key
             HasKey(u => u.Id);
-            
+                       
             //Property(u => u.UserName).IsRequired().HasMaxLength(50);
         }
 
     }
 
-    public class StudentUserMap : EntityTypeConfiguration<StudentUser>
-    {
-        public StudentUserMap()
-        {
-            ToTable("StudentUser", "dbo");
-            HasKey(s => s.Id);
-
-            //HasMany(x => x.Enrolled)
-            //    .WithOptional()
-            //    .HasForeignKey(xs => xs.StudentId);
-        }
-
-    }
-
+    
     public class TeacherUserMap : EntityTypeConfiguration<TeacherUser>
     {
         public TeacherUserMap()

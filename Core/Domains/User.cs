@@ -28,17 +28,6 @@ namespace Core.Domains
         public virtual string Education { get; set; }
         #region navigation
         public virtual Location Location { get; set; }
-        #endregion
-
-    }
-
-    public class StudentUser : BaseEntity
-    {
-        public virtual string Major { get; set; }
-        public virtual string Education { get; set; }
-
-        #region navigation properties
-        public virtual User User { get; set; }
 
         private ICollection<Enrolled> _enrolled;
         public virtual ICollection<Enrolled> Enrolled
@@ -46,10 +35,10 @@ namespace Core.Domains
             get { return _enrolled ?? (_enrolled = new List<Enrolled>()); }
             protected set { _enrolled = value; }
         }
-              
         #endregion
 
     }
+       
 
     public class TeacherUser : BaseEntity
     {

@@ -34,7 +34,7 @@ namespace PTS.Views.Review
         //
         // GET: /Review/
 
-        public ReviewController(IBaseService<ReviewTeacher> reviewTutorService,IBaseService<Payment> paymentService, IBaseService<ReviewClass> reviewClass,IBaseService<Enrolled> enrolledService, IUserService userService, IBaseService<StudentUser> studentUserService, 
+        public ReviewController(IBaseService<ReviewTeacher> reviewTutorService,IBaseService<Payment> paymentService, IBaseService<ReviewClass> reviewClass,IBaseService<Enrolled> enrolledService, IUserService userService, 
                                 IBaseService<Class> classService, IBaseService<Location> locationService, IBaseService<TeacherUser> teacherUserService)
         {
             _enrolledService = enrolledService;

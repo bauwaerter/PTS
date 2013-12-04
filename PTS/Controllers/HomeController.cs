@@ -30,11 +30,10 @@ namespace PTS.Controllers
         //    _studentUserService = studentUserService;
         //}
 
-        public HomeController(IUserService userService, IBaseService<StudentUser> studentUserService, IBaseService<Class> classService,
+        public HomeController(IUserService userService, IBaseService<Class> classService,
                               IBaseService<TeacherUser> teacherUserService)
         {
             _userService = userService;
-            //_studentUserService = studentUserService;
             _classService = classService;
             _teacherUserService = teacherUserService;
         }

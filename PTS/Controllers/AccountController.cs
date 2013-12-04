@@ -44,7 +44,7 @@ namespace PTS.Controllers
         #endregion
 
         #region constructor
-        public AccountController(IBaseService<Schedule> scheduleServie, IBaseService<Payment> paymentsService, IBaseService<Enrolled> enrolledService, IBaseService<Class_Meeting_Dates> classMeetingDatesService, IBaseService<Subject> subjectService, IUserService userService, IBaseService<StudentUser> studentUserService, IBaseService<Class> classService, IBaseService<Location> locationService, 
+        public AccountController(IBaseService<Schedule> scheduleServie, IBaseService<Payment> paymentsService, IBaseService<Enrolled> enrolledService, IBaseService<Class_Meeting_Dates> classMeetingDatesService, IBaseService<Subject> subjectService, IUserService userService, IBaseService<Class> classService, IBaseService<Location> locationService, 
             IBaseService<TeacherUser> teacherUserService, ILoginService loginService, IBaseService<Request> requestService,IBaseService<Teacher_Offers> teacherOfferService, IBaseService<Tutors> tutorsService,
             IBaseService<Schedule> scheduleService, IEmailService emailService)
         {

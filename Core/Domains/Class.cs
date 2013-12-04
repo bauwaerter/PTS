@@ -62,7 +62,7 @@ namespace Core.Domains
 
         #region navigation
         public virtual Class Class { get; set; }
-        public virtual StudentUser Student { get; set; }
+        public virtual User User { get; set; }
         #endregion
     }
 
