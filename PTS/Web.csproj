@@ -688,6 +688,8 @@
     <Content Include="Views\Account\CreateClass.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Search\AllTutorsMap.cshtml" />
+    <Content Include="Views\Search\AllClassesMap.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
