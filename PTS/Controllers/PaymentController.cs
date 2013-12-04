@@ -17,7 +17,8 @@ namespace PTS.Controllers{
         private readonly IBaseService<Class> _classService;
         private readonly IBaseService<Location> _locationService;
         private readonly IBaseService<Payment> _paymentService;
-        private readonly IBaseService<TeacherUser> _teacherUserService; 
+        private readonly IBaseService<TeacherUser> _teacherUserService;
+        private readonly IBaseService<Enrolled> _enrolledService; 
         private readonly IUserService _userService;
         private readonly IEmailService _emailService;
 
@@ -25,7 +26,7 @@ namespace PTS.Controllers{
 
         #region constructor 
 
-        public PaymentController(IBaseService<Class> classService, IBaseService<Location> locationService,
+        public PaymentController(IBaseService<Enrolled> enrolledService, IBaseService<Class> classService, IBaseService<Location> locationService,
             IBaseService<Payment> paymentService, IBaseService<TeacherUser> teacherService, IUserService userService, IEmailService emailService){
             _classService = classService;
             _locationService = locationService;
@@ -33,6 +34,7 @@ namespace PTS.Controllers{
             _teacherUserService = teacherService;
             _userService = userService;
             _emailService = emailService;
+            _enrolledService = enrolledService;
         }
 
         #endregion
@@ -87,6 +89,17 @@ namespace PTS.Controllers{
 
         [HttpPost]
         public ActionResult ProcessPayment(PaymentModel model){
+            if(model.Payment.ClassId!=null)
+            {
+                var enroll = new Enrolled
+                {
+                    ClassId = (int)model.Payment.ClassId,
+                    StudentId = model.Payment.StudentId
+                };
+                _enrolledService.Insert(enroll);
+            }
+
+
             model.Location = null;
             _paymentService.Insert(model.Payment);
             var userFName = _userService.GetById(model.Payment.StudentId).FirstName;
