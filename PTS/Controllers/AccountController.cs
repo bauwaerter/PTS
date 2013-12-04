@@ -713,9 +713,9 @@ namespace PTS.Controllers
         public ActionResult GetCalendar()
         {
             var results = new List<CalendarEvent>();
-            var classes = _enrolledService.GetTableQuery().Where(e => e.StudentId == SessionDataHelper.UserId).ToList();
+            var enrolled = _enrolledService.GetTableQuery().Where(e => e.StudentId == SessionDataHelper.UserId).ToList();
             
-            foreach (var c in classes)
+            foreach (var c in enrolled)
             {
                 var meetingDates = _classMeetingDatesService.GetTableQuery().Where(m=>m.ClassId==c.ClassId).ToList();
                 var studentClass = _classService.GetById(c.ClassId);
@@ -728,11 +728,18 @@ namespace PTS.Controllers
                         id=c.ClassId,
                         start=m.Date.AddMinutes(studentClass.StartTime.Minutes).ToString(),
                         end=m.Date.AddMinutes(studentClass.EndTime.Minutes).ToString(),
-                        title=studentClass.Description
+                        title="Student: "+studentClass.Description
                     };
                     results.Add(temp);
                 }
             }
+
+            var classes = _classService.GetTableQuery().Where(c => c.TeacherId == SessionDataHelper.UserId).ToList();
+            foreach(var c in classes)
+            {
+
+            }
+
 
 
             return Json(new { Result = "OK", Records = results });
