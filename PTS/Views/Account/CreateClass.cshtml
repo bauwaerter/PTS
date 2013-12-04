@@ -24,8 +24,15 @@
         <div class="col-md-1">
             <label>Subject</label>
         </div>
-        <div class="col-md-1 col-md-offset-0"> 
-            @Html.DropDownListFor(m => m.SubjectId, Model.Subjects, new { @class = "select-block", style = "width:150px; height:30px" })
+        <div class="col-md-3 col-md-offset-0"> 
+            <select name="SubjectID" id="subjectList" class="select-block">
+                @foreach (var item in Model.Subjects)
+                {
+                    <text>
+                    <option value="@(item.Value)" selected="@(item.Selected)">@(item.Text)</option>
+                    </text>
+                }
+            </select>
             </div>
     </div>
 
@@ -33,28 +40,30 @@
 
     <label>Location</label>
     <div class="row">
+        <input id="Latitude" name="Latitude" hidden="hidden" />
+        <input id="Longitude" name="Longitude" hidden="hidden" />
         <div class="col-md-1 col-md-offset-1">
             <label>Address</label>
-            <span><input name="Address" style="width: auto" class="form-control" /></span>
+            <span><input id="Address" name="Address" style="width: auto" class="form-control" /></span>
         </div>
         <div class="col-md-1 col-md-offset-2">
             <label>City</label>
-            <span><input name="City" style="width: auto" class="form-control" /></span>
+            <span><input id="City" name="City" style="width: auto" class="form-control" /></span>
         </div>
         <div class="col-md-1 col-md-offset-2">
             <label>State</label>
-            <span><input name="State" style="width: auto" class="form-control" /></span>
+            <span><input id="State" name="State" style="width: auto" class="form-control" /></span>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-1 col-md-offset-1">
             <label>ZipCode</label>
-            <span><input name="ZipCode" style="width: auto" class="form-control" /></span>
+            <span><input id="ZipCode" name="ZipCode" style="width: auto" class="form-control" /></span>
         </div>
         <div class="col-md-1 col-md-offset-2">
             <label>Country</label>
-            <span><input name="Country" style="width: auto" class="form-control" /></span>
+            <span><input id="Country" name="Country" style="width: auto" class="form-control" /></span>
         </div>
     </div>
     <br />
@@ -101,19 +110,60 @@
 <div>
     <button class="btn-primary" id="CreateClassBtn">Create Class</button>
 </div>
-
+<body onload="initialize()"></body>
+<script src="~/Content/Flat-UI/js/bootstrap-select.js"></script>
+<script src="~/Content/Flat-UI/js/bootstrap.min.js"></script>
 <script>
-    $('#CreateClassBtn').on('click', function () {
 
-        $.ajax({
-            url: '@Url.Action("SaveClass")',
-            type: 'post',
-            data: $(':input').serialize(),
-            success: function (data) {
+    var geocoder;
+
+    function initialize() {
+        geocoder = new google.maps.Geocoder();
+    }
+
+    function codeAddress(callback) {
+        var address = $('#Address').val() + ' ' + $('#City').val() + ' ' + $('#State').val() + ' ' + $('#ZipCode').val() + ' ' + $('#Country').val();
+        console.log(address);
+        geocoder.geocode({ 'address': address }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+
+                var marker = new google.maps.Marker({
+                    position: results[0].geometry.location
+                });
+
+                var latitude = results[0].geometry.location.lat();
+                var longitude = results[0].geometry.location.lng();
+                console.log(latitude);
+                console.log(longitude);
+
+                $('#Latitude').prop('value', latitude);
+                $('#Longitude').prop('value', longitude);
+
+                callback();
+            } else {
+                alert("Geocode was not successful for the following reason: " + status);
             }
         });
+        console.log("RETURNING");
+
+    }
 
 
-    })
+    $(document).ready(function () {
+        $("#subjectList[name='SubjectID']").selectpicker({ style: 'btn-primary', menuStyle: 'dropdown-inverse' });
+        $('#CreateClassBtn').on('click', function () {
+            var callback = function () {
+                $.ajax({
+                    url: '@Url.Action("SaveClass")',
+                    type: 'post',
+                    data: $(':input').serialize(),
+                    success: function (data) {
+                    }
+                });  
+            }
+            codeAddress(callback);
+
+        });
+    });
 
 </script>

@@ -22,7 +22,7 @@ namespace PTS.Models
         public string AverageRating { get; set; }
         public string SubjectName { get; set; }
         public IEnumerable<SelectListItem> Subjects { get; set; }
-
+        
         public DateTime DateStart { get; set; }
         public DateTime DateEnd { get; set; }
         public bool Monday { get; set; }
