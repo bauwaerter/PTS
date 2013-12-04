@@ -93,7 +93,6 @@
     <Compile Include="Helpers\SessionHelper.cs" />
     <Compile Include="Helpers\WebHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TemplateResolver.cs" />
     <Compile Include="Web\Filters\NoCacheFilter.cs" />
     <Compile Include="Web\WebApi\AcceptHeaderVersionedControllerSelector.cs" />
     <Compile Include="Web\WebApi\ControllerIdentification.cs" />
