@@ -250,12 +250,14 @@ namespace PTS.Views.Search
         [AllowAnonymous]
         public ActionResult AllTutorsMap()
         {
-            return View();
+            IList<TeacherUser> teacherUsers = _teacherUserService.GetTableQuery().ToList();
+            return View(teacherUsers);
         }
 
         [AllowAnonymous]
         public ActionResult AllClassesMap()
         {
+            ViewBag.Message = _classService.GetTableQuery().ToList();
             return View();
         }
 
