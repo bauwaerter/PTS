@@ -65,6 +65,7 @@ namespace PTS.Controllers
             }
         }
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult GetRandomTeachers()
         {
             var teachers=_teacherUserService.GetAll();
@@ -79,6 +80,7 @@ namespace PTS.Controllers
                     var r = reviews.ToArray()[rand.Next(t.ReviewTeacher.Count)];
                     var ad = new TutorAd
                     {
+                        TutorID=t.Id,
                         Date = r.Date,
                         Rating = r.Rating,
                         Review = r.Comment,
