@@ -109,11 +109,14 @@
             success: function (data) {
                 console.log(data)
                 for (var i in data.Results) {
-
+                    var teacherId = data.Results[i].TutorID;
+                    var link = '<a href="@Url.Action("Index", "Search")?teacherId=' + data.Results[i].TutorID + '">Go To</a>';
+                    console.log(link);
                     $('#ticker').append('<li>'
-                        +'<h5>' + '@Html.ActionLink("data.Results[i].TutorName", "Index", "Search")?teacherId=' + data.Results[i].TutorID +'</h5>'
+                        +'<h5>' + data.Results[i].TutorName +'</h5>'
                         + '<h6>Rating:   ' + data.Results[i].Rating + '</h6>'
                         + '<h7>Review:   ' + data.Results[i].Review + '</h7><br/><br/>'
+                        + link
                         + '</li>')
                 }
 
