@@ -59,6 +59,11 @@ namespace Core.Domains
     {
         public virtual int StudentId { get; set; }
         public virtual int ClassId { get; set; }
+
+        #region navigation
+        public virtual Class Class { get; set; }
+        public virtual StudentUser Student { get; set; }
+        #endregion
     }
 
     public class ReviewClass : BaseEntity

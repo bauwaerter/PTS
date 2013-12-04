@@ -19,6 +19,7 @@ namespace PTS.Views.Search
         private readonly IBaseService<Location> _locationService;
         private readonly IBaseService<ReviewTeacher> _reviewTeacherService;
         private readonly IBaseService<Subject> _subjectService;
+        
 
         public SearchController(IBaseService<TeacherUser> teacherUserService, IUserService userService,
                                 IBaseService<Class> classService, IBaseService<Location> locationService,
@@ -30,6 +31,7 @@ namespace PTS.Views.Search
             _locationService = locationService;
             _reviewTeacherService = reviewTeacherService;
             _subjectService = subjectService;
+           
         }
 
         //
