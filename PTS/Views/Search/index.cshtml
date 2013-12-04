@@ -12,7 +12,7 @@
             <button id="globalSearchButton" class="btn btn-primary" float: right>Search</button>
         </div>
         <div class="col-md-4">
-            <input id="searchZipCode" value="@if (Request.IsAuthenticated){@(SessionDataHelper.ZipCode)}else{<text>76019</text>}" class="form-control" style="font-size: 20px;" />
+            <input id="searchZipCode" value="@if (Request.IsAuthenticated && ViewBag.TeacherName != null){@(SessionDataHelper.ZipCode)}else{}" class="form-control" style="font-size: 20px;" />
         </div>
         <div class="col-md-2">
             <button id="applyZipCodeFilter" class="btn btn-primary">Apply</button>
@@ -29,7 +29,8 @@
             </div>
             <div class="col-md-4">
                 <select name="herolist" id="mileselectlist" class="select-block">
-                    <option value="20" selected="selected">20</option>
+                    <option value="0" selected="selected">None</option>
+                    <option value="20">20</option>
                     <option value="50">50</option>
                     <option value="100">100</option>
                     <option value="200">200</option>
@@ -53,28 +54,24 @@
 <script src="~/Content/Flat-UI/js/bootstrap-select.js"></script>
 <script src="~/Content/Flat-UI/js/bootstrap.min.js"></script>
 <script>
-    @if (Request.IsAuthenticated)
+    @if (ViewBag.TeacherName == null && Request.IsAuthenticated)
     {
         <text>
-        var lat1 = '@(SessionDataHelper.Latitude)';
+    var lat1 = '@(SessionDataHelper.Latitude)';
+    var lon1 = '@(SessionDataHelper.Longitude)';
         </text>
     }
-    else{
-        <text>
-        var lat1 = 32.7050;
-        </text>
-    }
-    @if (Request.IsAuthenticated)
+    else
     {
         <text>
-        var lon1 = '@(SessionDataHelper.Longitude)';
+    $('#searchZipCode').prop('value', null);
+    $('#searchZipCode').prop('value', null);
+        var lat1 = null;
+        var lon1 = null;
+        
         </text>
     }
-    else {
-        <text>
-        var lon1 = 97.1228;
-        </text>
-    }
+   
     
     var geocoder;
 
@@ -111,7 +108,17 @@
         $("#mileselectlist[name='herolist']").selectpicker({ style: 'btn-primary', menuStyle: 'dropdown-inverse' });
                 
 
+        @if(ViewBag.TeacherName != null){
+            <text>
+        $('#globalSearchButton').focus().click();
+        </text>
+        }
+
         $('#globalSearchButton').on('click', function (event) {
+            if ($('#searchZipCode').val() == "") {
+                $('#mileselectlist').prop('value', 0);
+            }
+
             $('#teacherUserTable').jtable('load', JSON.stringify({
                 textSearch: $('#globalSearch').val(),
                 lat1: lat1,
@@ -122,7 +129,7 @@
                 textSearch: $('#globalSearch').val(),
                 lat1: lat1,
                 lon1: lon1,
-                miles: $('#mileselectlist').val()
+                miles: $('#mileselectlist').val(),
             }));
         });
         $('#globalSearch').keypress(function (e) {
@@ -149,8 +156,9 @@
                 }));
 
             };
-
-            codeAddress(callback);
+            if ($('#searchZipCode').val() != "") {
+                codeAddress(callback);
+            }
         });
 
         $('#searchZipCode').keypress(function (e) {
@@ -178,11 +186,8 @@
                     create: false,
                     edit: false,
                 },
-                FirstName: {
-                    title: 'First Name',
-                },
-                LastName: {
-                    title: 'Last Name'
+                Name: {
+                    title: 'Name',
                 },
                 Email: {
                     title: 'Email',

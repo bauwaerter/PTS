@@ -68,8 +68,7 @@ namespace PTS.Views.Search
                 var records = teacherList.Select(t => new TeacherUserViewModel
                 {
                     Id = t.Id,
-                    FirstName = t.FirstName,
-                    LastName = t.LastName,
+                    Name = t.FirstName + " " + t.LastName,
                     Email = t.Email,
                     AverageRating = t.ReviewTeacher.FirstOrDefault() !=  null ? Math.Round(t.ReviewTeacher.Average(a => a.Rating), 1).ToString() : "No Ratings",
                     HourlyRate = t.HourlyRate,
@@ -88,8 +87,7 @@ namespace PTS.Views.Search
                 {
                     var oldRecords = records;
                     records = oldRecords.Where(r => 
-                                (ListHelper.CheckIndexOf(r.FirstName, textSearch)) || 
-                                (ListHelper.CheckIndexOf(r.LastName, textSearch)) ||
+                                (ListHelper.CheckIndexOf(r.Name, textSearch)) ||
                                 (ListHelper.CheckIndexOf(r.Email, textSearch)) ||
                                 (ListHelper.CheckIndexOf(r.AverageRating, textSearch)) ||
                                 (ListHelper.CheckIndexOf(r.ClassRate.ToString(), textSearch)) ||

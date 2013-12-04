@@ -107,11 +107,11 @@
             url: '@Url.Action("GetRandomTeachers")',
             type: 'POST',
             success: function (data) {
-                console.log(data)
+                
                 for (var i in data.Results) {
                     var teacherId = data.Results[i].TutorID;
                     var link = '<a href="@Url.Action("Index", "Search")?teacherId=' + data.Results[i].TutorID + '">'+data.Results[i].TutorName+'</a>';
-                    console.log(link);
+                    
                     var name = data.Results[i].TutorName;
                     $('#ticker').append('<li>'
                         +'<h5>' + link +'</h5>'
