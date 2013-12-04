@@ -40,7 +40,7 @@ namespace PTS.Views.Search
 
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult GetTeacherUsers(int jtStartIndex, int jtPageSize, string textSearch = "")
+        public ActionResult GetTeacherUsers(int jtStartIndex, int jtPageSize, string textSearch = "", double lat1 = 0, double lon1 = 0, int miles = 0)
         {
             try
             {
@@ -54,9 +54,12 @@ namespace PTS.Views.Search
                                        teacher.ReviewTeacher,
                                        teacher.ClassRate,
                                        teacher.HourlyRate,
+                                       teacher.User.Location.Latitude,
+                                       teacher.User.Location.Longitude,
                                    }).ToList();
 
                 
+
                 var records = teacherList.Select(t => new TeacherUserViewModel
                 {
                     Id = t.Id,
@@ -65,8 +68,17 @@ namespace PTS.Views.Search
                     Email = t.Email,
                     AverageRating = t.ReviewTeacher.FirstOrDefault() !=  null ? Math.Round(t.ReviewTeacher.Average(a => a.Rating), 1).ToString() : "No Ratings",
                     ClassRate = t.ClassRate,
-                    HourlyRate = t.HourlyRate
+                    HourlyRate = t.HourlyRate,
+                    Latitude = t.Latitude,
+                    Longitude = t.Longitude
                 });
+
+                if (miles != 0)
+                {
+                    var oldTeacherList = records;
+                    records = oldTeacherList.Where(d => (ListHelper.CalculateDistance(lat1, lon1, d.Latitude, d.Longitude, miles)));
+                }
+
 
                 if(!string.IsNullOrWhiteSpace(textSearch))
                 {
@@ -205,7 +217,7 @@ namespace PTS.Views.Search
 
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult GetClasses(int jtStartIndex, int jtPageSize, string textSearch = "")
+        public ActionResult GetClasses(int jtStartIndex, int jtPageSize, string textSearch = "", double lat1 = 0, double lon1 = 0, int miles = 0)
         {
             try
             {

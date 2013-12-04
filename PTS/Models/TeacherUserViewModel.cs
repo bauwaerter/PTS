@@ -16,6 +16,8 @@ namespace PTS.Models
         public decimal HourlyRate { get; set; }
         public decimal ClassRate { get; set; }
         public string AverageRating { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
 
         public TeacherUserViewModel()
         {
