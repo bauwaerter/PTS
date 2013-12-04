@@ -11,6 +11,8 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+        
+
         $('#SessionsDisplayTable').jtable({
             title: 'Tutor Contracts',
             openChildAsAccordion: true,
@@ -39,17 +41,28 @@
                 Rate: {
                     title: 'Rate',
                 },
-                //Status: {
-                //    title: 'Approval Status',
-                //    //display: function (data) {
-                //    //    var row = data.record;
-                //    //    var result = data.record.Status;
-                //    //    if (data.record.Role == UserRole.Teacher) {
-                //    //        result = '<button title="'+ result +'" class="jtable-command-button jtable-edit-command-button" onclick="refreshTable(data.record.Id); return false;"><span>'+data.record.Status+'</span></button>';
-                //    //    }
-                //    //    return result;
-                //    //}
-                //},
+                Status: {
+                    title: 'Approval Status',
+                    display: function (rowdata) {
+                        return '<button id="cellApprove" type="button" class="btn btn-primary" onclick="refreshTable(data.record.Id); return false;">' + rowdata.record.Status + '</button>';
+                        //return '<button title="' + data.record.Status + '" class="jtable-command-button jtable-edit-command-button" onclick="refreshTable(data.record.Id); return false;"><span>' + data.record.Status + '</span></button>';
+                        //var row = data.record;
+                        //var result = data.record.Status;
+                        //console.log(data.record.Status);
+                        //console.log(data.record.Id);
+                        //if (data.record.Role == UserRole.Teacher) {
+                        //    result = '<button title="'+ result +'" class="jtable-command-button jtable-edit-command-button" onclick="refreshTable(data.record.Id); return false;"><span>'+data.record.Status+'</span></button>';
+                        //}
+                        //return result;
+                        function refreshTable(requestId) {
+                            $.post("@Url.Action("ApproveRequest")?requestId=" + requestId,
+                                function (results) {
+                                    $('#MyTableDiv').jtable('reload');
+                                }
+                                , "json");
+                        }
+                    }
+                },
                 Availability: {
                     title: 'Session Info',
                     sorting: false,

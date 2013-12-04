@@ -533,7 +533,7 @@ namespace PTS.Controllers
                         p.User.Email,
                         Rate = p.HourlyRate,
                         Role = SessionDataHelper.UserRole,
-                        Status = requests.FirstOrDefault(x => x.TeacherId == p.Id)
+                        Status = requests.FirstOrDefault(x => x.TeacherId == p.Id).Status
                     }).ToArray();
                     return Json(new { Result = "OK", Records = results, TotalRecordCount = requests.Count() });
 
@@ -558,9 +558,10 @@ namespace PTS.Controllers
             }
         }
 
-        //public ActionResult ApproveRequest(int requestId) {
-        //    var request _requestService.GetById(requestId);
-        //}
+        public void ApproveRequest(int requestId) {
+            var request = _requestService.GetById(requestId);
+            request.Status = "Approved";
+        }
 
         [HttpPost]
         public JsonResult GetSchedule() {
