@@ -11,7 +11,7 @@
             <button id="globalSearchButton" class="btn btn-primary" float: right>Search</button>
         </div>
         <div class="col-md-4">
-            <input id="searchZipCode" placeholder="Zip Code" class="form-control" style="font-size: 20px;" />
+            <input id="searchZipCode" value="@(SessionDataHelper.ZipCode)" class="form-control" style="font-size: 20px;" />
         </div>
         <div class="col-md-2">
             <button id="applyZipCodeFilter" class="btn btn-primary">Apply</button>
@@ -39,28 +39,30 @@
     
 </div>
 
-        
+  
 
 <br />
 <div id="teacherUserTable"></div>
 <br />
 <br />
 <div id="classesTable"></div>
+
+<body onload="initialize()"></body>
+
 <script src="~/Content/Flat-UI/js/bootstrap-select.js"></script>
+<script src="~/Content/Flat-UI/js/bootstrap.min.js"></script>
 <script>
     var lat1 = '@(SessionDataHelper.Latitude)';
     var lon1 = '@(SessionDataHelper.Longitude)';
-    var lat2;
-    var lon2;
-
+    
     var geocoder;
 
     function initialize() {
         geocoder = new google.maps.Geocoder();
     }
 
-    function codeAddress() {
-        var address = $('#Location_ZipCode').val();
+    function codeAddress(callback) {
+        var address = $('#searchZipCode').val();
         console.log(address);
         geocoder.geocode({ 'address': address }, function (results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
@@ -69,13 +71,12 @@
                     position: results[0].geometry.location
                 });
 
-                lat2 = results[0].geometry.location.lat();
-                lon2 = longitude = results[0].geometry.location.lng();
-                console.log(latitude);
-                console.log(longitude);
+                lat1 = results[0].geometry.location.lat();
+                lon1 = results[0].geometry.location.lng();
+                console.log(lat1);
+                console.log(lon1);
 
-                $('#Location_Latitude').prop('value', latitude);
-                $('#Location_Longitude').prop('value', longitude);
+                callback();
 
                
             } else {
@@ -103,18 +104,24 @@
             }
         });
 
-        $('#applyZipCodeFilter').on('click', function () {
-            $('#teacherUserTable').jtable('load', JSON.stringify({
-                lat1: '@(SessionDataHelper.Latitude)',
-                lon1: '@(SessionDataHelper.Longitude)',
-                miles: 20
-            }));
-            $('#classesTable').jtable('load', JSON.stringify({
-                lat1: '@(SessionDataHelper.Latitude)',
-                lon1: '@(SessionDataHelper.Longitude)',
-                miles: 20
-            }));
+        
 
+        $('#applyZipCodeFilter').on('click', function () {
+            var callback = function () {
+                $('#teacherUserTable').jtable('load', JSON.stringify({
+                    lat1: lat1,
+                    lon1: lon1,
+                    miles: $('#mileselectlist').val()
+                }));
+                $('#classesTable').jtable('load', JSON.stringify({
+                    lat1: lat1,
+                    lon1: lon1,
+                    miles: $('#mileselectlist').val()
+                }));
+
+            };
+
+            codeAddress(callback);
         });
 
         $('#searchZipCode').keypress(function (e) {
