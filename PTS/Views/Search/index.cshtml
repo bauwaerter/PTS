@@ -1,11 +1,12 @@
 ﻿@using PTS.Infrastructure;
 
+
 <br />
 <div class="row">
 
     <div class="form-group">
         <div class="col-md-4">
-            <input id="globalSearch" class="form-control" style="font-size: 20px;" />
+            <input id="globalSearch" class="form-control" value="@if(ViewBag.TeacherName != null){@(ViewBag.TeacherName)}" style="font-size: 20px;" />
         </div>
         <div class="col-md-2">
             <button id="globalSearchButton" class="btn btn-primary" float: right>Search</button>

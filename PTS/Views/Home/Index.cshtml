@@ -111,7 +111,7 @@
                 for (var i in data.Results) {
                     var id = new (id = data.Results[i].TutorID);
                     $('#ticker').append('<li>'
-                        +'<h5>' + @Html.ActionLink("data.Results[i].TutorName", "Index", "Search", id, null)+'</h5>'
+                        +'<h5>' + '@Html.ActionLink("data.Results[i].TutorName", "Index", "Search")?teacherId=' + id +'</h5>'
                         + '<h6>Rating:   ' + data.Results[i].Rating + '</h6>'
                         + '<h7>Review:   ' + data.Results[i].Review + '</h7><br/><br/>'
                         + '</li>')

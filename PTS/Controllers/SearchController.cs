@@ -33,8 +33,14 @@ namespace PTS.Views.Search
         //
         // GET: /Search/
         [AllowAnonymous]
-        public ActionResult Index()
+        public ActionResult Index(int teacherId = 0)
         {
+            if (teacherId != 0)
+            {
+                var user = _teacherUserService.GetById(teacherId).User;
+                ViewBag.TeacherName = user.FirstName + " " + user.LastName;
+                return View();
+            }
             return View();
         }
 
