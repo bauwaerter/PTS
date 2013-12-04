@@ -67,7 +67,14 @@ namespace Core.Domains
 	    {
             get { return _reviewTeacher ?? (_reviewTeacher = new List<ReviewTeacher>()); }
             protected set { _reviewTeacher = value; }
-        } 
+        }
+
+        private ICollection<Teacher_Offers> _teacherOffers;
+        public virtual ICollection<Teacher_Offers> TeacherOffers
+        {
+            get { return _teacherOffers ?? (_teacherOffers = new List<Teacher_Offers>()); }
+            protected set { _teacherOffers = value; }
+        }
         #endregion
     }
 
@@ -95,6 +102,10 @@ namespace Core.Domains
     {
         public virtual int TeacherId { get; set; }
         public virtual int SubjectId { get; set; }
+
+        #region navigation
+        public virtual Subject Subject { get; set; }
+        #endregion
     }
 
     public class Tutors : BaseEntity

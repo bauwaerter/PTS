@@ -18,16 +18,18 @@ namespace PTS.Views.Search
         private readonly IBaseService<Class> _classService;
         private readonly IBaseService<Location> _locationService;
         private readonly IBaseService<ReviewTeacher> _reviewTeacherService;
+        private readonly IBaseService<Subject> _subjectService;
 
         public SearchController(IBaseService<TeacherUser> teacherUserService, IUserService userService,
                                 IBaseService<Class> classService, IBaseService<Location> locationService,
-                                IBaseService<ReviewTeacher> reviewTeacherService)
+                                IBaseService<ReviewTeacher> reviewTeacherService, IBaseService<Subject> subjectService)
         {
             _teacherUserService = teacherUserService;
             _userService = userService;
             _classService = classService;
             _locationService = locationService;
-            _reviewTeacherService = reviewTeacherService;   
+            _reviewTeacherService = reviewTeacherService;
+            _subjectService = subjectService;
         }
 
         //
@@ -35,6 +37,8 @@ namespace PTS.Views.Search
         [AllowAnonymous]
         public ActionResult Index(int teacherId = 0)
         {
+            ViewBag.Subjects = _subjectService.GetTableQuery().ToList();
+
             if (teacherId != 0)
             {
                 var user = _teacherUserService.GetById(teacherId).User;
@@ -102,6 +106,29 @@ namespace PTS.Views.Search
             }
         }
 
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult GetTutorSubjects(int tutorUserId)
+        {
+            try
+            {
+                var tutor = _teacherUserService.GetById(tutorUserId);
+                var subjects = tutor.TeacherOffers.Select(s => s.Subject);
+
+                var records = subjects.Select(s => new TutorSubjectViewModel
+                {
+                    SubjectId = s.Id,
+                    Name = s.Name,
+                    Description = s.Description
+                });
+
+                return Json(new { Result = "OK", Records = records, TotalRecordCount = records.Count() });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         
         [AllowAnonymous]
         [HttpPost]
@@ -238,7 +265,7 @@ namespace PTS.Views.Search
 
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult GetClasses(int jtStartIndex, int jtPageSize, string textSearch = "", double lat1 = 0, double lon1 = 0, int miles = 0)
+        public ActionResult GetClasses(int jtStartIndex, int jtPageSize, string textSearch = "", int subjectSearch = 0, double lat1 = 0, double lon1 = 0, int miles = 0)
         {
             try
             {
@@ -284,6 +311,12 @@ namespace PTS.Views.Search
                 {
                     var oldClassesList = records;
                     records = oldClassesList.Where(d => (ListHelper.CalculateDistance(lat1, lon1, d.Latitude, d.Longitude, miles)));
+                }
+
+                if (subjectSearch != 0)
+                {
+                    var subjectSearchRecords = records;
+                    records =  subjectSearchRecords.Where(s => (s.SubjectId == subjectSearch));
                 }
 
                 if (!string.IsNullOrWhiteSpace(textSearch))

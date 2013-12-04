@@ -39,6 +39,10 @@ namespace Data.Mappings
                 .WithOptional()
                 .HasForeignKey(xs => xs.TeacherId);
 
+            HasMany(x => x.TeacherOffers)
+               .WithOptional()
+               .HasForeignKey(xs => xs.TeacherId);
+
         }
     }
 

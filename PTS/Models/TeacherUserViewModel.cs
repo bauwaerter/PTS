@@ -43,4 +43,16 @@ namespace PTS.Models
 
         }
     }
+
+    public class TutorSubjectViewModel
+    {
+        public int SubjectId { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        
+        public TutorSubjectViewModel()
+        {
+
+        }
+    }
 }
