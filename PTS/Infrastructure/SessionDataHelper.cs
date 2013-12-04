@@ -44,7 +44,12 @@ namespace PTS.Infrastructure
             get { return (double)SessionHelper.Retrieve("Login", "Longitude"); }
             set { SessionHelper.Store("Login", "Longitude", value); }
         }
-        
+
+        public static int ZipCode {
+            get { return (int)SessionHelper.Retrieve("Login", "ZipCode"); }
+            set { SessionHelper.Store("Login", "ZipCode", value); }
+        }
+
         /// <summary>
         /// Gets or sets the session id.
         /// </summary>

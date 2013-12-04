@@ -74,29 +74,92 @@ namespace Service.Services {
         /// <param name="user">The user.</param>
         /// <param name="originalPassword">The original password.</param>
         public void SendNewUserEmail(User user, string originalPassword) {
-            //string content;
-            //var assembly = Assembly.GetExecutingAssembly();
-            //using (
-            //    var confirmationTemplate =
-            //        assembly.GetManifestResourceStream(@"Service.Template.NewUserTemplate.tpl"))
-            //using (var reader = new StreamReader(confirmationTemplate, Encoding.UTF8)) {
-            //    content = reader.ReadToEnd();
-            //}
-
             var model = new User{
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
                 PassWord = originalPassword
             };
-             
-            var body = returnBody(model);
+
+            var body = returnNewUserBody(model);
 
             MailMessage emailSender = new MailMessage();
             emailSender.To.Add(user.Email);
             emailSender.Subject = "Account Created - PTS";
             emailSender.From = new System.Net.Mail.MailAddress("prospecttutoringsystems@gmail.com");
             emailSender.Body = body;
+
+            SmtpSend(emailSender);
+        }
+
+        public void SendEnrolledEmail(User user, string className) {
+            var model = new User {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+            };
+
+            var body = returnEnrolledBody(model, className);
+
+            MailMessage emailSender = new MailMessage();
+            emailSender.To.Add(user.Email);
+            emailSender.Subject = "Class Enrolled - PTS";
+            emailSender.From = new System.Net.Mail.MailAddress("prospecttutoringsystems@gmail.com");
+            emailSender.Body = body;
+
+            SmtpSend(emailSender);
+        }
+
+        public void SendRequestEmail(User user, string requester) {
+            var model = new User {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+            };
+
+            var body = returnEnrolledBody(model, requester);
+
+            MailMessage emailSender = new MailMessage();
+            emailSender.To.Add(user.Email);
+            emailSender.Subject = "Tutor Request - PTS";
+            emailSender.From = new System.Net.Mail.MailAddress("prospecttutoringsystems@gmail.com");
+            emailSender.Body = body;
+
+            SmtpSend(emailSender);
+        }
+
+        private String returnNewUserBody(User model) {
+            var message = "Welcome to PTS!\n\n"
+                    +"Dear " + model.FirstName + " " + model.LastName + ",\n\n"
+                    +"You were successfully registered.\n"
+                    +"You can now log in to your account.\n"
+                    +"Username: "+ model.Email + "\n"
+                    +"Password: "+model.PassWord + "\n"
+                    +"Click http://prospecttutoring.com.192-185-11-49.secure20.win.hostgator.com/" + " to log in.\n\n"
+                    +"Regards,\n"
+                    +"PTS";
+            return message;
+        }
+
+        private String returnEnrolledBody(User model, string className) {
+            var message = "Dear " + model.FirstName + " " + model.LastName + ",\n\n"
+                    + "You have been enrolled in " + className + "!\n"
+                    + "Please log in immediately to review your class details.\n\n"
+                    + "Regards,\n"
+                    + "PTS";
+            return message;
+        }
+
+        private String returnRequestBody(User model, string requester) {
+            var message = "Dear " + model.FirstName + " " + model.LastName + ",\n\n"
+                    + requester + "has sent you a new tutor request!\n"
+                    + "Please log in immediately to accept or decline the request.\n\n"
+                    + "Regards,\n"
+                    + "PTS";
+            return message;
+        }
+
+        private void SmtpSend(MailMessage message) {
 
             var smtp = new SmtpClient {
                 Host = "smtp.gmail.com",
@@ -107,20 +170,7 @@ namespace Service.Services {
                 Credentials = new NetworkCredential("prospecttutoringsystems@gmail.com", "Ayoka.Com"),
             };
 
-            smtp.Send(emailSender);
-        }
-
-        private String returnBody(User model) {
-            var message = "Welcome to PTS!\n\n"
-                    +" Dear " + model.FirstName + " " + model.LastName + ",\n\n"
-                    +"You were successfully registered.\n"
-                    +"You can now log in to your account.\n"
-                    +"Username: "+ model.Email + "\n"
-                    +"Password: "+model.PassWord + "\n"
-                    +"Click http://prospecttutoring.com.192-185-11-49.secure20.win.hostgator.com/" + " to log in.\n\n"
-                    +"Regards,\n"
-                    +"PTS";
-            return message;
+            smtp.Send(message);
         }
 
         ///// <summary>

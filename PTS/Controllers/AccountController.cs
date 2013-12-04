@@ -92,7 +92,7 @@ namespace PTS.Controllers
                     SessionDataHelper.UserRole = user.Role;
                     SessionDataHelper.Latitude = user.Location.Latitude;
                     SessionDataHelper.Longitude = user.Location.Longitude;
-                    
+                    SessionDataHelper.ZipCode = user.Location.ZipCode;
                     SessionDataHelper.SessionId = System.Web.HttpContext.Current.Session.SessionID;
 
                     if (SessionDataHelper.UserId != 1){
@@ -532,6 +532,7 @@ namespace PTS.Controllers
                         p.User.LastName,
                         p.User.Email,
                         Rate = p.HourlyRate,
+                        Role = SessionDataHelper.UserRole,
                         Status = requests.FirstOrDefault(x => x.TeacherId == p.Id)
                     }).ToArray();
                     return Json(new { Result = "OK", Records = results, TotalRecordCount = requests.Count() });

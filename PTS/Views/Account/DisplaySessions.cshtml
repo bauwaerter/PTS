@@ -8,11 +8,11 @@
 
 <h4>Tutor Sesions</h4>
 <div id="SessionsDisplayTable"></div>
-<a href="www.swag.com" class="t"
-<script >
+<script type="text/javascript">
+
     $(document).ready(function () {
         $('#SessionsDisplayTable').jtable({
-            title: ("@Model.Role" == "@UserRole.Teacher") ? 'Student Contracts' : 'Tutor Contracts',
+            title: 'Tutor Contracts',
             openChildAsAccordion: true,
             ajaxSettings: {
                 contentType: 'application/json'
@@ -39,17 +39,17 @@
                 Rate: {
                     title: 'Rate',
                 },
-                Status: {
-                    title: 'Approval Status',
-                    display: function (data) {
-                        var row = data.record;
-                        var result = data.record.Status;
-                        if (Model.Role == UserRole.Teacher) {
-                            result = '<a href="@Url.Action("ApproveRequest", "Account")?requestId=' + data.record.Id + '">' + data.record.Status + '</a>';
-                        }
-                        return result;
-                    }
-                },
+                //Status: {
+                //    title: 'Approval Status',
+                //    //display: function (data) {
+                //    //    var row = data.record;
+                //    //    var result = data.record.Status;
+                //    //    if (data.record.Role == UserRole.Teacher) {
+                //    //        result = '<button title="'+ result +'" class="jtable-command-button jtable-edit-command-button" onclick="refreshTable(data.record.Id); return false;"><span>'+data.record.Status+'</span></button>';
+                //    //    }
+                //    //    return result;
+                //    //}
+                //},
                 Availability: {
                     title: 'Session Info',
                     sorting: false,

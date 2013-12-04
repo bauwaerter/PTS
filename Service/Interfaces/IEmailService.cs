@@ -21,6 +21,8 @@ namespace Service.Interfaces {
         /// <param name="originalPassword">The original password.</param>
         void SendNewUserEmail(User user, string originalPassword);
 
+        void SendRequestEmail(User user, string requester);
+
         /// <summary>
         /// Sends an email to reset password.
         /// </summary>
