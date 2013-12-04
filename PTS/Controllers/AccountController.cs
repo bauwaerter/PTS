@@ -735,11 +735,26 @@ namespace PTS.Controllers
                     results.Add(temp);
                 }
             }
-
-            var classes = _classService.GetTableQuery().Where(c => c.TeacherId == SessionDataHelper.UserId).ToList();
-            foreach(var c in classes)
+            if (SessionDataHelper.UserRole == UserRole.Teacher)
             {
+                var classes = _classService.GetTableQuery().Where(c => c.TeacherId == SessionDataHelper.UserId).ToList();
+                foreach (var c in classes)
+                {
+                    var meetingDates = _classMeetingDatesService.GetTableQuery().Where(m => m.ClassId == c.Id).ToList();
+                    foreach (var m in meetingDates)
+                    {
 
+                        var temp = new CalendarEvent
+                        {
+                            allday = false,
+                            id = c.Id,
+                            start = m.Date.AddMinutes(c.StartTime.Minutes).ToString(),
+                            end = m.Date.AddMinutes(c.EndTime.Minutes).ToString(),
+                            title = "Teaching: " + c.Description
+                        };
+                        results.Add(temp);
+                    }
+                }
             }
 
 

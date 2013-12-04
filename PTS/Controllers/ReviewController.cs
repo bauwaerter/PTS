@@ -190,12 +190,13 @@ namespace PTS.Views.Review
         [HttpPost]
         public ActionResult GetTutorsToReview()
         {
-            var payments = _paymentService.GetTableQuery().Where(p => p.StudentId == SessionDataHelper.UserId).ToList();
+            var payments = _paymentService.GetTableQuery().Where(p => p.StudentId == SessionDataHelper.UserId).Distinct().ToList();
             var Class = new List<Class>();
             var Reviews = new List<ReviewTutorViewModel>();
 
             foreach(var p in payments)
             {
+                
                 var temp = new ReviewTutorViewModel();
                 var tempTutorReview = _reviewTutorService.GetTableQuery().Where(r => r.StudentId == SessionDataHelper.UserId).Where(r => r.TeacherId == p.TeacherId).SingleOrDefault();
                 var tempTutor = _teacherUserService.GetById(p.TeacherId);
@@ -240,6 +241,7 @@ namespace PTS.Views.Review
                 temp.StudentID = SessionDataHelper.UserId;
                 if (tempClassReview != null)
                 {
+                    temp.TeacherName = tempClass.Teacher.User.FirstName+ " " +tempClass.Teacher.User.LastName;
                     temp.Comment = tempClassReview.Comment;
                     temp.Date = tempClassReview.Date;
                     temp.Rating = tempClassReview.Rating;
