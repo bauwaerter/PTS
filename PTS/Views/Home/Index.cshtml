@@ -17,7 +17,7 @@
             
         
     </div>
-    <div  style="background-color:#ecf0f1; width: 450px; height:300px;border-radius:10px; margin:17px; float:right; text-align:center;">
+    <div  class="pagination" style="background-color:#ecf0f1; width: 450px; height:300px;border-radius:10px; margin:17px; float:right; text-align:center;">
         <ul id="TutorAds" class="radslides"></ul>
     </div>
  
@@ -89,7 +89,9 @@
 
     });
     $(function () {
-        $(".rslides").responsiveSlides();
+        $(".radslides").responsiveSlides({
+            pager: true,
+        });
 
     });
 

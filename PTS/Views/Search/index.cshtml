@@ -308,6 +308,12 @@
                 },
                 Country: {
                     title: 'Country'
+                },
+                Map: {
+                    title: 'Map',
+                    display: function (data) {
+                        return '<a href="@Url.Action("LoadClassesMap")?classesId=' + data.record.Id + '">Map</a>';
+                    }
                 }
 
             },

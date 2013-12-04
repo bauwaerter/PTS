@@ -216,6 +216,13 @@ namespace PTS.Views.Search
         }
 
         [AllowAnonymous]
+        public ActionResult LoadClassesMap(int classesId)
+        {
+            var classes = _classService.GetById(classesId);
+            return View("ClassesMap", classes);
+        }
+
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult GetClasses(int jtStartIndex, int jtPageSize, string textSearch = "", double lat1 = 0, double lon1 = 0, int miles = 0)
         {
