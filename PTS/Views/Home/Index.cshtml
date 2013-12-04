@@ -5,43 +5,6 @@
 @{
     ViewBag.Title = "Home Page";
 }
-<style>
-    /*#ticker {
-        height: 350px;
-       overflow: hidden;
-    }
-
-        #ticker li {  
-            display:block;
-            height: 350px;
-        }*/
-    #ticker {
-        width: 350px;
-        height: 200px;
-        overflow: hidden;
-        border: 2px solid #34495e;
-        border-radius: 5px;
-        box-shadow: 0px 0px 5px #DDD;
-        background-color: #F8F8F8;
-        text-align: center;
-        align-content: center;
-        align-items: center;
-        background-origin: content-box;
-    }
-
-        #ticker h7 {
-            padding: 0 0 10px 10px;
-            border-bottom: 1px solid #A7A7A7 ;
-            font-style:italic;
-        }
-        #ticker li {
-            list-style: none;
-            margin-left:-40px;
-            height:200px;
-            border-bottom: 1px solid #D6CFB8;
-        }
-    
-</style>
 
 <div style="width:1035px; height:380px; background-color:#bdc3c7; border-radius:10px; border-style:solid; border-color:#ecf0f1;">
     
@@ -55,11 +18,7 @@
         
     </div>
     <div  class="pagination" style="background-color:#ecf0f1; width: 450px; height:300px;border-radius:10px; margin:17px; float:right; text-align:center;">
-        <h4>Check out our Tutors!</h4>
-        <div style=" margin-left:50px">
-            
-            <ul id="ticker" class="radslides"></ul>
-        </div>
+        <ul id="TutorAds" class="radslides"></ul>
     </div>
  
 </div>
@@ -109,13 +68,12 @@
             success: function (data) {
                 console.log(data)
                 for (var i in data.Results) {
-                    $('#ticker').append('<li>'
-                        +'<h5>' + data.Results[i].TutorName + '</h5>'
-                        + '<h6>Rating:   ' + data.Results[i].Rating + '</h6>'
-                        + '<h7>Review:   ' + data.Results[i].Review + '</h7><br/><br/>'
+                    $('#TutorAds').append('<li>'
+                        +'<h2>' + data.Results[i].TutorName + '</h2><br/>'
+                        + '<h4>' + data.Results[i].Rating + '</h4><br/>'
+                        + '<p>' + data.Results[i].Review + '</p><br/>'
                         + '</li>')
                 }
-
             },
             error: function (req, status, error) {
                 window.alert("Error!");
@@ -124,19 +82,18 @@
 
     })
 
-    function tick() {
-        $('#ticker li:first').animate({ 'opacity': 0 }, 200, function () { $(this).appendTo($('#ticker')).css('opacity', 1); });
-    }
-    setInterval(function () { tick() }, 4000);
-
-
     $(function () {
         $(".rslides").responsiveSlides({
             pager: true,
         });
 
     });
-    
+    $(function () {
+        $(".radslides").responsiveSlides({
+            pager: true,
+        });
+
+    });
 
 
 

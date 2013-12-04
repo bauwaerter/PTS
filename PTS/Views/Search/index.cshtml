@@ -12,29 +12,13 @@
         </div>
         <div class="col-md-4">
             <input id="searchZipCode" placeholder="Zip Code" class="form-control" style="font-size: 20px;" />
-        </div>
+         </div>
         <div class="col-md-2">
             <button id="applyZipCodeFilter" class="btn btn-primary">Apply</button>
-        </div>
-        
+         </div>
     </div>
 </div>
-<div class="row"style="height:10px;">
 
-</div>
-<div class="row">
-            <div class="col-md-1 col-md-offset-5">
-                <p>Miles</p>
-            </div>
-            <div class="col-md-4">
-                <select name="herolist" id="mileselectlist" class="select-block">
-                    <option value="20" selected="selected">20</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                    <option value="200">200</option>
-                </select>
-            </div>
-        </div>
 <div class="row">
     
 </div>
@@ -46,7 +30,7 @@
 <br />
 <br />
 <div id="classesTable"></div>
-<script src="~/Content/Flat-UI/js/bootstrap-select.js"></script>
+
 <script>
     var lat1 = '@(SessionDataHelper.Latitude)';
     var lon1 = '@(SessionDataHelper.Longitude)';
@@ -84,11 +68,8 @@
         });
     }
     
-          
+      
     $(document).ready(function () {
-        $("#mileselectlist[name='herolist']").selectpicker({ style: 'btn-primary', menuStyle: 'dropdown-inverse' });
-                
-
         $('#globalSearchButton').on('click', function (event) {
             $('#teacherUserTable').jtable('load', JSON.stringify({
                 textSearch: $('#globalSearch').val()
