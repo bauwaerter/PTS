@@ -220,6 +220,7 @@
     <Compile Include="Infrastructure\WebModules.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\AccountUser.cs" />
+    <Compile Include="Models\CalendarEvent.cs" />
     <Compile Include="Models\ClassMeetingDatesVM.cs" />
     <Compile Include="Models\LocationVM.cs" />
     <Compile Include="Models\ClassViewModel.cs" />
@@ -476,6 +477,11 @@
     <Content Include="Content\jquery-timepicker-master\package.json" />
     <None Include="Properties\PublishProfiles\publish.pubxml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
+    <Content Include="Scripts\FullCalendar\fullcalendar.css" />
+    <Content Include="Scripts\FullCalendar\fullcalendar.js" />
+    <Content Include="Scripts\FullCalendar\fullcalendar.min.js" />
+    <Content Include="Scripts\FullCalendar\fullcalendar.print.css" />
+    <Content Include="Scripts\FullCalendar\gcal.js" />
     <Content Include="Scripts\jquery-2.0.3.js" />
     <Content Include="Scripts\jquery-2.0.3.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.3.js" />
@@ -679,6 +685,7 @@
     <Content Include="Views\Search\TeacherMap.cshtml" />
     <Content Include="Views\Account\Transactions.cshtml" />
     <Content Include="Views\Search\ClassesMap.cshtml" />
+    <Content Include="Views\Account\Calendar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

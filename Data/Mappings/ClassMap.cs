@@ -39,7 +39,7 @@ namespace Data.Mappings
         public EnrolledMap()
         {
             ToTable("Enrolled", "dbo");
-            HasKey(e => e.StudentId);
+            HasKey(e => e.Id);
         }
     }
 

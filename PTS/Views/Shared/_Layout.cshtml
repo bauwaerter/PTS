@@ -21,8 +21,8 @@
         <script src="~/Scripts/tinynav.js"></script>
         <script src="~/Scripts/jquery.timepicker.js"></script>
         <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDSCiiWCXM8M8F11kqYkoZUD_eI_-L4V3g&sensor=false"></script>
-        
-
+        <script src="~/Scripts/FullCalendar/fullcalendar.min.js"></script>
+        <script src="~/Scripts/FullCalendar/gcal.js"></script>
         <meta charset="utf-8" />
         <title>@ViewBag.Title - Prospect Tutoring</title>
         
@@ -34,7 +34,9 @@
         <link href="~/Scripts/jtable/themes/jqueryui/jtable_jqueryui.css" rel="stylesheet" />
         <link href="~/Scripts/jtable/themes/metro/lightgray/jtable.css" rel="stylesheet" />
         <link href="~/Content/responsiveslides.css" rel="stylesheet" />
-
+        <link href="~/Scripts/FullCalendar/fullcalendar.css" rel="stylesheet" />
+        <link href="~/Scripts/FullCalendar/fullcalendar.print.css" rel="stylesheet" />
+        
         <meta name="viewport" content="width=device-width" />
                 
         
@@ -79,6 +81,9 @@
                                             </li>
                                             <li>
                                                 @Html.ActionLink("Transactions", "Transactions", "Account")
+                                            </li>
+                                            <li>
+                                                @Html.ActionLink("Calendar", "Calendar", "Account")
                                             </li>
                                         </ul>
                                     }

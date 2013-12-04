@@ -703,6 +703,41 @@ namespace PTS.Controllers
             return Json(new { Result = "OK", Records = results });
         }
 
+        public ActionResult Calendar()
+        {
+
+            return View("");
+        }
+
+        [HttpPost]
+        public ActionResult GetCalendar()
+        {
+            var results = new List<CalendarEvent>();
+            var classes = _enrolledService.GetTableQuery().Where(e => e.StudentId == SessionDataHelper.UserId).ToList();
+            
+            foreach (var c in classes)
+            {
+                var meetingDates = _classMeetingDatesService.GetTableQuery().Where(m=>m.ClassId==c.ClassId).ToList();
+                var studentClass = _classService.GetById(c.ClassId);
+                foreach(var m in meetingDates)
+                {
+
+                    var temp = new CalendarEvent
+                    {
+                        allday=false,
+                        id=c.ClassId,
+                        start=m.Date.AddMinutes(studentClass.StartTime.Minutes).ToString(),
+                        end=m.Date.AddMinutes(studentClass.EndTime.Minutes).ToString(),
+                        title=studentClass.Description
+                    };
+                    results.Add(temp);
+                }
+            }
+
+
+            return Json(new { Result = "OK", Records = results });
+        }
+
         //
         // POST: /Account/Disassociate
 
