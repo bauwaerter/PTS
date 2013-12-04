@@ -289,10 +289,7 @@ namespace PTS.Views.Search
                                      classes.Location.Longitude
                                  }).ToList();
 
-                //var meetingDates = _classMeetingDatesService.GetTableQuery().Where(m => m.ClassId==c.Id).OrderBy(o=>o.Date);
-                //    classModel.DateStart = meetingDates.First().Date;
-                //    classModel.DateEnd = meetingDates.OrderByDescending(x=>x.Date).First().Date;
-                
+                        
                 var records = classList.Select(d => new ClassViewModel
                 {
                     Id = d.Id,
@@ -335,7 +332,7 @@ namespace PTS.Views.Search
                                 (ListHelper.CheckIndexOf(r.AverageRating, textSearch)) ||
                                 (ListHelper.CheckIndexOf(r.StartTime.ToString(), textSearch)) ||
                                 (ListHelper.CheckIndexOf(r.EndTime.ToString(), textSearch)) ||
-                                (ListHelper.CheckIndexOf(r.Duration.ToString(), textSearch)) ||
+                                (ListHelper.CheckIndexOf(r.Dates, textSearch)) ||
                                 (ListHelper.CheckIndexOf(r.Address, textSearch)) ||
                                 (ListHelper.CheckIndexOf(r.City, textSearch)) ||
                                 (ListHelper.CheckIndexOf(r.State, textSearch)) ||
