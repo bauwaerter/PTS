@@ -255,6 +255,9 @@
                         return link;
                     }
                 },
+                @if (Request.IsAuthenticated)
+                {
+                    <text>
                 RequestAppointment: {
                     title: 'Request Session',
                     width: '15%',
@@ -267,6 +270,8 @@
                     display: function (data) {
                         return '<a href="@Url.Action("LoadTeacherMap")?teacherId=' + data.record.Id + '">Map</a>';
                     }
+                }
+                </text>
                 }
             }
         }).jtable('load');
@@ -370,11 +375,15 @@
                     title: 'Country',
                     width: '5%',
                 },
+                @if (Request.IsAuthenticated){
+                    <text>
                 Map: {
                     title: 'Map',
                     display: function (data) {
                         return '<a href="@Url.Action("LoadClassesMap")?classesId=' + data.record.Id + '">Map</a>';
                     }
+                }
+                </text>
                 }
 
             },
