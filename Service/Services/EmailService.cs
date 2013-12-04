@@ -89,7 +89,7 @@ namespace Service.Services {
                 Email = user.Email,
                 PassWord = originalPassword
             };
-
+             
             var body = returnBody(model);
 
             MailMessage emailSender = new MailMessage();

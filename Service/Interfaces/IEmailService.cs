@@ -6,7 +6,7 @@ namespace Service.Interfaces {
     /// </summary>
     public interface IEmailService {
 
-
+         
         /// <summary>
         /// Sends the email.
         /// </summary>
