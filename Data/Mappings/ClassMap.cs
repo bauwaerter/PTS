@@ -13,6 +13,10 @@ namespace Data.Mappings
             HasMany(x => x.ReviewClass)
                 .WithOptional()
                 .HasForeignKey(xs => xs.ClassId);
+
+            HasMany(x => x.ClassMeetingDates)
+                .WithOptional()
+                .HasForeignKey(xs => xs.ClassId);
         }
     }
 

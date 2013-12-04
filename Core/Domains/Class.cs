@@ -34,6 +34,13 @@ namespace Core.Domains
         {
             get { return _reviewClass ?? (_reviewClass = new List<ReviewClass>()); }
             protected set { _reviewClass = value; }
+        }
+
+        private ICollection<Class_Meeting_Dates> _classMeetingDates;
+        public virtual ICollection<Class_Meeting_Dates> ClassMeetingDates
+        {
+            get { return _classMeetingDates ?? (_classMeetingDates = new List<Class_Meeting_Dates>()); }
+            protected set { _classMeetingDates = value; }
         } 
         #endregion
     }

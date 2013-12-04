@@ -19,11 +19,12 @@ namespace PTS.Views.Search
         private readonly IBaseService<Location> _locationService;
         private readonly IBaseService<ReviewTeacher> _reviewTeacherService;
         private readonly IBaseService<Subject> _subjectService;
-        
+        private readonly IBaseService<Class_Meeting_Dates> _classMeetingDatesService;
 
         public SearchController(IBaseService<TeacherUser> teacherUserService, IUserService userService,
                                 IBaseService<Class> classService, IBaseService<Location> locationService,
-                                IBaseService<ReviewTeacher> reviewTeacherService, IBaseService<Subject> subjectService)
+                                IBaseService<ReviewTeacher> reviewTeacherService, IBaseService<Subject> subjectService,
+                                IBaseService<Class_Meeting_Dates> classMeetingDatesService)
         {
             _teacherUserService = teacherUserService;
             _userService = userService;
@@ -31,7 +32,7 @@ namespace PTS.Views.Search
             _locationService = locationService;
             _reviewTeacherService = reviewTeacherService;
             _subjectService = subjectService;
-           
+            _classMeetingDatesService = classMeetingDatesService;
         }
 
         //
@@ -279,7 +280,7 @@ namespace PTS.Views.Search
                                      classes.ReviewClass,
                                      classes.StartTime,
                                      classes.EndTime,
-                                     classes.Duration,
+                                     classes.ClassMeetingDates,
                                      classes.Location,
                                      classes.SubjectID,
                                      classes.Description,
@@ -288,6 +289,10 @@ namespace PTS.Views.Search
                                      classes.Location.Longitude
                                  }).ToList();
 
+                //var meetingDates = _classMeetingDatesService.GetTableQuery().Where(m => m.ClassId==c.Id).OrderBy(o=>o.Date);
+                //    classModel.DateStart = meetingDates.First().Date;
+                //    classModel.DateEnd = meetingDates.OrderByDescending(x=>x.Date).First().Date;
+                
                 var records = classList.Select(d => new ClassViewModel
                 {
                     Id = d.Id,
@@ -299,7 +304,7 @@ namespace PTS.Views.Search
                     AverageRating = d.ReviewClass.FirstOrDefault() != null ? Math.Round(d.ReviewClass.Average(a => a.Rating), 1).ToString() : "No Ratings",
                     StartTime = d.StartTime.ToString(),
                     EndTime = d.EndTime.ToString(),
-                    Duration = d.Duration,
+                    Dates = d.ClassMeetingDates.OrderBy(s => s.Date).FirstOrDefault().Date.ToShortDateString() + " - " + d.ClassMeetingDates.OrderByDescending(e => e.Date).FirstOrDefault().Date.ToShortDateString(),
                     City = d.Location.City,
                     State = d.Location.State,
                     Address = d.Location.Address,
