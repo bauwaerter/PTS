@@ -24,6 +24,10 @@ namespace Data.Mappings
         {
             ToTable("StudentUser", "dbo");
             HasKey(s => s.Id);
+
+            //HasMany(x => x.Enrolled)
+            //    .WithOptional()
+            //    .HasForeignKey(xs => xs.StudentId);
         }
 
     }

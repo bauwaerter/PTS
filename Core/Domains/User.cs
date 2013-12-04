@@ -39,14 +39,14 @@ namespace Core.Domains
 
         #region navigation properties
         public virtual User User { get; set; }
-        
-        //private ICollection<Class> _classes;
-        //public virtual ICollection<Class> Classes
-        //{
-        //    get {return _classes ?? (_classes = new List<Class>());}
-        //    protected set {_classes = value;}
-        //}
 
+        private ICollection<Enrolled> _enrolled;
+        public virtual ICollection<Enrolled> Enrolled
+        {
+            get { return _enrolled ?? (_enrolled = new List<Enrolled>()); }
+            protected set { _enrolled = value; }
+        }
+              
         #endregion
 
     }
