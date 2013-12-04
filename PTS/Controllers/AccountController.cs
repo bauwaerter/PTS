@@ -531,7 +531,7 @@ namespace PTS.Controllers
                         p.User.FirstName,
                         p.User.LastName,
                         p.User.Email,
-                        Rate = p.HourlyRate,
+                        Rate = "$" + p.HourlyRate,
                         Role = SessionDataHelper.UserRole,
                         Status = requests.FirstOrDefault(x => x.TeacherId == p.Id).Status
                     }).ToArray();
@@ -547,8 +547,8 @@ namespace PTS.Controllers
                         p.FirstName,
                         p.LastName,
                         p.Email,
-                        Rate = user.HourlyRate,
-                        Status = requests.FirstOrDefault(x => x.StudentId == p.Id).Status
+                        Rate = "$"+ user.HourlyRate,
+                        Status = requests.FirstOrDefault(x => x.StudentId == p.Id).Status,
                     }).ToArray();
                     return Json(new { Result = "OK", Records = results, TotalRecordCount = results.Count() });
                 }

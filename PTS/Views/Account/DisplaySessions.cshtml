@@ -6,16 +6,41 @@
     //Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h4>Tutor Sesions</h4>
+<h4>Tutor Sessions</h4>
 <div id="SessionsDisplayTable"></div>
 <script type="text/javascript">
 
     $(document).ready(function () {
-        
+
+        var toolbarItems = [{
+            text: "Approve",
+            click: function () {
+                // Edit daily operation   
+                // Get selected row
+                var selectedRow = $('#SessionsDisplayTable').jtable('selectedRows').data('record');
+                // Edit daily operation   
+                if (!selectedRow) {
+                    $.ajax({
+                        url: '@Url.Action("ApproveRequest", "Account")',
+                        data: {
+                            requestId: selectedRow.Id
+                        },
+                        success: function () {
+                            $('#SessionsDisplayTable').jtable('load');
+                        }
+                    });
+                }
+            },
+            cssClass: "editProcess"
+        }];
 
         $('#SessionsDisplayTable').jtable({
             title: 'Tutor Contracts',
             openChildAsAccordion: true,
+            selecting: true,
+            toolbar: {
+                items: toolbarItems
+            },
             ajaxSettings: {
                 contentType: 'application/json'
             },
@@ -43,8 +68,8 @@
                 },
                 Status: {
                     title: 'Approval Status',
-                    display: function (rowdata) {
-                        return '<button id="cellApprove" type="button" class="btn btn-primary" onclick="refreshTable(data.record.Id); return false;">' + rowdata.record.Status + '</button>';
+                    //display: function (rowdata) {
+                    //    return '<button id="cellApprove" type="button" class="btn btn-primary" onclick="refreshTable(data.record.Id); return false;">' + rowdata.record.Status + '</button>';
                         //return '<button title="' + data.record.Status + '" class="jtable-command-button jtable-edit-command-button" onclick="refreshTable(data.record.Id); return false;"><span>' + data.record.Status + '</span></button>';
                         //var row = data.record;
                         //var result = data.record.Status;
@@ -54,14 +79,8 @@
                         //    result = '<button title="'+ result +'" class="jtable-command-button jtable-edit-command-button" onclick="refreshTable(data.record.Id); return false;"><span>'+data.record.Status+'</span></button>';
                         //}
                         //return result;
-                        function refreshTable(requestId) {
-                            $.post("@Url.Action("ApproveRequest")?requestId=" + requestId,
-                                function (results) {
-                                    $('#MyTableDiv').jtable('reload');
-                                }
-                                , "json");
-                        }
-                    }
+                        
+                    //}
                 },
                 Availability: {
                     title: 'Session Info',
@@ -110,8 +129,22 @@
                         return link;
                     }
                 },
+            },
+            selectionChanged: function () {
+                //Get all selected rows
+                var selectedRow = $('#SessionsDisplayTable').jtable('selectedRows').data('record');
+                if (selectedRow) {
+                    console.log("HERE " + selectedRow.Status);
+                    if (selectedRow.Status == "Pending" && "@PTS.Infrastructure.SessionDataHelper.UserRole" == "@UserRole.Teacher") {
+                        $(".editProcess").show();
+                    }
+                } else {
+                    $(".editProcess").hide();
+                }
             }
         });
         $('#SessionsDisplayTable').jtable('load');
+
+        $(".editProcess").hide();
     })
 </script>

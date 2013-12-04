@@ -117,7 +117,7 @@ namespace Service.Services {
                 Email = user.Email,
             };
 
-            var body = returnEnrolledBody(model, requester);
+            var body = returnRequestBody(model, requester);
 
             MailMessage emailSender = new MailMessage();
             emailSender.To.Add(user.Email);
