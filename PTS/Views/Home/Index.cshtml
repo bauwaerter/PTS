@@ -5,10 +5,17 @@
 @{
     ViewBag.Title = "Home Page";
 }
-
 <style>
-    #ticker {
+    /*#ticker {
+        height: 350px;
+       overflow: hidden;
+    }
 
+        #ticker li {  
+            display:block;
+            height: 350px;
+        }*/
+    #ticker {
         width: 350px;
         height: 200px;
         overflow: hidden;
@@ -47,7 +54,12 @@
             
         
     </div>
-    <div   style="background-color:#ecf0f1; width: 450px; height:300px;border-radius:10px; margin:17px; float:right; text-align:center;">
+    <div  style="background-color:#ecf0f1; width: 450px; height:300px;border-radius:10px; margin:17px; float:right; text-align:center;">
+        <h4>Check out our Tutors!</h4>
+        <div style=" margin-left:50px">
+            
+            <ul id="ticker" class="radslides"></ul>
+        </div>
     </div>
  
 </div>
@@ -82,7 +94,7 @@
     </div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+
 
 <script>
     
@@ -97,8 +109,13 @@
             success: function (data) {
                 console.log(data)
                 for (var i in data.Results) {
+                    $('#ticker').append('<li>'
+                        +'<h5>' + data.Results[i].TutorName + '</h5>'
+                        + '<h6>Rating:   ' + data.Results[i].Rating + '</h6>'
+                        + '<h7>Review:   ' + data.Results[i].Review + '</h7><br/><br/>'
                         + '</li>')
                 }
+
             },
             error: function (req, status, error) {
                 window.alert("Error!");
@@ -107,14 +124,19 @@
 
     })
 
+    function tick() {
+        $('#ticker li:first').animate({ 'opacity': 0 }, 200, function () { $(this).appendTo($('#ticker')).css('opacity', 1); });
+    }
+    setInterval(function () { tick() }, 4000);
+
+
     $(function () {
         $(".rslides").responsiveSlides({
             pager: true,
         });
 
     });
-
-    });
+    
 
 
 
