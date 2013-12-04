@@ -1,4 +1,4 @@
-﻿@using Core.Domains;
+@using Core.Domains;
 @model Core.Domains.User
 
 @{
@@ -7,21 +7,38 @@
 }
 
 <h4>Tutor Sessions</h4>
+
+@*<script src="~/Content/Rating/jquery.js"></script>*@
+<script src="~/Content/Rating/rating_simple.js"></script>
+<link href="~/Content/Rating/rating_simple.css" rel="stylesheet" />
+
+@*<input name="my_input" value="3" id="rating_simple1" type="hidden">*@
+
 <div id="SessionsDisplayTable"></div>
-<script type="text/javascript">
 
-    $(document).ready(function () {
 
-        var toolbarItems = [{
-            text: "Approve",
-            click: function () {
-                // Get selected row
-                var selectedRow = $('#SessionsDisplayTable').jtable('selectedRows').data('record');
+<script language="javascript" type="text/javascript">
+    $(document).ready(function() {
+        
+
+        //$("#rating_simple1").webwidget_rating_simple({
+        //    rating_star_length: '5',
+        //    rating_initial_value: '4',
+        //    rating_function_name: '',
+        //    directory: '/Content/Rating'
+        //});
+
+
+    var toolbarItems = [{
+        text: "Approve",
+        click: function () {
+            // Get selected row
+            var selectedRow = $('#SessionsDisplayTable').jtable('selectedRows').data('record');
                 
-                if (selectedRow) {
-                    console.log(selectedRow.RequestId);
-                    $.ajax({
-                        url: '@Url.Action("ApproveRequest", "Account")',
+            if (selectedRow) {
+                console.log(selectedRow.RequestId);
+                $.ajax({
+                    url: '@Url.Action("ApproveRequest", "Account")',
                         data: {
                             requestId: selectedRow.RequestId
                         },
@@ -31,21 +48,21 @@
                     });
                 }
             },
-            cssClass: "editProcess"
-        }];
+        cssClass: "editProcess"
+    }];
 
-        $('#SessionsDisplayTable').jtable({
-            title: 'Tutor Contracts',
-            openChildAsAccordion: true,
-            selecting: true,
-            toolbar: {
-                items: toolbarItems
-            },
-            ajaxSettings: {
-                contentType: 'application/json'
-            },
-            actions: {
-                listAction: '@Url.Action("GetSessions")',
+    $('#SessionsDisplayTable').jtable({
+        title: 'Tutor Contracts',
+        openChildAsAccordion: true,
+        selecting: true,
+        toolbar: {
+            items: toolbarItems
+        },
+        ajaxSettings: {
+            contentType: 'application/json'
+        },
+        actions: {
+            listAction: '@Url.Action("GetSessions")',
             },
             fields: {
                 Id: {
@@ -70,17 +87,28 @@
                     title: 'Approval Status',
                     //display: function (rowdata) {
                     //    return '<button id="cellApprove" type="button" class="btn btn-primary" onclick="refreshTable(data.record.Id); return false;">' + rowdata.record.Status + '</button>';
-                        //return '<button title="' + data.record.Status + '" class="jtable-command-button jtable-edit-command-button" onclick="refreshTable(data.record.Id); return false;"><span>' + data.record.Status + '</span></button>';
-                        //var row = data.record;
-                        //var result = data.record.Status;
-                        //console.log(data.record.Status);
-                        //console.log(data.record.Id);
-                        //if (data.record.Role == UserRole.Teacher) {
-                        //    result = '<button title="'+ result +'" class="jtable-command-button jtable-edit-command-button" onclick="refreshTable(data.record.Id); return false;"><span>'+data.record.Status+'</span></button>';
-                        //}
-                        //return result;
+                    //return '<button title="' + data.record.Status + '" class="jtable-command-button jtable-edit-command-button" onclick="refreshTable(data.record.Id); return false;"><span>' + data.record.Status + '</span></button>';
+                    //var row = data.record;
+                    //var result = data.record.Status;
+                    //console.log(data.record.Status);
+                    //console.log(data.record.Id);
+                    //if (data.record.Role == UserRole.Teacher) {
+                    //    result = '<button title="'+ result +'" class="jtable-command-button jtable-edit-command-button" onclick="refreshTable(data.record.Id); return false;"><span>'+data.record.Status+'</span></button>';
+                    //}
+                    //return result;
                         
                     //}
+                },
+                Review: {
+                    title: 'Ratings',
+                    display: function (data) {
+                        if (data.record.Review == null && data.record.Status != "Pending") {
+                            return '<a href="@Url.Action("AddReview", "Review")?teacherId=' + data.record.Id + '">' + "Review Teacher" + '</a>';
+                        }
+                        else {
+                            return '<a href="@Url.Action("ReviewTeacherView", "Review")?teacherId=' + data.record.Id + '">' + data.record.AverageRating + ' / 10</a>';
+                        }
+                    }
                 },
                 Availability: {
                     title: 'Session Info',
@@ -136,14 +164,21 @@
                 if (selectedRow) {
                     if (selectedRow.Status == "Pending" && "@PTS.Infrastructure.SessionDataHelper.UserRole" == "@UserRole.Teacher") {
                         $(".editProcess").show();
+                        
+                    }
+                    if (selectedRow.Status == "Approved" && "@PTS.Infrastructure.SessionDataHelper.UserRole" == "@UserRole.Student") {
+                        $(".addReview").show();
                     }
                 } else {
                     $(".editProcess").hide();
+                    $(".addReview").hide();
                 }
             }
         });
         $('#SessionsDisplayTable').jtable('load');
 
         $(".editProcess").hide();
-    })
+        $(".addReview").hide();
+    });
 </script>
+

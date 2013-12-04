@@ -350,6 +350,11 @@
     <Content Include="Content\jquery-timepicker-master\lib\datepair.js" />
     <Content Include="Content\jquery-timepicker-master\lib\glyphicons-halflings.png" />
     <Content Include="Content\jquery-timepicker-master\lib\screenshot.png" />
+    <Content Include="Content\Rating\jquery1.js" />
+    <Content Include="Content\Rating\nst.gif" />
+    <Content Include="Content\Rating\rating_simple.css" />
+    <Content Include="Content\Rating\rating_simple.js" />
+    <Content Include="Content\Rating\sth.gif" />
     <Content Include="Content\responsiveslides.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -685,6 +690,7 @@
     <Content Include="Views\Account\Transactions.cshtml" />
     <Content Include="Views\Search\ClassesMap.cshtml" />
     <Content Include="Views\Account\Calendar.cshtml" />
+    <Content Include="Views\Review\AddReview.cshtml" />
     <Content Include="Views\Account\CreateClass.cshtml">
       <SubType>Code</SubType>
     </Content>

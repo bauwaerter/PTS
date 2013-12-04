@@ -64,9 +64,9 @@
                                             <li>
                                                 @Html.ActionLink("Review Class", "Index", "Review")
                                             </li>
-                                            <li>
+                                            @*<li>
                                                 @Html.ActionLink("Review Tutor", "ReviewTutor", "Review")
-                                            </li>
+                                            </li>*@
                                             @if (SessionDataHelper.UserRole == UserRole.Teacher)
                                             {
                                                 <li>
@@ -77,7 +77,7 @@
                                                 @Html.ActionLink("My Classes", "DisplayClasses", "Account")
                                             </li>
                                             <li>
-                                                @Html.ActionLink("My Tutor Sessions", "DisplaySessions", "Account")
+                                                @Html.ActionLink("Tutor Sessions", "DisplaySessions", "Account")
                                             </li>
                                             <li>
                                                 @Html.ActionLink("Transactions", "Transactions", "Account")
