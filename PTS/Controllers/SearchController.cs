@@ -52,7 +52,6 @@ namespace PTS.Views.Search
                                        teacher.User.LastName,
                                        teacher.User.Email,
                                        teacher.ReviewTeacher,
-                                       teacher.ClassRate,
                                        teacher.HourlyRate,
                                        teacher.User.Location.Latitude,
                                        teacher.User.Location.Longitude,
@@ -67,7 +66,6 @@ namespace PTS.Views.Search
                     LastName = t.LastName,
                     Email = t.Email,
                     AverageRating = t.ReviewTeacher.FirstOrDefault() !=  null ? Math.Round(t.ReviewTeacher.Average(a => a.Rating), 1).ToString() : "No Ratings",
-                    ClassRate = t.ClassRate,
                     HourlyRate = t.HourlyRate,
                     Latitude = t.Latitude,
                     Longitude = t.Longitude

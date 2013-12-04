@@ -177,9 +177,6 @@
                         }
                     }
                 },
-                ClassRate: {
-                    title: 'Class Rate'
-                },
                 HourlyRate: {
                     title: 'Hourly Rate'
                 },
@@ -240,6 +237,7 @@
                 },
                 RequestAppointment: {
                     title: 'Request Session',
+                    width: '15%',
                     display: function (data) {
                         return '<a href="@Url.Action("LoadRequestSession", "Account")?teacherId=' + data.record.Id + '">Request Session</a>';
                     }
@@ -301,15 +299,19 @@
                 },
                 Description: {
                     title: 'Description',
+                    width: '10%'
                 },
                 TeacherName: {
                     title: 'Teacher',
+                    width: '10%'
                 },
                 SubjectName:{
-                    title: 'Subject'
+                    title: 'Subject',
+                    width: '10%'
                 },
                 AverageRating: {
                     title: 'Ratings',
+                    width: '8%',
                     display: function (data) {
                         if (data.record.AverageRating != "No Ratings") {
                             return '<a href="@Url.Action("ReviewClassesView", "Review")?classId=' + data.record.Id + '">' + data.record.AverageRating + ' / 10</a>';
@@ -321,12 +323,15 @@
                 },
                 StartTime: {
                     title: 'Start Time',
+                    width: '10%'
                 },
                 EndTime: {
                     title: 'End Time',
+                    width: '10%'
                 },
                 Duration: {
                     title: 'Duration',
+                    width: '3%',
                 },
                 Address: {
                     title: 'Address'
@@ -338,10 +343,12 @@
                     title: 'State'
                 },
                 ZipCode: {
-                    title: 'Zip Code'
+                    title: 'Zip Code',
+                    width: '10%'
                 },
                 Country: {
-                    title: 'Country'
+                    title: 'Country',
+                    width: '5%',
                 },
                 Map: {
                     title: 'Map',
