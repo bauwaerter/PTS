@@ -241,6 +241,8 @@ namespace PTS.Views.Search
                                      classes.SubjectID,
                                      classes.Description,
                                      classes.Subject.Name,
+                                     classes.Location.Latitude,
+                                     classes.Location.Longitude
                                  }).ToList();
 
                 var records = classList.Select(d => new ClassViewModel
@@ -260,7 +262,15 @@ namespace PTS.Views.Search
                     Address = d.Location.Address,
                     ZipCode = d.Location.ZipCode,
                     Country = d.Location.Country,
+                    Latitude = d.Latitude,
+                    Longitude = d.Longitude
                 });
+
+                if (miles != 0)
+                {
+                    var oldClassesList = records;
+                    records = oldClassesList.Where(d => (ListHelper.CalculateDistance(lat1, lon1, d.Latitude, d.Longitude, miles)));
+                }
 
                 if (!string.IsNullOrWhiteSpace(textSearch))
                 {

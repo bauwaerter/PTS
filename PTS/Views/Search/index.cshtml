@@ -92,10 +92,16 @@
 
         $('#globalSearchButton').on('click', function (event) {
             $('#teacherUserTable').jtable('load', JSON.stringify({
-                textSearch: $('#globalSearch').val()
+                textSearch: $('#globalSearch').val(),
+                lat1: lat1,
+                lon1: lon1,
+                miles: $('#mileselectlist').val(),
             }));
             $('#classesTable').jtable('load', JSON.stringify({
-                textSearch: $('#globalSearch').val()
+                textSearch: $('#globalSearch').val(),
+                lat1: lat1,
+                lon1: lon1,
+                miles: $('#mileselectlist').val()
             }));
         });
         $('#globalSearch').keypress(function (e) {
@@ -109,11 +115,13 @@
         $('#applyZipCodeFilter').on('click', function () {
             var callback = function () {
                 $('#teacherUserTable').jtable('load', JSON.stringify({
+                    textSearch: $('#globalSearch').val(),
                     lat1: lat1,
                     lon1: lon1,
                     miles: $('#mileselectlist').val()
                 }));
                 $('#classesTable').jtable('load', JSON.stringify({
+                    textSearch: $('#globalSearch').val(),
                     lat1: lat1,
                     lon1: lon1,
                     miles: $('#mileselectlist').val()
