@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Calendar";
+}
+
+<h2>Calendar</h2>
+<div id="calendar"></div>
+
+<script>
+    $(document).ready(function () {
+
+        // page is now ready, initialize the calendar...
+
+        $('#calendar').fullCalendar({
+            // put your options and callbacks here
+
+            events: function (start, end, callback) {
+                $.ajax({
+                    url: 'GetCalendar',
+                    dataType: 'json',
+                    type:'post',
+                    success: function (dates) {
+                        var events = [];
+                        debugger
+                        for (i in dates.Records)
+                        {
+                            events.push({
+                                title: dates.Records[i].title,
+                                id: dates.Records[i].id,
+                                allday: dates.Records[i].allday,
+                                start: dates.Records[i].start,
+                                end: dates.Records[i].end,
+                                eventColor: '#3498db'
+                            })
+                        }
+
+                        callback(events);
+                    }
+                });
+            }
+        })
+    });
+</script>
