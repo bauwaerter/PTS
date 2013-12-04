@@ -1750,19 +1750,6 @@
             <param name="inherited">if set to <c>true</c> [inherited].</param>
             <returns></returns>
         </member>
-        <member name="T:Ninject.Infrastructure.Language.ExtensionsForType">
-            <summary>
-            Extension methods for type
-            </summary>
-            <remarks></remarks>
-        </member>
-        <member name="M:Ninject.Infrastructure.Language.ExtensionsForType.GetAllBaseTypes(System.Type)">
-            <summary>
-            Gets an enumerable containing the given type and all its base types
-            </summary>
-            <param name="type">The type.</param>
-            <returns>An enumerable containing the given type and all its base types</returns>
-        </member>
         <member name="T:Ninject.Infrastructure.Future`1">
             <summary>
             Represents a future value.
@@ -5752,11 +5739,6 @@
             Gets the interval at which the cache should be pruned.
             </summary>
         </member>
-        <member name="P:Ninject.INinjectSettings.DefaultScopeCallback">
-            <summary>
-            Gets the default scope callback.
-            </summary>
-        </member>
         <member name="P:Ninject.INinjectSettings.LoadExtensions">
             <summary>
             Gets a value indicating whether the kernel should automatically load extensions at startup.
@@ -6066,11 +6048,6 @@
         <member name="P:Ninject.NinjectSettings.CachePruningInterval">
             <summary>
             Gets or sets the interval at which the GC should be polled.
-            </summary>
-        </member>
-        <member name="P:Ninject.NinjectSettings.DefaultScopeCallback">
-            <summary>
-            Gets or sets the default scope callback.
             </summary>
         </member>
         <member name="P:Ninject.NinjectSettings.LoadExtensions">

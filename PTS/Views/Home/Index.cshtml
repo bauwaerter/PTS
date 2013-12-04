@@ -1,4 +1,6 @@
 ﻿@using Core.Domains;
+@using PTS.Models; 
+
 
 @{
     ViewBag.Title = "Home Page";
@@ -15,13 +17,9 @@
             
         
     </div>
-    <div style="background-color:#ecf0f1; width: 450px; height:300px;border-radius:10px; margin:17px; float:right; text-align:center;">
-            <br />
-            <p style="text-align:center; margin-top:30px;">New to the site?</p>
-            <p style="text-align:center; margin: 10px;">Welcome to our family.
-            Join us if you want to gain some experience
-            at teaching and make money or want to sharpen your skills.</p>
-        </div>
+    <div  style="background-color:#ecf0f1; width: 450px; height:300px;border-radius:10px; margin:17px; float:right; text-align:center;">
+        <ul id="TutorAds" class="radslides"></ul>
+    </div>
  
 </div>
 <br />
@@ -55,12 +53,46 @@
     </div>
 </div>
 
+
+
 <script>
+    
+
+    $(document).ready(function(){
+
+        
+        //--data.Results[1].TutorName
+        $.ajax({
+            url: '@Url.Action("GetRandomTeachers")',
+            type: 'POST',
+            success: function (data) {
+                console.log(data)
+                for (var i in data.Results) {
+                    $('#TutorAds').append('<li>'
+                        +'<h2>' + data.Results[i].TutorName + '</h2><br/>'
+                        + '<h4>' + data.Results[i].Rating + '</h4><br/>'
+                        + '<p>' + data.Results[i].Review + '</p><br/>'
+                        + '</li>')
+                }
+            },
+            error: function (req, status, error) {
+                window.alert("Error!");
+            } // assuming error is function
+        });
+
+    })
+
     $(function () {
         $(".rslides").responsiveSlides({
             pager: true,
         });
 
     });
+    $(function () {
+        $(".rslides").responsiveSlides();
+
+    });
+
+
 
 </script>

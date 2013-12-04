@@ -64,8 +64,33 @@ namespace PTS.Controllers
                 throw new Exception(ex.Message);
             }
         }
+        [HttpPost]
+        public ActionResult GetRandomTeachers()
+        {
+            var teachers=_teacherUserService.GetAll();
+            var adList = new List<TutorAd>();
 
-        
+            foreach(var t in teachers)
+            {
+                var rand = new Random();
+                var reviews = t.ReviewTeacher;
+                if (t.ReviewTeacher.Count > 0)
+                {
+                    var r = reviews.ToArray()[rand.Next(t.ReviewTeacher.Count)];
+                    var ad = new TutorAd
+                    {
+                        Date = r.Date,
+                        Rating = r.Rating,
+                        Review = r.Comment,
+                        TutorName = t.User.FirstName + " " + t.User.LastName
+                    };
+                    adList.Add(ad);
+                }
+            }
+
+
+            return Json(new { Results = adList });
+        }
 
         [AllowAnonymous]
         public ActionResult About()

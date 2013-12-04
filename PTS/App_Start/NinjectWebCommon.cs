@@ -43,7 +43,7 @@ namespace PTS.App_Start
         /// <returns>The created kernel.</returns>
         private static IKernel CreateKernel()
         {
-            var kernel = new StandardKernel();
+            var kernel = new StandardKernel(new NinjectSettings() { LoadExtensions = false });
             kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
             kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
             
@@ -60,8 +60,9 @@ namespace PTS.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Load(new Ninject.Web.Mvc.MvcModule());
             kernel.Load(new ServiceModules());
-            kernel.Load(new WebModules());
+           kernel.Load(new WebModules());
         }        
     }
 }
