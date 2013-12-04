@@ -214,6 +214,18 @@ namespace PTS.Views.Search
         }
 
         [AllowAnonymous]
+        public ActionResult AllTutorsMap()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult AllClassesMap()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
         public ActionResult LoadClassesMap(int classesId)
         {
             var classes = _classService.GetById(classesId);

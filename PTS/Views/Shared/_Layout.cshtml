@@ -83,7 +83,16 @@
                                         </ul>
                                     }
                                 </li>
-                                <li>@Html.ActionLink("Search", "Index", "Search")</li>
+                                <li>@Html.ActionLink("Search", "Index", "Search")
+                                    <ul>
+                                        <li>
+                                            @Html.ActionLink("Tutors Map", "AllTutorsMap", "Search")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Classes Map", "AllClassesMap", "Search")
+                                        </li>
+                                    </ul>
+                                </li>
                             </ul>
                         </div>
                     </div>

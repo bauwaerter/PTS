@@ -4,9 +4,9 @@
 
 
 
-<h2 style="margin-left:20px;">Map</h2>
+<h2 style="margin-left:20px;">@(Model.Description) Map</h2>
 <br />
-<div id="googleMap" style="width: 700px; height: 450px; margin-left: 50px; border-radius:10px;"></div>
+<div id="googleMap" style="width: 850px; height: 600px; margin-left: 95px; border-radius:10px;"></div>
 
 <script>
     var mapsCenter = new google.maps.LatLng('@(Model.Location.Latitude)', '@(Model.Location.Longitude)');

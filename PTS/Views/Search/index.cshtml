@@ -11,7 +11,7 @@
             <button id="globalSearchButton" class="btn btn-primary" float: right>Search</button>
         </div>
         <div class="col-md-4">
-            <input id="searchZipCode" value="@(SessionDataHelper.ZipCode)" class="form-control" style="font-size: 20px;" />
+            <input id="searchZipCode" value="@if (Request.IsAuthenticated){@(SessionDataHelper.ZipCode)}else{<text>76019</text>}" class="form-control" style="font-size: 20px;" />
         </div>
         <div class="col-md-2">
             <button id="applyZipCodeFilter" class="btn btn-primary">Apply</button>
@@ -52,8 +52,28 @@
 <script src="~/Content/Flat-UI/js/bootstrap-select.js"></script>
 <script src="~/Content/Flat-UI/js/bootstrap.min.js"></script>
 <script>
-    var lat1 = '@(SessionDataHelper.Latitude)';
-    var lon1 = '@(SessionDataHelper.Longitude)';
+    @if (Request.IsAuthenticated)
+    {
+        <text>
+        var lat1 = '@(SessionDataHelper.Latitude)';
+        </text>
+    }
+    else{
+        <text>
+        var lat1 = 32.7050;
+        </text>
+    }
+    @if (Request.IsAuthenticated)
+    {
+        <text>
+        var lon1 = '@(SessionDataHelper.Longitude)';
+        </text>
+    }
+    else {
+        <text>
+        var lon1 = 97.1228;
+        </text>
+    }
     
     var geocoder;
 
