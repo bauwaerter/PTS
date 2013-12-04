@@ -29,12 +29,12 @@ namespace Core.Domains
         #region navigation
         public virtual Location Location { get; set; }
 
-        private ICollection<Enrolled> _enrolled;
-        public virtual ICollection<Enrolled> Enrolled
-        {
-            get { return _enrolled ?? (_enrolled = new List<Enrolled>()); }
-            protected set { _enrolled = value; }
-        }
+        //private ICollection<Enrolled> _enrolled;
+        //public virtual ICollection<Enrolled> Enrolled
+        //{
+        //    get { return _enrolled ?? (_enrolled = new List<Enrolled>()); }
+        //    protected set { _enrolled = value; }
+        //}
         #endregion
 
     }

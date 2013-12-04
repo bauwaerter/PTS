@@ -61,8 +61,7 @@ namespace Core.Domains
         public virtual int ClassId { get; set; }
 
         #region navigation
-        public virtual Class Class { get; set; }
-        public virtual User User { get; set; }
+        
         #endregion
     }
 
