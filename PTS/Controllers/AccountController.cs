@@ -343,13 +343,16 @@ namespace PTS.Controllers {
             MailMessage emailSender = new MailMessage();
             emailSender.To.Add(email.To);
             emailSender.Subject = "New Message - PTS: " + email.Subject;
-            emailSender.From = new System.Net.Mail.MailAddress(email.From);
+            emailSender.SubjectEncoding = System.Text.Encoding.UTF8;
+            emailSender.From = new System.Net.Mail.MailAddress("prospecttutoringsystems@gmail.com", "One Ghost", System.Text.Encoding.UTF8);
             emailSender.Body = "New Message From " + email.From + ".\n\n\n"
                 + email.Body;
+            emailSender.BodyEncoding = System.Text.Encoding.UTF8;
 
             _emailService.SmtpSend(emailSender);
             return RedirectToAction("DisplaySessions", "Account");
         }
+
 
 
         [HttpGet]
