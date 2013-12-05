@@ -13,7 +13,7 @@
 </hgroup>
 
 <div class="contact">
-    <form id="UserAccount" action="" method="POST" enctype="multipart/form-data">
+    <form id="UserAccount"  method="POST" enctype="multipart/form-data">
         @Html.ValidationSummary(true)
         @*@Html.HiddenFor(model => model.Id)*@
         <div class="sectionContainer formHolder">
@@ -24,7 +24,7 @@
                             <label>First Name:</label>
                         </div>
                         <div class="col-md-1 ">
-                            <span><input name="FirstName" disabled="disabled" style="width:auto" class="form-control" value="@(Model.FirstName)" /></span>
+                            <span><input id="FirstName" name="FirstName" disabled="disabled" style="width:auto" class="form-control" value="@(Model.FirstName)" /></span>
                         </div>
                     </div>
                     <div class="row">
@@ -435,7 +435,8 @@
                 });
 
 
-                $('#form').validate({
+                $('#FirstName').validate({
+                    onfocusout: false,
                     rules: {
                         FirstName: "required",
                         LastName: "required",
