@@ -31,9 +31,9 @@ namespace PTS.Controllers
         private readonly IBaseService<Class> _classService;
         private readonly IBaseService<Location> _locationService;
         private readonly ILoginService _loginService;
-        private readonly IBaseService<Request> _requestService; 
+        private readonly IBaseService<Request> _requestService;
         private readonly IBaseService<TeacherUser> _teacherUserService;
-        private readonly IBaseService<Teacher_Offers> _teacherOfferService; 
+        private readonly IBaseService<Teacher_Offers> _teacherOfferService;
         private readonly IUserService _userService;
         private readonly IBaseService<Subject> _subjectService;
         private readonly IBaseService<Class_Meeting_Dates> _classMeetingDatesService;
@@ -45,8 +45,8 @@ namespace PTS.Controllers
         #endregion
 
         #region constructor
-        public AccountController(IBaseService<Schedule> scheduleServie, IBaseService<Payment> paymentsService, IBaseService<Enrolled> enrolledService, IBaseService<Class_Meeting_Dates> classMeetingDatesService, IBaseService<Subject> subjectService, IUserService userService, IBaseService<Class> classService, IBaseService<Location> locationService, 
-            IBaseService<TeacherUser> teacherUserService, ILoginService loginService, IBaseService<Request> requestService,IBaseService<Teacher_Offers> teacherOfferService, IBaseService<Tutors> tutorsService,
+        public AccountController(IBaseService<Schedule> scheduleServie, IBaseService<Payment> paymentsService, IBaseService<Enrolled> enrolledService, IBaseService<Class_Meeting_Dates> classMeetingDatesService, IBaseService<Subject> subjectService, IUserService userService, IBaseService<Class> classService, IBaseService<Location> locationService,
+            IBaseService<TeacherUser> teacherUserService, ILoginService loginService, IBaseService<Request> requestService, IBaseService<Teacher_Offers> teacherOfferService, IBaseService<Tutors> tutorsService,
             IBaseService<Schedule> scheduleService, IEmailService emailService)
         {
             _userService = userService;
@@ -65,13 +65,14 @@ namespace PTS.Controllers
             _scheduleService = scheduleService;
             _emailService = emailService;
         }
-        #endregion 
+        #endregion
         //
         // GET: /Account/Login
 
 
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl) {
+        public ActionResult Login(string returnUrl)
+        {
             ViewBag.ReturnUrl = returnUrl;
             var model = new LoginModel();
             return View(model);
@@ -82,9 +83,12 @@ namespace PTS.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Login(LoginModel loginModel, string returnUrl) {
-            try{
-                if (_userService.ValidateLogin(loginModel.UserName, loginModel.Password)){
+        public ActionResult Login(LoginModel loginModel, string returnUrl)
+        {
+            try
+            {
+                if (_userService.ValidateLogin(loginModel.UserName, loginModel.Password))
+                {
                     var user = _userService.GetUserByEmail(loginModel.UserName);
 
                     FormsAuthentication.SetAuthCookie(loginModel.UserName, loginModel.RememberMe);
@@ -96,18 +100,22 @@ namespace PTS.Controllers
                     SessionDataHelper.ZipCode = user.Location.ZipCode;
                     SessionDataHelper.SessionId = System.Web.HttpContext.Current.Session.SessionID;
 
-                    if (SessionDataHelper.UserId != 1){
+                    if (SessionDataHelper.UserId != 1)
+                    {
                         _loginService.LogUser(SessionDataHelper.UserId, SessionDataHelper.SessionId);
                     }
 
-                    if (Url.IsLocalUrl(returnUrl)){
+                    if (Url.IsLocalUrl(returnUrl))
+                    {
                         return Redirect(returnUrl);
                     }
 
                     return RedirectToAction("Index", "Home");
                 }
                 throw new Exception("Your username/password combination was incorrect");
-            }catch (Exception ex){
+            }
+            catch (Exception ex)
+            {
                 ModelState.AddModelError("Error", ex.Message);
             }
             return View(loginModel);
@@ -127,7 +135,7 @@ namespace PTS.Controllers
         public ActionResult SaveTeacherUser(TeacherUser teach)
         {
             teach.Id = SessionDataHelper.UserId;
-            teach.ScheduleId = teach.Schedule.Id =_teacherUserService.GetById(SessionDataHelper.UserId).ScheduleId;
+            teach.ScheduleId = teach.Schedule.Id = _teacherUserService.GetById(SessionDataHelper.UserId).ScheduleId;
             _scheduleService.Update(teach.Schedule);
             _teacherUserService.Update(teach);
             return Json(new
@@ -141,7 +149,7 @@ namespace PTS.Controllers
             try
             {
                 user.Id = SessionDataHelper.UserId;
-                var tempUserData=_userService.GetById(user.Id);
+                var tempUserData = _userService.GetById(user.Id);
                 var updateUser = new User
                 {
                     Id = user.Id,
@@ -161,14 +169,14 @@ namespace PTS.Controllers
                 _userService.Update(updateUser);
                 return Json(new
                 {
-                    Result="OK"
+                    Result = "OK"
                 });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
-            
+
         }
 
         [Authorize]
@@ -177,22 +185,23 @@ namespace PTS.Controllers
             var model = _userService.GetById(SessionDataHelper.UserId);
             var user = new AccountUser();
             var loc = new LocationVM();
-                       
-            
-           int locid = model.LocationId;
-           var getlocation = _locationService.GetById(locid);
-           loc = new LocationVM 
-                {
-                    Address = getlocation.Address,
-                    City = getlocation.City,
-                    Country = getlocation.Country,
-                    LocationId = getlocation.Id,
-                    State = getlocation.State,
-                    ZipCode = getlocation.ZipCode
-                };
-            
 
-            if(model.Role == UserRole.Student){
+
+            int locid = model.LocationId;
+            var getlocation = _locationService.GetById(locid);
+            loc = new LocationVM
+                 {
+                     Address = getlocation.Address,
+                     City = getlocation.City,
+                     Country = getlocation.Country,
+                     LocationId = getlocation.Id,
+                     State = getlocation.State,
+                     ZipCode = getlocation.ZipCode
+                 };
+
+
+            if (model.Role == UserRole.Student)
+            {
                 user = new AccountUser
                 {
                     FirstName = model.FirstName,
@@ -231,10 +240,10 @@ namespace PTS.Controllers
                     Location = loc,
                     Education = model.Education,
                     Major = model.Major,
-                    ClassRate= teacher.ClassRate,
-                    HourlyRate=teacher.HourlyRate,
+                    ClassRate = teacher.ClassRate,
+                    HourlyRate = teacher.HourlyRate,
                     Role = UserRole.Teacher,
-                    Schedule= teacher.Schedule
+                    Schedule = teacher.Schedule
                 };
             }
 
@@ -242,7 +251,8 @@ namespace PTS.Controllers
         }
 
         [HttpPost]
-        public ActionResult LogOff() {
+        public ActionResult LogOff()
+        {
             FormsAuthentication.SignOut();
             SessionHelper.Abandon();
             Session.Abandon();
@@ -257,8 +267,10 @@ namespace PTS.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult Register(){
-            var user = new User(){
+        public ActionResult Register()
+        {
+            var user = new User()
+            {
                 DOB = DateTime.Today,
                 Role = UserRole.Student,
                 Location = new Location()
@@ -271,12 +283,16 @@ namespace PTS.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Register(string confirmPassword, User user, TeacherScheduleModel teacherUser, int subject) {
-            try {
-                if (!CommonHelper.IsValidEmail(user.Email)) {
+        public ActionResult Register(string confirmPassword, User user, TeacherScheduleModel teacherUser, int subject)
+        {
+            try
+            {
+                if (!CommonHelper.IsValidEmail(user.Email))
+                {
                     throw new Exception("Username must be a valid email address");
                 }
-                if (confirmPassword.Equals(user.PassWord, StringComparison.Ordinal)) {
+                if (confirmPassword.Equals(user.PassWord, StringComparison.Ordinal))
+                {
                     var salt = "";
                     var email = user.Email;
                     var hashedPassword = SecurityHelper.HashPassword(user.PassWord, ref salt);
@@ -287,7 +303,8 @@ namespace PTS.Controllers
                     user.LocationId = location.Id;
                     user.Location = null;
 
-                    if (teacherUser.Teacher.HourlyRate != 0 || teacherUser.Teacher.ClassRate != 0) {
+                    if (teacherUser.Teacher.HourlyRate != 0 || teacherUser.Teacher.ClassRate != 0)
+                    {
                         teacherUser.Teacher.Active = false;
                         teacherUser.Teacher.User = user;
                         user = null;
@@ -296,39 +313,46 @@ namespace PTS.Controllers
                         _teacherUserService.Insert(teacherUser.Teacher);
                         _emailService.SendNewUserEmail(user, confirmPassword);
                         teacherUser.Teacher.Schedule = teacherUser.Schedule;
-                        var teacherOffer = new Teacher_Offers(){
+                        var teacherOffer = new Teacher_Offers()
+                        {
                             TeacherId = teacherUser.Teacher.Id,
                             SubjectId = subject
                         };
                         _teacherOfferService.Insert(teacherOffer);
                     }
-                    else{
+                    else
+                    {
                         teacherUser = null;
                         _userService.Insert(user);
                         _emailService.SendNewUserEmail(user, confirmPassword);
                     }
 
-                    var loginModel = new LoginModel(){
+                    var loginModel = new LoginModel()
+                    {
                         UserName = email,
                         Password = confirmPassword,
                         RememberMe = false
                     };
 
-                    
+
                     Login(loginModel, "");
                     return RedirectToAction("Index", "Home");
                 }
-            throw new Exception("Passwords do not match");
-            } catch (Exception ex) {
+                throw new Exception("Passwords do not match");
+            }
+            catch (Exception ex)
+            {
                 Error(ex.Message);
                 return View(user);
             }
         }
 
         [HttpGet]
-        public ActionResult SendEmail(string email) {
+        public ActionResult SendEmail(string email)
+        {
             var user = _userService.GetById(SessionDataHelper.UserId);
-            var model = new EmailModel {
+            var model = new EmailModel
+            {
                 To = email,
                 From = user.Email,
             };
@@ -337,7 +361,8 @@ namespace PTS.Controllers
         }
 
         [HttpPost]
-        public ActionResult SendEmail(EmailModel email) {
+        public ActionResult SendEmail(EmailModel email)
+        {
             MailMessage emailSender = new MailMessage();
             emailSender.To.Add(email.To);
             emailSender.Subject = "New Message - PTS: " + email.Subject;
@@ -353,10 +378,13 @@ namespace PTS.Controllers
         [HttpGet]
         public ActionResult LoadRequestSession(int teacherId)
         {
-            try{
-                var model = new RequestModel(){
+            try
+            {
+                var model = new RequestModel()
+                {
                     Teacher = _teacherUserService.GetById(teacherId),
-                    Request = new Request(){
+                    Request = new Request()
+                    {
                         TeacherId = teacherId,
                         StudentId = SessionDataHelper.UserId,
                         Status = "Pending",
@@ -372,11 +400,15 @@ namespace PTS.Controllers
         }
 
         [HttpPost]
-        public ActionResult LoadRequestSession(Request request) {
-            try{
+        public ActionResult LoadRequestSession(Request request)
+        {
+            try
+            {
                 _requestService.Insert(request);
-                return RedirectToAction("ProcessTutorPayment", "Payment", new {studentId = request.StudentId, tutorId = request.TeacherId});
-            } catch (Exception ex) {
+                return RedirectToAction("ProcessTutorPayment", "Payment", new { studentId = request.StudentId, tutorId = request.TeacherId });
+            }
+            catch (Exception ex)
+            {
                 throw new Exception(ex.Message);
             }
         }
@@ -385,13 +417,13 @@ namespace PTS.Controllers
         public ActionResult CreateClass()
         {
             var subjects = _subjectService.GetAll();
-            var today=DateTime.Today.DayOfWeek;
+            var today = DateTime.Today.DayOfWeek;
             var model = new ClassViewModel
             {
                 SubjectId = 1,
                 Subjects = new SelectList(subjects, "Id", "Name")
             };
-            
+
 
             return View(model);
         }
@@ -400,7 +432,7 @@ namespace PTS.Controllers
         public ActionResult SaveClass(ClassViewModel classModel)
         {
             classModel.Duration += ((double)DateTime.Parse(classModel.EndTime).Subtract(DateTime.Parse(classModel.StartTime)).TotalMinutes / 60);
-            
+
             var insertLocation = new Location
             {
                 Address = classModel.Address,
@@ -419,10 +451,10 @@ namespace PTS.Controllers
                 StartTime = TimeSpan.Parse(classModel.StartTime),
                 EndTime = TimeSpan.Parse(classModel.EndTime),
                 Duration = classModel.Duration,
-                TeacherId= SessionDataHelper.UserId,
-                Active=false,
-                SubjectID=classModel.SubjectId,
-                LocationId=insertLocation.Id
+                TeacherId = SessionDataHelper.UserId,
+                Active = false,
+                SubjectID = classModel.SubjectId,
+                LocationId = insertLocation.Id
             };
             _classService.Insert(insertClass);
 
@@ -473,14 +505,14 @@ namespace PTS.Controllers
                         Date = start
                     };
                 }
-                if(insertMeetingDate.ClassId!=0)
-                { 
+                if (insertMeetingDate.ClassId != 0)
+                {
                     _classMeetingDatesService.Insert(insertMeetingDate);
                 }
-                start=start.AddDays(1);
+                start = start.AddDays(1);
             }
 
-            return RedirectToAction("DisplayClasses","Account");
+            return RedirectToAction("DisplayClasses", "Account");
         }
 
         [Authorize]
@@ -494,12 +526,12 @@ namespace PTS.Controllers
         public ActionResult getClassesToDisplay()
         {
             var teacherClasses = _classService.GetTableQuery().Where(c => c.TeacherId == SessionDataHelper.UserId);
-            
+
             var tables = new List<ClassViewModel>();
 
             foreach (var c in teacherClasses)
             {
-                var meetingDates = _classMeetingDatesService.GetTableQuery().Where(m => m.ClassId==c.Id).OrderBy(o=>o.Date);
+                var meetingDates = _classMeetingDatesService.GetTableQuery().Where(m => m.ClassId == c.Id).OrderBy(o => o.Date);
                 var loc = _locationService.GetById(c.Id);
                 var teacher = _teacherUserService.GetById(c.TeacherId);
                 var classModel = new ClassViewModel
@@ -511,23 +543,23 @@ namespace PTS.Controllers
                     Description = c.Description,
                     Id = c.Id,
                     SubjectId = c.SubjectID,
-                    TeacherId=c.TeacherId,
+                    TeacherId = c.TeacherId,
 
                 };
-                if(meetingDates.Count()>0)
+                if (meetingDates.Count() > 0)
                 {
                     classModel.DateStart = meetingDates.First().Date;
-                    classModel.DateEnd = meetingDates.OrderByDescending(x=>x.Date).First().Date;
+                    classModel.DateEnd = meetingDates.OrderByDescending(x => x.Date).First().Date;
                 }
-                if(loc!=null)
+                if (loc != null)
                 {
-                    classModel.Address=loc.Address;
-                    classModel.City=loc.City;
-                    classModel.Country=loc.Country;
-                    classModel.State=loc.State;
+                    classModel.Address = loc.Address;
+                    classModel.City = loc.City;
+                    classModel.Country = loc.Country;
+                    classModel.State = loc.State;
                     classModel.ZipCode = loc.ZipCode;
                 }
-                if(teacher!=null)
+                if (teacher != null)
                 {
                     classModel.TeacherName = teacher.User.FirstName + " " + teacher.User.LastName;
                 }
@@ -538,21 +570,26 @@ namespace PTS.Controllers
         }
 
         [Authorize]
-        public ActionResult DisplaySessions() {
+        public ActionResult DisplaySessions()
+        {
             var model = _userService.GetById(SessionDataHelper.UserId);
             return View(model);
         }
 
         [HttpPost]
-        public JsonResult GetSessions(){
-            try{
-                if (SessionDataHelper.UserRole == UserRole.Student) {
+        public JsonResult GetSessions()
+        {
+            try
+            {
+                if (SessionDataHelper.UserRole == UserRole.Student)
+                {
                     var requests = _requestService.GetAll().Where(x => x.StudentId == SessionDataHelper.UserId);
                     var teacher = _teacherUserService.GetAll().Where(x => requests.Select(i => i.TeacherId).Contains(x.Id)).ToList();
 
                     //var subject = _teacherOfferService.GetAll().Where(x => tutors.Contains(x.TeacherId)).ToList();
 
-                    var results = teacher.Select(p => new {
+                    var results = teacher.Select(p => new
+                    {
                         p.Id,
                         p.User.FirstName,
                         p.User.LastName,
@@ -564,29 +601,34 @@ namespace PTS.Controllers
                         AverageRating = p.ReviewTeacher.FirstOrDefault() != null ? Math.Round(p.ReviewTeacher.Average(a => a.Rating), 1).ToString() : "No Ratings",
                     }).ToArray();
                     return Json(new { Result = "OK", Records = results, TotalRecordCount = requests.Count() });
-                } else {
+                }
+                else
+                {
                     var requests = _requestService.GetAll().Where(x => x.TeacherId == SessionDataHelper.UserId);
                     var student = _userService.GetAll().Where(x => requests.Select(i => i.StudentId).Contains(x.Id)).ToList();
                     var user = _teacherUserService.GetById(SessionDataHelper.UserId);
 
-                    var results = student.Select(p => new {
+                    var results = student.Select(p => new
+                    {
                         p.Id,
                         p.FirstName,
                         p.LastName,
                         p.Email,
-                        Rate = "$"+ user.HourlyRate,
+                        Rate = "$" + user.HourlyRate,
                         Status = requests.FirstOrDefault(x => x.StudentId == p.Id).Status,
                         RequestId = requests.FirstOrDefault(x => x.StudentId == p.Id).Id
                     }).ToArray();
                     return Json(new { Result = "OK", Records = results, TotalRecordCount = results.Count() });
                 }
             }
-            catch (Exception ex){
+            catch (Exception ex)
+            {
                 throw new Exception(ex.Message);
             }
         }
 
-        public void ApproveRequest(int requestId) {
+        public void ApproveRequest(int requestId)
+        {
             var request = _requestService.GetById(requestId);
             request.Status = "Approved";
             _requestService.Update(request);
@@ -596,10 +638,13 @@ namespace PTS.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetSchedule() {
-            try {
+        public JsonResult GetSchedule()
+        {
+            try
+            {
                 var schedule = _requestService.GetAll().Where(x => x.Status == "Approved");
-                var results = schedule.Select(p => new{
+                var results = schedule.Select(p => new
+                {
                     Sunday = (p.Sunday == false) ? "N/A" : "Scheduled",
                     Monday = (p.Monday == false) ? "N/A" : "Scheduled",
                     Tuesday = (p.Tuesday == false) ? "N/A" : "Scheduled",
@@ -608,12 +653,14 @@ namespace PTS.Controllers
                     Friday = (p.Friday == false) ? "N/A" : "Scheduled",
                     Saturday = (p.Saturday == false) ? "N/A" : "Scheduled",
                 }).ToArray();
-                
+
                 return Json(new { Result = "OK", Records = results, TotalRecordCount = results.Count() });
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 throw new Exception(ex.Message);
             }
-        } 
+        }
 
         public ActionResult GetStudentClassesToDisplay()
         {
@@ -662,7 +709,7 @@ namespace PTS.Controllers
                     }
                     tables.Add(classModel);
                 }
-                
+
             }
 
             return Json(new { Result = "OK", Records = tables });
@@ -681,24 +728,24 @@ namespace PTS.Controllers
 
             foreach (var p in payments)
             {
-                var studName=_userService.GetById(p.StudentId);
-                var teacherName =_userService.GetById(p.TeacherId);
-                
+                var studName = _userService.GetById(p.StudentId);
+                var teacherName = _userService.GetById(p.TeacherId);
+
                 var trans = new TransactionsVM
                 {
-                    Amount=p.Amount,
-                    Date=p.Date,
-                    StudentID=p.StudentId,
-                    StudentName=studName.FirstName+ " " + studName.LastName,
-                    TeacherID=p.TeacherId,
-                    TeacherName=teacherName.FirstName+ " " + teacherName.LastName,
-                    Description=p.Description
-                
+                    Amount = p.Amount,
+                    Date = p.Date,
+                    StudentID = p.StudentId,
+                    StudentName = studName.FirstName + " " + studName.LastName,
+                    TeacherID = p.TeacherId,
+                    TeacherName = teacherName.FirstName + " " + teacherName.LastName,
+                    Description = p.Description
+
                 };
                 results.Add(trans);
             }
 
-            return Json(new { Result = "OK", Records = results});
+            return Json(new { Result = "OK", Records = results });
         }
 
         [HttpPost]
@@ -740,350 +787,49 @@ namespace PTS.Controllers
         {
             var results = new List<CalendarEvent>();
             var enrolled = _enrolledService.GetTableQuery().Where(e => e.StudentId == SessionDataHelper.UserId).ToList();
-            
+
             foreach (var c in enrolled)
             {
                 var studentClass = _classService.GetById(c.ClassId);
-                foreach(var m in studentClass.ClassMeetingDates)
+                foreach (var m in studentClass.ClassMeetingDates)
                 {
                     var temp = new CalendarEvent
                     {
-                        allday=false,
-                        id=c.ClassId,
-                        start=m.Date.AddMinutes(studentClass.StartTime.Minutes).ToString(),
-                        end=m.Date.AddMinutes(studentClass.EndTime.Minutes).ToString(),
-                        title="Student: "+studentClass.Description
+                        allday = false,
+                        id = c.ClassId,
+                        start = m.Date.AddMinutes(studentClass.StartTime.Minutes).ToString(),
+                        end = m.Date.AddMinutes(studentClass.EndTime.Minutes).ToString(),
+                        title = "Student: " + studentClass.Description
                     };
                     results.Add(temp);
                 }
             }
 
             var classes = _classService.GetTableQuery().Where(c => c.TeacherId == SessionDataHelper.UserId).ToList();
-            foreach(var c in classes)
-            {
-                var classes = _classService.GetTableQuery().Where(c => c.TeacherId == SessionDataHelper.UserId).ToList();
+          
                 foreach (var c in classes)
                 {
                     foreach (var m in c.ClassMeetingDates)
                     {
+                        var temp = new CalendarEvent
+                        {
+                            allday = false,
+                            id = c.Id,
+                            start = m.Date.AddMinutes(c.StartTime.Minutes).ToString(),
+                            end = m.Date.AddMinutes(c.EndTime.Minutes).ToString(),
+                            title = "Student: " + c.Description
+                        };
+                        results.Add(temp);
 
-            }
 
+                    }
 
+                }
 
-            return Json(new { Result = "OK", Records = results });
+                return Json(new { Result = "OK", Records = results });
+                
+
         }
-
-        //
-        // POST: /Account/Disassociate
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Disassociate(string provider, string providerUserId)
-        //{
-        //    string ownerAccount = OAuthWebSecurity.GetUserName(provider, providerUserId);
-        //    ManageMessageId? message = null;
-
-        //    // Only disassociate the account if the currently logged in user is the owner
-        //    if (ownerAccount == User.Identity.Name)
-        //    {
-        //        // Use a transaction to prevent the user from deleting their last login credential
-        //        using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.Serializable }))
-        //        {
-        //            bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-        //            if (hasLocalAccount || OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name).Count > 1)
-        //            {
-        //                OAuthWebSecurity.DeleteAccount(provider, providerUserId);
-        //                scope.Complete();
-        //                message = ManageMessageId.RemoveLoginSuccess;
-        //            }
-        //        }
-        //    }
-
-        //    return RedirectToAction("Manage", new { Message = message });
-        //}
-
-        //
-        // GET: /Account/Manage
-
-        //public ActionResult Manage(ManageMessageId? message)
-        //{
-        //    ViewBag.StatusMessage =
-        //        message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-        //        : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-        //        : message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
-        //        : "";
-        //    ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-        //    ViewBag.ReturnUrl = Url.Action("Manage");
-        //    return View();
-        //}
-
-        //
-        // POST: /Account/Manage
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Manage(LocalPasswordModel model)
-        //{
-        //    bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-        //    ViewBag.HasLocalPassword = hasLocalAccount;
-        //    ViewBag.ReturnUrl = Url.Action("Manage");
-        //    if (hasLocalAccount)
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            // ChangePassword will throw an exception rather than return false in certain failure scenarios.
-        //            bool changePasswordSucceeded;
-        //            try
-        //            {
-        //                changePasswordSucceeded = WebSecurity.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword);
-        //            }
-        //            catch (Exception)
-        //            {
-        //                changePasswordSucceeded = false;
-        //            }
-
-        //            if (changePasswordSucceeded)
-        //            {
-        //                return RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
-        //            }
-        //            else
-        //            {
-        //                ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
-        //            }
-        //        }
-        //    }
-        //    else
-        //    {
-        //        // User does not have a local password so remove any validation errors caused by a missing
-        //        // OldPassword field
-        //        ModelState state = ModelState["OldPassword"];
-        //        if (state != null)
-        //        {
-        //            state.Errors.Clear();
-        //        }
-
-        //        if (ModelState.IsValid)
-        //        {
-        //            try
-        //            {
-        //                WebSecurity.CreateAccount(User.Identity.Name, model.NewPassword);
-        //                return RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
-        //            }
-        //            catch (Exception)
-        //            {
-        //                ModelState.AddModelError("", String.Format("Unable to create local account. An account with the name \"{0}\" may already exist.", User.Identity.Name));
-        //            }
-        //        }
-        //    }
-
-        //    // If we got this far, something failed, redisplay form
-        //    return View(model);
-        //}
-
-        //
-        // POST: /Account/ExternalLogin
-
-    //    [HttpPost]
-    //    [AllowAnonymous]
-    //    [ValidateAntiForgeryToken]
-    //    public ActionResult ExternalLogin(string provider, string returnUrl)
-    //    {
-    //        return new ExternalLoginResult(provider, Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
-    //    }
-
-    //    //
-    //    // GET: /Account/ExternalLoginCallback
-
-    //    [AllowAnonymous]
-    //    public ActionResult ExternalLoginCallback(string returnUrl)
-    //    {
-    //        AuthenticationResult result = OAuthWebSecurity.VerifyAuthentication(Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
-    //        if (!result.IsSuccessful)
-    //        {
-    //            return RedirectToAction("ExternalLoginFailure");
-    //        }
-
-    //        if (OAuthWebSecurity.Login(result.Provider, result.ProviderUserId, createPersistentCookie: false))
-    //        {
-    //            return RedirectToLocal(returnUrl);
-    //        }
-
-    //        if (User.Identity.IsAuthenticated)
-    //        {
-    //            // If the current user is logged in add the new account
-    //            OAuthWebSecurity.CreateOrUpdateAccount(result.Provider, result.ProviderUserId, User.Identity.Name);
-    //            return RedirectToLocal(returnUrl);
-    //        }
-    //        else
-    //        {
-    //            // User is new, ask for their desired membership name
-    //            string loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
-    //            ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
-    //            ViewBag.ReturnUrl = returnUrl;
-    //            return View("ExternalLoginConfirmation", new RegisterExternalLoginModel { UserName = result.UserName, ExternalLoginData = loginData });
-    //        }
-    //    }
-
-    //    //
-    //    // POST: /Account/ExternalLoginConfirmation
-
-    //    [HttpPost]
-    //    [AllowAnonymous]
-    //    [ValidateAntiForgeryToken]
-    //    public ActionResult ExternalLoginConfirmation(RegisterExternalLoginModel model, string returnUrl)
-    //    {
-    //        string provider = null;
-    //        string providerUserId = null;
-
-    //        if (User.Identity.IsAuthenticated || !OAuthWebSecurity.TryDeserializeProviderUserId(model.ExternalLoginData, out provider, out providerUserId))
-    //        {
-    //            return RedirectToAction("Manage");
-    //        }
-
-    //        if (ModelState.IsValid)
-    //        {
-    //            // Insert a new user into the database
-    //            using (UsersContext db = new UsersContext())
-    //            {
-    //                UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
-    //                // Check if user already exists
-    //                if (user == null)
-    //                {
-    //                    // Insert name into the profile table
-    //                    db.UserProfiles.Add(new UserProfile { UserName = model.UserName });
-    //                    db.SaveChanges();
-
-    //                    OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
-    //                    OAuthWebSecurity.Login(provider, providerUserId, createPersistentCookie: false);
-
-    //                    return RedirectToLocal(returnUrl);
-    //                }
-    //                else
-    //                {
-    //                    ModelState.AddModelError("UserName", "User name already exists. Please enter a different user name.");
-    //                }
-    //            }
-    //        }
-
-    //        ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(provider).DisplayName;
-    //        ViewBag.ReturnUrl = returnUrl;
-    //        return View(model);
-    //    }
-
-    //    //
-    //    // GET: /Account/ExternalLoginFailure
-
-    //    [AllowAnonymous]
-    //    public ActionResult ExternalLoginFailure()
-    //    {
-    //        return View();
-    //    }
-
-    //    [AllowAnonymous]
-    //    [ChildActionOnly]
-    //    public ActionResult ExternalLoginsList(string returnUrl)
-    //    {
-    //        ViewBag.ReturnUrl = returnUrl;
-    //        return PartialView("_ExternalLoginsListPartial", OAuthWebSecurity.RegisteredClientData);
-    //    }
-
-    //    [ChildActionOnly]
-    //    public ActionResult RemoveExternalLogins()
-    //    {
-    //        ICollection<OAuthAccount> accounts = OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name);
-    //        List<ExternalLogin> externalLogins = new List<ExternalLogin>();
-    //        foreach (OAuthAccount account in accounts)
-    //        {
-    //            AuthenticationClientData clientData = OAuthWebSecurity.GetOAuthClientData(account.Provider);
-
-    //            externalLogins.Add(new ExternalLogin
-    //            {
-    //                Provider = account.Provider,
-    //                ProviderDisplayName = clientData.DisplayName,
-    //                ProviderUserId = account.ProviderUserId,
-    //            });
-    //        }
-
-    //        ViewBag.ShowRemoveButton = externalLogins.Count > 1 || OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-    //        return PartialView("_RemoveExternalLoginsPartial", externalLogins);
-    //    }
-
-    //    #region Helpers
-    //    private ActionResult RedirectToLocal(string returnUrl)
-    //    {
-    //        if (Url.IsLocalUrl(returnUrl))
-    //        {
-    //            return Redirect(returnUrl);
-    //        }
-    //        else
-    //        {
-    //            return RedirectToAction("Index", "Home");
-    //        }
-    //    }
-
-    //    public enum ManageMessageId
-    //    {
-    //        ChangePasswordSuccess,
-    //        SetPasswordSuccess,
-    //        RemoveLoginSuccess,
-    //    }
-
-    //    internal class ExternalLoginResult : ActionResult
-    //    {
-    //        public ExternalLoginResult(string provider, string returnUrl)
-    //        {
-    //            Provider = provider;
-    //            ReturnUrl = returnUrl;
-    //        }
-
-    //        public string Provider { get; private set; }
-    //        public string ReturnUrl { get; private set; }
-
-    //        public override void ExecuteResult(ControllerContext context)
-    //        {
-    //            OAuthWebSecurity.RequestAuthentication(Provider, ReturnUrl);
-    //        }
-    //    }
-
-    //    private static string ErrorCodeToString(MembershipCreateStatus createStatus)
-    //    {
-    //        // See http://go.microsoft.com/fwlink/?LinkID=177550 for
-    //        // a full list of status codes.
-    //        switch (createStatus)
-    //        {
-    //            case MembershipCreateStatus.DuplicateUserName:
-    //                return "User name already exists. Please enter a different user name.";
-
-    //            case MembershipCreateStatus.DuplicateEmail:
-    //                return "A user name for that e-mail address already exists. Please enter a different e-mail address.";
-
-    //            case MembershipCreateStatus.InvalidPassword:
-    //                return "The password provided is invalid. Please enter a valid password value.";
-
-    //            case MembershipCreateStatus.InvalidEmail:
-    //                return "The e-mail address provided is invalid. Please check the value and try again.";
-
-    //            case MembershipCreateStatus.InvalidAnswer:
-    //                return "The password retrieval answer provided is invalid. Please check the value and try again.";
-
-    //            case MembershipCreateStatus.InvalidQuestion:
-    //                return "The password retrieval question provided is invalid. Please check the value and try again.";
-
-    //            case MembershipCreateStatus.InvalidUserName:
-    //                return "The user name provided is invalid. Please check the value and try again.";
-
-    //            case MembershipCreateStatus.ProviderError:
-    //                return "The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
-
-    //            case MembershipCreateStatus.UserRejected:
-    //                return "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
-
-    //            default:
-    //                return "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
-    //        }
-    //    }
-    //    #endregion
     }
 }
 
