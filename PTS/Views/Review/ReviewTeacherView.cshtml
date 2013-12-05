@@ -6,47 +6,21 @@
 
 <body>
     <h3>Reviews for @(Model.User.FirstName) @(Model.User.LastName)</h3>
-        <div class="row" style="background-color:#ecf0f1; margin-top:30px;margin-left:50px; width:900px; border-top-left-radius:10px; border-top-right-radius:10px;">
-                <div class="col-md-2 col-md-offset-1"><h4>Date</h4></div>
-                <div class="col-md-1"><h4>Rating</h4></div>
-                <div class="col-md-7 col-md-offset-1"><h4>Comment</h4></div>
-        </div>
-        
-
-        <div class="row demo-samples">
-           <div class="todo" style="margin-left:65px; width: 900px;">
-               <ul>
+        <div class="row tile" style="background-color:#ecf0f1; margin-top:30px;margin-left:50px; width:900px;">
+                <div class="col-md-3"><h4>Date</h4></div>
+                <div class="col-md-2"><h4>Rating</h4></div>
+                <div class="col-md-7"><h4>Comment</h4></div>
+            </div>
+        <div class="row" style="background-color:#bdc3c7; height:30px; margin-left:50px; width:900px;"></div>
         @foreach (var item in Model.ReviewTeacher)
         {
-            <li class="">
-                <div class="todo-icon fui-new"></div>
-                <div class="todo-content">
-                
-                <div class="col-md-2"><h6>@(item.Date)</h6></div>
+            <div class="row tile" style="background-color:#ecf0f1; margin-left:50px; width:900px;">
+                <div class="col-md-3"><h6>@(item.Date)</h6></div>
                 <div class="col-md-2"><h6>@(item.Rating) / 10</h6></div>
-                <div class="col-md-7 col-md-offset-1"><h6>@(item.Comment)</h6></div>
-                    </div>
-                    
-            </li>
-            @*<div class="row" style="background-color:#bdc3c7; height:30px; margin-left:50px; width:800px;"></div>*@
+                <div class="col-md-7"><h6>@(item.Comment)</h6></div>
+            </div>
+            <div class="row" style="background-color:#bdc3c7; height:30px; margin-left:50px; width:800px;"></div>
         }
-                   </ul>
-               </div>
-        </div>
 </body>
 </html>
-<script src="~/Content/Flat-UI/js/jquery.stacktable.js"></script>
 
-<script type="text/ecmascript">
-    $(".todo li").click(function () {
-        if (!$(".ui-timepicker-input").is(':focus') && !$(".date").is(':focus')) {
-            $(this).toggleClass("todo-done");
-            $(this).find('.todo-content div').toggleClass("show");
-            if ($(this).is('.todo-done')) {
-                $(this).find('.weekday').val(true);
-            } else {
-                $(this).find('.weekday').val(false);
-            }
-        }
-    });
-</script>
