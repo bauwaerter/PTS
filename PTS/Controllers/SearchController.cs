@@ -250,14 +250,14 @@ namespace PTS.Views.Search
         [AllowAnonymous]
         public ActionResult AllTutorsMap()
         {
-            IList<TeacherUser> teacherUsers = _teacherUserService.GetTableQuery().ToList();
+            IList<TeacherUser> teacherUsers = _teacherUserService.GetTableQuery().Where(a => a.Active).ToList();
             return View(teacherUsers);
         }
 
         [AllowAnonymous]
         public ActionResult AllClassesMap()
         {
-            IList<Class> classList = _classService.GetTableQuery().ToList();
+            IList<Class> classList = _classService.GetTableQuery().Where(a => a.Active).ToList();
             return View(classList);
         }
 
@@ -453,7 +453,7 @@ namespace PTS.Views.Search
                 teacher.Active = true;
                 _teacherUserService.Update(teacher);
 
-                return Json(new { Result = "OK" }, JsonRequestBehavior.AllowGet);
+                return View("Pending");
             }
             catch (Exception ex)
             {
@@ -469,7 +469,7 @@ namespace PTS.Views.Search
                 classes.Active = true;
                 _classService.Update(classes);
 
-                return Json(new { Result = "OK" }, JsonRequestBehavior.AllowGet);
+                return View("Pending");
             }
             catch (Exception ex)
             {
