@@ -98,6 +98,13 @@
                                         </li>
                                     </ul>
                                 </li>
+                                @if (Request.IsAuthenticated){
+                                    if(SessionDataHelper.UserRole == UserRole.Admin){
+                                <li>@Html.ActionLink("Pending", "Pending", "Search")
+
+                                </li>
+                                }
+                                }
                             </ul>
                         </div>
                     </div>

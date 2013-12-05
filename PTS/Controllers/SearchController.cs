@@ -350,5 +350,99 @@ namespace PTS.Views.Search
                 throw new Exception(ex.Message);
             }
         }
+
+        
+        public ActionResult Pending()
+        {
+            return View();
+        }
+
+        public ActionResult GetPendingTeacherUsers(int jtStartIndex, int jtPageSize)
+        {
+            try
+            {
+                var teacherList = (from teacher in _teacherUserService.GetTableQuery().Where(a => !a.Active)
+                                   select new
+                                   {
+                                       teacher.Id,
+                                       teacher.User.FirstName,
+                                       teacher.User.LastName,
+                                       teacher.User.Email,
+                                       teacher.HourlyRate,
+                                       teacher.User.Location.Latitude,
+                                       teacher.User.Location.Longitude,
+                                   }).ToList();
+
+
+
+                var records = teacherList.Select(t => new TeacherUserViewModel
+                {
+                    Id = t.Id,
+                    Name = t.FirstName + " " + t.LastName,
+                    Email = t.Email,
+                    HourlyRate = t.HourlyRate,
+                    Latitude = t.Latitude,
+                    Longitude = t.Longitude
+                });
+
+                    
+
+                return Json(new { Result = "OK", Records = records.Skip(jtStartIndex).Take(jtPageSize).ToList(), TotalRecordCount = records.Count() });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public ActionResult GetPendingClasses(int jtStartIndex, int jtPageSize)
+        {
+            try
+            {
+                var classList = (from classes in _classService.GetTableQuery().Where(a => !a.Active)
+                                 select new
+                                 {
+                                     classes.Id,
+                                     classes.Teacher.User,
+                                     classes.StartTime,
+                                     classes.EndTime,
+                                     classes.ClassMeetingDates,
+                                     classes.Location,
+                                     classes.SubjectID,
+                                     classes.Description,
+                                     classes.Subject.Name,
+                                     classes.Location.Latitude,
+                                     classes.Location.Longitude
+                                 }).ToList();
+
+
+                var records = classList.Select(d => new ClassViewModel
+                {
+                    Id = d.Id,
+                    LocationId = d.Location.Id,
+                    SubjectId = d.SubjectID,
+                    TeacherName = d.User.FirstName + " " + d.User.LastName,
+                    SubjectName = d.Name,
+                    Description = d.Description,
+                    StartTime = d.StartTime.ToString(),
+                    EndTime = d.EndTime.ToString(),
+                    Dates = d.ClassMeetingDates.OrderBy(s => s.Date).FirstOrDefault().Date.ToShortDateString() + " - " + d.ClassMeetingDates.OrderByDescending(e => e.Date).FirstOrDefault().Date.ToShortDateString(),
+                    City = d.Location.City,
+                    State = d.Location.State,
+                    Address = d.Location.Address,
+                    ZipCode = d.Location.ZipCode,
+                    Country = d.Location.Country,
+                    Latitude = d.Latitude,
+                    Longitude = d.Longitude
+                });
+                                
+
+                return Json(new { Result = "OK", Records = records.Skip(jtStartIndex).Take(jtPageSize).ToList(), TotalRecordCount = records.Count() });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
