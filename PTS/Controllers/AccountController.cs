@@ -18,6 +18,7 @@ using Service.Interfaces;
 using Core.Domains;
 using PTS.Infrastructure;
 using CommonHelper = Core.CommonHelper;
+using System.Net.Mail;
 
 namespace PTS.Controllers
 {
@@ -323,6 +324,31 @@ namespace PTS.Controllers
                 return View(user);
             }
         }
+
+        [HttpGet]
+        public ActionResult SendEmail(string email) {
+            var user = _userService.GetById(SessionDataHelper.UserId);
+            var model = new EmailModel {
+                To = email,
+                From = user.Email,
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult SendEmail(EmailModel email) {
+            MailMessage emailSender = new MailMessage();
+            emailSender.To.Add(email.To);
+            emailSender.Subject = "New Message - PTS: " + email.Subject;
+            emailSender.From = new System.Net.Mail.MailAddress(email.From);
+            emailSender.Body = "New Message From " + email.From + ".\n\n\n"
+                + email.Body;
+
+            _emailService.SmtpSend(emailSender);
+            return RedirectToAction("DisplaySessions", "Account");
+        }
+
 
         [HttpGet]
         public ActionResult LoadRequestSession(int teacherId)
@@ -1057,3 +1083,4 @@ namespace PTS.Controllers
     //    #endregion
     }
 }
+

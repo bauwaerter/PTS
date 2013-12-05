@@ -1,4 +1,5 @@
 ﻿using Core.Domains;
+using System.Net.Mail;
 
 namespace Service.Interfaces {
     /// <summary>
@@ -24,6 +25,8 @@ namespace Service.Interfaces {
         void SendRequestEmail(User user, string requester);
 
         void SendApprovedEmail(User user, string tutor);
+
+        void SmtpSend(MailMessage message);
 
         /// <summary>
         /// Sends an email to reset password.

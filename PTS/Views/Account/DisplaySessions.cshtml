@@ -79,6 +79,9 @@
                 },
                 Email: {
                     title: 'Email',
+                    display: function (data) {
+                        return '<a href="@Url.Action("SendEmail", "Account")?email=' + data.record.Email + '">' + data.record.Email + '</a>';
+                    }
                 },
                 Rate: {
                     title: 'Rate',

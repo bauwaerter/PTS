@@ -222,6 +222,7 @@
     <Compile Include="Models\AccountUser.cs" />
     <Compile Include="Models\CalendarEvent.cs" />
     <Compile Include="Models\ClassMeetingDatesVM.cs" />
+    <Compile Include="Models\EmailModel.cs" />
     <Compile Include="Models\LocationVM.cs" />
     <Compile Include="Models\ClassViewModel.cs" />
     <Compile Include="Models\PaymentModel.cs" />
@@ -696,6 +697,7 @@
     </Content>
     <Content Include="Views\Search\AllTutorsMap.cshtml" />
     <Content Include="Views\Search\AllClassesMap.cshtml" />
+    <Content Include="Views\Account\SendEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
