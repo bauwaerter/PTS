@@ -14,6 +14,7 @@ namespace PTS.Models
         public int Id { get; set; }
         public int TeacherId { get; set; }
         public int SubjectId { get; set; }
+        public string Email { get; set; }
         public string TeacherName { get; set; }
         public string Description { get; set; }
         public string StartTime { get; set; }
@@ -22,6 +23,7 @@ namespace PTS.Models
         public string Dates { get; set; }
         public string AverageRating { get; set; }
         public string SubjectName { get; set; }
+        public ReviewClass Review { get; set; }
         public IEnumerable<SelectListItem> Subjects { get; set; }
         
         public DateTime DateStart { get; set; }

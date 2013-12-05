@@ -11,7 +11,7 @@ using PTS.Models;
 using Service.Interfaces;
 
 namespace PTS.Controllers{
-    public class PaymentController : Controller{
+    public class PaymentController : BaseController{
         #region fields
 
         private readonly IBaseService<Class> _classService;
@@ -69,7 +69,6 @@ namespace PTS.Controllers{
 
         [HttpGet]
         public ActionResult ProcessTutorPayment(int studentId, int tutorId) {
-
             var user = _userService.GetById(studentId);
             var teacher = _teacherUserService.GetById(tutorId);
             var locId = user.LocationId;

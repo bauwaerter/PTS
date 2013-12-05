@@ -1,4 +1,6 @@
-﻿@{
+﻿@using PTS.Infrastructure;
+@using Core.Domains;
+@{
     ViewBag.Title = "DisplayClasses";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -11,59 +13,59 @@
 
 <script >
     $(document).ready(function () {
-        
-        $('#TeacherClassesDisplayTable').jtable({
-            title: 'Teacher Classes',
+        if ("@SessionDataHelper.UserRole" != "@UserRole.Student") {
+            $('#TeacherClassesDisplayTable').jtable({
+                title: 'Teacher Classes',
 
-            actions: {
-                listAction: '@Url.Action("GetClassesToDisplay")',
-                @*updateAction: '@Url.Action("AddUpdateClassesToReview")',*@
-            },
-            fields: {
-                ClassID: {
-                    key: true,
-                    list: false,
-                    create: false,
-                    edit: false,
+                actions: {
+                    listAction: '@Url.Action("GetClassesToDisplay")',
+                    @*updateAction: '@Url.Action("AddUpdateClassesToReview")',*@
                 },
-                Description: {
+                fields: {
+                    ClassID: {
+                        key: true,
+                        list: false,
+                        create: false,
+                        edit: false,
+                    },
+                    Description: {
 
-                    title: 'Class',
-                    edit: false,
-                },
-                StartTime: {
-                    title: 'Start Time',
-                },
-                EndTime:{
-                    title: 'End Time',
-                },
-                Duration:{
-                    title:'Duration'
-                },
-                DateStart:{
-                    title: 'Start Date',
-                    type: 'date'
-                },
-                DateEnd: {
-                    title: 'End Date',
-                    type:'date'
-                },
-                Address: {
-                    title:'Address'
-                },
-                City: {
-                    title:'City'
-                },
-                State:{
-                    title:'State'
-                },
-                ZipCode: {
-                    title:'Zip'
+                        title: 'Class',
+                        edit: false,
+                    },
+                    StartTime: {
+                        title: 'Start Time',
+                    },
+                    EndTime: {
+                        title: 'End Time',
+                    },
+                    Duration: {
+                        title: 'Duration'
+                    },
+                    DateStart: {
+                        title: 'Start Date',
+                        type: 'date'
+                    },
+                    DateEnd: {
+                        title: 'End Date',
+                        type: 'date'
+                    },
+                    Address: {
+                        title: 'Address'
+                    },
+                    City: {
+                        title: 'City'
+                    },
+                    State: {
+                        title: 'State'
+                    },
+                    ZipCode: {
+                        title: 'Zip'
+                    }
                 }
-            }
-        });
-        $('#TeacherClassesDisplayTable').jtable('load');
-
+            });
+            $('#TeacherClassesDisplayTable').jtable('load');
+        }
 
         $('#StudentClassesDisplayTable').jtable({
             title: 'Student Classes',
@@ -84,14 +86,29 @@
                         title: 'Class',
                         edit: false,
                     },
+                    TeacherName: {
+                        title: 'Teacher',
+                        display: function (data) {
+                            return '<a href="@Url.Action("SendEmail", "Account")?email=' + data.record.Email + '">' + data.record.TeacherName + '</a>';
+                        }
+                    },
                     StartTime: {
                         title: 'Start Time',
                     },
                     EndTime:{
                         title: 'End Time',
                     },
-                    Duration:{
-                        title:'Duration'
+                    Review: {
+                        title: 'Ratings',
+                        display: function (data) {
+                            if (data.record.Review == null) {
+                                console.log("it aint null yo");
+                                return '<a href="@Url.Action("AddClassReview", "Review")?classId=' + data.record.Id + '">' + "Review Class" + '</a>';
+                            }
+                            else {
+                                return '<a href="@Url.Action("ReviewClassesView", "Review")?classId=' + data.record.Id + '">' + data.record.AverageRating + ' / 10</a>';
+                            }
+                        }
                     },
                     DateStart:{
                         title: 'Start Date',

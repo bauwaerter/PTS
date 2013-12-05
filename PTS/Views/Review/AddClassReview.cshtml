@@ -1,0 +1,73 @@
+﻿@using Core.Domains
+@using PTS.Helpers
+@model Core.Domains.ReviewClass
+
+@{
+    ViewBag.Title = "Review Class";
+}
+
+<hgroup class="demo-panel-title">
+    <h2>@ViewBag.Title</h2>
+    <h4 style="margin-left: 50px;">Provide feedback for other users!</h4>
+</hgroup>
+<br/>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @id="reviewForm"}))
+{
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.ClassId)
+    @Html.HiddenFor(model => model.StudentId)
+    @Html.HiddenFor(model => model.Date)
+    @Html.ValidationSummary(true)
+
+<div class="sectionContainer formHolder">
+    <div class="container" style="margin-top: 80px; margin-left: 40px;">
+    <div style="background-color: #ecf0f1; border-radius: 10px; padding-top: 2px; padding-left: 10px; padding-bottom: 10px;width: 925px;">
+        <div class="row">
+            <div class="col-md-3">
+                <p>@Html.LabelFor(model => model.Rating)</p>
+                <select name="rating" value="@Model.Rating" id="select" class="select-block" style="display: none;">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+            </div>
+            </div>
+        <div class="row">
+            <div class="col-md-3" style="display: inline;">
+                <p>@Html.LabelFor(model => model.Comment)</p>
+                @Html.TextAreaFor(model => model.Comment, new { @class = "form-control", style = "width:500px;" })
+            </div>
+            </div>
+        <br />
+        <br />
+        <button id="formSubmit" type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        
+    </div>
+        </div>
+    @Html.TextBoxFor(model => model.Rating, new { id = "Rating"})
+}
+
+<script src="~/Content/Flat-UI/js/flatui-checkbox.js"></script>
+<script src="~/Content/Flat-UI/js/bootstrap-select.js"></script>
+<script src="~/Content/Flat-UI/js/bootstrap-switch.js"></script>
+<script src="~/Content/Flat-UI/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("select[name='rating']").selectpicker({ style: 'btn-primary', menuStyle: 'dropdown-inverse' });
+        $("#Rating").hide();
+    });
+
+    $("#select").on('change', function () {
+        console.log($(this).val());
+        $("#Rating").val($(this).val());
+    }).change();
+
+</script>

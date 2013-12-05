@@ -78,6 +78,28 @@ namespace PTS.Views.Review
             return RedirectToAction("DisplaySessions", "Account");
         }
 
+        [HttpGet]
+        public ActionResult AddClassReview(int classId) {
+            var review = _reviewClassService.GetAll().SingleOrDefault(x => x.ClassId == classId && x.StudentId == SessionDataHelper.UserId);
+            //return (review != null) ? View(review) : View(new ReviewTeacher { StudentId = SessionDataHelper.UserId, TeacherId = teacherId, Date = DateTime.Today });
+            if (review != null) {
+                return View(review);
+            } else {
+                var newReview = new ReviewClass {
+                    StudentId = SessionDataHelper.UserId,
+                    ClassId = classId,
+                    Date = DateTime.Today
+                };
+                return View(newReview);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult AddClassReview(ReviewClass review) {
+            _reviewClassService.Insert(review);
+            return RedirectToAction("DisplayClasses", "Account");
+        }
+
         public ActionResult ReviewClassesView(int classId)
         {
             var reviewClass = _classService.GetById(classId);
