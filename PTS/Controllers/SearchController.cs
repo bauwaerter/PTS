@@ -320,7 +320,7 @@ namespace PTS.Views.Search
                     AverageRating = d.ReviewClass.FirstOrDefault() != null ? Math.Round(d.ReviewClass.Average(a => a.Rating), 1).ToString() : "No Ratings",
                     StartTime = d.StartTime.ToString(),
                     EndTime = d.EndTime.ToString(),
-                    Dates = d.ClassMeetingDates.OrderBy(s => s.Date).FirstOrDefault().Date.ToShortDateString() + " - " + d.ClassMeetingDates.OrderByDescending(e => e.Date).FirstOrDefault().Date.ToShortDateString(),
+                    Dates = d.ClassMeetingDates.FirstOrDefault() != null ? d.ClassMeetingDates.OrderBy(s => s.Date).FirstOrDefault().Date.ToShortDateString() + " - " + d.ClassMeetingDates.OrderByDescending(e => e.Date).FirstOrDefault().Date.ToShortDateString() : "N/A",
                     City = d.Location.City,
                     State = d.Location.State,
                     Address = d.Location.Address,
