@@ -186,7 +186,7 @@ namespace Service.Services {
             return message;
         }
 
-        private void SmtpSend(MailMessage message) {
+        public void SmtpSend(MailMessage message) {
 
             var smtp = new SmtpClient {
                 Host = "smtp.gmail.com",
