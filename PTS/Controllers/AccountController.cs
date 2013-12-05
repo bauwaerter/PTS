@@ -273,7 +273,7 @@ namespace PTS.Controllers {
                         _scheduleService.Insert(teacherUser.Schedule);
                         teacherUser.Teacher.ScheduleId = teacherUser.Schedule.Id;
                         _teacherUserService.Insert(teacherUser.Teacher);
-                        _emailService.SendNewUserEmail(user, confirmPassword);
+                        _emailService.SendNewUserEmail(teacherUser.Teacher.User, confirmPassword);
                         teacherUser.Teacher.Schedule = teacherUser.Schedule;
                         var teacherOffer = new Teacher_Offers() {
                             TeacherId = teacherUser.Teacher.Id,
@@ -293,13 +293,36 @@ namespace PTS.Controllers {
                     };
 
 
-                    Login(loginModel, "");
+                    RegisterLogin(loginModel);
                     return RedirectToAction("Index", "Home");
                 }
                 throw new Exception("Passwords do not match");
             } catch (Exception ex) {
                 Error(ex.Message);
                 return View(user);
+            }
+        }
+
+        [AllowAnonymous]
+        public void RegisterLogin(LoginModel loginModel) {
+            try {
+                    var user = _userService.GetUserByEmail(loginModel.UserName);
+
+                    FormsAuthentication.SetAuthCookie(loginModel.UserName, loginModel.RememberMe);
+                    SessionDataHelper.Username = user.Email;
+                    SessionDataHelper.UserId = user.Id;
+                    SessionDataHelper.UserRole = user.Role;
+                    SessionDataHelper.Latitude = user.Location.Latitude;
+                    SessionDataHelper.Longitude = user.Location.Longitude;
+                    SessionDataHelper.ZipCode = user.Location.ZipCode;
+                    SessionDataHelper.SessionId = System.Web.HttpContext.Current.Session.SessionID;
+
+                    if (SessionDataHelper.UserId != 1) {
+                        _loginService.LogUser(SessionDataHelper.UserId, SessionDataHelper.SessionId);
+                    }
+
+            } catch (Exception ex) {
+                ModelState.AddModelError("Error", ex.Message);
             }
         }
 
