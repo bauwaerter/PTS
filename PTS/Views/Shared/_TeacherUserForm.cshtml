@@ -13,12 +13,12 @@
     
 
     <p>@Html.LabelFor(model => model.Teacher.HourlyRate, "Hourly Rate")</p>
-    @Html.TextBoxFor(model => model.Teacher.HourlyRate, new {@class = "form-control", style="width:400px"})
+    @Html.TextBoxFor(model => model.Teacher.HourlyRate, new {@class = "form-control required", style="width:400px"})
 
     <br />
 
     <p>@Html.LabelFor(model => model.Teacher.ClassRate, "Class Rate")</p>
-    @Html.TextBoxFor(model => model.Teacher.ClassRate, new {@class = "form-control", style="width:400px"})
+    @Html.TextBoxFor(model => model.Teacher.ClassRate, new {@class = "form-control required", style="width:400px"})
     <br/>
 
     <p>@Html.Label("Availability")</p>

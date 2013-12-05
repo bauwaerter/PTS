@@ -45,43 +45,45 @@
                 <div class="row">
                     <div class="col-md-3" style="display: inline;">
                         <p>@Html.LabelFor(model => model.Email)</p>
-                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", style = "width:250px;" })
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control email", style = "width:250px;" })
                     </div>
                     <div class="col-md-3 col-md-offset-1">
                         <p>@Html.LabelFor(model => model.PassWord, "Password")</p>
-                        @Html.PasswordFor(model => model.PassWord, new { @class = "form-control", style = "width:250px" })
+                        @Html.PasswordFor(model => model.PassWord, new { @class = "form-control required", style = "width:250px" })
                     </div>
                     <div class="col-md-3 col-md-offset-1">
                         <p>@Html.Label("Confirm Password")</p>
-                        <input type="password" class="form-control" style="width: 250px" name="confirmPassword" id="confirmPassword" />
+                        <input type="password" class="form-control required" style="width: 250px" name="confirmPassword" id="confirmPassword" />
                     </div>
                 </div>
                 <div class="row">
+                    <span id="emailerror" hidden="hidden" style="margin-left: 10px; color:red;">Sorry this email is a duplicate.</span>
                     <div class="col-md-3">
                         <p>@Html.LabelFor(model => model.FirstName, "First Name")</p>
-                        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", style = "width:250px" })
+                        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control required", style = "width:250px" })
                     </div>
                     <div class="col-md-3 col-md-offset-1">
                         <p>@Html.LabelFor(model => model.LastName, "Last Name")</p>
-                        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", style = "width:250px" })
+                        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control required", style = "width:250px" })
                     </div>
+                    <span id="confirmpassworderror" hidden="hidden" style="margin-left: 10px; color:red;">Passwords do not match.</span>
                     <div class="col-md-3 col-md-offset-1">
                         <p>@Html.LabelFor(model => model.DOB, "Date of Birth")</p>
-                        @Html.TextBoxFor(model => model.DOB, new { @class = "form-control", style = "width:250px" })
+                        @Html.TextBoxFor(model => model.DOB, new { @class = "form-control required", style = "width:250px" })
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-3">
                         <p>@Html.LabelFor(model => model.SSN, "SSN")</p>
-                        @Html.PasswordFor(model => model.SSN, new { @class = "form-control", style = "width:250px" })
+                        @Html.PasswordFor(model => model.SSN, new { @class = "form-control required", style = "width:250px" })
                     </div>
                     <div class="col-md-3 col-md-offset-1">
                         <p>@Html.LabelFor(model => model.Major, "Major")</p>
-                        @Html.TextBoxFor(model => model.Major, new { @class = "form-control", style = "width:250px" })
+                        @Html.TextBoxFor(model => model.Major, new { @class = "form-control required", style = "width:250px" })
                     </div>
                     <div class="col-md-3 col-md-offset-1">
                         <p>@Html.LabelFor(model => model.Education, "College/High School")</p>
-                        @Html.TextBoxFor(model => model.Education, new { @class = "form-control", style = "width:250px" })
+                        @Html.TextBoxFor(model => model.Education, new { @class = "form-control required", style = "width:250px" })
                     </div>
                 </div>
             </div>
@@ -92,19 +94,19 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <p>@Html.LabelFor(model => model.Location.Address)</p>
-                            @Html.TextBoxFor(model => model.Location.Address, new { @class = "form-control" })
+                            @Html.TextBoxFor(model => model.Location.Address, new { @class = "form-control required" })
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <p>@Html.LabelFor(model => model.Location.Country)</p>
-                            @Html.DropDownListFor(model => model.Location.Country, new SelectList(ListHelper.GetListCountries(), "Key", "Value"), new { @id = "Country", @name = "Country", @class = "select-block", @style = "display: none;", @size = 10 })
+                            @Html.DropDownListFor(model => model.Location.Country, new SelectList(ListHelper.GetListCountries(), "Key", "Value"), new { @id = "Country", @name = "Country", @class = "select-block required", @style = "display: none;", @size = 10 })
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group state">
                             <p>@Html.LabelFor(model => model.Location.State)</p>
-                            @Html.DropDownListFor(model => model.Location.State, new SelectList(Enum.GetValues(typeof(Core.StateCode))), new { @id = "State", @class = "select-block", @style = "display: none;" })
+                            @Html.DropDownListFor(model => model.Location.State, new SelectList(Enum.GetValues(typeof(Core.StateCode))), new { @id = "State", @class = "select-block required", @style = "display: none;" })
                         </div>
                     </div>
                 </div>
@@ -112,13 +114,13 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <p>@Html.LabelFor(model => model.Location.City)</p>
-                            @Html.TextBoxFor(model => model.Location.City, new { @class = "form-control" })
+                            @Html.TextBoxFor(model => model.Location.City, new { @class = "form-control required" })
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <p>@Html.LabelFor(model => model.Location.ZipCode)</p>
-                            @Html.TextBoxFor(model => model.Location.ZipCode, new { @class = "form-control" })
+                            @Html.TextBoxFor(model => model.Location.ZipCode, new { @class = "form-control required" })
                         </div>
                     </div>
                 </div>
@@ -207,10 +209,53 @@
         //$('#Location_ZipCode').focusout(function () {
         //    codeAddress();
         //});
-        $('#formSubmit').on('click', function () {
-            codeAddress(function () {
-                $('#registrationForm').submit();
+        $('#Email').focusout(function () {
+            $.ajax({
+                url: '@Url.Action("CheckUsername")',
+                data: { username: $('#Email').val() },
+                success: function (emailData) {
+                    console.log(emailData);
+                    if (emailData == 'True') {
+                        $('#emailerror').show();
+                        $('#Email').addClass('duplicate');
+                    } else {
+                        $('#emailerror').hide();
+                        $('#Email').removeClass('duplicate');
+                    }
+                }
             });
+        });
+
+        $('#confirmPassword').focusout(function () {
+            if (($('#PassWord').val()) != ($('#confirmPassword').val())) {
+                $('#confirmpassworderror').show();
+                $('#PassWord').addClass('passwordmatch');
+            } else {
+                $('#confirmpassworderror').hide();
+                $('#PassWord').removeClass('passwordmatch');
+            }  
+        });
+        
+
+        $("#registrationForm").validate({
+            errorClass: 'glow',
+            errorPlacement: function () { },
+            rules: {
+                field: {
+                    required: true,
+                    email: true
+                }
+            }
+        });
+
+        $('#formSubmit').on('click', function () {
+            MarkErrorsRegisterForm();
+            
+            if ($('#registrationForm').valid() && !($('#Email').hasClass('duplicate')) && !($('#PassWord').hasClass('passwordmatch'))) {
+                codeAddress(function () {
+                    $('#registrationForm').submit();
+                });
+            }
         });
         $('#DOB').datepicker({
             changeMonth: true,
@@ -240,4 +285,11 @@
             $('#Role').val("@UserRole.Student");
         }
     });
+
+    function MarkErrorsRegisterForm() {
+        $("#registrationForm").valid();
+        if (!$('#registrationForm').valid()) {
+            // $("#SaveUserButton").qtip(ErrorTip("Please check the highlighted fields.")).qtip("show");
+        }
+    }
 </script>
