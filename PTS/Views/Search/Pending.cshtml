@@ -1,0 +1,227 @@
+﻿
+<h3>Pending Tutors/ Classes</h3>
+
+<br />
+<div id="teacherUserTable"></div>
+<br />
+<br />
+<div id="classesTable"></div>
+
+<script>
+    $(document).ready(function () {
+        $('#teacherUserTable').jtable({
+            title: 'Tutors',
+            openChildAsAccordion: true,
+            paging: true,
+            pageSize: 10,
+            ajaxSettings: {
+                contentType: 'application/json'
+            },
+            actions: {
+                listAction: '@Url.Action("GetPendingTeacherUsers")',
+
+            },
+            fields: {
+                Id: {
+                    key: true,
+                    list: false,
+                    create: false,
+                    edit: false,
+                },
+                Name: {
+                    title: 'Name',
+                },
+                Email: {
+                    title: 'Email',
+                },
+                HourlyRate: {
+                    title: 'Hourly Rate'
+                },
+                Subjects: {
+                    title: 'Subjects',
+                    sorting: false,
+                    display: function (tutorData) {
+                        var link = $('<a>Subjects</a>');
+                        link.click(function () {
+
+                            $('#teacherUserTable').jtable('openChildTable',
+                                link.closest('tr'),
+                                {
+                                    title: 'Subjects for ' + tutorData.record.Name,
+                                    actions: {
+                                        listAction: '@Url.Action("GetTutorSubjects")',
+                                    },
+                                    fields: {
+                                        Id: {
+                                            type: 'hidden',
+                                            defaultValue: tutorData.record.Id
+                                        },
+                                        SubjectId: {
+                                            key: true,
+                                            list: false,
+                                        },
+                                        Name: {
+                                            title: 'Name'
+                                        },
+                                        Description: {
+                                            title: 'Description'
+                                        },
+
+                                    }
+                                }, function (innerData) {
+                                    innerData.childTable.jtable('load', {
+                                        tutorUserId: tutorData.record.Id
+                                    });
+                                });
+                        });
+                        return link;
+                    }
+
+                },
+                Availability: {
+                    title: 'Availability',
+                    sorting: false,
+                    display: function (tutorData) {
+                        var link = $('<a>Availibility</a>');
+                        link.click(function () {
+
+                            $('#teacherUserTable').jtable('openChildTable',
+                                link.closest('tr'),
+                                {
+                                    title: 'Availibility for ' + tutorData.record.Name,
+                                    actions: {
+                                        listAction: '@Url.Action("GetTutorAvailibility")',
+                                    },
+                                    fields: {
+                                        Id: {
+                                            type: 'hidden',
+                                            defaultValue: tutorData.record.Id
+                                        },
+                                        ScheduleId: {
+                                            key: true,
+                                            list: false,
+                                        },
+                                        Sunday: {
+                                            title: 'Sunday',
+                                        },
+                                        Monday: {
+                                            title: 'Monday'
+                                        },
+                                        Tuesday: {
+                                            title: 'Tuesday'
+                                        },
+                                        Wednesday: {
+                                            title: 'Wednesday'
+                                        },
+                                        Thursday: {
+                                            title: 'Thursday'
+                                        },
+                                        Friday: {
+                                            title: 'Friday'
+                                        },
+                                        Saturday: {
+                                            title: 'Saturday'
+                                        },
+
+                                    }
+                                }, function (innerData) {
+                                    innerData.childTable.jtable('load', {
+                                        tutorUserId: tutorData.record.Id
+                                    });
+                                });
+                        });
+                        return link;
+                    }
+                },
+                Map: {
+                    title: 'Map',
+                    display: function (data) {
+                        return '<a href="@Url.Action("LoadTeacherMap")?teacherId=' + data.record.Id + '">Map</a>';
+                    }
+                }
+            }
+        }).jtable('load');
+
+
+        $('#classesTable').jtable({
+            title: 'Classes',
+            selecting: true,
+            multiselect: false,
+            selectingCheckboxes: true,
+            paging: true,
+            pageSize: 10,
+            ajaxSettings: {
+                contentType: 'application/json'
+            },
+            actions: {
+                listAction: '@Url.Action("GetPendingClasses")',
+            },
+            fields: {
+                Id: {
+                    key: true,
+                    list: false,
+                    create: false,
+                    edit: false,
+                },
+                SubjectId: {
+                    list: false,
+                    create: false,
+                    edit: false,
+                },
+                LocationId: {
+                    list: false,
+                    create: false,
+                    edit: false,
+                },
+                Description: {
+                    title: 'Description',
+                    width: '10%'
+                },
+                TeacherName: {
+                    title: 'Teacher',
+                    width: '10%'
+                },
+                SubjectName: {
+                    title: 'Subject',
+                    width: '10%'
+                },
+                StartTime: {
+                    title: 'Start Time',
+                    width: '10%'
+                },
+                EndTime: {
+                    title: 'End Time',
+                    width: '10%'
+                },
+                Dates: {
+                    title: 'Dates',
+                },
+                Address: {
+                    title: 'Address'
+                },
+                City: {
+                    title: 'City'
+                },
+                State: {
+                    title: 'State'
+                },
+                ZipCode: {
+                    title: 'Zip Code',
+                    width: '10%'
+                },
+                Country: {
+                    title: 'Country',
+                    width: '5%',
+                },
+                Map: {
+                    title: 'Map',
+                    display: function (data) {
+                        return '<a href="@Url.Action("LoadClassesMap")?classesId=' + data.record.Id + '">Map</a>';
+                    }
+                }
+
+            },
+        }).jtable('load');
+
+    });
+</script>
