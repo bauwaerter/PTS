@@ -25,7 +25,8 @@
                         </div>
                         <div class="col-md-1 ">
                             <span>
-                                <input id="FirstName" name="FirstName" disabled="disabled" style="width:auto" class="form-control required" value="@(Model.FirstName)" /></span>
+                                <input id="FirstName" name="FirstName" disabled="disabled" style="width:auto" class="form-control required" value="@(Model.FirstName)" />
+                            </span>
                         </div>
                     </div>
                     <div class="row">
@@ -36,7 +37,8 @@
                         </div>
                         <div class="col-md-1">
                             <span>
-                                <input name="LastName" disabled="disabled" style="width: auto" class="form-control required" value="@(Model.LastName)" /></span>
+                                <input name="LastName" disabled="disabled" style="width: auto" class="form-control required" value="@(Model.LastName)" />
+                            </span>
                         </div>
                     </div>
 
@@ -48,7 +50,8 @@
                         </div>
                         <div class="col-md-1">
                             <span>
-                                <input name="Email" disabled="disabled" style="width: auto" class="form-control " value="@(Model.Email)" /></span>
+                                <input name="Email" disabled="disabled" style="width: auto" class="form-control email required" value="@(Model.Email)" />
+                            </span>
                         </div>
                     </div>
                     <div class="row">
@@ -59,7 +62,8 @@
                         </div>
                         <div class="col-md-1">
                             <span>
-                                <input disabled="disabled" style="width: auto" class="form-control" name="Major" value="@(Model.Major)" /></span>
+                                <input disabled="disabled" style="width: auto" class="form-control required" name="Major" value="@(Model.Major)" />
+                            </span>
                         </div>
                     </div>
                     <div class="row">
@@ -70,7 +74,8 @@
                         </div>
                         <div class="col-md-1 ">
                             <span>
-                                <input disabled="disabled" style="width: auto" class="form-control" name="Education" value="@(Model.Education)" /></span>
+                                <input disabled="disabled" style="width: auto" class="form-control required" name="Education" value="@(Model.Education)" />
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -89,17 +94,20 @@
                         <div class="col-md-1 col-md-offset-1">
                             <label>Address</label>
                             <span>
-                                <input id="Location_Address" name="Address" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Location.Address)" /></span>
+                                <input id="Location_Address" name="Address" disabled="disabled" style="width: auto" class="form-control required" value="@(Model.Location.Address)" />
+                            </span>
                         </div>
                         <div class="col-md-1 col-md-offset-2">
                             <label>City</label>
                             <span>
-                                <input id="Location_City" name="City" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Location.City)" /></span>
+                                <input id="Location_City" name="City" disabled="disabled" style="width: auto" class="form-control required" value="@(Model.Location.City)" />
+                            </span>
                         </div>
                         <div class="col-md-1 col-md-offset-2">
                             <label>State</label>
                             <span>
-                                <input id="Location_State" name="State" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Location.State)" /></span>
+                                <input id="Location_State" name="State" disabled="disabled" style="width: auto" class="form-control required" value="@(Model.Location.State)" />
+                            </span>
                         </div>
                     </div>
 
@@ -109,12 +117,14 @@
                         <div class="col-md-1 col-md-offset-1">
                             <label>Zip</label>
                             <span>
-                                <input id="Location_ZipCode" name="ZipCode" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Location.ZipCode)" /></span>
+                                <input id="Location_ZipCode" name="ZipCode" disabled="disabled" style="width: auto" class="form-control required" value="@(Model.Location.ZipCode)" />
+                            </span>
                         </div>
                         <div class="col-md-1 col-md-offset-2">
                             <label>Country</label>
                             <span>
-                                <input id="Location_Country" name="Country" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Location.Country)" /></span>
+                                <input id="Location_Country" name="Country" disabled="disabled" style="width: auto" class="form-control required" value="@(Model.Location.Country)" />
+                            </span>
                         </div>
                     </div>
                 </form>
@@ -143,7 +153,7 @@
                 </div>
                 <div class="col-md-1 col-md-offset-1">
                     <span>
-                        <input name="HourlyRate" disabled="disabled" style="width: auto" class="form-control" value="@(Model.HourlyRate)" />
+                        <input name="HourlyRate" disabled="disabled" style="width: auto" class="form-control required" value="@(Model.HourlyRate)" />
                     </span>
                 </div>
             </div>
@@ -155,7 +165,7 @@
                 </div>
                 <div class="col-md-1 col-md-offset-1">
                     <span>
-                        <input name="ClassRate" disabled="disabled" style="width: auto" class="form-control" value="@(Model.ClassRate)" />
+                        <input name="ClassRate" disabled="disabled" style="width: auto" class="form-control required" value="@(Model.ClassRate)" />
                     </span>
                 </div>
             </div>
@@ -318,6 +328,28 @@
     $(document).ready(function () {
 
 
+        $("#UserAccountTeacher").validate({
+            errorClass: 'glow',
+            errorPlacement: function () { },
+            rules: {
+                field: {
+                    required: true,
+                    email: true
+                }
+            }
+        });
+
+        $("#Userlocation").validate({
+            errorClass: 'glow',
+            errorPlacement: function () { },
+            rules: {
+                field: {
+                    required: true,
+                    email: true
+                }
+            }
+        });
+
         $("#UserAccount").validate({
             errorClass: 'glow',
             errorPlacement: function () { },
@@ -330,185 +362,197 @@
         });
 
         if ("@Model.Role" != "@UserRole.Teacher") {
-                        console.log("its not");
-                        $("#teacherForm").hide();
-                    } else {
-                        console.log("it is!");
-                        $("#teacherForm").show();
-                    }
-                });
+            console.log("its not");
+            $("#teacherForm").hide();
+        } else {
+            console.log("it is!");
+            $("#teacherForm").show();
+        }
+    });
 
-                $('#EditUserButton').on('click', function (event) {
-                    event.preventDefault();
-                    $('#UserAccount').find(':input').prop('disabled', '');
-                    $('#Userlocation').find(':input').prop('disabled', '');
-                    $('#EditUserButton').hide();
-                    $('#SaveUserButton').css('visibility', 'visible');
-                });
+    $('#EditUserButton').on('click', function (event) {
+        event.preventDefault();
+        $('#UserAccount').find(':input').prop('disabled', '');
+        $('#Userlocation').find(':input').prop('disabled', '');
+        $('#EditUserButton').hide();
+        $('#SaveUserButton').css('visibility', 'visible');
+    });
 
-                $('#EditStudentButton').on('click', function (event) {
-                    event.preventDefault();
-                    $('#UserAccountStudent').find(':input').prop('disabled', '');
-                    $('#EditStudentButton').hide();
-                    $('#SaveStudentButton').css('visibility', 'visible');
-                });
+    $('#EditStudentButton').on('click', function (event) {
+        event.preventDefault();
+        $('#UserAccountStudent').find(':input').prop('disabled', '');
+        $('#EditStudentButton').hide();
+        $('#SaveStudentButton').css('visibility', 'visible');
+    });
 
-                $('#EditTeacherButton').on('click', function (event) {
-                    event.preventDefault();
-                    $('#UserAccountTeacher').find(':input').prop('disabled', '');
-                    $('#EditTeacherButton').hide();
-                    $('#SaveTeacherButton').css('visibility', 'visible');
+    $('#EditTeacherButton').on('click', function (event) {
+        event.preventDefault();
+        $('#UserAccountTeacher').find(':input').prop('disabled', '');
+        $('#EditTeacherButton').hide();
+        $('#SaveTeacherButton').css('visibility', 'visible');
 
-                    if ($('#Schedule_Monday').is(':checked')) {
-                        $('#Monday').find(':input').prop('disabled', '')
-                    }
-                    else {
-                        $('#Monday').find(':input').prop('disabled', 'disabled')
-                    }
-                    if ($('#Schedule_Tuesday').is(':checked')) {
-                        $('#Tuesday').find(':input').prop('disabled', '')
-                    }
-                    else {
-                        $('#Tuesday').find(':input').prop('disabled', 'disabled')
-                    }
-                    if ($('#Schedule_Wednesday').is(':checked')) {
-                        $('#Wednesday').find(':input').prop('disabled', '')
-                    }
-                    else {
-                        $('#Wednesday').find(':input').prop('disabled', 'disabled')
-                    }
-                    if ($('#Schedule_Thursday').is(':checked')) {
-                        $('#Thursday').find(':input').prop('disabled', '')
-                    }
-                    else {
-                        $('#Thursday').find(':input').prop('disabled', 'disabled')
-                    }
-                    if ($('#Schedule_Friday').is(':checked')) {
-                        $('#Friday').find(':input').prop('disabled', '')
-                    }
-                    else {
-                        $('#Friday').find(':input').prop('disabled', 'disabled')
-                    }
+        if ($('#Schedule_Monday').is(':checked')) {
+            $('#Monday').find(':input').prop('disabled', '')
+        }
+        else {
+            $('#Monday').find(':input').prop('disabled', 'disabled')
+        }
+        if ($('#Schedule_Tuesday').is(':checked')) {
+            $('#Tuesday').find(':input').prop('disabled', '')
+        }
+        else {
+            $('#Tuesday').find(':input').prop('disabled', 'disabled')
+        }
+        if ($('#Schedule_Wednesday').is(':checked')) {
+            $('#Wednesday').find(':input').prop('disabled', '')
+        }
+        else {
+            $('#Wednesday').find(':input').prop('disabled', 'disabled')
+        }
+        if ($('#Schedule_Thursday').is(':checked')) {
+            $('#Thursday').find(':input').prop('disabled', '')
+        }
+        else {
+            $('#Thursday').find(':input').prop('disabled', 'disabled')
+        }
+        if ($('#Schedule_Friday').is(':checked')) {
+            $('#Friday').find(':input').prop('disabled', '')
+        }
+        else {
+            $('#Friday').find(':input').prop('disabled', 'disabled')
+        }
 
 
-                });
+    });
 
-                @*$('#SaveStudentButton').on('click', function(event) {
-        $.ajax({
-            url: '@Url.Action("SaveStudentUser")',
-            data: $('#UserAccountStudent').serialize(),
-            success: function () {
-                $('#UserAccountStudent').find(':input').prop('disabled', 'disabled');
-                $('#EditStudentButton').show();
-                $('#SaveStudentButton').css('visibility', 'hidden');
-            }
-
-        });
-    });*@
-
+   
     $('#SaveTeacherButton').on('click', function (event) {
         event.preventDefault();
 
-        $.ajax({
-            url: '@Url.Action("SaveTeacherUser")',
-                        type: 'post',
-                        data: $('#UserAccountTeacher').serialize(),
-                        success: function () {
-                            $('#UserAccountTeacher').find(':input').prop('disabled', 'disabled');
-                            $('#SaveTeacherButton').css('visibility', 'hidden');
-                            $('#EditTeacherButton').show();
+        MarkErrorsTeacherForm()
 
-                        }
+        var callback = function () {
+            $.ajax({
+                url: '@Url.Action("SaveTeacherUser")',
+                type: 'post',
+                data: $('#UserAccountTeacher').serialize(),
+                success: function () {
+                    $('#UserAccountTeacher').find(':input').prop('disabled', 'disabled');
+                    $('#SaveTeacherButton').css('visibility', 'hidden');
+                    $('#EditTeacherButton').show();
 
-                    });
-                });
-
-
-
-                $('#SaveUserButton').on('click', function (event) {
-                    event.preventDefault();
-
-                    MarkErrorsUserForm();
-
-                    //codeAddress();
-                    var callback = function () {
-                        $.ajax({
-                            url: '@Url.Action("SaveUserLocation")',
-                            data: $('#Userlocation').serialize(),
-                            type: 'post',
-                            success: function () {
-                            }
-
-                        });
-
-                        $.ajax({
-                            url: '@Url.Action("SaveUser")',
-                            data: $('#UserAccount').serialize(),
-                            type: 'post',
-                            success: function () {
-                                $('#UserAccount').find(':input').prop('disabled', 'disabled');
-                                $('#Userlocation').find(':input').prop('disabled', 'disabled');
-                                $('#EditUserButton').show();
-                                $('#SaveUserButton').css('visibility', 'hidden');
-                            }
-
-                        });
-                    }
-                    if ($('#UserAccount').valid()) {
-                        codeAddress(callback)
-                    }
-                    
-                    
-                });
-
-
-                $('#Schedule_Monday').on('click', function (event) {
-                    if ($('#Schedule_Monday').is(':checked')) {
-                        $('#Monday').find(':input').prop('disabled', '')
-                    }
-                    else {
-                        $('#Monday').find(':input').prop('disabled', 'disabled')
-                    }
-                })
-
-                $('#Schedule_Tuesday').on('click', function (event) {
-                    if ($('#Schedule_Tuesday').is(':checked')) {
-                        $('#Tuesday').find(':input').prop('disabled', '')
-                    }
-                    else {
-                        $('#Tuesday').find(':input').prop('disabled', 'disabled')
-                    }
-                })
-                $('#Schedule_Wednesday').on('click', function (event) {
-                    if ($('#Schedule_Wednesday').is(':checked')) {
-                        $('#Wednesday').find(':input').prop('disabled', '')
-                    }
-                    else {
-                        $('#Wednesday').find(':input').prop('disabled', 'disabled')
-                    }
-                })
-                $('#Schedule_Thursday').on('click', function (event) {
-                    if ($('#Schedule_Thursday').is(':checked')) {
-                        $('#Thursday').find(':input').prop('disabled', '')
-                    }
-                    else {
-                        $('#Monday').find(':input').prop('disabled', 'disabled')
-                    }
-                })
-                $('#Schedule_Friday').on('click', function (event) {
-                    if ($('#Schedule_Friday').is(':checked')) {
-                        $('#Friday').find(':input').prop('disabled', '')
-                    }
-                    else {
-                        $('#Friday').find(':input').prop('disabled', 'disabled')
-                    }
-                })
-
-                function MarkErrorsUserForm() {
-                    $("#UserAccount").valid();
-                    if (!$('#UserAccount').valid()) {
-                       // $("#SaveUserButton").qtip(ErrorTip("Please check the highlighted fields.")).qtip("show");
-                    }
                 }
+
+            });
+        }
+
+        if ($('#UserAccountTeacher').valid())
+        {
+            callback;
+        }
+
+
+    });
+
+
+
+    $('#SaveUserButton').on('click', function (event) {
+        event.preventDefault();
+
+        MarkErrorsUserForm();
+        MarkErrorsLocationForm();
+        //codeAddress();
+        var callback = function () {
+            $.ajax({
+                url: '@Url.Action("SaveUserLocation")',
+                data: $('#Userlocation').serialize(),
+                type: 'post',
+                success: function () {
+                }
+
+            });
+
+            $.ajax({
+                url: '@Url.Action("SaveUser")',
+                data: $('#UserAccount').serialize(),
+                type: 'post',
+                success: function () {
+                    $('#UserAccount').find(':input').prop('disabled', 'disabled');
+                    $('#Userlocation').find(':input').prop('disabled', 'disabled');
+                    $('#EditUserButton').show();
+                    $('#SaveUserButton').css('visibility', 'hidden');
+                }
+
+            });
+        }
+        if ($('#UserAccount').valid() && $('#Userlocation').valid()) {
+            codeAddress(callback)
+        }
+
+
+    });
+
+
+    $('#Schedule_Monday').on('click', function (event) {
+        if ($('#Schedule_Monday').is(':checked')) {
+            $('#Monday').find(':input').prop('disabled', '')
+        }
+        else {
+            $('#Monday').find(':input').prop('disabled', 'disabled')
+        }
+    })
+
+    $('#Schedule_Tuesday').on('click', function (event) {
+        if ($('#Schedule_Tuesday').is(':checked')) {
+            $('#Tuesday').find(':input').prop('disabled', '')
+        }
+        else {
+            $('#Tuesday').find(':input').prop('disabled', 'disabled')
+        }
+    })
+    $('#Schedule_Wednesday').on('click', function (event) {
+        if ($('#Schedule_Wednesday').is(':checked')) {
+            $('#Wednesday').find(':input').prop('disabled', '')
+        }
+        else {
+            $('#Wednesday').find(':input').prop('disabled', 'disabled')
+        }
+    })
+    $('#Schedule_Thursday').on('click', function (event) {
+        if ($('#Schedule_Thursday').is(':checked')) {
+            $('#Thursday').find(':input').prop('disabled', '')
+        }
+        else {
+            $('#Monday').find(':input').prop('disabled', 'disabled')
+        }
+    })
+    $('#Schedule_Friday').on('click', function (event) {
+        if ($('#Schedule_Friday').is(':checked')) {
+            $('#Friday').find(':input').prop('disabled', '')
+        }
+        else {
+            $('#Friday').find(':input').prop('disabled', 'disabled')
+        }
+    })
+
+    function MarkErrorsUserForm() {
+        $("#UserAccount").valid();
+        if (!$('#UserAccount').valid()) {
+        }
+    }
+
+    function MarkErrorsLocationForm() {
+        $("#Userlocation").valid();
+        if (!$('#Userlocation').valid()) {
+
+        }
+    }
+
+    function MarkErrorsTeacherForm() {
+        $("#UserAccountTeacher").valid();
+        if (!$('#UserAccountTeacher').valid()) {
+
+        }
+    }
 
 </script>
