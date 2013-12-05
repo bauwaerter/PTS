@@ -544,20 +544,35 @@ namespace PTS.Controllers {
         }
 
         [HttpPost]
-        public JsonResult GetSchedule() {
+        public JsonResult GetSchedule(int otherId) {
             try {
-                var schedule = _requestService.GetAll().Where(x => x.Status == "Approved");
-                var results = schedule.Select(p => new {
-                    Sunday = (p.Sunday == false) ? "N/A" : "Scheduled",
-                    Monday = (p.Monday == false) ? "N/A" : "Scheduled",
-                    Tuesday = (p.Tuesday == false) ? "N/A" : "Scheduled",
-                    Wednesday = (p.Wednesday == false) ? "N/A" : "Scheduled",
-                    Thursday = (p.Thursday == false) ? "N/A" : "Scheduled",
-                    Friday = (p.Friday == false) ? "N/A" : "Scheduled",
-                    Saturday = (p.Saturday == false) ? "N/A" : "Scheduled",
-                }).ToArray();
+                if (SessionDataHelper.UserRole == UserRole.Teacher) {
+                    var schedule = _requestService.GetAll().Where(x => x.TeacherId == SessionDataHelper.UserId && x.StudentId == otherId);
+                    var results = schedule.Select(p => new {
+                        Sunday = (p.Sunday == false) ? "N/A" : "Scheduled",
+                        Monday = (p.Monday == false) ? "N/A" : "Scheduled",
+                        Tuesday = (p.Tuesday == false) ? "N/A" : "Scheduled",
+                        Wednesday = (p.Wednesday == false) ? "N/A" : "Scheduled",
+                        Thursday = (p.Thursday == false) ? "N/A" : "Scheduled",
+                        Friday = (p.Friday == false) ? "N/A" : "Scheduled",
+                        Saturday = (p.Saturday == false) ? "N/A" : "Scheduled",
+                    }).ToArray();
 
-                return Json(new { Result = "OK", Records = results, TotalRecordCount = results.Count() });
+                    return Json(new { Result = "OK", Records = results, TotalRecordCount = results.Count() });
+                } else {
+                    var schedule = _requestService.GetAll().Where(x => x.StudentId == SessionDataHelper.UserId && x.TeacherId == otherId);
+                    var results = schedule.Select(p => new {
+                        Sunday = (p.Sunday == false) ? "N/A" : "Scheduled",
+                        Monday = (p.Monday == false) ? "N/A" : "Scheduled",
+                        Tuesday = (p.Tuesday == false) ? "N/A" : "Scheduled",
+                        Wednesday = (p.Wednesday == false) ? "N/A" : "Scheduled",
+                        Thursday = (p.Thursday == false) ? "N/A" : "Scheduled",
+                        Friday = (p.Friday == false) ? "N/A" : "Scheduled",
+                        Saturday = (p.Saturday == false) ? "N/A" : "Scheduled",
+                    }).ToArray();
+
+                    return Json(new { Result = "OK", Records = results, TotalRecordCount = results.Count() });
+                }
             } catch (Exception ex) {
                 throw new Exception(ex.Message);
             }

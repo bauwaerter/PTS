@@ -63,7 +63,7 @@
             contentType: 'application/json'
         },
         actions: {
-            listAction: '@Url.Action("GetSessions")',
+            listAction: '@Url.Action("GetSessions")'
             },
             fields: {
                 Id: {
@@ -129,7 +129,7 @@
                                 {
                                     title: 'Session for ' + data.record.FirstName + " " + data.record.LastName,
                                     actions: {
-                                        listAction: '@Url.Action("GetSchedule")',
+                                        listAction: '@Url.Action("GetSchedule")?otherId=' + data.record.Id,
                                     },
                                     fields: {
                                         Sunday: {
