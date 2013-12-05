@@ -351,11 +351,6 @@
     <Content Include="Content\jquery-timepicker-master\lib\datepair.js" />
     <Content Include="Content\jquery-timepicker-master\lib\glyphicons-halflings.png" />
     <Content Include="Content\jquery-timepicker-master\lib\screenshot.png" />
-    <Content Include="Content\Rating\jquery1.js" />
-    <Content Include="Content\Rating\nst.gif" />
-    <Content Include="Content\Rating\rating_simple.css" />
-    <Content Include="Content\Rating\rating_simple.js" />
-    <Content Include="Content\Rating\sth.gif" />
     <Content Include="Content\responsiveslides.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -472,6 +467,8 @@
     <Content Include="Content\Flat-UI\less\scaffolding.less" />
     <Content Include="Content\Flat-UI\less\spaces.less" />
     <Content Include="Content\Flat-UI\less\variables.less" />
+    <Content Include="Images\dark_bezel.jpg" />
+    <Content Include="Images\diamond_color.jpg" />
     <Content Include="Images\learnblocks.jpg" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\oldersupplies.jpg" />
@@ -481,8 +478,10 @@
     <Content Include="Content\jquery-timepicker-master\component.json" />
     <Content Include="Content\jquery-timepicker-master\jt.timepicker.jquery.json" />
     <Content Include="Content\jquery-timepicker-master\package.json" />
+    <Content Include="Images\Thumbs.db" />
     <None Include="Properties\PublishProfiles\publish.pubxml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
+    <Content Include="Images\writing.jpg" />
     <Content Include="Scripts\FullCalendar\fullcalendar.css" />
     <Content Include="Scripts\FullCalendar\fullcalendar.js" />
     <Content Include="Scripts\FullCalendar\fullcalendar.min.js" />
