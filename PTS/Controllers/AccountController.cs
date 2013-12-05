@@ -273,7 +273,7 @@ namespace PTS.Controllers {
                         _scheduleService.Insert(teacherUser.Schedule);
                         teacherUser.Teacher.ScheduleId = teacherUser.Schedule.Id;
                         _teacherUserService.Insert(teacherUser.Teacher);
-                        _emailService.SendNewUserEmail(teacherUser.Teacher.User, confirmPassword);
+                        //_emailService.SendNewUserEmail(teacherUser.Teacher.User, confirmPassword);
                         teacherUser.Teacher.Schedule = teacherUser.Schedule;
                         var teacherOffer = new Teacher_Offers() {
                             TeacherId = teacherUser.Teacher.Id,
@@ -283,7 +283,7 @@ namespace PTS.Controllers {
                     } else {
                         teacherUser = null;
                         _userService.Insert(user);
-                        _emailService.SendNewUserEmail(user, confirmPassword);
+                        //_emailService.SendNewUserEmail(user, confirmPassword);
                     }
 
                     var loginModel = new LoginModel() {
@@ -349,7 +349,7 @@ namespace PTS.Controllers {
                 + email.Body;
             emailSender.BodyEncoding = System.Text.Encoding.UTF8;
 
-            _emailService.SmtpSend(emailSender);
+            //_emailService.SmtpSend(emailSender);
             return RedirectToAction("DisplaySessions", "Account");
         }
 
@@ -567,7 +567,7 @@ namespace PTS.Controllers {
             _requestService.Update(request);
             var user = _userService.GetById(request.StudentId);
             var teacher = _userService.GetById(request.TeacherId).FirstName;
-            _emailService.SendApprovedEmail(user, teacher);
+            //vice.SendApprovedEmail(user, teacher);
         }
 
         [HttpPost]
@@ -765,7 +765,7 @@ namespace PTS.Controllers {
                     var user2 = new User();
                     user2 = user;
                     _userService.Update(user2);
-                    _emailService.SendResetPasswordEmail(user2, tempPassword);
+                    //_emailService.SendResetPasswordEmail(user2, tempPassword);
                 } else {
                     throw new Exception("Invalid username.");
                 }
