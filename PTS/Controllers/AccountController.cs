@@ -493,28 +493,25 @@ namespace PTS.Controllers {
         [HttpPost]
         public JsonResult GetSessions() {
             try {
-                    var requests = _requestService.GetAll().Where(x => x.TeacherId == SessionDataHelper.UserId);
-                    var student = _userService.GetAll().Where(x => requests.Select(i => i.StudentId).Contains(x.Id)).ToList();
-                    var user = _teacherUserService.GetById(SessionDataHelper.UserId);
+                if (SessionDataHelper.UserRole == UserRole.Student) {
+                    var requests = _requestService.GetAll().Where(x => x.StudentId == SessionDataHelper.UserId);
+                    var teacher = _teacherUserService.GetAll().Where(x => requests.Select(i => i.TeacherId).Contains(x.Id)).ToList();
 
-                    var results = student.Select(p => new {
+                    //var subject = _teacherOfferService.GetAll().Where(x => tutors.Contains(x.TeacherId)).ToList();
+
+                    var results = teacher.Select(p => new {
                         p.Id,
-                        p.FirstName,
-                        p.LastName,
-                        p.Email,
-                        Rate = "$" + user.HourlyRate,
-                        Status = requests.FirstOrDefault(x => x.StudentId == p.Id).Status,
-                        RequestId = requests.FirstOrDefault(x => x.StudentId == p.Id).Id
+                        p.User.FirstName,
+                        p.User.LastName,
+                        p.User.Email,
+                        Rate = "$" + p.HourlyRate,
+                        Role = SessionDataHelper.UserRole,
+                        Status = requests.FirstOrDefault(x => x.TeacherId == p.Id).Status,
+                        Review = p.ReviewTeacher.SingleOrDefault(x => x.StudentId == SessionDataHelper.UserId),
+                        AverageRating = p.ReviewTeacher.FirstOrDefault() != null ? Math.Round(p.ReviewTeacher.Average(a => a.Rating), 1).ToString() : "No Ratings",
                     }).ToArray();
-                    return Json(new { Result = "OK", Records = results, TotalRecordCount = results.Count() });
-            } catch (Exception ex) {
-                throw new Exception(ex.Message);
-            }
-        }
-
-        [HttpPost]
-        public JsonResult GetTeacherSessions() {
-            try {
+                    return Json(new { Result = "OK", Records = results, TotalRecordCount = requests.Count() });
+                } else {
                     var requests = _requestService.GetAll().Where(x => x.TeacherId == SessionDataHelper.UserId);
                     var student = _userService.GetAll().Where(x => requests.Select(i => i.StudentId).Contains(x.Id)).ToList();
                     var user = _teacherUserService.GetById(SessionDataHelper.UserId);
@@ -526,12 +523,13 @@ namespace PTS.Controllers {
                         p.Email,
                         Rate = "$" + user.HourlyRate,
                         Status = requests.FirstOrDefault(x => x.StudentId == p.Id).Status,
-                        RequestId = requests.FirstOrDefault(x => x.StudentId == p.Id).Id
+                        RequestId = requests.FirstOrDefault(x => x.StudentId == p.Id).Id,
+                        AverageRating = user.ReviewTeacher.FirstOrDefault() != null ? Math.Round(user.ReviewTeacher.Average(a => a.Rating), 1).ToString() : "No Ratings",
                     }).ToArray();
                     return Json(new { Result = "OK", Records = results, TotalRecordCount = results.Count() });
                 }
-                catch (Exception ex) {
-                    throw new Exception(ex.Message);
+            } catch (Exception ex) {
+                throw new Exception(ex.Message);
             }
         }
 

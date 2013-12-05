@@ -106,8 +106,11 @@
                 Review: {
                     title: 'Ratings',
                     display: function (data) {
-                        if (data.record.Review == null && data.record.Status != "Pending") {
+                        if (data.record.Review == null && data.record.Status != "Pending" && "@SessionDataHelper.UserRole" != "@UserRole.Teacher") {
                             return '<a href="@Url.Action("AddReview", "Review")?teacherId=' + data.record.Id + '">' + "Review Teacher" + '</a>';
+                        }
+                        if ("@SessionDataHelper.UserRole" == "@UserRole.Teacher") {
+                            return data.record.AverageRating + ' / 10';
                         }
                         else {
                             return '<a href="@Url.Action("ReviewTeacherView", "Review")?teacherId=' + data.record.Id + '">' + data.record.AverageRating + ' / 10</a>';
@@ -180,137 +183,6 @@
             }
         });
         $('#SessionsDisplayTable').jtable('load');
-
-        if ("@SessionDataHelper.UserRole" == "@UserRole.Teacher") {
-            $('#TeacherSessionsDisplayTable').jtable({
-                title: 'Tutor Contracts',
-                openChildAsAccordion: true,
-                selecting: true,
-                toolbar: {
-                    items: toolbarItems
-                },
-                ajaxSettings: {
-                    contentType: 'application/json'
-                },
-                actions: {
-                    listAction: '@Url.Action("GetTeacherSessions")',
-                },
-                fields: {
-                    Id: {
-                        key: true,
-                        list: false,
-                        create: false,
-                        edit: false,
-                    },
-                    FirstName: {
-                        title: 'First Name'
-                    },
-                    LastName: {
-                        title: 'Last Name'
-                    },
-                    Email: {
-                        title: 'Email',
-                        display: function (data) {
-                            return '<a href="@Url.Action("SendEmail", "Account")?email=' + data.record.Email + '">' + data.record.Email + '</a>';
-                        }
-                    },
-                    Rate: {
-                        title: 'Rate',
-                    },
-                    Status: {
-                        title: 'Approval Status',
-                        //display: function (rowdata) {
-                        //    return '<button id="cellApprove" type="button" class="btn btn-primary" onclick="refreshTable(data.record.Id); return false;">' + rowdata.record.Status + '</button>';
-                        //return '<button title="' + data.record.Status + '" class="jtable-command-button jtable-edit-command-button" onclick="refreshTable(data.record.Id); return false;"><span>' + data.record.Status + '</span></button>';
-                        //var row = data.record;
-                        //var result = data.record.Status;
-                        //console.log(data.record.Status);
-                        //console.log(data.record.Id);
-                        //if (data.record.Role == UserRole.Teacher) {
-                        //    result = '<button title="'+ result +'" class="jtable-command-button jtable-edit-command-button" onclick="refreshTable(data.record.Id); return false;"><span>'+data.record.Status+'</span></button>';
-                        //}
-                        //return result;
-
-                        //}
-                    },
-                    Review: {
-                        title: 'Ratings',
-                        display: function (data) {
-                            if (data.record.Review == null && data.record.Status != "Pending") {
-                                return '<a href="@Url.Action("AddReview", "Review")?teacherId=' + data.record.Id + '">' + "Review Teacher" + '</a>';
-                            }
-                            else {
-                                return '<a href="@Url.Action("ReviewTeacherView", "Review")?teacherId=' + data.record.Id + '">' + data.record.AverageRating + ' / 10</a>';
-                            }
-                        }
-                    },
-                    Availability: {
-                        title: 'Session Info',
-                        sorting: false,
-                        display: function (data) {
-                            console.log(data + "data ehre");
-                            var link = $('<a>Session Info</a>');
-                            link.click(function () {
-                                $('#TeacherSessionsDisplayTable').jtable('openChildTable',
-                                    link.closest('tr'),
-                                    {
-                                        title: 'Session for ' + data.record.FirstName + " " + data.record.LastName,
-                                        actions: {
-                                            listAction: '@Url.Action("GetSchedule")',
-                                        },
-                                        fields: {
-                                            Sunday: {
-                                                title: 'Sunday',
-                                            },
-                                            Monday: {
-                                                title: 'Monday'
-                                            },
-                                            Tuesday: {
-                                                title: 'Tuesday'
-                                            },
-                                            Wednesday: {
-                                                title: 'Wednesday'
-                                            },
-                                            Thursday: {
-                                                title: 'Thursday'
-                                            },
-                                            Friday: {
-                                                title: 'Friday'
-                                            },
-                                            Saturday: {
-                                                title: 'Saturday'
-                                            },
-
-                                        }
-                                    }, function (innerData) {
-                                        innerData.childTable.jtable('load', {
-                                            tutorUserId: data.record.Id
-                                        });
-                                    });
-                            });
-                            return link;
-                        }
-                    },
-                },
-                selectionChanged: function () {
-                    //Get all selected rows
-                    var selectedRow = $('#TeacherSessionsDisplayTable').jtable('selectedRows').data('record');
-                    if (selectedRow) {
-                        if (selectedRow.Status == "Pending" && "@PTS.Infrastructure.SessionDataHelper.UserRole" == "@UserRole.Teacher") {
-                            $(".editProcess").show();
-
-                        }
-                        if (selectedRow.Status == "Approved" && "@PTS.Infrastructure.SessionDataHelper.UserRole" == "@UserRole.Student") {
-                            $(".addReview").show();
-                        }
-                    } else {
-                        $(".editProcess").hide();
-                        $(".addReview").hide();
-                    }
-                }
-            });
-            $('#TeacherSessionsDisplayTable').jtable('load');
-        }
 
         $(".editProcess").hide();
         $(".addReview").hide();
