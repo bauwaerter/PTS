@@ -138,6 +138,12 @@
                     display: function (data) {
                         return '<a href="@Url.Action("LoadTeacherMap")?teacherId=' + data.record.Id + '">Map</a>';
                     }
+                },
+                Pending: {
+                    title: "Accept Request",
+                    display: function (data) {
+                        return '<a href="@Url.Action("ActivateTutor")?teacherId=' + data.record.Id + '">Activate Tutor</a>';
+                    }
                 }
             }
         }).jtable('load');
@@ -217,6 +223,12 @@
                     title: 'Map',
                     display: function (data) {
                         return '<a href="@Url.Action("LoadClassesMap")?classesId=' + data.record.Id + '">Map</a>';
+                    }
+                },
+                Pending: {
+                    title: "Accept Request",
+                    display: function (data) {
+                        return '<a href="@Url.Action("ActivateClass")?classesId=' + data.record.Id + '">Activate Class</a>';
                     }
                 }
 

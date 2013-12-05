@@ -426,7 +426,7 @@ namespace PTS.Views.Search
                     Description = d.Description,
                     StartTime = d.StartTime.ToString(),
                     EndTime = d.EndTime.ToString(),
-                    Dates = d.ClassMeetingDates.OrderBy(s => s.Date).FirstOrDefault().Date.ToShortDateString() + " - " + d.ClassMeetingDates.OrderByDescending(e => e.Date).FirstOrDefault().Date.ToShortDateString(),
+                    Dates = d.ClassMeetingDates.FirstOrDefault() != null ? d.ClassMeetingDates.OrderBy(s => s.Date).FirstOrDefault().Date.ToShortDateString() + " - " + d.ClassMeetingDates.OrderByDescending(e => e.Date).FirstOrDefault().Date.ToShortDateString() : "N/A",
                     City = d.Location.City,
                     State = d.Location.State,
                     Address = d.Location.Address,
@@ -438,6 +438,38 @@ namespace PTS.Views.Search
                                 
 
                 return Json(new { Result = "OK", Records = records.Skip(jtStartIndex).Take(jtPageSize).ToList(), TotalRecordCount = records.Count() });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public ActionResult ActivateTutor(int teacherId)
+        {
+            try
+            {
+                var teacher = _teacherUserService.GetById(teacherId);
+                teacher.Active = true;
+                _teacherUserService.Update(teacher);
+
+                return Json(new { Result = "OK" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public ActionResult ActivateClass(int classesId)
+        {
+            try
+            {
+                var classes = _classService.GetById(classesId);
+                classes.Active = true;
+                _classService.Update(classes);
+
+                return Json(new { Result = "OK" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
