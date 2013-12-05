@@ -454,8 +454,11 @@
 
                         });
                     }
-
-                    codeAddress(callback)
+                    if ($('#UserAccount').valid()) {
+                        codeAddress(callback)
+                    }
+                    
+                    
                 });
 
 
@@ -504,7 +507,7 @@
                 function MarkErrorsUserForm() {
                     $("#UserAccount").valid();
                     if (!$('#UserAccount').valid()) {
-                        $("#SaveUserButton").qtip(ErrorTip("Please check the highlighted fields.")).qtip("show");
+                       // $("#SaveUserButton").qtip(ErrorTip("Please check the highlighted fields.")).qtip("show");
                     }
                 }
 
