@@ -700,6 +700,9 @@
     <Content Include="Views\Account\LoadForgotPassword.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Review\AddClassReview.cshtml" />
+    <Content Include="Views\Account\ManageAccount.cshtml">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
