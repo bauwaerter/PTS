@@ -579,7 +579,7 @@ namespace PTS.Controllers {
                         EndTime = enrolledClass.EndTime.ToString(),
                         StartTime = enrolledClass.StartTime.ToString(),
                         Review = enrolledClass.ReviewClass.SingleOrDefault(x => x.StudentId == SessionDataHelper.UserId),
-                        AverageRating = enrolledClass.ReviewClass.FirstOrDefault() != null ? Math.Round(teacher.ReviewTeacher.Average(a => a.Rating), 1).ToString() : "No Ratings",
+                        AverageRating = enrolledClass.ReviewClass.FirstOrDefault() != null ? Math.Round(enrolledClass.ReviewClass.Average(a => a.Rating), 1).ToString() : "No Ratings",
                         Description = enrolledClass.Description,
                         Email = teacher.User.Email,
                         Id = enrolledClass.Id,
