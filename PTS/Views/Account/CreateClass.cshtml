@@ -125,8 +125,9 @@
         var address = $('#Address').val() + ' ' + $('#City').val() + ' ' + $('#State').val() + ' ' + $('#ZipCode').val() + ' ' + $('#Country').val();
         console.log(address);
         geocoder.geocode({ 'address': address }, function (results, status) {
+            debugger;
             if (status == google.maps.GeocoderStatus.OK) {
-
+                
                 var marker = new google.maps.Marker({
                     position: results[0].geometry.location
                 });
@@ -174,11 +175,12 @@
                         success: function (data) {
                         }
                     });
+
+                    window.location.href = '/Account/DisplayClasses'
                 }
 
                 codeAddress(callback);
 
-                window.location.href = '/Account/DisplayClasses'
             }
 
         });
