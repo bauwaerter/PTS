@@ -19,6 +19,7 @@ namespace PTS.Models
         public string AverageRating { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
+        public IList<Teacher_Offers> TeacherOffers { get; set; }
 
         public TeacherUserViewModel()
         {

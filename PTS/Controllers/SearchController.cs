@@ -53,7 +53,7 @@ namespace PTS.Views.Search
 
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult GetTeacherUsers(int jtStartIndex, int jtPageSize, string textSearch = "", double lat1 = 0, double lon1 = 0, int miles = 0)
+        public ActionResult GetTeacherUsers(int jtStartIndex, int jtPageSize, string textSearch = "", int subjectSearch = 0, double lat1 = 0, double lon1 = 0, int miles = 0)
         {
             try
             {
@@ -66,6 +66,7 @@ namespace PTS.Views.Search
                                        teacher.User.Email,
                                        teacher.ReviewTeacher,
                                        teacher.HourlyRate,
+                                       teacher.TeacherOffers,
                                        teacher.User.Location.Latitude,
                                        teacher.User.Location.Longitude,
                                    }).ToList();
@@ -79,6 +80,7 @@ namespace PTS.Views.Search
                     Email = t.Email,
                     AverageRating = t.ReviewTeacher.FirstOrDefault() !=  null ? Math.Round(t.ReviewTeacher.Average(a => a.Rating), 1).ToString() : "No Ratings",
                     HourlyRate = t.HourlyRate,
+                    TeacherOffers = t.TeacherOffers.ToList(),
                     Latitude = t.Latitude,
                     Longitude = t.Longitude
                 });
@@ -88,7 +90,22 @@ namespace PTS.Views.Search
                     var oldTeacherList = records;
                     records = oldTeacherList.Where(d => (ListHelper.CalculateDistance(lat1, lon1, d.Latitude, d.Longitude, miles)));
                 }
-
+                if (subjectSearch != 0)
+                {
+                    var subjectSearchRecords = records;
+                    var temp = new List<TeacherUserViewModel>();
+                    foreach (var item in subjectSearchRecords)
+                    {
+                        foreach (var subject in item.TeacherOffers)
+                        {
+                            if (subject.Id == subjectSearch)
+                            {
+                                temp.Add(item);
+                            }
+                        }
+                    }
+                    records = temp;
+                }
 
                 if(!string.IsNullOrWhiteSpace(textSearch))
                 {
