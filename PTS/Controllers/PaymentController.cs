@@ -103,7 +103,7 @@ namespace PTS.Controllers{
             _paymentService.Insert(model.Payment);
             var userFName = _userService.GetById(model.Payment.StudentId).FirstName;
             var teacher = _teacherUserService.GetById(model.Payment.TeacherId);
-            _emailService.SendRequestEmail(teacher.User, userFName);
+            //_emailService.SendRequestEmail(teacher.User, userFName);
             return RedirectToAction("Index", "Search");
         }
     }
