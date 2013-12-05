@@ -257,8 +257,8 @@ namespace PTS.Views.Search
         [AllowAnonymous]
         public ActionResult AllClassesMap()
         {
-            ViewBag.Message = _classService.GetTableQuery().ToList();
-            return View();
+            IList<Class> classList = _classService.GetTableQuery().ToList();
+            return View(classList);
         }
 
         [AllowAnonymous]
