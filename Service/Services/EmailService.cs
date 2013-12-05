@@ -123,8 +123,10 @@ namespace Service.Services {
             MailMessage emailSender = new MailMessage();
             emailSender.To.Add(user.Email);
             emailSender.Subject = "Class Enrolled - PTS";
-            emailSender.From = new System.Net.Mail.MailAddress("prospecttutoringsystems@gmail.com");
+            emailSender.SubjectEncoding = System.Text.Encoding.UTF8;
+            emailSender.From = new System.Net.Mail.MailAddress("prospecttutoringsystems@gmail.com", "One Ghost", System.Text.Encoding.UTF8);
             emailSender.Body = body;
+            emailSender.BodyEncoding = System.Text.Encoding.UTF8;
 
             SmtpSend(emailSender);
         }
@@ -222,8 +224,6 @@ namespace Service.Services {
                 Host = "smtp.gmail.com",
                 Port = 587,
                 EnableSsl = true,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                UseDefaultCredentials = false,
                 Credentials = new NetworkCredential("prospecttutoringsystems@gmail.com", "Ayoka.Com"),
             };
 
