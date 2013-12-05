@@ -462,6 +462,7 @@ namespace PTS.Controllers {
                     Id = c.Id,
                     SubjectId = c.SubjectID,
                     TeacherId = c.TeacherId,
+                    Status = c.Active ? "Active" : "Pending",
 
                 };
                 if (meetingDates.Count() > 0) {

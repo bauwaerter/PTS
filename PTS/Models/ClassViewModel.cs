@@ -25,6 +25,7 @@ namespace PTS.Models
         public string SubjectName { get; set; }
         public ReviewClass Review { get; set; }
         public IEnumerable<SelectListItem> Subjects { get; set; }
+        public string Status { get; set; }
         
         public DateTime DateStart { get; set; }
         public DateTime DateEnd { get; set; }
