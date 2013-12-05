@@ -273,7 +273,7 @@ namespace PTS.Controllers {
                         _scheduleService.Insert(teacherUser.Schedule);
                         teacherUser.Teacher.ScheduleId = teacherUser.Schedule.Id;
                         _teacherUserService.Insert(teacherUser.Teacher);
-                        _emailService.SendNewUserEmail(teacherUser.Teacher.User, confirmPassword);
+                        //_emailService.SendNewUserEmail(teacherUser.Teacher.User, confirmPassword);
                         teacherUser.Teacher.Schedule = teacherUser.Schedule;
                         var teacherOffer = new Teacher_Offers() {
                             TeacherId = teacherUser.Teacher.Id,
@@ -283,7 +283,7 @@ namespace PTS.Controllers {
                     } else {
                         teacherUser = null;
                         _userService.Insert(user);
-                        _emailService.SendNewUserEmail(user, confirmPassword);
+                        //_emailService.SendNewUserEmail(user, confirmPassword);
                     }
 
                     var loginModel = new LoginModel() {
