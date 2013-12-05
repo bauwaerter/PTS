@@ -698,7 +698,9 @@
     <Content Include="Views\Search\AllTutorsMap.cshtml" />
     <Content Include="Views\Search\AllClassesMap.cshtml" />
     <Content Include="Views\Account\SendEmail.cshtml" />
+    <Content Include="Views\Shared\_forgotPassword.cshtml" />
     <Content Include="Views\Search\Pending.cshtml" />
+    <Content Include="Views\Account\LoadForgotPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -92,6 +92,25 @@ namespace Service.Services {
             SmtpSend(emailSender);
         }
 
+        public void SendResetPasswordEmail(User user, string tempPassword) {
+            var model = new User {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                PassWord = tempPassword
+            };
+
+            var body = returnResetPasswordBody(model);
+
+            MailMessage emailSender = new MailMessage();
+            emailSender.To.Add(user.Email);
+            emailSender.Subject = "Password Reset - PTS";
+            emailSender.From = new System.Net.Mail.MailAddress("prospecttutoringsystems@gmail.com");
+            emailSender.Body = body;
+
+            SmtpSend(emailSender);
+        }
+
         public void SendEnrolledEmail(User user, string className) {
             var model = new User {
                 FirstName = user.FirstName,
@@ -156,6 +175,18 @@ namespace Service.Services {
                     +"Click http://prospecttutoring.com.192-185-11-49.secure20.win.hostgator.com/" + " to log in.\n\n"
                     +"Regards,\n"
                     +"PTS";
+            return message;
+        }
+
+        private String returnResetPasswordBody(User model) {
+            var message = "Dear " + model.FirstName + " " + model.LastName + ",\n\n"
+                    + "Your password has been successfully reset.\n"
+                    + "Please loging to your account and change it immediately using the following credentials.\n"
+                    + "Username: " + model.Email + "\n"
+                    + "Password: " + model.PassWord + "\n"
+                    + "Click http://prospecttutoring.com.192-185-11-49.secure20.win.hostgator.com/" + " to log in.\n\n"
+                    + "Regards,\n"
+                    + "PTS";
             return message;
         }
 

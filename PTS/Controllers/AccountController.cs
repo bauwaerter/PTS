@@ -18,14 +18,13 @@ using Service.Interfaces;
 using Core.Domains;
 using PTS.Infrastructure;
 using CommonHelper = Core.CommonHelper;
+using NewCommonHelper = Core.Helpers.CommonHelper;
 using System.Net.Mail;
 
-namespace PTS.Controllers
-{
+namespace PTS.Controllers {
     //[Authorize]
     //[InitializeSimpleMembership]
-    public class AccountController : BaseController
-    {
+    public class AccountController : BaseController {
 
         #region fields
         private readonly IBaseService<Class> _classService;
@@ -47,8 +46,7 @@ namespace PTS.Controllers
         #region constructor
         public AccountController(IBaseService<Schedule> scheduleServie, IBaseService<Payment> paymentsService, IBaseService<Enrolled> enrolledService, IBaseService<Class_Meeting_Dates> classMeetingDatesService, IBaseService<Subject> subjectService, IUserService userService, IBaseService<Class> classService, IBaseService<Location> locationService,
             IBaseService<TeacherUser> teacherUserService, ILoginService loginService, IBaseService<Request> requestService, IBaseService<Teacher_Offers> teacherOfferService, IBaseService<Tutors> tutorsService,
-            IBaseService<Schedule> scheduleService, IEmailService emailService)
-        {
+            IBaseService<Schedule> scheduleService, IEmailService emailService) {
             _userService = userService;
             _classService = classService;
             _locationService = locationService;
@@ -71,8 +69,7 @@ namespace PTS.Controllers
 
 
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
-        {
+        public ActionResult Login(string returnUrl) {
             ViewBag.ReturnUrl = returnUrl;
             var model = new LoginModel();
             return View(model);
@@ -83,12 +80,9 @@ namespace PTS.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Login(LoginModel loginModel, string returnUrl)
-        {
-            try
-            {
-                if (_userService.ValidateLogin(loginModel.UserName, loginModel.Password))
-                {
+        public ActionResult Login(LoginModel loginModel, string returnUrl) {
+            try {
+                if (_userService.ValidateLogin(loginModel.UserName, loginModel.Password)) {
                     var user = _userService.GetUserByEmail(loginModel.UserName);
 
                     FormsAuthentication.SetAuthCookie(loginModel.UserName, loginModel.RememberMe);
@@ -100,58 +94,47 @@ namespace PTS.Controllers
                     SessionDataHelper.ZipCode = user.Location.ZipCode;
                     SessionDataHelper.SessionId = System.Web.HttpContext.Current.Session.SessionID;
 
-                    if (SessionDataHelper.UserId != 1)
-                    {
+                    if (SessionDataHelper.UserId != 1) {
                         _loginService.LogUser(SessionDataHelper.UserId, SessionDataHelper.SessionId);
                     }
 
-                    if (Url.IsLocalUrl(returnUrl))
-                    {
+                    if (Url.IsLocalUrl(returnUrl)) {
                         return Redirect(returnUrl);
                     }
 
                     return RedirectToAction("Index", "Home");
                 }
                 throw new Exception("Your username/password combination was incorrect");
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 ModelState.AddModelError("Error", ex.Message);
             }
             return View(loginModel);
         }
 
-        public ActionResult SaveUserLocation(Location loc)
-        {
+        public ActionResult SaveUserLocation(Location loc) {
             loc.Id = SessionDataHelper.UserId;
 
             _locationService.Update(loc);
-            return Json(new
-            {
+            return Json(new {
                 Result = "OK"
             });
         }
 
-        public ActionResult SaveTeacherUser(TeacherUser teach)
-        {
+        public ActionResult SaveTeacherUser(TeacherUser teach) {
             teach.Id = SessionDataHelper.UserId;
             teach.ScheduleId = teach.Schedule.Id = _teacherUserService.GetById(SessionDataHelper.UserId).ScheduleId;
             _scheduleService.Update(teach.Schedule);
             _teacherUserService.Update(teach);
-            return Json(new
-            {
+            return Json(new {
                 Result = "OK"
             });
         }
 
-        public ActionResult SaveUser(User user)
-        {
-            try
-            {
+        public ActionResult SaveUser(User user) {
+            try {
                 user.Id = SessionDataHelper.UserId;
                 var tempUserData = _userService.GetById(user.Id);
-                var updateUser = new User
-                {
+                var updateUser = new User {
                     Id = user.Id,
                     Email = user.Email,
                     SSN = tempUserData.SSN,
@@ -167,21 +150,17 @@ namespace PTS.Controllers
                 };
 
                 _userService.Update(updateUser);
-                return Json(new
-                {
+                return Json(new {
                     Result = "OK"
                 });
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 throw new Exception(ex.Message);
             }
 
         }
 
         [Authorize]
-        public ActionResult ManageAccount()
-        {
+        public ActionResult ManageAccount() {
             var model = _userService.GetById(SessionDataHelper.UserId);
             var user = new AccountUser();
             var loc = new LocationVM();
@@ -189,21 +168,18 @@ namespace PTS.Controllers
 
             int locid = model.LocationId;
             var getlocation = _locationService.GetById(locid);
-            loc = new LocationVM
-                 {
-                     Address = getlocation.Address,
-                     City = getlocation.City,
-                     Country = getlocation.Country,
-                     LocationId = getlocation.Id,
-                     State = getlocation.State,
-                     ZipCode = getlocation.ZipCode
-                 };
+            loc = new LocationVM {
+                Address = getlocation.Address,
+                City = getlocation.City,
+                Country = getlocation.Country,
+                LocationId = getlocation.Id,
+                State = getlocation.State,
+                ZipCode = getlocation.ZipCode
+            };
 
 
-            if (model.Role == UserRole.Student)
-            {
-                user = new AccountUser
-                {
+            if (model.Role == UserRole.Student) {
+                user = new AccountUser {
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     Education = model.Education,
@@ -213,11 +189,8 @@ namespace PTS.Controllers
                     Location = loc,
                     Role = UserRole.Student
                 };
-            }
-            else if (model.Role == UserRole.Admin)
-            {
-                user = new AccountUser
-                {
+            } else if (model.Role == UserRole.Admin) {
+                user = new AccountUser {
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     Email = model.Email,
@@ -227,12 +200,9 @@ namespace PTS.Controllers
                     Major = model.Major,
                     Role = UserRole.Admin
                 };
-            }
-            else if (model.Role == UserRole.Teacher)
-            {
+            } else if (model.Role == UserRole.Teacher) {
                 var teacher = _teacherUserService.GetById(SessionDataHelper.UserId);
-                user = new AccountUser
-                {
+                user = new AccountUser {
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     Email = model.Email,
@@ -251,8 +221,7 @@ namespace PTS.Controllers
         }
 
         [HttpPost]
-        public ActionResult LogOff()
-        {
+        public ActionResult LogOff() {
             FormsAuthentication.SignOut();
             SessionHelper.Abandon();
             Session.Abandon();
@@ -267,10 +236,8 @@ namespace PTS.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult Register()
-        {
-            var user = new User()
-            {
+        public ActionResult Register() {
+            var user = new User() {
                 DOB = DateTime.Today,
                 Role = UserRole.Student,
                 Location = new Location()
@@ -283,16 +250,12 @@ namespace PTS.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Register(string confirmPassword, User user, TeacherScheduleModel teacherUser, int subject)
-        {
-            try
-            {
-                if (!CommonHelper.IsValidEmail(user.Email))
-                {
+        public ActionResult Register(string confirmPassword, User user, TeacherScheduleModel teacherUser, int subject) {
+            try {
+                if (!CommonHelper.IsValidEmail(user.Email)) {
                     throw new Exception("Username must be a valid email address");
                 }
-                if (confirmPassword.Equals(user.PassWord, StringComparison.Ordinal))
-                {
+                if (confirmPassword.Equals(user.PassWord, StringComparison.Ordinal)) {
                     var salt = "";
                     var email = user.Email;
                     var hashedPassword = SecurityHelper.HashPassword(user.PassWord, ref salt);
@@ -303,8 +266,7 @@ namespace PTS.Controllers
                     user.LocationId = location.Id;
                     user.Location = null;
 
-                    if (teacherUser.Teacher.HourlyRate != 0 || teacherUser.Teacher.ClassRate != 0)
-                    {
+                    if (teacherUser.Teacher.HourlyRate != 0 || teacherUser.Teacher.ClassRate != 0) {
                         teacherUser.Teacher.Active = false;
                         teacherUser.Teacher.User = user;
                         user = null;
@@ -313,22 +275,18 @@ namespace PTS.Controllers
                         _teacherUserService.Insert(teacherUser.Teacher);
                         _emailService.SendNewUserEmail(user, confirmPassword);
                         teacherUser.Teacher.Schedule = teacherUser.Schedule;
-                        var teacherOffer = new Teacher_Offers()
-                        {
+                        var teacherOffer = new Teacher_Offers() {
                             TeacherId = teacherUser.Teacher.Id,
                             SubjectId = subject
                         };
                         _teacherOfferService.Insert(teacherOffer);
-                    }
-                    else
-                    {
+                    } else {
                         teacherUser = null;
                         _userService.Insert(user);
                         _emailService.SendNewUserEmail(user, confirmPassword);
                     }
 
-                    var loginModel = new LoginModel()
-                    {
+                    var loginModel = new LoginModel() {
                         UserName = email,
                         Password = confirmPassword,
                         RememberMe = false
@@ -339,20 +297,16 @@ namespace PTS.Controllers
                     return RedirectToAction("Index", "Home");
                 }
                 throw new Exception("Passwords do not match");
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 Error(ex.Message);
                 return View(user);
             }
         }
 
         [HttpGet]
-        public ActionResult SendEmail(string email)
-        {
+        public ActionResult SendEmail(string email) {
             var user = _userService.GetById(SessionDataHelper.UserId);
-            var model = new EmailModel
-            {
+            var model = new EmailModel {
                 To = email,
                 From = user.Email,
             };
@@ -361,8 +315,7 @@ namespace PTS.Controllers
         }
 
         [HttpPost]
-        public ActionResult SendEmail(EmailModel email)
-        {
+        public ActionResult SendEmail(EmailModel email) {
             MailMessage emailSender = new MailMessage();
             emailSender.To.Add(email.To);
             emailSender.Subject = "New Message - PTS: " + email.Subject;
@@ -376,50 +329,38 @@ namespace PTS.Controllers
 
 
         [HttpGet]
-        public ActionResult LoadRequestSession(int teacherId)
-        {
-            try
-            {
-                var model = new RequestModel()
-                {
+        public ActionResult LoadRequestSession(int teacherId) {
+            try {
+                var model = new RequestModel() {
                     Teacher = _teacherUserService.GetById(teacherId),
-                    Request = new Request()
-                    {
+                    Request = new Request() {
                         TeacherId = teacherId,
                         StudentId = SessionDataHelper.UserId,
                         Status = "Pending",
                     }
                 };
                 return View("RegisterForTeacher", model);
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 throw new Exception(ex.Message);
             }
 
         }
 
         [HttpPost]
-        public ActionResult LoadRequestSession(Request request)
-        {
-            try
-            {
+        public ActionResult LoadRequestSession(Request request) {
+            try {
                 _requestService.Insert(request);
                 return RedirectToAction("ProcessTutorPayment", "Payment", new { studentId = request.StudentId, tutorId = request.TeacherId });
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 throw new Exception(ex.Message);
             }
         }
 
         [Authorize]
-        public ActionResult CreateClass()
-        {
+        public ActionResult CreateClass() {
             var subjects = _subjectService.GetAll();
             var today = DateTime.Today.DayOfWeek;
-            var model = new ClassViewModel
-            {
+            var model = new ClassViewModel {
                 SubjectId = 1,
                 Subjects = new SelectList(subjects, "Id", "Name")
             };
@@ -429,12 +370,10 @@ namespace PTS.Controllers
         }
 
         [HttpPost]
-        public ActionResult SaveClass(ClassViewModel classModel)
-        {
+        public ActionResult SaveClass(ClassViewModel classModel) {
             classModel.Duration += ((double)DateTime.Parse(classModel.EndTime).Subtract(DateTime.Parse(classModel.StartTime)).TotalMinutes / 60);
 
-            var insertLocation = new Location
-            {
+            var insertLocation = new Location {
                 Address = classModel.Address,
                 City = classModel.City,
                 Country = classModel.Country,
@@ -445,8 +384,7 @@ namespace PTS.Controllers
             _locationService.Insert(insertLocation);
 
 
-            var insertClass = new Class
-            {
+            var insertClass = new Class {
                 Description = classModel.Description,
                 StartTime = TimeSpan.Parse(classModel.StartTime),
                 EndTime = TimeSpan.Parse(classModel.EndTime),
@@ -461,52 +399,36 @@ namespace PTS.Controllers
 
             DateTime start = classModel.DateStart;
             DateTime end = classModel.DateEnd;
-            while (start.DayOfYear <= end.DayOfYear)
-            {
+            while (start.DayOfYear <= end.DayOfYear) {
                 Class_Meeting_Dates insertMeetingDate = new Class_Meeting_Dates();
 
-                if (classModel.Monday && start.DayOfWeek == System.DayOfWeek.Monday)
-                {
-                    insertMeetingDate = new Class_Meeting_Dates
-                    {
+                if (classModel.Monday && start.DayOfWeek == System.DayOfWeek.Monday) {
+                    insertMeetingDate = new Class_Meeting_Dates {
+                        ClassId = insertClass.Id,
+                        Date = start
+                    };
+                } else if (classModel.Tuesday && start.DayOfWeek == System.DayOfWeek.Tuesday) {
+                    insertMeetingDate = new Class_Meeting_Dates {
+                        ClassId = insertClass.Id,
+                        Date = start
+                    };
+                } else if (classModel.Wednesday && start.DayOfWeek == System.DayOfWeek.Wednesday) {
+                    insertMeetingDate = new Class_Meeting_Dates {
+                        ClassId = insertClass.Id,
+                        Date = start
+                    };
+                } else if (classModel.Thursday && start.DayOfWeek == System.DayOfWeek.Thursday) {
+                    insertMeetingDate = new Class_Meeting_Dates {
+                        ClassId = insertClass.Id,
+                        Date = start
+                    };
+                } else if (classModel.Friday && start.DayOfWeek == System.DayOfWeek.Friday) {
+                    insertMeetingDate = new Class_Meeting_Dates {
                         ClassId = insertClass.Id,
                         Date = start
                     };
                 }
-                else if (classModel.Tuesday && start.DayOfWeek == System.DayOfWeek.Tuesday)
-                {
-                    insertMeetingDate = new Class_Meeting_Dates
-                    {
-                        ClassId = insertClass.Id,
-                        Date = start
-                    };
-                }
-                else if (classModel.Wednesday && start.DayOfWeek == System.DayOfWeek.Wednesday)
-                {
-                    insertMeetingDate = new Class_Meeting_Dates
-                    {
-                        ClassId = insertClass.Id,
-                        Date = start
-                    };
-                }
-                else if (classModel.Thursday && start.DayOfWeek == System.DayOfWeek.Thursday)
-                {
-                    insertMeetingDate = new Class_Meeting_Dates
-                    {
-                        ClassId = insertClass.Id,
-                        Date = start
-                    };
-                }
-                else if (classModel.Friday && start.DayOfWeek == System.DayOfWeek.Friday)
-                {
-                    insertMeetingDate = new Class_Meeting_Dates
-                    {
-                        ClassId = insertClass.Id,
-                        Date = start
-                    };
-                }
-                if (insertMeetingDate.ClassId != 0)
-                {
+                if (insertMeetingDate.ClassId != 0) {
                     _classMeetingDatesService.Insert(insertMeetingDate);
                 }
                 start = start.AddDays(1);
@@ -516,26 +438,22 @@ namespace PTS.Controllers
         }
 
         [Authorize]
-        public ActionResult DisplayClasses()
-        {
+        public ActionResult DisplayClasses() {
             var model = "";
 
             return View(model);
         }
 
-        public ActionResult getClassesToDisplay()
-        {
+        public ActionResult getClassesToDisplay() {
             var teacherClasses = _classService.GetTableQuery().Where(c => c.TeacherId == SessionDataHelper.UserId);
 
             var tables = new List<ClassViewModel>();
 
-            foreach (var c in teacherClasses)
-            {
+            foreach (var c in teacherClasses) {
                 var meetingDates = _classMeetingDatesService.GetTableQuery().Where(m => m.ClassId == c.Id).OrderBy(o => o.Date);
                 var loc = _locationService.GetById(c.Id);
                 var teacher = _teacherUserService.GetById(c.TeacherId);
-                var classModel = new ClassViewModel
-                {
+                var classModel = new ClassViewModel {
                     LocationId = c.LocationId,
                     EndTime = c.EndTime.ToString(),
                     StartTime = c.StartTime.ToString(),
@@ -546,21 +464,18 @@ namespace PTS.Controllers
                     TeacherId = c.TeacherId,
 
                 };
-                if (meetingDates.Count() > 0)
-                {
+                if (meetingDates.Count() > 0) {
                     classModel.DateStart = meetingDates.First().Date;
                     classModel.DateEnd = meetingDates.OrderByDescending(x => x.Date).First().Date;
                 }
-                if (loc != null)
-                {
+                if (loc != null) {
                     classModel.Address = loc.Address;
                     classModel.City = loc.City;
                     classModel.Country = loc.Country;
                     classModel.State = loc.State;
                     classModel.ZipCode = loc.ZipCode;
                 }
-                if (teacher != null)
-                {
+                if (teacher != null) {
                     classModel.TeacherName = teacher.User.FirstName + " " + teacher.User.LastName;
                 }
                 tables.Add(classModel);
@@ -570,26 +485,21 @@ namespace PTS.Controllers
         }
 
         [Authorize]
-        public ActionResult DisplaySessions()
-        {
+        public ActionResult DisplaySessions() {
             var model = _userService.GetById(SessionDataHelper.UserId);
             return View(model);
         }
 
         [HttpPost]
-        public JsonResult GetSessions()
-        {
-            try
-            {
-                if (SessionDataHelper.UserRole == UserRole.Student)
-                {
+        public JsonResult GetSessions() {
+            try {
+                if (SessionDataHelper.UserRole == UserRole.Student) {
                     var requests = _requestService.GetAll().Where(x => x.StudentId == SessionDataHelper.UserId);
                     var teacher = _teacherUserService.GetAll().Where(x => requests.Select(i => i.TeacherId).Contains(x.Id)).ToList();
 
                     //var subject = _teacherOfferService.GetAll().Where(x => tutors.Contains(x.TeacherId)).ToList();
 
-                    var results = teacher.Select(p => new
-                    {
+                    var results = teacher.Select(p => new {
                         p.Id,
                         p.User.FirstName,
                         p.User.LastName,
@@ -601,15 +511,12 @@ namespace PTS.Controllers
                         AverageRating = p.ReviewTeacher.FirstOrDefault() != null ? Math.Round(p.ReviewTeacher.Average(a => a.Rating), 1).ToString() : "No Ratings",
                     }).ToArray();
                     return Json(new { Result = "OK", Records = results, TotalRecordCount = requests.Count() });
-                }
-                else
-                {
+                } else {
                     var requests = _requestService.GetAll().Where(x => x.TeacherId == SessionDataHelper.UserId);
                     var student = _userService.GetAll().Where(x => requests.Select(i => i.StudentId).Contains(x.Id)).ToList();
                     var user = _teacherUserService.GetById(SessionDataHelper.UserId);
 
-                    var results = student.Select(p => new
-                    {
+                    var results = student.Select(p => new {
                         p.Id,
                         p.FirstName,
                         p.LastName,
@@ -620,15 +527,12 @@ namespace PTS.Controllers
                     }).ToArray();
                     return Json(new { Result = "OK", Records = results, TotalRecordCount = results.Count() });
                 }
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 throw new Exception(ex.Message);
             }
         }
 
-        public void ApproveRequest(int requestId)
-        {
+        public void ApproveRequest(int requestId) {
             var request = _requestService.GetById(requestId);
             request.Status = "Approved";
             _requestService.Update(request);
@@ -638,13 +542,10 @@ namespace PTS.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetSchedule()
-        {
-            try
-            {
+        public JsonResult GetSchedule() {
+            try {
                 var schedule = _requestService.GetAll().Where(x => x.Status == "Approved");
-                var results = schedule.Select(p => new
-                {
+                var results = schedule.Select(p => new {
                     Sunday = (p.Sunday == false) ? "N/A" : "Scheduled",
                     Monday = (p.Monday == false) ? "N/A" : "Scheduled",
                     Tuesday = (p.Tuesday == false) ? "N/A" : "Scheduled",
@@ -655,31 +556,25 @@ namespace PTS.Controllers
                 }).ToArray();
 
                 return Json(new { Result = "OK", Records = results, TotalRecordCount = results.Count() });
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 throw new Exception(ex.Message);
             }
         }
 
-        public ActionResult GetStudentClassesToDisplay()
-        {
+        public ActionResult GetStudentClassesToDisplay() {
             var enrolled = _enrolledService.GetTableQuery().Where(e => e.StudentId == SessionDataHelper.UserId);
 
 
             var tables = new List<ClassViewModel>();
 
-            foreach (var c in enrolled)
-            {
+            foreach (var c in enrolled) {
                 var enrolledClass = _classService.GetById(c.ClassId);
-                if (enrolledClass != null)
-                {
+                if (enrolledClass != null) {
                     var meetingDates = _classMeetingDatesService.GetTableQuery().Where(m => m.ClassId == enrolledClass.Id).OrderBy(o => o.Date);
 
                     var loc = _locationService.GetById(enrolledClass.Id);
                     var teacher = _teacherUserService.GetById(enrolledClass.TeacherId);
-                    var classModel = new ClassViewModel
-                    {
+                    var classModel = new ClassViewModel {
                         LocationId = enrolledClass.LocationId,
                         EndTime = enrolledClass.EndTime.ToString(),
                         StartTime = enrolledClass.StartTime.ToString(),
@@ -690,21 +585,18 @@ namespace PTS.Controllers
                         TeacherId = enrolledClass.TeacherId,
 
                     };
-                    if (meetingDates.Count() > 0)
-                    {
+                    if (meetingDates.Count() > 0) {
                         classModel.DateStart = meetingDates.First().Date;
                         classModel.DateEnd = meetingDates.OrderByDescending(x => x.Date).First().Date;
                     }
-                    if (loc != null)
-                    {
+                    if (loc != null) {
                         classModel.Address = loc.Address;
                         classModel.City = loc.City;
                         classModel.Country = loc.Country;
                         classModel.State = loc.State;
                         classModel.ZipCode = loc.ZipCode;
                     }
-                    if (teacher != null)
-                    {
+                    if (teacher != null) {
                         classModel.TeacherName = teacher.User.FirstName + " " + teacher.User.LastName;
                     }
                     tables.Add(classModel);
@@ -715,24 +607,20 @@ namespace PTS.Controllers
             return Json(new { Result = "OK", Records = tables });
         }
 
-        public ActionResult Transactions()
-        {
+        public ActionResult Transactions() {
 
             return View("");
         }
         [HttpPost]
-        public ActionResult GetPayments()
-        {
+        public ActionResult GetPayments() {
             var payments = _paymentsService.GetTableQuery().Where(p => p.StudentId == SessionDataHelper.UserId);
             var results = new List<TransactionsVM>();
 
-            foreach (var p in payments)
-            {
+            foreach (var p in payments) {
                 var studName = _userService.GetById(p.StudentId);
                 var teacherName = _userService.GetById(p.TeacherId);
 
-                var trans = new TransactionsVM
-                {
+                var trans = new TransactionsVM {
                     Amount = p.Amount,
                     Date = p.Date,
                     StudentID = p.StudentId,
@@ -749,18 +637,15 @@ namespace PTS.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetPaymentsReceived()
-        {
+        public ActionResult GetPaymentsReceived() {
             var received = _paymentsService.GetTableQuery().Where(p => p.TeacherId == SessionDataHelper.UserId);
             var results = new List<TransactionsVM>();
 
-            foreach (var p in received)
-            {
+            foreach (var p in received) {
                 var studName = _userService.GetById(p.StudentId);
                 var teacherName = _userService.GetById(p.TeacherId);
 
-                var trans = new TransactionsVM
-                {
+                var trans = new TransactionsVM {
                     Amount = p.Amount,
                     Date = p.Date,
                     StudentID = p.StudentId,
@@ -776,25 +661,20 @@ namespace PTS.Controllers
             return Json(new { Result = "OK", Records = results });
         }
 
-        public ActionResult Calendar()
-        {
+        public ActionResult Calendar() {
 
             return View("");
         }
 
         [HttpPost]
-        public ActionResult GetCalendar()
-        {
+        public ActionResult GetCalendar() {
             var results = new List<CalendarEvent>();
             var enrolled = _enrolledService.GetTableQuery().Where(e => e.StudentId == SessionDataHelper.UserId).ToList();
 
-            foreach (var c in enrolled)
-            {
+            foreach (var c in enrolled) {
                 var studentClass = _classService.GetById(c.ClassId);
-                foreach (var m in studentClass.ClassMeetingDates)
-                {
-                    var temp = new CalendarEvent
-                    {
+                foreach (var m in studentClass.ClassMeetingDates) {
+                    var temp = new CalendarEvent {
                         allday = false,
                         id = c.ClassId,
                         start = m.Date.AddMinutes(studentClass.StartTime.Minutes).ToString(),
@@ -806,29 +686,64 @@ namespace PTS.Controllers
             }
 
             var classes = _classService.GetTableQuery().Where(c => c.TeacherId == SessionDataHelper.UserId).ToList();
-          
-                foreach (var c in classes)
-                {
-                    foreach (var m in c.ClassMeetingDates)
-                    {
-                        var temp = new CalendarEvent
-                        {
-                            allday = false,
-                            id = c.Id,
-                            start = m.Date.AddMinutes(c.StartTime.Minutes).ToString(),
-                            end = m.Date.AddMinutes(c.EndTime.Minutes).ToString(),
-                            title = "Student: " + c.Description
-                        };
-                        results.Add(temp);
 
+            foreach (var c in classes) {
+                foreach (var m in c.ClassMeetingDates) {
+                    var temp = new CalendarEvent {
+                        allday = false,
+                        id = c.Id,
+                        start = m.Date.AddMinutes(c.StartTime.Minutes).ToString(),
+                        end = m.Date.AddMinutes(c.EndTime.Minutes).ToString(),
+                        title = "Student: " + c.Description
+                    };
+                    results.Add(temp);
 
-                    }
 
                 }
 
-                return Json(new { Result = "OK", Records = results });
-                
+            }
+            return Json(new { Result = "OK", Records = results });
+        }
 
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult ResetPassword(LoginModel model, string returnUrl = "") {
+            try {
+                //User user = _userService.GetUserByEmail(model.UserName);
+                User user = _userService.GetAll().FirstOrDefault(x => x.Email == model.UserName);
+                if (user != null) {
+                    var salt = "";
+                    var tempPassword = NewCommonHelper.GenerateRandomString();
+                    var hashedPassword = SecurityHelper.HashPassword(tempPassword, ref salt);
+                    user.PassWord = hashedPassword;
+                    user.PasswordSalt = salt;
+                    var user2 = new User();
+                    user2 = user;
+                    _userService.Update(user2);
+                    _emailService.SendResetPasswordEmail(user2, tempPassword);
+                } else {
+                    throw new Exception("Invalid username.");
+                }
+            } catch (Exception ex) {
+                //ModelState.AddModelError("Error", ex.Message);
+                //Error("WRONG!");
+                return RedirectToAction("Login", ex.Message);
+                //return Mode("_ForgotPassword",model);
+            }
+            return RedirectToAction("Login", "Account");
+        }
+
+        [AllowAnonymous]
+        public ActionResult LoadForgotPassword() {
+            //var model = new UserSignInModel();
+            var model = new LoginModel();
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        public bool CheckUsername(string username) {
+            var test = _userService.GetUserByEmail(username);
+            return (test == null) ? false : true;
         }
     }
 }

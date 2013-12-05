@@ -28,6 +28,8 @@ namespace Service.Interfaces {
 
         void SmtpSend(MailMessage message);
 
+        void SendResetPasswordEmail(User user, string tempPassword);
+
         /// <summary>
         /// Sends an email to reset password.
         /// </summary>
