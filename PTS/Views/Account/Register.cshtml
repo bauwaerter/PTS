@@ -200,7 +200,10 @@
 
                 callback();
             } else {
-                alert("Geocode was not successful for the following reason: " + status);
+                $('#Location_Latitude').prop('value', 32.7050);
+                $('#Location_Longitude').prop('value', -97.1228);
+
+                callback();
             }
         });
     }
