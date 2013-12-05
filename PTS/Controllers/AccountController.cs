@@ -743,11 +743,9 @@ namespace PTS.Controllers
             
             foreach (var c in enrolled)
             {
-                var meetingDates = _classMeetingDatesService.GetTableQuery().Where(m=>m.ClassId==c.ClassId).ToList();
                 var studentClass = _classService.GetById(c.ClassId);
-                foreach(var m in meetingDates)
+                foreach(var m in studentClass.ClassMeetingDates)
                 {
-
                     var temp = new CalendarEvent
                     {
                         allday=false,
@@ -763,6 +761,11 @@ namespace PTS.Controllers
             var classes = _classService.GetTableQuery().Where(c => c.TeacherId == SessionDataHelper.UserId).ToList();
             foreach(var c in classes)
             {
+                var classes = _classService.GetTableQuery().Where(c => c.TeacherId == SessionDataHelper.UserId).ToList();
+                foreach (var c in classes)
+                {
+                    foreach (var m in c.ClassMeetingDates)
+                    {
 
             }
 

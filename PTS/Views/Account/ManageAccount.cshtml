@@ -13,340 +13,364 @@
 </hgroup>
 
 <div class="contact">
-    <form id="UserAccount">
-        
-        
+    <form id="UserAccount" action="" method="POST" enctype="multipart/form-data">
+        @Html.ValidationSummary(true)
         @*@Html.HiddenFor(model => model.Id)*@
-        <div class="row">
-            <div class="col-md-1">
-                <p><span class="label">First Name:</span></p>
+        <div class="sectionContainer formHolder">
+            <div class="container" style="margin-top: 20px; margin-left: 40px;">
+                <div style="background-color: #ecf0f1; border-radius: 10px; padding-top: 2px; padding-left: 10px; padding-bottom: 10px;width: 925px;">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label>First Name:</label>
+                        </div>
+                        <div class="col-md-1 ">
+                            <span><input name="FirstName" disabled="disabled" style="width:auto" class="form-control" value="@(Model.FirstName)" /></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <p>
+                                <label>Last Name:</label>
+                            </p>
+                        </div>
+                        <div class="col-md-1">
+                            <span><input name="LastName" disabled="disabled" style="width: auto" class="form-control" value="@(Model.LastName)" /></span>
+                        </div>
+                    </div>
 
-            </div>
-            <div class="col-md-1 col-md-offset-1">
-                <span><input name="FirstName" disabled="disabled" style="width:auto" class="form-control" value="@(Model.FirstName)" /></span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-1">
-                <p>
-                    <span class="label">Last Name:</span>
-                </p>
-            </div>
-            <div class="col-md-1 col-md-offset-1">
-                <span><input name="LastName" disabled="disabled" style="width: auto" class="form-control" value="@(Model.LastName)" /></span>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-1">
-                <p>
-                    <span class="label">E-Mail:</span>
-                </p>
-            </div>
-            <div class="col-md-1 col-md-offset-1">
-                <span><input name="Email" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Email)" /></span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-1">
-                <p>
-                    <span class="label">Major:</span>
-                </p>
-            </div>
-            <div class="col-md-1 col-md-offset-1">
-                <span><input disabled="disabled" style="width: auto" class="form-control" name="Major" value="@(Model.Major)" /></span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-1">
-                <p>
-                    <span class="label">Education:</span>
-                </p>
-            </div>
-            <div class="col-md-1 col-md-offset-1">
-                <span><input disabled="disabled" style="width: auto" class="form-control" name="Education" value="@(Model.Education)" /></span>
-            </div>
-        </div>
-    </form>
-    <form id="Userlocation">
-        <input id="Location_Latitude" name="Latitude" hidden="hidden" value="@(Model.Location.Latitude)" />
-        <input id="Location_Longitude" name="Longitude" hidden="hidden" value="@(Model.Location.Longitude)" />
-        <div class="row">
-            <div class="col-md-1">
-                <p>
-                    <span class="label">Address:</span>
-                </p>
-            </div>
-            <div class="col-md-1 col-md-offset-1">
-                <label>Address</label>
-                <span><input id="Location_Address" name="Address" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Location.Address)" /></span>
-            </div>
-            <div class="col-md-1 col-md-offset-2">
-                <label>City</label>
-                <span><input id="Location_City" name="City" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Location.City)" /></span>
-            </div>
-            <div class="col-md-1 col-md-offset-2">
-                <label>State</label>
-                <span><input id="Location_State" name="State" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Location.State)" /></span>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-1">
-            </div>
-            <div class="col-md-1 col-md-offset-1">
-                <label>Zip</label>
-                <span><input id="Location_ZipCode" name="ZipCode" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Location.ZipCode)" /></span>
-            </div>
-            <div class="col-md-1 col-md-offset-2">
-                <label>Country</label>
-                <span><input id="Location_Country" name="Country" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Location.Country)" /></span>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <p>
+                                <label>E-Mail:</label>
+                            </p>
+                        </div>
+                        <div class="col-md-1">
+                            <span><input name="Email" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Email)" /></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <p>
+                                <label>Major:</label>
+                            </p>
+                        </div>
+                        <div class="col-md-1">
+                            <span><input disabled="disabled" style="width: auto" class="form-control" name="Major" value="@(Model.Major)" /></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <p>
+                                <label>Education:</label>
+                            </p>
+                        </div>
+                        <div class="col-md-1 ">
+                            <span><input disabled="disabled" style="width: auto" class="form-control" name="Education" value="@(Model.Education)" /></span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </form>
-    <button id="EditUserButton" class="btn btn-primary">Edit User Info</button>
-    <button id="SaveUserButton" style="visibility:hidden" class="btn btn-primary">Save User Info</button>
+    
+    <div class="sectionContainer formHolder">
+        <h4>Location:</h4>
+        <div class="container" style="margin-top: 20px; margin-left: 40px;">
+            <div style="background-color: #ecf0f1; border-radius: 10px; padding-top: 2px; padding-left: 10px; padding-bottom: 10px;width: 925px;">
+                <form id="Userlocation">
+                    <input id="Location_Latitude" name="Latitude" hidden="hidden" value="@(Model.Location.Latitude)" />
+                    <input id="Location_Longitude" name="Longitude" hidden="hidden" value="@(Model.Location.Longitude)" />
+                    <div class="row">
+                        <div class="col-md-1 col-md-offset-1">
+                            <label>Address</label>
+                            <span><input id="Location_Address" name="Address" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Location.Address)" /></span>
+                        </div>
+                        <div class="col-md-1 col-md-offset-2">
+                            <label>City</label>
+                            <span><input id="Location_City" name="City" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Location.City)" /></span>
+                        </div>
+                        <div class="col-md-1 col-md-offset-2">
+                            <label>State</label>
+                            <span><input id="Location_State" name="State" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Location.State)" /></span>
+                        </div>
+                    </div>
 
-</div>
-@if (SessionDataHelper.UserRole == UserRole.Teacher)
-{
-    <form id="UserAccountTeacher">
-        <div class="contact teacherContact" id="teacherForm">
-            <header>
-                <h6>Teacher</h6>
-            </header>
-
-
-            <div class="row">
-                <div class="col-md-1">
-                    <p>
-                        <span class="label">Hourly Rate:</span>
-                    </p>
-                </div>
-                <div class="col-md-1 col-md-offset-1">
-                    <span>
-                        <input name="HourlyRate" disabled="disabled" style="width: auto" class="form-control" value="@(Model.HourlyRate)" /></span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-1">
-                    <p>
-                        <span class="label">Class Rate:</span>
-                    </p>
-                </div>
-                <div class="col-md-1 col-md-offset-1">
-                    <span>
-                        <input name="ClassRate" disabled="disabled" style="width: auto" class="form-control" value="@(Model.ClassRate)" /></span>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-1">
-                    <p>
-                        <span class="label">Availability:</span>
-                    </p>
-                </div>
-                <div class="col-md-1 col-md-offset-1">
-                    <label>Monday</label>
-                    @Html.CheckBoxFor(m => m.Schedule.Monday, new { disabled = "disabled" })
-                </div>
-                <section id="Monday">
-                    <div class="col-md-2 col-md-offset-1">
-                        <label>Start</label>
-                        <span>
-                            <input type="time" name="Schedule.MonStartTime" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Schedule.MonStartTime)" /></span>
+                    <div class="row">
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-1 col-md-offset-1">
+                            <label>Zip</label>
+                            <span><input id="Location_ZipCode" name="ZipCode" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Location.ZipCode)" /></span>
+                        </div>
+                        <div class="col-md-1 col-md-offset-2">
+                            <label>Country</label>
+                            <span><input id="Location_Country" name="Country" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Location.Country)" /></span>
+                        </div>
                     </div>
-                    <div class="col-md-3 col-md-offset-1">
-                        <label>End</label>
-                        <span>
-                            <input type="time" name="Schedule.MonEndTime" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Schedule.MonEndTime)" /></span>
-                    </div>
-                </section>
-                <br />
-
-                <div class="col-md-1 col-md-offset-2">
-
-                    <label>Tuesday</label>
-                    @Html.CheckBoxFor(m => m.Schedule.Tuesday, new { disabled = "disabled" })
+                </form>
                 </div>
-                <section id="Tuesday">
-                    <div class="col-md-2 col-md-offset-1">
-                        <label>Start</label>
-                        <span>
-                            <input type="time" name="Schedule.TuesStartTime" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Schedule.TuesStartTime)" /></span>
-                    </div>
-                    <div class="col-md-3 col-md-offset-1">
-                        <label>End</label>
-                        <span>
-                            <input type="time" name="Schedule.TuesEndTime" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Schedule.TuesEndTime)" /></span>
-                    </div>
-                </section>
-                <br />
-
-                <div class="col-md-1 col-md-offset-2">
-                    <label>WednesDay</label>
-                    @Html.CheckBoxFor(m => m.Schedule.Wednesday, new { disabled = "disabled" })
-                </div>
-                <section id="Wednesday">
-                    <div class="col-md-2 col-md-offset-1">
-                        <label>Start</label>
-                        <span>
-                            <input type="time" name="Schedule.WedStartTime" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Schedule.WedStartTime)" /></span>
-                    </div>
-                    <div class="col-md-3 col-md-offset-1">
-                        <label>End</label>
-                        <span>
-                            <input type="time" name="Schedule.WedEndTime" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Schedule.WedEndTime)" /></span>
-                    </div>
-                </section>
-                <br />
-
-                <div class="col-md-1 col-md-offset-2">
-                    <label>Thursday</label>
-                    @Html.CheckBoxFor(m => m.Schedule.Thursday, new { disabled = "disabled" })
-                </div>
-                <section id="Thursday">
-                    <div class="col-md-2 col-md-offset-1">
-                        <label>Start</label>
-                        <span>
-                            <input type="time" name="Schedule.ThursStartTime" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Schedule.ThursStartTime)" /></span>
-                    </div>
-                    <div class="col-md-3 col-md-offset-1">
-                        <label>End</label>
-                        <span>
-                            <input type="time" name="Schedule.ThursEndTime" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Schedule.ThursEndTime)" /></span>
-                    </div>
-                </section>
-                <br />
-
-                <div class="col-md-1 col-md-offset-2">
-                    <label>Friday</label>
-                    @Html.CheckBoxFor(m => m.Schedule.Friday, new { disabled = "disabled" })
-                </div>
-                <section id="Friday">
-                    <div class="col-md-2 col-md-offset-1">
-                        <label>Start</label>
-                        <span>
-                            <input type="time" name="Schedule.FriStartTime" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Schedule.FriStartTime)" /></span>
-                    </div>
-                    <div class="col-md-3 col-md-offset-1">
-                        <label>End</label>
-                        <span>
-                            <input type="time" name="Schedule.FriEndTime" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Schedule.FriEndTime)" /></span>
-                    </div>
-                </section>
-                <br />
             </div>
         </div>
-    </form>
-    <button id="SaveTeacherButton" style="visibility:hidden" class="btn btn-primary">Save Teacher Info</button>
-    <button id="EditTeacherButton" class="btn-primary btn">Edit Teacher Info</button>
-}
+    <br/>
+                <button id="EditUserButton" class="btn btn-primary">Edit User Info</button>
+                <button id="SaveUserButton" type="submit" style="visibility:hidden" class="btn btn-primary">Save User Info</button>
 
-<body onload="initialize()"></body>
+            </div>
+            @if (SessionDataHelper.UserRole == UserRole.Teacher)
+            {
+                <form id="UserAccountTeacher">
+                    <div class="contact teacherContact" id="teacherForm">
+                        <header>
+                            <h6>Teacher</h6>
+                        </header>
 
-<script type="text/javascript">
 
-    var geocoder;
+                        <div class="row">
+                            <div class="col-md-1">
+                                <p>
+                                    <span class="label">Hourly Rate:</span>
+                                </p>
+                            </div>
+                            <div class="col-md-1 col-md-offset-1">
+                                <span>
+                                    <input name="HourlyRate" disabled="disabled" style="width: auto" class="form-control" value="@(Model.HourlyRate)" />
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1">
+                                <p>
+                                    <span class="label">Class Rate:</span>
+                                </p>
+                            </div>
+                            <div class="col-md-1 col-md-offset-1">
+                                <span>
+                                    <input name="ClassRate" disabled="disabled" style="width: auto" class="form-control" value="@(Model.ClassRate)" />
+                                </span>
+                            </div>
+                        </div>
 
-    function initialize() {
-        geocoder = new google.maps.Geocoder();
-    }
+                        <div class="row">
+                            <div class="col-md-1">
+                                <p>
+                                    <span class="label">Availability:</span>
+                                </p>
+                            </div>
+                            <div class="col-md-1 col-md-offset-1">
+                                <label>Monday</label>
+                                @Html.CheckBoxFor(m => m.Schedule.Monday, new { disabled = "disabled" })
+                            </div>
+                            <section id="Monday">
+                                <div class="col-md-2 col-md-offset-1">
+                                    <label>Start</label>
+                                    <span>
+                                        <input type="time" name="Schedule.MonStartTime" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Schedule.MonStartTime)" />
+                                    </span>
+                                </div>
+                                <div class="col-md-3 col-md-offset-1">
+                                    <label>End</label>
+                                    <span>
+                                        <input type="time" name="Schedule.MonEndTime" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Schedule.MonEndTime)" />
+                                    </span>
+                                </div>
+                            </section>
+                            <br />
 
-    function codeAddress(callback) {
-        var address = $('#Location_Address').val() + ' ' + $('#Location_City').val() + ' ' + $('#Location_State').val() + ' ' + $('#Location_ZipCode').val() + ' ' + $('#Location_Country').val();
-        console.log(address);
-        geocoder.geocode({ 'address': address }, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
+                            <div class="col-md-1 col-md-offset-2">
 
-                var marker = new google.maps.Marker({
-                    position: results[0].geometry.location
+                                <label>Tuesday</label>
+                                @Html.CheckBoxFor(m => m.Schedule.Tuesday, new { disabled = "disabled" })
+                            </div>
+                            <section id="Tuesday">
+                                <div class="col-md-2 col-md-offset-1">
+                                    <label>Start</label>
+                                    <span>
+                                        <input type="time" name="Schedule.TuesStartTime" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Schedule.TuesStartTime)" />
+                                    </span>
+                                </div>
+                                <div class="col-md-3 col-md-offset-1">
+                                    <label>End</label>
+                                    <span>
+                                        <input type="time" name="Schedule.TuesEndTime" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Schedule.TuesEndTime)" />
+                                    </span>
+                                </div>
+                            </section>
+                            <br />
+
+                            <div class="col-md-1 col-md-offset-2">
+                                <label>WednesDay</label>
+                                @Html.CheckBoxFor(m => m.Schedule.Wednesday, new { disabled = "disabled" })
+                            </div>
+                            <section id="Wednesday">
+                                <div class="col-md-2 col-md-offset-1">
+                                    <label>Start</label>
+                                    <span>
+                                        <input type="time" name="Schedule.WedStartTime" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Schedule.WedStartTime)" />
+                                    </span>
+                                </div>
+                                <div class="col-md-3 col-md-offset-1">
+                                    <label>End</label>
+                                    <span>
+                                        <input type="time" name="Schedule.WedEndTime" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Schedule.WedEndTime)" />
+                                    </span>
+                                </div>
+                            </section>
+                            <br />
+
+                            <div class="col-md-1 col-md-offset-2">
+                                <label>Thursday</label>
+                                @Html.CheckBoxFor(m => m.Schedule.Thursday, new { disabled = "disabled" })
+                            </div>
+                            <section id="Thursday">
+                                <div class="col-md-2 col-md-offset-1">
+                                    <label>Start</label>
+                                    <span>
+                                        <input type="time" name="Schedule.ThursStartTime" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Schedule.ThursStartTime)" />
+                                    </span>
+                                </div>
+                                <div class="col-md-3 col-md-offset-1">
+                                    <label>End</label>
+                                    <span>
+                                        <input type="time" name="Schedule.ThursEndTime" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Schedule.ThursEndTime)" />
+                                    </span>
+                                </div>
+                            </section>
+                            <br />
+
+                            <div class="col-md-1 col-md-offset-2">
+                                <label>Friday</label>
+                                @Html.CheckBoxFor(m => m.Schedule.Friday, new { disabled = "disabled" })
+                            </div>
+                            <section id="Friday">
+                                <div class="col-md-2 col-md-offset-1">
+                                    <label>Start</label>
+                                    <span>
+                                        <input type="time" name="Schedule.FriStartTime" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Schedule.FriStartTime)" />
+                                    </span>
+                                </div>
+                                <div class="col-md-3 col-md-offset-1">
+                                    <label>End</label>
+                                    <span>
+                                        <input type="time" name="Schedule.FriEndTime" disabled="disabled" style="width: auto" class="form-control" value="@(Model.Schedule.FriEndTime)" />
+                                    </span>
+                                </div>
+                            </section>
+                            <br />
+                        </div>
+                    </div>
+                </form>
+                <button id="SaveTeacherButton" style="visibility:hidden" class="btn btn-primary">Save Teacher Info</button>
+                <button id="EditTeacherButton" class="btn-primary btn">Edit Teacher Info</button>
+            }
+
+            <body onload="initialize()">
+            </body>
+
+            <script>
+
+                var geocoder;
+
+                function initialize() {
+                    geocoder = new google.maps.Geocoder();
+                }
+
+                function codeAddress(callback) {
+                    var address = $('#Location_Address').val() + ' ' + $('#Location_City').val() + ' ' + $('#Location_State').val() + ' ' + $('#Location_ZipCode').val() + ' ' + $('#Location_Country').val();
+                    console.log(address);
+                    geocoder.geocode({ 'address': address }, function (results, status) {
+                        if (status == google.maps.GeocoderStatus.OK) {
+
+                            var marker = new google.maps.Marker({
+                                position: results[0].geometry.location
+                            });
+
+                            var latitude = results[0].geometry.location.lat();
+                            var longitude = results[0].geometry.location.lng();
+                            console.log(latitude);
+                            console.log(longitude);
+
+                            $('#Location_Latitude').prop('value', latitude);
+                            $('#Location_Longitude').prop('value', longitude);
+
+                            callback();
+                        } else {
+                            alert("Geocode was not successful for the following reason: " + status);
+                        }
+                    });
+                    console.log("RETURNING");
+
+                }
+
+
+
+
+
+                $(document).ready(function () {
+                    if ("@Model.Role" != "@UserRole.Teacher") {
+                        console.log("its not");
+                        $("#teacherForm").hide();
+                    } else {
+                        console.log("it is!");
+                        $("#teacherForm").show();
+                    }
                 });
 
-                var latitude = results[0].geometry.location.lat();
-                var longitude = results[0].geometry.location.lng();
-                console.log(latitude);
-                console.log(longitude);
+                $('#EditUserButton').on('click', function (event) {
+                    event.preventDefault();
+                    $('#UserAccount').find(':input').prop('disabled', '');
+                    $('#Userlocation').find(':input').prop('disabled', '');
+                    $('#EditUserButton').hide();
+                    $('#SaveUserButton').css('visibility', 'visible');
+                });
 
-                $('#Location_Latitude').prop('value', latitude);
-                $('#Location_Longitude').prop('value', longitude);
+                $('#EditStudentButton').on('click', function (event) {
+                    event.preventDefault();
+                    $('#UserAccountStudent').find(':input').prop('disabled', '');
+                    $('#EditStudentButton').hide();
+                    $('#SaveStudentButton').css('visibility', 'visible');
+                });
 
-                callback();
-            } else {
-                alert("Geocode was not successful for the following reason: " + status);
-            }
-        });
-        console.log("RETURNING");
-        
-    }
+                $('#EditTeacherButton').on('click', function (event) {
+                    event.preventDefault();
+                    $('#UserAccountTeacher').find(':input').prop('disabled', '');
+                    $('#EditTeacherButton').hide();
+                    $('#SaveTeacherButton').css('visibility', 'visible');
 
-
-    $(document).ready(function () {
-        if ("@Model.Role" != "@UserRole.Teacher") {
-            console.log("its not");
-            $("#teacherForm").hide();
-        } else {
-            console.log("it is!");
-            $("#teacherForm").show();
-        }
-    });
-
-    $('#EditUserButton').on('click', function (event) {
-        event.preventDefault();
-        $('#UserAccount').find(':input').prop('disabled', '');
-        $('#Userlocation').find(':input').prop('disabled', '');
-        $('#EditUserButton').hide();
-        $('#SaveUserButton').css('visibility', 'visible');
-    });
-
-    $('#EditStudentButton').on('click', function (event) {
-        event.preventDefault();
-        $('#UserAccountStudent').find(':input').prop('disabled', '');
-        $('#EditStudentButton').hide();
-        $('#SaveStudentButton').css('visibility', 'visible');
-    });
-
-    $('#EditTeacherButton').on('click', function (event) {
-        event.preventDefault();
-        $('#UserAccountTeacher').find(':input').prop('disabled', '');
-        $('#EditTeacherButton').hide();
-        $('#SaveTeacherButton').css('visibility', 'visible');
-
-        if ($('#Schedule_Monday').is(':checked')) {
-            $('#Monday').find(':input').prop('disabled', '')
-        }
-        else {
-            $('#Monday').find(':input').prop('disabled', 'disabled')
-        }
-        if ($('#Schedule_Tuesday').is(':checked')) {
-            $('#Tuesday').find(':input').prop('disabled', '')
-        }
-        else {
-            $('#Tuesday').find(':input').prop('disabled', 'disabled')
-        }
-        if ($('#Schedule_Wednesday').is(':checked')) {
-            $('#Wednesday').find(':input').prop('disabled', '')
-        }
-        else {
-            $('#Wednesday').find(':input').prop('disabled', 'disabled')
-        }
-        if ($('#Schedule_Thursday').is(':checked')) {
-            $('#Thursday').find(':input').prop('disabled', '')
-        }
-        else {
-            $('#Thursday').find(':input').prop('disabled', 'disabled')
-        }
-        if ($('#Schedule_Friday').is(':checked')) {
-            $('#Friday').find(':input').prop('disabled', '')
-        }
-        else {
-            $('#Friday').find(':input').prop('disabled', 'disabled')
-        }
+                    if ($('#Schedule_Monday').is(':checked')) {
+                        $('#Monday').find(':input').prop('disabled', '')
+                    }
+                    else {
+                        $('#Monday').find(':input').prop('disabled', 'disabled')
+                    }
+                    if ($('#Schedule_Tuesday').is(':checked')) {
+                        $('#Tuesday').find(':input').prop('disabled', '')
+                    }
+                    else {
+                        $('#Tuesday').find(':input').prop('disabled', 'disabled')
+                    }
+                    if ($('#Schedule_Wednesday').is(':checked')) {
+                        $('#Wednesday').find(':input').prop('disabled', '')
+                    }
+                    else {
+                        $('#Wednesday').find(':input').prop('disabled', 'disabled')
+                    }
+                    if ($('#Schedule_Thursday').is(':checked')) {
+                        $('#Thursday').find(':input').prop('disabled', '')
+                    }
+                    else {
+                        $('#Thursday').find(':input').prop('disabled', 'disabled')
+                    }
+                    if ($('#Schedule_Friday').is(':checked')) {
+                        $('#Friday').find(':input').prop('disabled', '')
+                    }
+                    else {
+                        $('#Friday').find(':input').prop('disabled', 'disabled')
+                    }
 
 
-    });
+                });
 
-    @*$('#SaveStudentButton').on('click', function(event) {
+                @*$('#SaveStudentButton').on('click', function(event) {
         $.ajax({
             url: '@Url.Action("SaveStudentUser")',
             data: $('#UserAccountStudent').serialize(),
@@ -359,98 +383,122 @@
         });
     });*@
 
-    $('#SaveTeacherButton').on('click', function (event) {
-        event.preventDefault();
-        
-        $.ajax({
-            url: '@Url.Action("SaveTeacherUser")',
-            type: 'post',
-            data: $('#UserAccountTeacher').serialize(),
-            success: function () {
-                $('#UserAccountTeacher').find(':input').prop('disabled', 'disabled');
-                $('#SaveTeacherButton').css('visibility', 'hidden');
-                $('#EditTeacherButton').show();
-                
-            }
+                $('#SaveTeacherButton').on('click', function (event) {
+                    event.preventDefault();
 
-        });
-    });
+                    $.ajax({
+                        url: '@Url.Action("SaveTeacherUser")',
+                        type: 'post',
+                        data: $('#UserAccountTeacher').serialize(),
+                        success: function () {
+                            $('#UserAccountTeacher').find(':input').prop('disabled', 'disabled');
+                            $('#SaveTeacherButton').css('visibility', 'hidden');
+                            $('#EditTeacherButton').show();
 
+                        }
 
-    $('#SaveUserButton').on('click', function (event) {
-        event.preventDefault();
-        
-        //codeAddress();
-        var callback = function(){
-            $.ajax({
-                url: '@Url.Action("SaveUserLocation")',
-                data: $('#Userlocation').serialize(),
-                type: 'post',
-                success: function () {
-                }
-
-            });
-
-            $.ajax({
-                url: '@Url.Action("SaveUser")',
-                data: $('#UserAccount').serialize(),
-                type: 'post',
-                success: function () {
-                    $('#UserAccount').find(':input').prop('disabled', 'disabled');
-                    $('#Userlocation').find(':input').prop('disabled', 'disabled');
-                    $('#EditUserButton').show();
-                    $('#SaveUserButton').css('visibility', 'hidden');
-                }
-
-            });
-        }
-
-        codeAddress(callback)
-    });
+                    });
+                });
 
 
-    
 
-    $('#Schedule_Monday').on('click', function (event) {
-        if ($('#Schedule_Monday').is(':checked')) {
-            $('#Monday').find(':input').prop('disabled', '')
-        }
-        else {
-            $('#Monday').find(':input').prop('disabled', 'disabled')
-        }
-    })
+                $('#SaveUserButton').on('click', function (event) {
+                    event.preventDefault();
 
-    $('#Schedule_Tuesday').on('click', function (event) {
-        if ($('#Schedule_Tuesday').is(':checked')) {
-            $('#Tuesday').find(':input').prop('disabled', '')
-        }
-        else {
-            $('#Tuesday').find(':input').prop('disabled', 'disabled')
-        }
-    })
-    $('#Schedule_Wednesday').on('click', function (event) {
-        if ($('#Schedule_Wednesday').is(':checked')) {
-            $('#Wednesday').find(':input').prop('disabled', '')
-        }
-        else {
-            $('#Wednesday').find(':input').prop('disabled', 'disabled')
-        }
-    })
-    $('#Schedule_Thursday').on('click', function (event) {
-        if ($('#Schedule_Thursday').is(':checked')) {
-            $('#Thursday').find(':input').prop('disabled', '')
-        }
-        else {
-            $('#Monday').find(':input').prop('disabled', 'disabled')
-        }
-    })
-    $('#Schedule_Friday').on('click', function (event) {
-        if ($('#Schedule_Friday').is(':checked')) {
-            $('#Friday').find(':input').prop('disabled', '')
-        }
-        else {
-            $('#Friday').find(':input').prop('disabled', 'disabled')
-        }
-    })
 
-</script>
+                    //codeAddress();
+                    var callback = function () {
+                        $.ajax({
+                            url: '@Url.Action("SaveUserLocation")',
+                            data: $('#Userlocation').serialize(),
+                            type: 'post',
+                            success: function () {
+                            }
+
+                        });
+
+                        $.ajax({
+                            url: '@Url.Action("SaveUser")',
+                            data: $('#UserAccount').serialize(),
+                            type: 'post',
+                            success: function () {
+                                $('#UserAccount').find(':input').prop('disabled', 'disabled');
+                                $('#Userlocation').find(':input').prop('disabled', 'disabled');
+                                $('#EditUserButton').show();
+                                $('#SaveUserButton').css('visibility', 'hidden');
+                            }
+
+                        });
+                    }
+
+                    codeAddress(callback)
+                });
+
+
+                $('#form').validate({
+                    rules: {
+                        FirstName: "required",
+                        LastName: "required",
+                        Email: {
+                            required: true,
+                            email: true
+                        },
+                        Major: "required",
+                        Education: "required"
+                    },
+                    messages: {
+                        FirstName: "Please enter a first name",
+                        LastName: "Please enter a last name",
+                        Email: "please enter your email address",
+                        Major: "Please enter your major",
+                        Education: "Please enter college or highschool"
+                    },
+                    submitHandler: function (form) {
+                        form.submit();
+                    }
+                });
+
+
+                $('#Schedule_Monday').on('click', function (event) {
+                    if ($('#Schedule_Monday').is(':checked')) {
+                        $('#Monday').find(':input').prop('disabled', '')
+                    }
+                    else {
+                        $('#Monday').find(':input').prop('disabled', 'disabled')
+                    }
+                })
+
+                $('#Schedule_Tuesday').on('click', function (event) {
+                    if ($('#Schedule_Tuesday').is(':checked')) {
+                        $('#Tuesday').find(':input').prop('disabled', '')
+                    }
+                    else {
+                        $('#Tuesday').find(':input').prop('disabled', 'disabled')
+                    }
+                })
+                $('#Schedule_Wednesday').on('click', function (event) {
+                    if ($('#Schedule_Wednesday').is(':checked')) {
+                        $('#Wednesday').find(':input').prop('disabled', '')
+                    }
+                    else {
+                        $('#Wednesday').find(':input').prop('disabled', 'disabled')
+                    }
+                })
+                $('#Schedule_Thursday').on('click', function (event) {
+                    if ($('#Schedule_Thursday').is(':checked')) {
+                        $('#Thursday').find(':input').prop('disabled', '')
+                    }
+                    else {
+                        $('#Monday').find(':input').prop('disabled', 'disabled')
+                    }
+                })
+                $('#Schedule_Friday').on('click', function (event) {
+                    if ($('#Schedule_Friday').is(':checked')) {
+                        $('#Friday').find(':input').prop('disabled', '')
+                    }
+                    else {
+                        $('#Friday').find(':input').prop('disabled', 'disabled')
+                    }
+                })
+
+            </script>

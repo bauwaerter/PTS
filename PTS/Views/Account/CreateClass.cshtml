@@ -151,6 +151,7 @@
 
     $(document).ready(function () {
         $("#subjectList[name='SubjectID']").selectpicker({ style: 'btn-primary', menuStyle: 'dropdown-inverse' });
+
         $('#CreateClassBtn').on('click', function () {
             var callback = function () {
                 $.ajax({
@@ -162,6 +163,8 @@
                 });  
             }
             codeAddress(callback);
+            debugger
+            window.location.href = '/Account/DisplayClasses'
 
         });
     });
