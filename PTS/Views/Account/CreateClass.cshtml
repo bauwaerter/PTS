@@ -8,15 +8,15 @@
     <div class="row">
         <div class="col-md-1">
             <label>Description</label>
-            <input style="width:auto" class="form-control" name="Description" />
+            <input style="width:auto" class="form-control required" name="Description" />
         </div>
         <div class="col-md-2 col-md-offset-2">
             <label>Start Time</label>
-            <input style="width:auto" class="form-control" name="StartTime" type="time" />
+            <input style="width:auto" class="form-control required" name="StartTime" type="time" />
         </div>
         <div class="col-md-1 col-md-offset-0">
             <label>EndTime</label>
-            <input style="width:auto" class="form-control" name="EndTime" type="time" />
+            <input style="width:auto" class="form-control required" name="EndTime" type="time" />
         </div>
     </div>
     <br/>
@@ -44,26 +44,26 @@
         <input id="Longitude" name="Longitude" hidden="hidden" />
         <div class="col-md-1 col-md-offset-1">
             <label>Address</label>
-            <span><input id="Address" name="Address" style="width: auto" class="form-control" /></span>
+            <span><input id="Address" name="Address" style="width: auto" class="form-control required" /></span>
         </div>
         <div class="col-md-1 col-md-offset-2">
             <label>City</label>
-            <span><input id="City" name="City" style="width: auto" class="form-control" /></span>
+            <span><input id="City" name="City" style="width: auto" class="form-control required" /></span>
         </div>
         <div class="col-md-1 col-md-offset-2">
             <label>State</label>
-            <span><input id="State" name="State" style="width: auto" class="form-control" /></span>
+            <span><input id="State" name="State" style="width: auto" class="form-control required" /></span>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-1 col-md-offset-1">
             <label>ZipCode</label>
-            <span><input id="ZipCode" name="ZipCode" style="width: auto" class="form-control" /></span>
+            <span><input id="ZipCode" name="ZipCode" style="width: auto" class="form-control required" /></span>
         </div>
         <div class="col-md-1 col-md-offset-2">
             <label>Country</label>
-            <span><input id="Country" name="Country" style="width: auto" class="form-control" /></span>
+            <span><input id="Country" name="Country" style="width: auto" class="form-control required" /></span>
         </div>
     </div>
     <br />
@@ -152,21 +152,43 @@
     $(document).ready(function () {
         $("#subjectList[name='SubjectID']").selectpicker({ style: 'btn-primary', menuStyle: 'dropdown-inverse' });
 
-        $('#CreateClassBtn').on('click', function () {
-            var callback = function () {
-                $.ajax({
-                    url: '@Url.Action("SaveClass")',
-                    type: 'post',
-                    data: $(':input').serialize(),
-                    success: function (data) {
-                    }
-                });  
+        $("#ClassForm").validate({
+            errorClass: 'glow',
+            errorPlacement: function () { },
+            rules: {
+                field: {
+                    required: true,
+                }
             }
-            codeAddress(callback);
-            debugger
-            window.location.href = '/Account/DisplayClasses'
+        });
+
+        $('#CreateClassBtn').on('click', function () {
+            MarkErrorsClassForm();
+
+            if ($('#ClassForm').valid()) {
+                var callback = function () {
+                    $.ajax({
+                        url: '@Url.Action("SaveClass")',
+                        type: 'post',
+                        data: $(':input').serialize(),
+                        success: function (data) {
+                        }
+                    });
+                }
+
+                codeAddress(callback);
+
+                window.location.href = '/Account/DisplayClasses'
+            }
 
         });
     });
+
+    function MarkErrorsClassForm() {
+        $("#ClassForm").valid();
+        if (!$('#ClassForm').valid()) {
+            // $("#SaveUserButton").qtip(ErrorTip("Please check the highlighted fields.")).qtip("show");
+        }
+    }
 
 </script>
