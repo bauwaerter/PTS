@@ -11,7 +11,7 @@ using PTS.Models;
 using Service.Interfaces;
 
 namespace PTS.Controllers{
-    public class PaymentController : BaseController{
+    public class PaymentController : Controller{
         #region fields
 
         private readonly IBaseService<Class> _classService;
