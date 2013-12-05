@@ -493,25 +493,28 @@ namespace PTS.Controllers {
         [HttpPost]
         public JsonResult GetSessions() {
             try {
-                if (SessionDataHelper.UserRole == UserRole.Student) {
-                    var requests = _requestService.GetAll().Where(x => x.StudentId == SessionDataHelper.UserId);
-                    var teacher = _teacherUserService.GetAll().Where(x => requests.Select(i => i.TeacherId).Contains(x.Id)).ToList();
+                    var requests = _requestService.GetAll().Where(x => x.TeacherId == SessionDataHelper.UserId);
+                    var student = _userService.GetAll().Where(x => requests.Select(i => i.StudentId).Contains(x.Id)).ToList();
+                    var user = _teacherUserService.GetById(SessionDataHelper.UserId);
 
-                    //var subject = _teacherOfferService.GetAll().Where(x => tutors.Contains(x.TeacherId)).ToList();
-
-                    var results = teacher.Select(p => new {
+                    var results = student.Select(p => new {
                         p.Id,
-                        p.User.FirstName,
-                        p.User.LastName,
-                        p.User.Email,
-                        Rate = "$" + p.HourlyRate,
-                        Role = SessionDataHelper.UserRole,
-                        Status = requests.FirstOrDefault(x => x.TeacherId == p.Id).Status,
-                        Review = p.ReviewTeacher.SingleOrDefault(x => x.StudentId == SessionDataHelper.UserId),
-                        AverageRating = p.ReviewTeacher.FirstOrDefault() != null ? Math.Round(p.ReviewTeacher.Average(a => a.Rating), 1).ToString() : "No Ratings",
+                        p.FirstName,
+                        p.LastName,
+                        p.Email,
+                        Rate = "$" + user.HourlyRate,
+                        Status = requests.FirstOrDefault(x => x.StudentId == p.Id).Status,
+                        RequestId = requests.FirstOrDefault(x => x.StudentId == p.Id).Id
                     }).ToArray();
-                    return Json(new { Result = "OK", Records = results, TotalRecordCount = requests.Count() });
-                } else {
+                    return Json(new { Result = "OK", Records = results, TotalRecordCount = results.Count() });
+            } catch (Exception ex) {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetTeacherSessions() {
+            try {
                     var requests = _requestService.GetAll().Where(x => x.TeacherId == SessionDataHelper.UserId);
                     var student = _userService.GetAll().Where(x => requests.Select(i => i.StudentId).Contains(x.Id)).ToList();
                     var user = _teacherUserService.GetById(SessionDataHelper.UserId);
@@ -527,8 +530,8 @@ namespace PTS.Controllers {
                     }).ToArray();
                     return Json(new { Result = "OK", Records = results, TotalRecordCount = results.Count() });
                 }
-            } catch (Exception ex) {
-                throw new Exception(ex.Message);
+                catch (Exception ex) {
+                    throw new Exception(ex.Message);
             }
         }
 
@@ -585,7 +588,6 @@ namespace PTS.Controllers {
                         Id = enrolledClass.Id,
                         SubjectId = enrolledClass.SubjectID,
                         TeacherId = enrolledClass.TeacherId,
-
                     };
                     if (meetingDates.Count() > 0) {
                         classModel.DateStart = meetingDates.First().Date;

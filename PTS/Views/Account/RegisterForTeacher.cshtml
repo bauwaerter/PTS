@@ -10,7 +10,7 @@
 </style>
 
 <form id="paymentForm" Action="@Url.Action("LoadRequestSession")" method="POST">
-        <h6>Reqeust a Session</h6>
+        <h6>Request a Session</h6>
 
         @Html.HiddenFor(model => model.Teacher.Id)
         @Html.HiddenFor(model => model.Request.Id)
@@ -58,9 +58,6 @@
                                     <div class="col-md-2" id="monFrom">
                                         @Html.TextBoxFor(model => model.Teacher.Schedule.MonEndTime,new { @class="form-control time ui-timepicker-input", @style="width: 140px;", @readonly="readonly" })
                                     </div>
-                                    <div class="col-md-2" id="monFromTime">
-                                        @Html.TextBox("monTo", "",new { @class="form-control date", @style="width: 140px;" })
-                                    </div>
                                 </div>
                             </div>
                         </li>
@@ -83,9 +80,6 @@
                                     </div>
                                     <div class="col-md-2" id="tuesFrom">
                                         @Html.TextBoxFor(model => model.Teacher.Schedule.TuesEndTime,new { @class="form-control time ui-timepicker-input", @style="width: 140px;", @readonly="readonly" })
-                                    </div>
-                                    <div class="col-md-2" id="tuesFromTime">
-                                        @Html.TextBox("tuesTo", "",new { @class="form-control date", @style="width: 140px;" })
                                     </div>
                                 </div>
                             </div>
@@ -110,9 +104,6 @@
                                     <div class="col-md-2" id="wedFrom">
                                         @Html.TextBoxFor(model => model.Teacher.Schedule.WedEndTime,new { @class="form-control time ui-timepicker-input", @style="width: 140px;", @readonly="readonly" })
                                     </div>
-                                    <div class="col-md-2" id="wedFromTime">
-                                        @Html.TextBox("wedTo", "",new { @class="form-control date", @style="width: 140px;" })
-                                    </div>
                                 </div>
                             </div>
                         </li>
@@ -135,9 +126,6 @@
                                     </div>
                                     <div class="col-md-2" id="thursFrom">
                                         @Html.TextBoxFor(model => model.Teacher.Schedule.ThursEndTime,new { @class="form-control time ui-timepicker-input", @style="width: 140px;", @readonly="readonly" })
-                                    </div>
-                                    <div class="col-md-2" id="thursFromTime">
-                                        @Html.TextBox("thursTo", "",new { @class="form-control date", @style="width: 140px;" })
                                     </div>
                                 </div>
                             </div>
@@ -162,9 +150,6 @@
                                     <div class="col-md-2" id="friFrom">
                                         @Html.TextBoxFor(model => model.Teacher.Schedule.FriEndTime,new { @class="form-control time ui-timepicker-input", @style="width: 140px;", @readonly="readonly" })
                                     </div>
-                                    <div class="col-md-2" id="friFromTime">
-                                        @Html.TextBox("friTo", "",new { @class="form-control date", @style="width: 140px;" })
-                                    </div>
                                 </div>
                             </div>
                         </li>
@@ -188,9 +173,6 @@
                                     <div class="col-md-2" id="satFrom">
                                         @Html.TextBoxFor(model => model.Teacher.Schedule.SatEndTime,new { @class="form-control time ui-timepicker-input", @style="width: 140px;", @readonly="readonly" })
                                     </div>
-                                    <div class="col-md-2" id="satFromTime">
-                                        @Html.TextBox("satTo", "",new { @class="form-control date", @style="width: 140px;" })
-                                    </div>
                                 </div>
                             </div>
                         </li>
@@ -213,9 +195,6 @@
                                     </div>
                                     <div class="col-md-2" id="sunFrom">
                                         @Html.TextBoxFor(model => model.Teacher.Schedule.SunEndTime,new { @class="form-control time ui-timepicker-input", @style="width: 140px;", @readonly="readonly" })
-                                    </div>
-                                    <div class="col-md-2" id="sunFromTime">
-                                        @Html.TextBox("sunTo", "",new { @class="form-control date", @style="width: 140px;" })
                                     </div>
                                 </div>
                             </div>
