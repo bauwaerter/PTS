@@ -146,8 +146,8 @@
                     <div class="col-md-2 col-md-offset-1">
                         <div class="teacherUser">
                             @{
-    var teacher = new PTS.Models.TeacherScheduleModel();
-    teacher.Schedule = new Schedule();
+                                var teacher = new PTS.Models.TeacherScheduleModel();
+                                teacher.Schedule = new Schedule();
                             }
 
                             @Html.Partial("_TeacherUserForm", teacher)

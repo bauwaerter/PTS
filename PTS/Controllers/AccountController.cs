@@ -745,6 +745,24 @@ namespace PTS.Controllers {
             var test = _userService.GetUserByEmail(username);
             return (test == null) ? false : true;
         }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult ChangePassword() {
+            var model = new LocalPasswordModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult ChangePassword(LocalPasswordModel password) {
+            var user = _userService.GetById(SessionDataHelper.UserId);
+            var salt = "";
+            var hashedPassword = SecurityHelper.HashPassword(password.NewPassword, ref salt);
+            user.PassWord = hashedPassword;
+            user.PasswordSalt = salt;
+            _userService.Update(user);
+            return RedirectToAction("ManageAccount", "Account");
+        }
     }
 }
 

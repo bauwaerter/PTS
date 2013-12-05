@@ -172,7 +172,7 @@ namespace Service.Services {
                     +"You can now log in to your account.\n"
                     +"Username: "+ model.Email + "\n"
                     +"Password: "+model.PassWord + "\n"
-                    +"Click http://prospecttutoring.com.192-185-11-49.secure20.win.hostgator.com/" + " to log in.\n\n"
+                    +"Click http://prospecttutoring.com.192-185-11-49.secure20.win.hostgator.com/Account/ChangePassword" + " to log in.\n\n"
                     +"Regards,\n"
                     +"PTS";
             return message;
@@ -181,10 +181,9 @@ namespace Service.Services {
         private String returnResetPasswordBody(User model) {
             var message = "Dear " + model.FirstName + " " + model.LastName + ",\n\n"
                     + "Your password has been successfully reset.\n"
-                    + "Please loging to your account and change it immediately using the following credentials.\n"
                     + "Username: " + model.Email + "\n"
                     + "Password: " + model.PassWord + "\n"
-                    + "Click http://prospecttutoring.com.192-185-11-49.secure20.win.hostgator.com/" + " to log in.\n\n"
+                    + "Click http://prospecttutoring.com.192-185-11-49.secure20.win.hostgator.com/Account/ChangePassword" + " to change your password.\n\n"
                     + "Regards,\n"
                     + "PTS";
             return message;
