@@ -1,0 +1,4 @@
+Core
+EntityFramework
+EntityFramework.SqlServer
+System.ComponentModel.DataAnnotations

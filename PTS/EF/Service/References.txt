@@ -1,0 +1,6 @@
+Core
+EntityFramework
+EntityFramework.SqlServer
+Map
+Ninject
+System.ComponentModel.DataAnnotations

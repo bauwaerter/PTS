@@ -1,0 +1,89 @@
+﻿@{
+    
+}
+
+<style>
+    .course-list {
+        clear: left;
+    }
+
+    .course-list li {
+        padding: 15px 0;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .video-img {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 120px;
+        height: 90px;
+        background: transparent url(/Images/play_btn_36px.png) 50% 50% no-repeat;
+    }
+</style>
+<h1>
+    <i class="icon-youtube fg-darker smaller" style="padding:10px;"></i>
+    Videos<small class="on-right"></small>
+</h1>
+<div class="container" style="background-color: white">
+    <div class="listview">
+        <a href="#" class="list" style="width: 500px;">
+            <div class="list-content">
+                <div class="tile">
+                    <div class="tile-content image">
+                        <a class="video-img" href="/Home/Swag" title="This is the title of the video"/>
+                        <img alt="Test desc of image" src="http://img.youtube.com/vi/wDphE4Y7v0E/0.jpg"/>
+                        <img src="http://img.youtube.com/vi/wDphE4Y7v0E/0.jpg" style="width: 250px;">
+                    </div>
+                    @*<div class="brand" style="background-color:black">
+                        <span class="label fg-white">Play</span>
+                        <span class="badge bg-red"><i class="icon-play-2"></i></span>
+                    </div>*@
+                </div>
+                <div class="data" style="display: inline-block; margin-left: 5px; padding-left: 10px; padding-top: 0;">
+                    <span>Evocativ - Lightspark</span>
+                    <div class="rating meduim-size no-margin" data-role="rating" data-stars="5"><ul style="margin-bottom: 0px;"><li></li><li></li><li></li><li></li><li></li></ul></div>
+                    <span>Status: Incomplete</span>
+                </div>
+            </div>
+        </a>
+        @*<a href="#" class="list bg-lightBlue fg-white">
+            <div class="list-content">
+                <img src="images/word2013icon.png" class="icon">
+                <div class="data">
+                    <span class="list-title">Word 2013</span>
+                    <div class="rating small no-margin fg-yellow" data-score="4" data-role="rating" data-stars="5"><ul style="margin-bottom: 0px;"><li class="rated"></li><li class="rated"></li><li class="rated"></li><li class="rated"></li><li></li></ul></div>
+                    <span class="list-remark">Price: $1</span>
+                </div>
+            </div>
+        </a>
+        <a href="#" class="list selected">
+            <div class="list-content">
+                <img src="images/onenote2013icon.png" class="icon">
+                <div class="data">
+                    <span class="list-title">Word 2013</span>
+                    <div class="progress-bar small" data-role="progress-bar" data-value="75"><div class="bar bg-cyan" style="width: 75%;"></div></div>
+                    <span class="list-remark">Download...75%</span>
+                </div>
+            </div>
+        </a>*@
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#Send').on('click', function() {
+            console.log("click");
+            $.ajax({                
+                url: '@Url.Action("GetJsonResult")',
+                dataType: 'json',
+                type: 'POST',
+                success: function (data) {
+                    console.log("data " + data.Records);
+                    $('#Output').val(data.Records);
+                }
+            });
+        });
+    });
+</script>

@@ -1,0 +1,7 @@
+Core
+Map
+Ninject
+Ninject.Web.Common
+Ninject.Web.Mvc
+Service
+WebActivatorEx

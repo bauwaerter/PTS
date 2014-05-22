@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<style>
+    .player {
+        background-color: #0089C0 !important;
+    }    
+
+    .player:hover {
+        background-color: #00b6ff !important;
+    }
+
+    body {
+        background-image: url('images/silvermoon.jpg');
+        background-repeat: no-repeat;
+    }
+</style>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title </title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+        @Styles.Render("~/Content/metro-ui/css")
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryui")
+
+    </head>
+    <body class="metro">
+        <header class="bg-dark" style="background-color: transparent !important;">
+            <div class="navigation-bar" style="background-color: transparent !important ;">
+                <div class="navigation-bar-content container" style="background-color: #333333">
+                    <a href="/" class="element" style="color: #0089C0;"><span class="icon-fire"></span> <sup><b>10</b></sup> <b>CAN</b> </a>
+                    <span class="element-divider"></span>
+
+                    <a class="element1 pull-menu" href="#"></a>
+        
+                    <div class="player element place-right">
+                        <a class="dropdown-toggle" href="#">
+                            <span class="icon-cog"></span>
+                        </a>
+                        <ul class="dropdown-menu place-right" data-role="dropdown" style="display: none;">
+                            <li><a href="#">Account Details</a></li>
+                            <li><a href="#">Achievements</a></li>
+                            <li><a href="#">Support</a></li>
+                            <li><a href="#">Sign Out</a></li>
+                        </ul>
+                    </div>
+                    @*<span class="element-divider place-right"></span>*@
+                    <button class="player element image-button image-left place-right">
+                        Araystanna
+                        <img src="~/Images/aray.jpg">
+                    </button>
+                </div>
+            </div>
+        </header>
+        <div class="container">
+            @RenderBody()
+
+            @Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/metro-ui")
+            @RenderSection("scripts", required: false)
+        </div>
+    </body>
+</html>
